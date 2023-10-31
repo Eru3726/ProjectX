@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -51,16 +52,48 @@ public class SkillTreeManager : MonoBehaviour
     [HideInInspector]
     public SkillTree skillData;
 
+    [SerializeField, Header("パネル")]
+    private GameObject panle;
 
+    [SerializeField, Header("スキル名テキスト")]
+    private Text skillNameText;
+
+    [SerializeField, Header("必要SPテキスト")]
+    private Text requiredSPText;
+
+    [SerializeField, Header("説明テキスト")]
+    private Text explanationText;
+
+    private bool openPanel = false;
 
     void Awake()
     {
         Load();
+        panle.SetActive(false);
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        
+        // マウスカーソルの位置をスクリーン座標からワールド座標に変換
+        Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // マウスカーソルの位置にRayを飛ばし、ヒットしたコライダーを取得
+        Collider2D hitCollider = Physics2D.OverlapPoint(cursorPosition);
+
+        Debug.Log(hitCollider);
+
+        // ヒットしたオブジェクトがUI要素であれば
+        if (hitCollider != null && hitCollider.TryGetComponent<SkillPanel>(out SkillPanel skillPanel))
+        {
+            //判定処理
+            openPanel = true;
+            skillNameText.text = skillPanel.skillName;
+            requiredSPText.text = skillPanel.requiredSP.ToString();
+            explanationText.text = skillPanel.explanation;
+        }
+        else openPanel = false;
+
+        panle.SetActive(openPanel);
     }
 
     private void OnDestroy()
