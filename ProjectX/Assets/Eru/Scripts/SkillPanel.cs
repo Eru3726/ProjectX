@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CircleCollider2D))]
 public class SkillPanel : MonoBehaviour
@@ -19,7 +18,7 @@ public class SkillPanel : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()

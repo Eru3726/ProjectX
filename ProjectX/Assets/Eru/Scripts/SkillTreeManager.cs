@@ -52,8 +52,17 @@ public class SkillTreeManager : MonoBehaviour
     [HideInInspector]
     public SkillTree skillData;
 
-    [SerializeField, Header("パネル")]
-    private GameObject panle;
+    [Header("所持スキルポイント")]
+    public int skillPoint;
+
+    [SerializeField, Header("スキル説明パネル")]
+    private GameObject skillExplanationPanle;
+
+    [SerializeField, Header("SPが足りる時用パネル")]
+    private GameObject skillReleasePanle;
+
+    [SerializeField, Header("SPが足りない時用パネル")]
+    private GameObject noSPPanle;
 
     [SerializeField, Header("スキル名テキスト")]
     private Text skillNameText;
@@ -64,15 +73,26 @@ public class SkillTreeManager : MonoBehaviour
     [SerializeField, Header("説明テキスト")]
     private Text explanationText;
 
+    [SerializeField, Header("NoSpパネル表示時間")]
+    private float noSpTime = 1.5f;
+
     private bool openPanel = false;
+
+    private bool releaseFlg = false;
+
+    private float time = 0;
+
+    private SkillPanel skillP = null;
 
     void Awake()
     {
         Load();
-        panle.SetActive(false);
+        skillExplanationPanle.SetActive(false);
+        skillReleasePanle.SetActive(false);
+        noSPPanle.SetActive(false);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         // マウスカーソルの位置をスクリーン座標からワールド座標に変換
         Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -80,20 +100,56 @@ public class SkillTreeManager : MonoBehaviour
         // マウスカーソルの位置にRayを飛ばし、ヒットしたコライダーを取得
         Collider2D hitCollider = Physics2D.OverlapPoint(cursorPosition);
 
-        Debug.Log(hitCollider);
-
         // ヒットしたオブジェクトがUI要素であれば
-        if (hitCollider != null && hitCollider.TryGetComponent<SkillPanel>(out SkillPanel skillPanel))
+        if (hitCollider != null && hitCollider.TryGetComponent<SkillPanel>(out SkillPanel skillPanel) && !releaseFlg)
         {
             //判定処理
             openPanel = true;
+            if ((int)skillPanel.skillTree <= 20000) skillExplanationPanle.transform.position = new Vector3(Mathf.Abs(skillExplanationPanle.transform.position.x), skillExplanationPanle.transform.position.y, skillExplanationPanle.transform.position.z);
+            else skillExplanationPanle.transform.position = new Vector3(-Mathf.Abs(skillExplanationPanle.transform.position.x), skillExplanationPanle.transform.position.y, skillExplanationPanle.transform.position.z);
             skillNameText.text = skillPanel.skillName;
-            requiredSPText.text = skillPanel.requiredSP.ToString();
+            if ((skillPanel.skillTree & skillData) != skillPanel.skillTree) requiredSPText.text = "必要SP：" + skillPanel.requiredSP.ToString();
+            else requiredSPText.text = "  解放済み";
             explanationText.text = skillPanel.explanation;
+            skillP = skillPanel;
         }
         else openPanel = false;
 
-        panle.SetActive(openPanel);
+        if (Input.GetMouseButtonDown(0) && skillP != null && openPanel)
+        {
+            if ((skillP.skillTree & skillData) == skillP.skillTree) return;
+            if (skillPoint >= skillP.requiredSP) skillReleasePanle.SetActive(true);
+            else
+            {
+                time = noSpTime;
+                noSPPanle.SetActive(true);
+            }
+            releaseFlg = true;
+        }
+
+        if (!releaseFlg) skillExplanationPanle.SetActive(openPanel);
+
+        if (time <= 0 && releaseFlg && !skillReleasePanle.activeSelf)
+        {
+            noSPPanle.SetActive(false);
+            releaseFlg = false;
+        }
+        else if (time > 0) time -= Time.deltaTime;
+    }
+
+    public void YesButton()
+    {
+        skillData |= skillP.skillTree;
+        skillPoint -= skillP.requiredSP;
+
+        skillReleasePanle.SetActive(false);
+        releaseFlg = false;
+    }
+
+    public void NoButton()
+    {
+        skillReleasePanle.SetActive(false);
+        releaseFlg = false;
     }
 
     private void OnDestroy()
@@ -205,6 +261,7 @@ public class SkillTreeManager : MonoBehaviour
         {
             //初期化
             skillData = 0;
+            skillPoint = 0;
         }
     }
 
@@ -214,7 +271,8 @@ public class SkillTreeManager : MonoBehaviour
         //セーブデータのインスタンス化
         SkillTreeSaveData saveData = new SkillTreeSaveData
         {
-            skillSaveData = skillData
+            skillSaveData = skillData,
+            skillPointData = skillPoint
         };
 
         return saveData;
@@ -224,6 +282,7 @@ public class SkillTreeManager : MonoBehaviour
     private void ReadData(SkillTreeSaveData saveData)
     {
         skillData = saveData.skillSaveData;
+        skillPoint = saveData.skillPointData;
     }
 
     /// <summary>
@@ -309,4 +368,5 @@ public class SkillTreeManager : MonoBehaviour
 public class SkillTreeSaveData
 {
     public SkillTreeManager.SkillTree skillSaveData;
+    public int skillPointData;
 }
