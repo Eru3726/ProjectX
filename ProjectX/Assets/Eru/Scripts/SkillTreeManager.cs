@@ -39,9 +39,9 @@ public class SkillTreeManager : MonoBehaviour
         recklessness = 1 << 23,             //自暴自棄
         resignation = 1 << 24,              //諦め
         empty1 = 1 << 25,                   //
-        Hopelessness = 1 << 26,             //絶望
+        hopelessness = 1 << 26,             //絶望
         empty2 = 1 << 27,                   //
-        Powerlessness = 1 << 28,            //無力
+        powerlessness = 1 << 28,            //無力
         empty3 = 1 << 29,                   //
 
         //恋
@@ -83,6 +83,10 @@ public class SkillTreeManager : MonoBehaviour
 
     private SkillPanel skillP = null;
 
+    private bool angerFlg = false;
+
+    private bool sorrowFlg = false;
+
     void Awake()
     {
         Load();
@@ -107,7 +111,12 @@ public class SkillTreeManager : MonoBehaviour
             if ((int)skillPanel.skillTree <= 20000) skillExplanationPanle.transform.position = new Vector3(Mathf.Abs(skillExplanationPanle.transform.position.x), skillExplanationPanle.transform.position.y, skillExplanationPanle.transform.position.z);
             else skillExplanationPanle.transform.position = new Vector3(-Mathf.Abs(skillExplanationPanle.transform.position.x), skillExplanationPanle.transform.position.y, skillExplanationPanle.transform.position.z);
             skillNameText.text = skillPanel.skillName;
-            if ((skillPanel.skillTree & skillData) != skillPanel.skillTree) requiredSPText.text = "必要SP:" + skillPanel.requiredSP.ToString();
+            if (skillPanel.releaseConditions != 0 && (skillPanel.releaseConditions & skillData) == 0 
+                || angerFlg && skillPanel.skillTree == SkillTree.empty2 
+                || angerFlg && skillPanel.skillTree == SkillTree.powerlessness
+                || sorrowFlg && skillPanel.skillTree == SkillTree.angryPrincessTantrum 
+                || sorrowFlg && skillPanel.skillTree == SkillTree.swirlingEmotions) requiredSPText.text = "解放不可";
+            else if ((skillPanel.skillTree & skillData) != skillPanel.skillTree) requiredSPText.text = "必要SP:" + skillPanel.requiredSP.ToString();
             else requiredSPText.text = "解放済み";
             explanationText.text = skillPanel.explanation;
             skillP = skillPanel;
@@ -116,7 +125,13 @@ public class SkillTreeManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && skillP != null && openPanel)
         {
-            if ((skillP.skillTree & skillData) == skillP.skillTree) return;
+            if ((skillP.skillTree & skillData) == skillP.skillTree 
+                || skillP.releaseConditions != 0
+                && (skillP.releaseConditions & skillData) == 0
+                || angerFlg && skillP.skillTree == SkillTree.empty2
+                || angerFlg && skillP.skillTree == SkillTree.powerlessness
+                || sorrowFlg && skillP.skillTree == SkillTree.angryPrincessTantrum
+                || sorrowFlg && skillP.skillTree == SkillTree.swirlingEmotions) return;
             if (skillPoint >= skillP.requiredSP) skillReleasePanle.SetActive(true);
             else
             {
@@ -140,6 +155,8 @@ public class SkillTreeManager : MonoBehaviour
     {
         skillData |= skillP.skillTree;
         skillPoint -= skillP.requiredSP;
+        if (skillP.skillTree == SkillTree.angryPrincessTantrum || skillP.skillTree == SkillTree.swirlingEmotions) angerFlg = true;
+        else if (skillP.skillTree == SkillTree.empty2 || skillP.skillTree == SkillTree.powerlessness) sorrowFlg = true;
 
         skillReleasePanle.SetActive(false);
         releaseFlg = false;
@@ -261,6 +278,8 @@ public class SkillTreeManager : MonoBehaviour
             //初期化
             skillData = 0;
             skillPoint = 0;
+            angerFlg = false;
+            sorrowFlg = false;
         }
     }
 
@@ -271,7 +290,9 @@ public class SkillTreeManager : MonoBehaviour
         SkillTreeSaveData saveData = new SkillTreeSaveData
         {
             skillSaveData = skillData,
-            skillPointData = skillPoint
+            skillPointData = skillPoint,
+            angerFlg = angerFlg,
+            sorrowFlg = sorrowFlg
         };
 
         return saveData;
@@ -282,6 +303,8 @@ public class SkillTreeManager : MonoBehaviour
     {
         skillData = saveData.skillSaveData;
         skillPoint = saveData.skillPointData;
+        angerFlg = saveData.angerFlg;
+        sorrowFlg = saveData.sorrowFlg;
     }
 
     /// <summary>
@@ -368,4 +391,6 @@ public class SkillTreeSaveData
 {
     public SkillTreeManager.SkillTree skillSaveData;
     public int skillPointData;
+    public bool angerFlg = false;
+    public bool sorrowFlg = false;
 }

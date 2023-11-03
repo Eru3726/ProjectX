@@ -16,9 +16,12 @@ public class SkillPanel : MonoBehaviour
     [Header("効果説明"), Multiline]
     public string explanation;
 
+    [Header("スキル解放条件")]
+    public SkillTreeManager.SkillTree releaseConditions;
+
     void Start()
     {
-
+        
     }
 
     void Update()
