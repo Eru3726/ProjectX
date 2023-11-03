@@ -83,9 +83,11 @@ public class SkillTreeManager : MonoBehaviour
 
     private SkillPanel skillP = null;
 
-    private bool angerFlg = false;
+    [HideInInspector]
+    public bool angerFlg = false;
 
-    private bool sorrowFlg = false;
+    [HideInInspector]
+    public bool sorrowFlg = false;
 
     void Awake()
     {
@@ -157,7 +159,9 @@ public class SkillTreeManager : MonoBehaviour
         skillPoint -= skillP.requiredSP;
         if (skillP.skillTree == SkillTree.angryPrincessTantrum || skillP.skillTree == SkillTree.swirlingEmotions) angerFlg = true;
         else if (skillP.skillTree == SkillTree.empty2 || skillP.skillTree == SkillTree.powerlessness) sorrowFlg = true;
-
+        skillP.releaseFlg = true;
+        if ((int)skillP.skillTree <= 20000) skillP.image.color = new Color(255 / 255f, 100 / 255f, 100 / 255f, 255 / 255f);
+        else skillP.image.color = new Color(100 / 255f, 100 / 255f, 255 / 255f, 255 / 255f);
         skillReleasePanle.SetActive(false);
         releaseFlg = false;
     }

@@ -217,6 +217,7 @@ MonoBehaviour:
   skillName: "\u60B2\u60E8"
   explanation: "\u60B2\u60E8\u3060\u3088\n\u307F\u3093\u306A\u6B7B\u3093\u3058\u3083\u3063\u305F\n\u307E\u3041\u3044\u3063\u304B"
   releaseConditions: 0
+  stm: {fileID: 406944890}
 --- !u!58 &36340617
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -545,6 +546,7 @@ MonoBehaviour:
   skillName: "\u53CD\u611F"
   explanation: "\u53CD\u611F\u3060\u3088\n\u8CB7\u3046\u3082\u306E\u3060\u3088\n\u3057\u3089\u3093\u3051\u3069"
   releaseConditions: 64
+  stm: {fileID: 406944890}
 --- !u!58 &163162706
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -655,6 +657,7 @@ MonoBehaviour:
   skillName: "\u672A\u5B9A2"
   explanation: "\u672A\u5B9A2\n\u672A\u5B9A2\n\u672A\u5B9A2"
   releaseConditions: 8388608
+  stm: {fileID: 406944890}
 --- !u!58 &178387206
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -765,6 +768,7 @@ MonoBehaviour:
   skillName: "\u547D\u3078\u306E\u5931\u671B"
   explanation: "\u547D\u3078\u306E\u5931\u671B\u3060\u3088\n\u547D\u306B\u3078\u306E\u5931\u671B\uFF1F\n\u308F\u304B\u3089\u3093"
   releaseConditions: 1048576
+  stm: {fileID: 406944890}
 --- !u!58 &189047496
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1033,6 +1037,7 @@ MonoBehaviour:
   skillName: "\u30D1\u30CB\u30C3\u30AF"
   explanation: "\u30D1\u30CB\u30C3\u30AF\u3060\u3088\n\u3042\u308F\u308F\n\u3069\u3046\u3057\u3088\u3046"
   releaseConditions: 32768
+  stm: {fileID: 406944890}
 --- !u!58 &303779212
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1209,6 +1214,8 @@ MonoBehaviour:
   requiredSPText: {fileID: 248776073}
   explanationText: {fileID: 1679424101}
   noSpTime: 1.5
+  angerFlg: 0
+  sorrowFlg: 0
 --- !u!1 &434353230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,6 +1348,7 @@ MonoBehaviour:
   skillName: "\u7121\u529B"
   explanation: "\u7121\u529B\u3060\u3088\n\u529B\u306B\u306A\u308C\u306A\u3044\n\u3069\u3046\u3057\u3066\u79C1\u306F"
   releaseConditions: 16777216
+  stm: {fileID: 406944890}
 --- !u!58 &473016192
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1451,6 +1459,7 @@ MonoBehaviour:
   skillName: "\u6068\u307F"
   explanation: "\u6068\u307F\u3060\u3088\n\u7D76\u5BFE\u8A31\u3055\u306A\u3044\n\u672B\u4EE3\u307E\u3067\u546A\u3046"
   releaseConditions: 6
+  stm: {fileID: 406944890}
 --- !u!58 &516467479
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1561,6 +1570,7 @@ MonoBehaviour:
   skillName: "\u6FC0\u6602"
   explanation: "\u6FC0\u6602\u3060\u3088\n\u6FC0\u6602\u3063\u3066\u306A\u306B\n\u308F\u304B\u3089\u3093"
   releaseConditions: 8
+  stm: {fileID: 406944890}
 --- !u!58 &588733499
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1671,6 +1681,7 @@ MonoBehaviour:
   skillName: "\u8AE6\u3081"
   explanation: "\u8AE6\u3081\u3060\u3088\n\u3082\u3046\u3044\u3044\u3093\u3060\n\u3082\u3046\u3044\u3044\u3093\u3060\u3088"
   releaseConditions: 1048576
+  stm: {fileID: 406944890}
 --- !u!58 &609164551
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1872,6 +1883,7 @@ MonoBehaviour:
   skillName: "\u672A\u5B9A3"
   explanation: "\u672A\u5B9A3\n\u672A\u5B9A3\n\u672A\u5B9A3"
   releaseConditions: 402653184
+  stm: {fileID: 406944890}
 --- !u!58 &634006206
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2097,6 +2109,7 @@ MonoBehaviour:
   skillName: "\u71C3\u3048\u4E0A\u304C\u308B\u6012\u308A"
   explanation: "\u71C3\u3048\u4E0A\u304C\u308B\u6012\u308A\u3060\u3088\n\u30A4\u30E9\u30A4\u30E9\n\u3050\u3064\u3050\u3064"
   releaseConditions: 32
+  stm: {fileID: 406944890}
 --- !u!58 &685237197
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2577,6 +2590,7 @@ MonoBehaviour:
   skillName: "\u7D05\u30CE\u5973\u738B\u8A95\u751F"
   explanation: "\u7D05\u30CE\u5973\u738B\u8A95\u751F\u3060\u3088\n\u79C1\u304C\u5973\u738B\n\u6211\u306B\u5F93\u3048"
   releaseConditions: 8192
+  stm: {fileID: 406944890}
 --- !u!58 &874040967
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2687,6 +2701,7 @@ MonoBehaviour:
   skillName: "\u7DCA\u5F35"
   explanation: "\u7DCA\u5F35\u3060\u3088\n\u3069\u3046\u3057\u3088\u3046\n\u3073\u304F\u3073\u304F"
   releaseConditions: 32768
+  stm: {fileID: 406944890}
 --- !u!58 &889325929
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3009,6 +3024,7 @@ MonoBehaviour:
   skillName: "\u6E26\u5DFB\u3044\u305F\u611F\u60C5"
   explanation: "\u6E26\u5DFB\u3044\u305F\u611F\u60C5\u3060\u3088\n\u3050\u308B\u3050\u308B\n\u8E81\u9B31\u3060\u306D"
   releaseConditions: 64
+  stm: {fileID: 406944890}
 --- !u!58 &1029657474
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3198,6 +3214,7 @@ MonoBehaviour:
   skillName: "\u60B2\u54C0"
   explanation: "\u60B2\u54C0\u3060\u3088\n\u60B2\u54C0\u3063\u3066\u306A\u306B\n\u99AC\u9E7F\u3060\u304B\u3089\u308F\u304B\u3089\u3093"
   releaseConditions: 524288
+  stm: {fileID: 406944890}
 --- !u!58 &1062015134
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3308,6 +3325,7 @@ MonoBehaviour:
   skillName: "\u82E6\u60A9"
   explanation: "\u82E6\u60A9\u3060\u3088\n\u3053\u308C\u3067\u3044\u3044\u304B\u306A\n\u3064\u304B\u308C\u305F\u3088"
   releaseConditions: 393216
+  stm: {fileID: 406944890}
 --- !u!58 &1068538088
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3418,6 +3436,7 @@ MonoBehaviour:
   skillName: "\u7D76\u671B"
   explanation: "\u7D76\u671B\u3060\u3088\n\u3082\u3046\u4F55\u3082\u304B\u3082\u7D42\u308F\u308A\u3060\n\u3059\u3079\u3066\u7121\u99C4\u3060"
   releaseConditions: 4194304
+  stm: {fileID: 406944890}
 --- !u!58 &1085740861
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3607,6 +3626,7 @@ MonoBehaviour:
   skillName: "\u618E\u3057\u307F\u306E\u9023\u9396"
   explanation: "\u618E\u3057\u307F\u306E\u9023\u9396\u3060\u3088\n\u306A\u3093\u3067\u3042\u3044\u3064\u3070\u3063\u304B\n\u3086\u308B\u3055\u306A\u3044"
   releaseConditions: 16
+  stm: {fileID: 406944890}
 --- !u!58 &1164152303
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3717,6 +3737,7 @@ MonoBehaviour:
   skillName: "\u81EA\u66B4\u81EA\u68C4"
   explanation: "\u81EA\u66B4\u81EA\u68C4\u3060\u3088\n\u3082\u3046\u3069\u3046\u306A\u3063\u305F\u3063\u3066\n\u5225\u306B\u3044\u3044\u3093\u3060"
   releaseConditions: 524288
+  stm: {fileID: 406944890}
 --- !u!58 &1164920826
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3943,6 +3964,7 @@ MonoBehaviour:
   skillName: "\u5ACC\u60AA"
   explanation: "\u5ACC\u60AA\u3060\u3088\n\u653B\u6483\u529B\u3068\u304BUP\n\u3057\u3089\u3093\u3051\u3069"
   releaseConditions: 0
+  stm: {fileID: 406944890}
 --- !u!58 &1273615156
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4054,6 +4076,7 @@ MonoBehaviour:
   skillName: "\u6050\u6016\u304B\u3089\u306E\u9003\u4EA1"
   explanation: "\u6050\u6016\u304B\u3089\u306E\u9003\u4EA1\u3060\u3088\n\u9003\u3052\u305F\u3044\u3068\u304D\u306F\n\u9003\u3052\u3088\u3046"
   releaseConditions: 32768
+  stm: {fileID: 406944890}
 --- !u!58 &1337892013
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4322,6 +4345,7 @@ MonoBehaviour:
   skillName: "\u6B32\u6C42\u4E0D\u6E80"
   explanation: "\u6B32\u6C42\u4E0D\u6E80\u3060\u3088\n\u6B32\u6C42\u3063\u3066\u306A\u306B\u3042\u308B\n\u308F\u304B\u3093\u306D"
   releaseConditions: 256
+  stm: {fileID: 406944890}
 --- !u!58 &1438506921
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4611,6 +4635,7 @@ MonoBehaviour:
   skillName: "\u5AC9\u59AC\u5FC3"
   explanation: "\u5AC9\u59AC\u5FC3\u3060\u3088\n\u4FFA\u4EE5\u5916\u306E\u7537\u3068\u558B\u308B\u306A\n\u8FD1\u5BC4\u308B\u306A"
   releaseConditions: 0
+  stm: {fileID: 406944890}
 --- !u!58 &1507083821
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4721,6 +4746,7 @@ MonoBehaviour:
   skillName: "\u3044\u3089\u3060\u3061"
   explanation: "\u3044\u3089\u3060\u3061\u3060\u3088\n\u30A4\u30E9\u30A4\u30E9\n\u3057\u306D"
   releaseConditions: 0
+  stm: {fileID: 406944890}
 --- !u!58 &1513768392
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4872,6 +4898,7 @@ MonoBehaviour:
   skillName: "\u95D8\u4E89\u5FC3"
   explanation: "\u95D8\u4E89\u5FC3\u3060\u3088\n\u6226\u3044\u305F\u3044\n\u6BBA\u3057\u305F\u3044"
   releaseConditions: 256
+  stm: {fileID: 406944890}
 --- !u!58 &1652157341
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5136,6 +5163,7 @@ MonoBehaviour:
   skillName: "\u6012\u308C\u308B\u59EB\u306E\u7647\u766A"
   explanation: "\u6012\u308C\u308B\u59EB\u306E\u7647\u766A\u3060\u3088\n\u540D\u524D\u304C\u9577\u3044\n\u5165\u308B\u304B\u306A\uFF1F"
   releaseConditions: 32
+  stm: {fileID: 406944890}
 --- !u!58 &1681766958
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5353,6 +5381,7 @@ MonoBehaviour:
   skillName: "\u611B"
   explanation: "\u611B\u3060\u3088\n\u604B\u306F\u843D\u3061\u308B\u3082\u306E\n\u611B\u306F\u80B2\u3080\u3082\u306E"
   releaseConditions: 0
+  stm: {fileID: 406944890}
 --- !u!114 &1729495597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5573,6 +5602,7 @@ MonoBehaviour:
   skillName: "\u899A\u9192"
   explanation: "\u899A\u9192\u3060\u3088\n\u30B7\u30E3\u30AD\u30FC\u30F3\n\u79C1\u6700\u5F37"
   releaseConditions: 6144
+  stm: {fileID: 406944890}
 --- !u!58 &1782168975
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5891,6 +5921,7 @@ MonoBehaviour:
   skillName: "\u672A\u5B9A1"
   explanation: "\u672A\u5B9A1\n\u672A\u5B9A1\n\u672A\u5B9A1"
   releaseConditions: 4194304
+  stm: {fileID: 406944890}
 --- !u!58 &1877413794
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6236,6 +6267,7 @@ MonoBehaviour:
   skillName: "\u61A4\u6012"
   explanation: "\u61A4\u6012\u3060\u3088\n\u3076\u3063\u6BBA\u3057\u3066\u3084\u308B\n\u3057\u306D"
   releaseConditions: 3
+  stm: {fileID: 406944890}
 --- !u!58 &2048254401
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6425,6 +6457,7 @@ MonoBehaviour:
   skillName: "\u4E0D\u5B89"
   explanation: "\u4E0D\u5B89\u3060\u3088\n\u3060\u3044\u3058\u3087\u3046\u3076\u304B\u306A\uFF1F\n\u5ACC\u308F\u308C\u3066\u306A\u3044\u304B\u306A\uFF1F"
   releaseConditions: 196608
+  stm: {fileID: 406944890}
 --- !u!58 &2112176802
 CircleCollider2D:
   m_ObjectHideFlags: 0
