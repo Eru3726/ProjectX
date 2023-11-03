@@ -29,7 +29,7 @@ public class SkillTreeManager : MonoBehaviour
 
         //悲しみ
         tragedy = 1 << 15,                  //悲惨
-        escapefromFear = 1 << 16,           //恐怖からの逃亡
+        escapeFromFear = 1 << 16,           //恐怖からの逃亡
         panic = 1 << 17,                    //パニック
         tension = 1 << 18,                  //緊張
         anxiety = 1 << 19,                  //不安
@@ -38,15 +38,14 @@ public class SkillTreeManager : MonoBehaviour
         despairforLife = 1 << 22,           //命への失望
         recklessness = 1 << 23,             //自暴自棄
         resignation = 1 << 24,              //諦め
-        sorrow = 1 << 25,                   //悲哀
-        empty1 = 1 << 26,                   //
-        Hopelessness = 1 << 27,             //絶望
-        empty2 = 1 << 28,                   //
-        Powerlessness = 1 << 29,            //無力
-        empty3 = 1 << 30,                   //
+        empty1 = 1 << 25,                   //
+        Hopelessness = 1 << 26,             //絶望
+        empty2 = 1 << 27,                   //
+        Powerlessness = 1 << 28,            //無力
+        empty3 = 1 << 29,                   //
 
         //恋
-        love = 1 << 31,                     //愛
+        love = 1 << 30,                     //愛
     }
 
     [HideInInspector]
@@ -108,8 +107,8 @@ public class SkillTreeManager : MonoBehaviour
             if ((int)skillPanel.skillTree <= 20000) skillExplanationPanle.transform.position = new Vector3(Mathf.Abs(skillExplanationPanle.transform.position.x), skillExplanationPanle.transform.position.y, skillExplanationPanle.transform.position.z);
             else skillExplanationPanle.transform.position = new Vector3(-Mathf.Abs(skillExplanationPanle.transform.position.x), skillExplanationPanle.transform.position.y, skillExplanationPanle.transform.position.z);
             skillNameText.text = skillPanel.skillName;
-            if ((skillPanel.skillTree & skillData) != skillPanel.skillTree) requiredSPText.text = "必要SP：" + skillPanel.requiredSP.ToString();
-            else requiredSPText.text = "  解放済み";
+            if ((skillPanel.skillTree & skillData) != skillPanel.skillTree) requiredSPText.text = "必要SP:" + skillPanel.requiredSP.ToString();
+            else requiredSPText.text = "解放済み";
             explanationText.text = skillPanel.explanation;
             skillP = skillPanel;
         }
