@@ -57,7 +57,6 @@ public class MoveController : MonoBehaviour
             transform.localScale = scale;
         }
 
-
         // 上入力
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
         {
