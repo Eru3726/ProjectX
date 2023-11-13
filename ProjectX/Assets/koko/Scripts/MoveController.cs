@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveController : MonoBehaviour
 {
     protected Rigidbody2D rb;
-    protected GroundChecker gc;
+    public GroundChecker gc;
 
     [SerializeField] protected float moveSpdX = 5;
     [SerializeField] protected float jumpPow = 10;
@@ -47,33 +47,7 @@ public class MoveController : MonoBehaviour
 
     protected virtual void InputControl()
     {
-        // 左右入力
-        if (Input.GetKey(KeyCode.D)) { InputLR(1); }
-        else if (Input.GetKey(KeyCode.A)) { InputLR(-1); }
-        else { InputLR(0); }
 
-        // キャラの向き変更
-        if (inputLR != 0)
-        {
-            Vector3 scale = transform.localScale;
-            scale.x = Mathf.Abs(scale.x) * inputLR;
-            transform.localScale = scale;
-        }
-
-        // 上入力
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
-        {
-            if (gc.IsGround())
-            {
-                InputJump();
-                return;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            InputFlick(45, 10, 1);
-        }
     }
 
     protected void MoveControl()
@@ -98,12 +72,13 @@ public class MoveController : MonoBehaviour
         else
         {
             // 通常移動
-            if (inputLR != 0)
-            {
-                moveSpd.x = inputLR * moveSpdX;
+            moveSpd.x = inputLR * moveSpdX;
 
-                //if (gc.IsGround()) { moveSpd.x = inputLR * moveSpdX; }
-            }
+            //if (inputLR != 0)
+            //{
+            //    moveSpd.x = inputLR * moveSpdX;
+            //    //if (gc.IsGround()) { moveSpd.x = inputLR * moveSpdX; }
+            //}
 
             // ジャンプ
             if (inputJump)
@@ -114,6 +89,11 @@ public class MoveController : MonoBehaviour
         }
 
         rb.velocity = moveSpd;
+    }
+
+    public int GetLR()
+    {
+        return inputLR;
     }
 
     public void InputLR(int _inputLR)
@@ -132,22 +112,23 @@ public class MoveController : MonoBehaviour
         flickDir = dir;
         flickPow = pow;
         flickTime = time;
-
-        //Vector3 moveSpd = rb.velocity;
-        //Vector3 temp;
-        //temp.x = pow * Mathf.Cos(dir * Mathf.Deg2Rad);
-        //temp.y = pow * Mathf.Sin(dir * Mathf.Deg2Rad);
-        //moveSpd.x = temp.x > 0 && temp.x > moveSpd.x || temp.x < 0 && temp.x < moveSpd.x ? temp.x : moveSpd.x;
-        //moveSpd.y = temp.y > 0 && temp.y > moveSpd.y || temp.y < 0 && temp.y < moveSpd.y ? temp.y : moveSpd.y;
-        //rb.velocity = moveSpd;
     }
 
-    public void Flick(Vector3 pos, float pow, float time)
+    public void InputFlick(Vector3 pos, float pow, float time)
     {
         Vector3 posDis = pos - this.transform.position;
-        float mouseDir = Mathf.Atan2(posDis.y, posDis.x) * Mathf.Rad2Deg;
+        float posDir = Mathf.Atan2(posDis.y, posDis.x) * Mathf.Rad2Deg;
 
-        InputFlick(mouseDir, pow, time);
+        InputFlick(posDir, pow, time);
+    }
+
+    public void InputFlickStop()
+    {
+        flickTime = 0;
+
+        Vector3 moveSpd = rb.velocity;
+        moveSpd = Vector3.zero;
+        rb.velocity = moveSpd;
     }
 
     public Vector3 GetVelocity()

@@ -7,13 +7,16 @@ public class HitCollider : MonoBehaviour
     //[SerializeField, Header("MoveControllerをアタッチ")]
     //MoveController mc;
 
+    [SerializeField, Header("親オブジェクトをいれてね")]
+    GameObject parent;
+
     [SerializeField] float maxHp = 20;
-    float nowHp;
+    [SerializeField] float nowHp;
 
     [SerializeField] int hitLayer;
 
     // 無敵時間
-    float invTimer;
+    float invTime;
 
     private void Start()
     {
@@ -27,11 +30,11 @@ public class HitCollider : MonoBehaviour
 
     private void Damage(float dmg, Vector3 pos, float shock)
     {
-        if (invTimer <= 0)
+        if (invTime <= 0)
         {
             nowHp -= dmg;
             //mc.Flick(pos, -shock);
-            invTimer = 2;
+            invTime = 1;
             //invTimer = shock * 0.1f;
         }
         else
@@ -53,21 +56,37 @@ public class HitCollider : MonoBehaviour
 
     void UpdateInv()
     {
-        if (invTimer >= 0)
+        if (invTime > 0)
         {
-            invTimer -= Time.deltaTime;
+            invTime -= Time.deltaTime;
+
+            if (TryGetComponent(out Renderer rend))
+            {
+                rend.material.color = new Color32(255, 255, 255, 128);
+            }
         }
+        else
+        {
+            if (TryGetComponent(out Renderer rend))
+            {
+                rend.material.color = new Color32(255, 255, 255, 255);
+            }
+        }
+    }
+
+    public void SetInvTime(float time)
+    {
+        invTime = time;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<AtackCollider>(out AtackCollider atk))
+        if (collision.TryGetComponent<AttackCollider>(out AttackCollider atk))
         {
             if (atk.atkLayer != hitLayer)
             {
                 Damage(atk.dmg, atk.transform.position, atk.shock);
                 Debug.Log("hit: " + this.gameObject + " / " + this.nowHp);
-                Destroy(atk.gameObject);
             }
         }
     }
