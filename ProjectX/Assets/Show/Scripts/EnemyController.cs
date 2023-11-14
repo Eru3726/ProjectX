@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour
 
             case EnemyState.Idol:　//次の行動に移るための待機
 
-
+                StartCoroutine(WaitForSomeTime(3f));
                 break;
 
             case EnemyState.Move: //ワープの処理
@@ -55,7 +55,7 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Dash:　//突進の処理
 
                 EnemyDash();
-
+                
                 break;
 
             case EnemyState.Warp:  //移動
@@ -72,6 +72,12 @@ public class EnemyController : MonoBehaviour
 
                 break;
         }
+    }
+
+    IEnumerator WaitForSomeTime(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        currentState = EnemyState.Warp;
     }
 
     public void EnemyMove()
@@ -95,5 +101,6 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("突進");
         enemyAtk.EnemyAttack();
+        
     }
 }
