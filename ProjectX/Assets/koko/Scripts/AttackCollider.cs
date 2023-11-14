@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AtackCollider : MonoBehaviour
+public class AttackCollider : MonoBehaviour
 {
     // public float spd = 10;
     public float dmg = 5;
@@ -15,14 +15,13 @@ public class AtackCollider : MonoBehaviour
 
     [SerializeField, Header("生存時間")]
     float lifeTime = 2;
-    float timer = 0;
 
     private void FixedUpdate()
     {
         // this.transform.Translate(Vector3.right * spd * Time.deltaTime);
 
-        timer += Time.deltaTime;
-        if (timer >= lifeTime)
+        lifeTime -= Time.deltaTime;
+        if (lifeTime < 0)
         {
             Destroy(this.gameObject);
         }
