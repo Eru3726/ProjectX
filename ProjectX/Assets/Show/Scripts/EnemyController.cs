@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] EnemyAtk enemyAtk;
 
     public EnemyState currentState;
-   
+    public int Atkdis = 4;   
 
     public enum EnemyState
     {
@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
         switch(currentState)
         {
 
-            case EnemyState.Idol:
+            case EnemyState.Idol:　//次の行動に移るための待機
 
 
                 break;
@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour
         rb.velocity = direction * 3; //プレイヤーを追跡する処理
         float dis = Vector2.Distance(targetPos, enemyPos);
 
-        if (dis <= 2)
+        if (dis <= Atkdis)
         {
             Debug.Log("追従");
             currentState = EnemyState.Dash;
