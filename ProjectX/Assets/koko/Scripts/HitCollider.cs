@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class HitCollider : MonoBehaviour
 {
-    //[SerializeField, Header("MoveControllerをアタッチ")]
-    //MoveController mc;
+    [SerializeField, Header("MoveControllerをアタッチ")]
+    MoveController mc;
 
-    [SerializeField, Header("親オブジェクトをいれてね")]
+    [SerializeField, Header("親オブジェクトをアタッチ")]
     GameObject parent;
 
-    [SerializeField] float maxHp = 20;
-    [SerializeField] float nowHp;
+    [SerializeField, Header("最大HP")]
+    protected float maxHp = 20;
+    [SerializeField, Header("現在HP（設定不要）")]
+    protected float nowHp;
 
-    [SerializeField] int hitLayer;
+    [SerializeField, Header("被撃レイヤー")]
+    protected int hitLayer = 0;
 
     // 無敵時間
-    float invTime;
+    protected float invTime;
 
     private void Start()
     {
@@ -28,18 +31,26 @@ public class HitCollider : MonoBehaviour
         UpdateInv();
     }
 
-    private void Damage(float dmg, Vector3 pos, float shock)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        CheckHitLayer(collision);
+    }
+
+    protected void Damage( float dmg, float shock, Vector3 pos)
     {
         if (invTime <= 0)
         {
             nowHp -= dmg;
-            //mc.Flick(pos, -shock);
+
+            Vector3 shockDir = pos - this.transform.position;
+
+            mc.InputFlick(this.transform.position - shockDir, shock * 2, 1, true);
+
             invTime = 1;
-            //invTimer = shock * 0.1f;
         }
         else
         {
-            Debug.Log("inv:" + this.gameObject);
+            // Debug.Log("inv:" + this.gameObject);
         }
 
         if (nowHp <= 0)
@@ -48,47 +59,37 @@ public class HitCollider : MonoBehaviour
         }
     }
 
-    void Die()
+    protected void Die()
     {
-        Debug.Log("die:" + this.gameObject);
-        Destroy(this.gameObject);
+        Destroy(parent.gameObject);
     }
 
-    void UpdateInv()
+    protected void UpdateInv()
     {
         if (invTime > 0)
         {
             invTime -= Time.deltaTime;
-
-            if (TryGetComponent(out Renderer rend))
-            {
-                rend.material.color = new Color32(255, 255, 255, 128);
-            }
         }
         else
         {
-            if (TryGetComponent(out Renderer rend))
-            {
-                rend.material.color = new Color32(255, 255, 255, 255);
-            }
         }
     }
 
-    public void SetInvTime(float time)
-    {
-        invTime = time;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected void CheckHitLayer(Collider2D collision)
     {
         if (collision.TryGetComponent<AttackCollider>(out AttackCollider atk))
         {
             if (atk.atkLayer != hitLayer)
             {
-                Damage(atk.dmg, atk.transform.position, atk.shock);
-                Debug.Log("hit: " + this.gameObject + " / " + this.nowHp);
+                Damage(atk.dmg, atk.shock, atk.transform.position);
             }
         }
     }
 
+
+
+    public void SetInvTime(float time)
+    {
+        invTime = time;
+    }
 }
