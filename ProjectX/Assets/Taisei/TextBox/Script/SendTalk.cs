@@ -4,50 +4,50 @@ using UnityEngine;
 
 public class SendTalk : MonoBehaviour
 {
-    /*ˆÈ‰º‚Ì“à—e‚ª‚ ‚ê‚ÎƒƒbƒZ[ƒW‚ð‘—‚é‚±‚Æ‚ª‚Å‚«‚é*/
+    /*ä»¥ä¸‹ã®å†…å®¹ãŒã‚ã‚Œã°ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ã‚‹ã“ã¨ãŒã§ãã‚‹*/
 
-    //TalkUI‚ÉÝ’è‚³‚ê‚Ä‚¢‚éMessageƒXƒNƒŠƒvƒgENameƒXƒNƒŠƒvƒg‚ðÝ’è
+    //TalkUIã«è¨­å®šã•ã‚Œã¦ã„ã‚‹Messageã‚¹ã‚¯ãƒªãƒ—ãƒˆãƒ»Nameã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’è¨­å®š
     [SerializeField]
-    private SystemScript TextSystemScript;
+    private TextScript TextSystemScript;
 
-    //TalkUI‚ðÝ’è
+    //TalkUIã‚’è¨­å®š
     [SerializeField]
     public GameObject obj;
 
-    //•\Ž¦‚³‚¹‚éƒƒbƒZ[ƒW
-    private string message = "‚ ‚©‚³‚½‚È\n" +
-        "‚È‚É‚Ê‚Ë‚Ì<>" +
-        "‚ ‚¢‚¤‚¦‚¨<>" +
-        "‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ <>" +
-        "‚¢‚¢‚¢‚¢‚¢‚¢‚¢‚¢‚¢‚¢‚¢‚¢‚¢‚¢‚¢‚¢<>" +
-        "‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤<>" +
-        "‚¦‚¦‚¦‚¦‚¦‚¦‚¦‚¦‚¦‚¦‚¦‚¦‚¦<>" +
-        "‚¨‚¨‚¨‚¨‚¨‚¨‚¨‚¨‚¨‚¨‚¨‚¨‚¨‚¨‚¨‚¨";
+    //è¡¨ç¤ºã•ã›ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+    private string message = "ã‚ã‹ã•ãŸãª\n" +
+        "ãªã«ã¬ã­ã®<>" +
+        "ã‚ã„ã†ãˆãŠ<>" +
+        "ã‚ã‚ã‚ã‚ã‚ã‚ã‚ã‚ã‚ã‚ã‚ã‚ã‚ã‚ã‚ã‚<>" +
+        "ã„ã„ã„ã„ã„ã„ã„ã„ã„ã„ã„ã„ã„ã„ã„ã„<>" +
+        "ã†ã†ã†ã†ã†ã†ã†ã†ã†ã†ã†ã†ã†<>" +
+        "ãˆãˆãˆãˆãˆãˆãˆãˆãˆãˆãˆãˆãˆ<>" +
+        "ãŠãŠãŠãŠãŠãŠãŠãŠãŠãŠãŠãŠãŠãŠãŠãŠ";
 
 
-    //•\Ž¦‚³‚¹‚é–¼‘O
+    //è¡¨ç¤ºã•ã›ã‚‹åå‰
     private string charaName = "JK<>" +
         "???<>" +
-        "‚ ‚ ‚ ‚ <>" +
-        "‚¤‚¦‚¤‚¦<>" +
-        "‚Í‚Í‚Í‚Í<>" +
-        "‚Â‚Â‚Â‚Â<>" +
-        "‚¦‚¦‚¦‚¦‚¦";
+        "ã‚ã‚ã‚ã‚<>" +
+        "ã†ãˆã†ãˆ<>" +
+        "ã¯ã¯ã¯ã¯<>" +
+        "ã¤ã¤ã¤ã¤<>" +
+        "ãˆãˆãˆãˆãˆ";
 
-    //•\Ž¦‚³‚¹‚éƒAƒCƒRƒ“–¼@¦ƒAƒCƒRƒ“–¼‚Í‰æ‘œ–¼‚Æ“¯‚¶‚É‚·‚é‚±‚Æ
-    private string charaIcon = "ŽålŒö¢‚è<>" +
-        "Œö1<>" +
-        "ŽålŒö¢‚è<>" + "ŽålŒö¢‚è<>" + "ŽålŒö¢‚è<>" + "ŽålŒö¢‚è<>" + "ŽålŒö¢‚è";
+    //è¡¨ç¤ºã•ã›ã‚‹ã‚¢ã‚¤ã‚³ãƒ³åã€€â€»ã‚¢ã‚¤ã‚³ãƒ³åã¯ç”»åƒåã¨åŒã˜ã«ã™ã‚‹ã“ã¨
+    private string charaIcon = "ä¸»äººå…¬å›°ã‚Š<>" +
+        "å…¬1<>" +
+        "ä¸»äººå…¬å›°ã‚Š<>" + "ä¸»äººå…¬å›°ã‚Š<>" + "ä¸»äººå…¬å›°ã‚Š<>" + "ä¸»äººå…¬å›°ã‚Š<>" + "ä¸»äººå…¬å›°ã‚Š";
 
     void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
             obj.SetActive(true);
-            //•\Ž¦‚µ‚½‚¢ƒeƒLƒXƒgAƒLƒƒƒ‰–¼AƒLƒƒƒ‰ƒAƒCƒRƒ“‚ð‘—‚é
-            TextSystemScript.SetTextPanel(message, charaName, charaIcon);
+            //è¡¨ç¤ºã—ãŸã„ãƒ†ã‚­ã‚¹ãƒˆã€ã‚­ãƒ£ãƒ©åã€ã‚­ãƒ£ãƒ©ã‚¢ã‚¤ã‚³ãƒ³ã‚’é€ã‚‹
+            TextSystemScript.SetTextPanel(message, charaName, charaIcon, charaIcon);
         }
     }
 
-    /*ˆÈã‚Ì“à—e‚ª‚ ‚ê‚ÎƒƒbƒZ[ƒW‚ð‘—‚é‚±‚Æ‚ª‚Å‚«‚é*/
+    /*ä»¥ä¸Šã®å†…å®¹ãŒã‚ã‚Œã°ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ã‚‹ã“ã¨ãŒã§ãã‚‹*/
 }

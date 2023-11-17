@@ -5,75 +5,77 @@ using UnityEngine.UI;
 using System.Text.RegularExpressions;
 
 
-public class SystemScript : MonoBehaviour
+public class TextScript : MonoBehaviour
 {
-    //ƒg[ƒNUI
+    //ãƒˆãƒ¼ã‚¯UI
     private Text messageText;
 
-    //•\¦‚·‚éƒeƒLƒXƒg
+    //è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ
     [SerializeField]
     [TextArea(1, 10)]
-    private string allMessage = "¡‰ñ‚ÍRPG‚Å‚æ‚­g‚í‚ê‚éƒƒbƒZ[ƒW•\¦‹@”\‚ğì‚è‚½‚¢‚Æv‚¢‚Ü‚·B\n"
-            + "ƒƒbƒZ[ƒW‚ª•\¦‚³‚ê‚éƒXƒs[ƒh‚Ì’²ß‚à‰Â”\‚Å‚ ‚èA‰üs‚É‚à‘Î‰‚µ‚Ü‚·B\n"
-            + "‰ü‘P‚Ì—]’n‚ª‚©‚È‚è‚ ‚è‚Ü‚·‚ªA               Å’áŒÀ‚Ì‹@”\‚Í”õ‚¦‚Ä‚¢‚é‚Æv‚í‚ê‚Ü‚·B\n"
-            + "‚º‚ĞŠˆ—p‚µ‚Ä‚İ‚Ä‚­‚¾‚³‚¢B";
+    private string allMessage = "ä»Šå›ã¯RPGã§ã‚ˆãä½¿ã‚ã‚Œã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤ºæ©Ÿèƒ½ã‚’ä½œã‚ŠãŸã„ã¨æ€ã„ã¾ã™ã€‚\n"
+            + "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒè¡¨ç¤ºã•ã‚Œã‚‹ã‚¹ãƒ”ãƒ¼ãƒ‰ã®èª¿ç¯€ã‚‚å¯èƒ½ã§ã‚ã‚Šã€æ”¹è¡Œã«ã‚‚å¯¾å¿œã—ã¾ã™ã€‚\n"
+            + "æ”¹å–„ã®ä½™åœ°ãŒã‹ãªã‚Šã‚ã‚Šã¾ã™ãŒã€               æœ€ä½é™ã®æ©Ÿèƒ½ã¯å‚™ãˆã¦ã„ã‚‹ã¨æ€ã‚ã‚Œã¾ã™ã€‚\n"
+            + "ãœã²æ´»ç”¨ã—ã¦ã¿ã¦ãã ã•ã„ã€‚";
 
-    //g—p‚·‚é•ªŠ„•¶š—ñ
+    //ä½¿ç”¨ã™ã‚‹åˆ†å‰²æ–‡å­—åˆ—
     [SerializeField] private string splitString = "<>";
-    //•ªŠ„‚µ‚½ƒeƒLƒXƒg
+    //åˆ†å‰²ã—ãŸãƒ†ã‚­ã‚¹ãƒˆ
     private string[] splitMessage;
-    //•ªŠ„‚µ‚½ƒƒbƒZ[ƒW‚Ì‰½”Ô–Ú‚©
+    //åˆ†å‰²ã—ãŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ä½•ç•ªç›®ã‹
     private int messageNum;
-    //ƒeƒLƒXƒgƒXƒs[ƒh
+    //ãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒ”ãƒ¼ãƒ‰
     [SerializeField] private float textSpeed = 0.1f;
-    //Œo‰ßŠÔ
+    //çµŒéæ™‚é–“
     private float elapsedTime = 0f;
-    //¡Œ©‚Ä‚¢‚é•¶š”Ô†
+    //ä»Šè¦‹ã¦ã„ã‚‹æ–‡å­—ç•ªå·
     private int nowTextNum = 0;
-    //ƒ}ƒEƒXƒNƒŠƒbƒN‚ğ‘£‚·ƒAƒCƒRƒ“
+    //ãƒã‚¦ã‚¹ã‚¯ãƒªãƒƒã‚¯ã‚’ä¿ƒã™ã‚¢ã‚¤ã‚³ãƒ³
     private Image clickIcon;
-    //@ƒNƒŠƒbƒNƒAƒCƒRƒ“‚Ì“_–Å•b”
+    //ã€€ã‚¯ãƒªãƒƒã‚¯ã‚¢ã‚¤ã‚³ãƒ³ã®ç‚¹æ»…ç§’æ•°
     [SerializeField]
     private float clickFlashTime = 0.2f;
-    //@1‰ñ•ª‚ÌƒƒbƒZ[ƒW‚ğ•\¦‚µ‚½‚©‚Ç‚¤‚©
+    //ã€€1å›åˆ†ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã—ãŸã‹ã©ã†ã‹
     private bool isOneMessage = false;
-    //@ƒƒbƒZ[ƒW‚ğ‚·‚×‚Ä•\¦‚µ‚½‚©‚Ç‚¤‚©
+    //ã€€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ã™ã¹ã¦è¡¨ç¤ºã—ãŸã‹ã©ã†ã‹
     private bool isEndMessage = false;
 
-    //ƒLƒƒƒ‰ƒAƒCƒRƒ“
-    //ƒLƒƒƒ‰ƒAƒCƒRƒ“‚Ì‰æ‘œ‚ÍAssetsƒtƒHƒ‹ƒ_“à‚ÉResourceƒtƒHƒ‹ƒ_‚ğì‚èA‚»‚±‚É“ü‚ê‚é‚±‚Æ
+    //ã‚­ãƒ£ãƒ©ã‚¢ã‚¤ã‚³ãƒ³
+    //ã‚­ãƒ£ãƒ©ã‚¢ã‚¤ã‚³ãƒ³ã®ç”»åƒã¯Assetsãƒ•ã‚©ãƒ«ãƒ€å†…ã«Resourceãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½œã‚Šã€ãã“ã«å…¥ã‚Œã‚‹ã“ã¨
     private Image charaIcon;
-    //•\¦‚·‚éƒAƒCƒRƒ“‚Ì–¼‘O
+    //è¡¨ç¤ºã™ã‚‹ã‚¢ã‚¤ã‚³ãƒ³ã®åå‰
     [SerializeField]
     [TextArea(1, 5)]
-    private string allIcon = "ålŒö¢‚è";
-    //•ªŠ„‚µ‚½ƒAƒCƒRƒ“–¼
-    private string[] splitIcon;
-    //–¼‘O”z—ñ‚Ì‰½”Ô–Ú‚©
+    private string allIconLeft = "ä¸»äººå…¬å›°ã‚Š";
+    private string allIconRight = "ä¸»äººå…¬å›°ã‚Š";
+    //åˆ†å‰²ã—ãŸã‚¢ã‚¤ã‚³ãƒ³å
+    private string[] splitIconLeft;
+    private string[] splitIconRight;
+    //åå‰é…åˆ—ã®ä½•ç•ªç›®ã‹
     private int iconNum;
 
 
-    //–¼‘OUI
+    //åå‰UI
     private Text nameText;
-    //•\¦‚·‚é–¼‘O
+    //è¡¨ç¤ºã™ã‚‹åå‰
     [SerializeField]
     [TextArea(1, 5)]
-    private string allName = "‚ ‚ ‚ <>" +
-                           "‚¢‚¢‚¢";
-    //•ªŠ„‚µ‚½–¼‘O
+    private string allName = "ã‚ã‚ã‚<>" +
+                           "ã„ã„ã„";
+    //åˆ†å‰²ã—ãŸåå‰
     private string[] splitName;
-    //–¼‘O”z—ñ‚Ì‰½”Ô–Ú‚©
+    //åå‰é…åˆ—ã®ä½•ç•ªç›®ã‹
     private int nameNum;
-    //¡Œ©‚Ä‚¢‚é–¼‘O”Ô†
+    //ä»Šè¦‹ã¦ã„ã‚‹åå‰ç•ªå·
     private int nowNameNum = 0;
-    //–¼‘O‚Ì•\¦‚µ‚½‚©‚Ç‚¤‚©
+    //åå‰ã®è¡¨ç¤ºã—ãŸã‹ã©ã†ã‹
     private bool checkName = false;
 
     public AudioClip sound1;
     AudioSource audioSource;
 
-    //ƒeƒLƒXƒgƒ{ƒbƒNƒX‚ğ•\¦’†‚©‚Ç‚¤‚©
-    //false=•\¦‚µ‚Ä‚È‚¢@true=•\¦’†
+    //ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã‚’è¡¨ç¤ºä¸­ã‹ã©ã†ã‹
+    //false=è¡¨ç¤ºã—ã¦ãªã„ã€€true=è¡¨ç¤ºä¸­
     private bool TextOnOff = false;
 
     private float autoTimer = 0f;
@@ -86,14 +88,14 @@ public class SystemScript : MonoBehaviour
     {
         clickIcon = transform.Find("TextPanel/Cursor").GetComponent<Image>();
         clickIcon.enabled = false;
-        messageText = transform.GetChild(0).GetComponentInChildren<Text>();
+        messageText = transform.GetChild(2).GetComponentInChildren<Text>();
         messageText.text = "";
 
         audioSource = GetComponent<AudioSource>();
 
-        nameText = transform.GetChild(1).GetComponentInChildren<Text>();
+        nameText = transform.GetChild(3).GetComponentInChildren<Text>();
         nameText.text = "";
-        SetText(allMessage, allName, allIcon);
+        SetText(allMessage, allName, allIconLeft,allIconRight);
 
 
     }
@@ -101,37 +103,41 @@ public class SystemScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //message‚ªI‚í‚Á‚Ä‚¢‚é‚©AƒƒbƒZ[ƒW‚ª‚È‚¢ê‡‚Í‚±‚êˆÈ~‰½‚à‚µ‚È‚¢
+        //messageãŒçµ‚ã‚ã£ã¦ã„ã‚‹ã‹ã€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒãªã„å ´åˆã¯ã“ã‚Œä»¥é™ä½•ã‚‚ã—ãªã„
         if (isEndMessage || allMessage == null)
         {
             return;
         }
 
-        //‚P‰ñ‚É•\¦‚·‚éƒƒbƒZ[ƒW‚ğ•\¦‚µ‚Ä‚¢‚È‚¢
+        //ï¼‘å›ã«è¡¨ç¤ºã™ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã—ã¦ã„ãªã„
         if (!isOneMessage)
         {
             if (checkName == false)
             {
-                //–¼‘O•\¦
+                //åå‰è¡¨ç¤º
                 nameText.text += splitName[nameNum].Substring(nowNameNum);
                 checkName = true;
 
-                //ƒAƒCƒRƒ“•\¦
-                Sprite sprite = Resources.Load<Sprite>(splitIcon[iconNum]) as Sprite;
-                GameObject goImage = GameObject.Find("Icon");
-                Image im = goImage.GetComponent<Image>();
-                im.sprite = sprite;
+                //ã‚¢ã‚¤ã‚³ãƒ³è¡¨ç¤º
+                Sprite sprite1 = Resources.Load<Sprite>(splitIconLeft[iconNum]) as Sprite;
+                Sprite sprite2 = Resources.Load<Sprite>(splitIconRight[iconNum]) as Sprite;
+                GameObject goImageLeft = GameObject.Find("Icon1");
+                GameObject goImageRight = GameObject.Find("Icon2");
+                Image im1 = goImageLeft.GetComponent<Image>();
+                Image im2 = goImageRight.GetComponent<Image>();
+                im1.sprite = sprite1;
+                im2.sprite = sprite2;
             }
-            //ƒeƒLƒXƒg•\¦ŠÔ‚ğŒo‰ß‚µ‚½‚çƒƒbƒZ[ƒW‚ğ’Ç‰Á
+            //ãƒ†ã‚­ã‚¹ãƒˆè¡¨ç¤ºæ™‚é–“ã‚’çµŒéã—ãŸã‚‰ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿½åŠ 
             if (elapsedTime >= textSpeed)
             {
-                //ƒƒbƒZ[ƒW•\¦
+                //ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
                 messageText.text += splitMessage[messageNum][nowTextNum];
                 audioSource.PlayOneShot(sound1);
                 nowTextNum++;
                 elapsedTime = 0f;
 
-                //message‚ğ‘S•”•\¦A‚Ü‚½‚Ís”‚ªÅ‘å”•\¦‚³‚ê‚½
+                //messageã‚’å…¨éƒ¨è¡¨ç¤ºã€ã¾ãŸã¯è¡Œæ•°ãŒæœ€å¤§æ•°è¡¨ç¤ºã•ã‚ŒãŸ
                 if (nowTextNum >= splitMessage[messageNum].Length)
                 {
                     isOneMessage = true;
@@ -140,7 +146,7 @@ public class SystemScript : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
 
-            ////message•\¦’†‚ÉƒGƒ“ƒ^[‚ğ‰Ÿ‚µ‚½‚çˆêŠ‡•\¦
+            ////messageè¡¨ç¤ºä¸­ã«ã‚¨ãƒ³ã‚¿ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰ä¸€æ‹¬è¡¨ç¤º
             //if (Input.GetKeyDown(KeyCode.Return))
             //{
             //    messageText.text += splitMessage[messageNum].Substring(nowTextNum);
@@ -148,21 +154,21 @@ public class SystemScript : MonoBehaviour
             //}
 
         }
-        //‚P‰ñ‚É•\¦‚·‚éƒƒbƒZ[ƒW‚ğ•\¦‚µ‚½
+        //ï¼‘å›ã«è¡¨ç¤ºã™ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã—ãŸ
         else
         {
             if (AutoORAanual == false)
             {
                 elapsedTime += Time.deltaTime;
 
-                //ƒNƒŠƒbƒNƒAƒCƒRƒ“‚ğ“_–Å‚·‚éŠÔ‚ğ’´‚¦‚½A”½“]‚³‚¹‚é
+                //ã‚¯ãƒªãƒƒã‚¯ã‚¢ã‚¤ã‚³ãƒ³ã‚’ç‚¹æ»…ã™ã‚‹æ™‚é–“ã‚’è¶…ãˆãŸæ™‚ã€åè»¢ã•ã›ã‚‹
                 if (elapsedTime >= clickFlashTime)
                 {
                     clickIcon.enabled = !clickIcon.enabled;
                     elapsedTime = 0f;
                 }
 
-                //ƒGƒ“ƒ^[ƒL[or¶ƒNƒŠƒbƒN‚ğ‰Ÿ‚µ‚½‚çŸ‚Ì•¶š•\¦ˆ—
+                //ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼orå·¦ã‚¯ãƒªãƒƒã‚¯ã‚’æŠ¼ã—ãŸã‚‰æ¬¡ã®æ–‡å­—è¡¨ç¤ºå‡¦ç†
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
                 {
                     nowTextNum = 0;
@@ -180,13 +186,16 @@ public class SystemScript : MonoBehaviour
 
                     iconNum++;
 
-                    //message‚ª‚·‚×‚Ä•\¦‚³‚ê‚Ä‚¢‚½‚çƒQ[ƒ€ƒIƒuƒWƒFƒNƒg©‘Ì‚Ìíœ
+                    //messageãŒã™ã¹ã¦è¡¨ç¤ºã•ã‚Œã¦ã„ãŸã‚‰ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè‡ªä½“ã®å‰Šé™¤
                     if (messageNum >= splitMessage.Length)
                     {
                         isEndMessage = true;
                         TextOnOff = false;
                         transform.GetChild(0).gameObject.SetActive(false);
                         transform.GetChild(1).gameObject.SetActive(false);
+                        transform.GetChild(2).gameObject.SetActive(false);
+                        transform.GetChild(3).gameObject.SetActive(false);
+                        Time.timeScale = 1;
                     }
                 }
             }
@@ -214,65 +223,33 @@ public class SystemScript : MonoBehaviour
 
                     autoTimer = 0f;
 
-                    //message‚ª‚·‚×‚Ä•\¦‚³‚ê‚Ä‚¢‚½‚çƒQ[ƒ€ƒIƒuƒWƒFƒNƒg©‘Ì‚Ìíœ
+                    //messageãŒã™ã¹ã¦è¡¨ç¤ºã•ã‚Œã¦ã„ãŸã‚‰ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè‡ªä½“ã®å‰Šé™¤
                     if (messageNum >= splitMessage.Length)
                     {
                         isEndMessage = true;
                         TextOnOff = false;
                         transform.GetChild(0).gameObject.SetActive(false);
                         transform.GetChild(1).gameObject.SetActive(false);
+                        transform.GetChild(2).gameObject.SetActive(false);
+                        transform.GetChild(3).gameObject.SetActive(false);
+                        Time.timeScale = 1;
                     }
                 }
             }
-
-            //elapsedTime += Time.deltaTime;
-
-            ////ƒNƒŠƒbƒNƒAƒCƒRƒ“‚ğ“_–Å‚·‚éŠÔ‚ğ’´‚¦‚½A”½“]‚³‚¹‚é
-            //if (elapsedTime >= clickFlashTime)
-            //{
-            //    clickIcon.enabled = !clickIcon.enabled;
-            //    elapsedTime = 0f;
-            //}
-
-            ////ƒGƒ“ƒ^[ƒL[or¶ƒNƒŠƒbƒN‚ğ‰Ÿ‚µ‚½‚çŸ‚Ì•¶š•\¦ˆ—
-            //if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
-            //{
-            //    nowTextNum = 0;
-            //    messageNum++;
-            //    messageText.text = "";
-            //    clickIcon.enabled = false;
-            //    elapsedTime = 0f;
-            //    isOneMessage = false;
-
-            //    nowNameNum = 0;
-            //    nameNum++;
-            //    nameText.text = "";
-            //    isOneMessage = false;
-            //    checkName = false;
-
-            //    iconNum++;
-
-            //    //message‚ª‚·‚×‚Ä•\¦‚³‚ê‚Ä‚¢‚½‚çƒQ[ƒ€ƒIƒuƒWƒFƒNƒg©‘Ì‚Ìíœ
-            //    if (messageNum >= splitMessage.Length)
-            //    {
-            //        isEndMessage = true;
-            //        TextOnOff = false;
-            //        transform.GetChild(0).gameObject.SetActive(false);
-            //        transform.GetChild(1).gameObject.SetActive(false);
-            //    }
-            //}
         }
     }
 
-    void SetText(string message, string name, string icon)
+    void SetText(string message, string name, string iconLeft, string iconRight)
     {
         this.allMessage = message;
         this.allName = name;
-        this.allIcon = icon;
-        //•ªŠ„•¶š—ñ‚Åˆê‰ñ‚É•\¦‚·‚éƒƒbƒZ[ƒW‚ğ•ªŠ„‚·‚é
+        this.allIconLeft = iconLeft;
+        this.allIconRight = iconLeft;
+        //åˆ†å‰²æ–‡å­—åˆ—ã§ä¸€å›ã«è¡¨ç¤ºã™ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’åˆ†å‰²ã™ã‚‹
         splitMessage = Regex.Split(allMessage, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitName = Regex.Split(allName, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
-        splitIcon = Regex.Split(allIcon, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        splitIconLeft = Regex.Split(allIconLeft, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        splitIconRight = Regex.Split(allIconRight, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         nowTextNum = 0;
         messageNum = 0;
         messageText.text = "";
@@ -285,13 +262,15 @@ public class SystemScript : MonoBehaviour
         TextOnOff = true;
     }
 
-    //‘¼‚ÌƒXƒNƒŠƒvƒg‚©‚çV‚µ‚¢ƒƒbƒZ[ƒW‚ğİ’è‚µAUI‚ğƒAƒNƒeƒBƒu‚É‚·‚é
-    public void SetTextPanel(string message, string name, string icon)
+    //ä»–ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‹ã‚‰æ–°ã—ã„ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¨­å®šã—ã€UIã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
+    public void SetTextPanel(string message, string name, string iconLeft, string iconRight)
     {
-        SetText(message, name, icon);
+        SetText(message, name, iconLeft, iconRight);
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(true);
-
+        transform.GetChild(2).gameObject.SetActive(true);
+        transform.GetChild(3).gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public bool CheckTextOnOff()
