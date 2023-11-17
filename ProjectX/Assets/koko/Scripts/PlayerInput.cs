@@ -115,6 +115,8 @@ public class PlayerInput : MonoBehaviour
             GameObject temp = Instantiate(PunchPrefab, plDir, Quaternion.identity);
             temp.transform.parent = this.transform;
 
+            temp.GetComponent<AttackCollider>().atkType = 1;
+
             mc.InputFlick(plDir, 10, 0.2f, true);
 
             inputSkill[0] = false;
@@ -128,6 +130,8 @@ public class PlayerInput : MonoBehaviour
             scale.y = 1.5f;
             temp.transform.localScale = scale;
 
+            temp.GetComponent<AttackCollider>().atkType = 2;
+
             mc.InputFlick(plDir, 15, 0.2f, true);
 
             inputSkill[1] = false;
@@ -136,6 +140,8 @@ public class PlayerInput : MonoBehaviour
         {
             GameObject temp = Instantiate(PunchPrefab, plDir, Quaternion.identity);
             temp.transform.parent = this.transform;
+
+            temp.GetComponent<AttackCollider>().atkType = 3;
 
             Vector3 scale = temp.transform.localScale;
             scale.y = 2f;
@@ -179,6 +185,10 @@ public class PlayerInput : MonoBehaviour
             if (skillTime[i] > 0)
             {
                 skillTime[i] -= Time.deltaTime;
+            }
+            else
+            {
+                skillTime[i] = 0;
             }
         }
     }

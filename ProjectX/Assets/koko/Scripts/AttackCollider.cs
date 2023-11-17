@@ -6,10 +6,12 @@ public class AttackCollider : MonoBehaviour
 {
     [SerializeField, Header("ダメージ")]
     public float dmg = 5;
+
     [SerializeField, Header("衝撃")]
     public float shock = 5;
-    [SerializeField, Header("攻撃属性")]
-    public float type = 0;
+
+    [SerializeField, Header("属性")]
+    public int atkType = 0;
 
     [SerializeField, Header("攻撃レイヤー")]
     public int atkLayer = 0;
@@ -17,7 +19,7 @@ public class AttackCollider : MonoBehaviour
     // 1 Player
     // 2 Enemy
 
-    [SerializeField, Header("ライフオンオフ")]
+    [SerializeField, Header("生存時間オンオフ")]
     protected bool lifeFlag = true;
 
     [SerializeField, Header("生存時間")]

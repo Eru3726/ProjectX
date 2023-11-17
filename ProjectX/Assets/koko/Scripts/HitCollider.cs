@@ -12,18 +12,24 @@ public class HitCollider : MonoBehaviour
 
     [SerializeField, Header("最大HP")]
     protected float maxHp = 20;
+
     [SerializeField, Header("現在HP（設定不要）")]
     protected float nowHp;
 
     [SerializeField, Header("被撃レイヤー")]
     protected int hitLayer = 0;
 
-    // 無敵時間
-    protected float invTime;
+    // attackタイプ別無敵時間
+    public List<float> invTime = new List<float>();
 
     private void Start()
     {
         nowHp = maxHp;
+
+        for (int i = 0; i < 10; i++)
+        {
+            invTime.Add(0);
+        }
     }
 
     private void FixedUpdate()
@@ -38,20 +44,12 @@ public class HitCollider : MonoBehaviour
 
     protected void Damage( float dmg, float shock, Vector3 pos)
     {
-        if (invTime <= 0)
-        {
-            nowHp -= dmg;
 
-            Vector3 shockDir = pos - this.transform.position;
+        nowHp -= dmg;
 
-            mc.InputFlick(this.transform.position - shockDir, shock * 2, 1, true);
+        Vector3 shockDir = pos - this.transform.position;
 
-            invTime = 1;
-        }
-        else
-        {
-            // Debug.Log("inv:" + this.gameObject);
-        }
+        mc.InputFlick(this.transform.position - shockDir, shock * 2, 0.5f, true);
 
         if (nowHp <= 0)
         {
@@ -66,12 +64,16 @@ public class HitCollider : MonoBehaviour
 
     protected void UpdateInv()
     {
-        if (invTime > 0)
+        for (int i = 0; i <10; i++)
         {
-            invTime -= Time.deltaTime;
-        }
-        else
-        {
+            if (invTime[i] > 0)
+            {
+                invTime[i] -= Time.deltaTime;
+            }
+            else
+            {
+                invTime[i] = 0;
+            }
         }
     }
 
@@ -79,17 +81,19 @@ public class HitCollider : MonoBehaviour
     {
         if (collision.TryGetComponent<AttackCollider>(out AttackCollider atk))
         {
-            if (atk.atkLayer != hitLayer)
+            if (atk.atkLayer != hitLayer && invTime[atk.atkType] <= 0)
             {
                 Damage(atk.dmg, atk.shock, atk.transform.position);
+                invTime[atk.atkType] = 1;
             }
         }
     }
 
-
-
     public void SetInvTime(float time)
     {
-        invTime = time;
+        for (int i = 0; i < 10; i++)
+        {
+            invTime[i] = time;
+        }
     }
 }
