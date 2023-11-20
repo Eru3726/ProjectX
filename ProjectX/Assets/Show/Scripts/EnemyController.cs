@@ -10,7 +10,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] EnemyAtk enemyAtk;
 
     public EnemyState currentState;
-    public int Atkdis = 4;   
+    public int Atkdis = 4;
+    public bool tracking = true;
 
     public enum EnemyState
     {
@@ -76,24 +77,27 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator WaitForSomeTime(float seconds)
     {
+        Debug.Log("待機中");
         yield return new WaitForSeconds(seconds);
         currentState = EnemyState.Warp;
     }
 
     public void EnemyMove()
     {
-        Vector2 targetPos = player.transform.position;
-        Vector2 enemyPos = transform.position;
-        float x = targetPos.x;
-        float y = 0f;
-        Vector2 direction = new Vector2(x - transform.position.x, y).normalized;
-        rb.velocity = direction * 3; //プレイヤーを追跡する処理
-        float dis = Vector2.Distance(targetPos, enemyPos);
-
-        if (dis <= Atkdis)
+        if (tracking)
         {
-            Debug.Log("追従");
-            currentState = EnemyState.Dash;
+            Vector2 playerPos = player.transform.position;
+            Vector2 enemyPos = transform.position;
+            float x = playerPos.x;
+            float y = 0f;
+            Vector2 direction = new Vector2(x - transform.position.x, y).normalized;
+            rb.velocity = direction * 3; //プレイヤーを追跡する処理
+            float dis = Vector2.Distance(playerPos, enemyPos);
+            if (dis <= Atkdis)
+            {
+                Debug.Log("追従");
+                currentState = EnemyState.Dash;
+            }
         }
     }
 
@@ -101,6 +105,5 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("突進");
         enemyAtk.EnemyAttack();
-        
     }
 }

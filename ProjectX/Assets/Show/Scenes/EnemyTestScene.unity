@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 1433888243}
   - component: {fileID: 1433888242}
   - component: {fileID: 1433888241}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 1733025512}
   - component: {fileID: 1733025511}
   - component: {fileID: 1733025516}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,6 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAtk: {fileID: 1733025516}
   currentState: 4
+  Atkdis: 4
 --- !u!61 &1733025512
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -562,6 +563,7 @@ MonoBehaviour:
   AtkSpd: 5
   AtkRange: 5
   AtkCool: 2
+  canAtk: 1
 --- !u!1 &1878370765
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class EnemyAtk : MonoBehaviour
 {
-    public float AtkSpd = 5f;
-    public float AtkRange = 5f;
-    public float AtkCool = 2f;
-
     Transform player;
-    bool canAtk = true;
+    EnemyController EnmCon;
+
+    MoveController mc;
+
+    public float ChargeForce = 10f;
+    public int count = 0;
+    Rigidbody2D rb;
 
     void Start()
     {
+        EnmCon = gameObject.GetComponent<EnemyController>();
         player = GameObject.Find("Player").transform;
+        rb = gameObject.GetComponent<Rigidbody2D>();
+
+        mc = GetComponent<MoveController>();
     }
 
     
@@ -24,7 +30,14 @@ public class EnemyAtk : MonoBehaviour
 
     public void EnemyAttack() //突進処理
     {
-        Vector3 direction = (player.position - transform.position).normalized;
-        transform.Translate(direction * AtkSpd * Time.deltaTime);
+        //Vector3 chargeDir = Vector3.left;
+        //rb.AddForce(chargeDir * ChargeForce);
+        //count++;
+
+        mc.Flick(Vector3.left, 50, 1);
+
+        mc.InputLR(-1);
+
+        //mc.InputJump();
     }
 }
