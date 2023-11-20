@@ -33,11 +33,6 @@ public class EnemyAtk : MonoBehaviour
         //Vector3 chargeDir = Vector3.left;
         //rb.AddForce(chargeDir * ChargeForce);
         //count++;
-
-        mc.InputFlick(Vector3.left, 50, 1);
-
-        mc.InputLR(-1);
-
         //mc.InputJump();
     }
 }

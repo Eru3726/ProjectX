@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     GameObject player;
+    MoveController mc;
+
     Rigidbody2D rb;
 
     [SerializeField] EnemyAtk enemyAtk;
@@ -104,5 +106,8 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("突進");
         enemyAtk.EnemyAttack();
+        mc.InputFlick(Vector3.left, 50, 1,false);
+
+        mc.InputLR(-1);
     }
 }
