@@ -88,9 +88,8 @@ public class EnemyController : MonoBehaviour
         {
             Vector2 playerPos = player.transform.position;
             Vector2 enemyPos = transform.position;
-            float x = playerPos.x;
-            float y = 0f;
-            Vector2 direction = new Vector2(x - transform.position.x, y).normalized;
+            Vector2 pos = new Vector2(playerPos.x, 0);
+            Vector2 direction = new Vector2(pos.x - transform.position.x, pos.y).normalized;
             rb.velocity = direction * 3; //プレイヤーを追跡する処理
             float dis = Vector2.Distance(playerPos, enemyPos);
             if (dis <= Atkdis)
