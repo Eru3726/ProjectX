@@ -167,6 +167,31 @@ public class PlayerInput : MonoBehaviour
         // スキル１火炎：F
         if (Input.GetKeyDown(KeyCode.F))
         {
+            for (int i = 0; i < 6; i++)
+            {
+                GameObject temp = Instantiate(FirePrefab, transform.position, Quaternion.identity);
+                Vector3 lea = temp.transform.localEulerAngles;
+                lea.z = i * 60;
+                temp.transform.localEulerAngles = lea;
+            }
+            inputSkill[13] = true;
+            skillTime[13] = 1;
+        }
+
+        if (inputSkill[13])
+        {
+            if (skillTime[13] <= 0)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    GameObject temp = Instantiate(FirePrefab, transform.position, Quaternion.identity);
+                    Vector3 lea = temp.transform.localEulerAngles;
+                    lea.z = i * 60 + 30;
+                    temp.transform.localEulerAngles = lea;
+                }
+                inputSkill[13] = false;
+            }
+            else { mc.InputFlickStop(); }
 
         }
 

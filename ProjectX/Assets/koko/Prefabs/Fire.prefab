@@ -113,7 +113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 5
   shock: 0
+  atkType: 4
   atkLayer: 1
+  lifeFlag: 1
   lifeTime: 2
 --- !u!58 &3424937521654278363
 CircleCollider2D:
