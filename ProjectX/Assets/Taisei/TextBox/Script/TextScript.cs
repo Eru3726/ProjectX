@@ -47,7 +47,7 @@ public class TextScript : MonoBehaviour
     [SerializeField]
     [TextArea(1, 5)]
     private string allIconLeft = "主人公困り";
-    private string allIconRight = "主人公困り";
+    private string allIconRight = "公1";
     //分割したアイコン名
     private string[] splitIconLeft;
     private string[] splitIconRight;
@@ -244,7 +244,7 @@ public class TextScript : MonoBehaviour
         this.allMessage = message;
         this.allName = name;
         this.allIconLeft = iconLeft;
-        this.allIconRight = iconLeft;
+        this.allIconRight = iconRight;
         //分割文字列で一回に表示するメッセージを分割する
         splitMessage = Regex.Split(allMessage, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitName = Regex.Split(allName, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
