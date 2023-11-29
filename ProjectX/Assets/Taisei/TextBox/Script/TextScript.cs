@@ -184,7 +184,7 @@ public class TextScript : MonoBehaviour
                     isOneMessage = false;
                     checkName = false;
 
-                    iconNum++;
+                    //iconNum++;
 
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
                     if (messageNum >= splitMessage.Length)
@@ -219,7 +219,7 @@ public class TextScript : MonoBehaviour
                     isOneMessage = false;
                     checkName = false;
 
-                    iconNum++;
+                    //iconNum++;
 
                     autoTimer = 0f;
 
