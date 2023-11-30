@@ -26,7 +26,7 @@ public class HitCollider : MonoBehaviour
     {
         nowHp = maxHp;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < (int)StageData.ATK_DATA.Num; i++)
         {
             invTime.Add(0);
         }
@@ -44,12 +44,11 @@ public class HitCollider : MonoBehaviour
 
     protected void Damage( float dmg, float shock, Vector3 pos)
     {
-
         nowHp -= dmg;
 
         Vector3 shockDir = pos - this.transform.position;
 
-        mc.InputFlick(this.transform.position - shockDir, shock * 2, 0.5f, true);
+        mc.InputFlick(this.transform.position - shockDir, shock, 0.5f, true);
 
         if (nowHp <= 0)
         {
@@ -81,10 +80,10 @@ public class HitCollider : MonoBehaviour
     {
         if (collision.TryGetComponent<AttackCollider>(out AttackCollider atk))
         {
-            if (atk.atkLayer != hitLayer && invTime[atk.atkType] <= 0)
+            if (atk.atkLayer != hitLayer && invTime[(int)atk.atkType] <= 0)
             {
                 Damage(atk.dmg, atk.shock, atk.transform.position);
-                invTime[atk.atkType] = 1;
+                invTime[(int)atk.atkType] = 1;
             }
         }
     }

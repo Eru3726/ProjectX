@@ -7,10 +7,15 @@ public class MoveController : MonoBehaviour
     protected Rigidbody2D rb;
     protected GroundChecker gc;
 
+    [SerializeField] protected bool moveX = true;
+    [SerializeField] protected bool moveY = false;
+
     [SerializeField] protected float moveSpdX = 5;
+    [SerializeField] protected float moveSpdY = 5;
     [SerializeField] protected float jumpPow = 10;
 
     [Range(-1, 1)] protected int inputLR = 0;
+    [Range(-1, 1)] protected int inputUD = 0;
     protected bool inputJump = false;
 
     protected bool inputFlick = false;
@@ -75,14 +80,23 @@ public class MoveController : MonoBehaviour
         else
         {
             // フリックストップ
-            if(flickStop)
+            if (flickStop)
             {
                 InputFlickStop();
                 flickStop = false;
             }
 
-            // 通常移動
-            moveSpd.x = inputLR * moveSpdX;
+            // 横移動
+            if (moveX)
+            {
+                moveSpd.x = inputLR * moveSpdX;
+            }
+
+            // 縦移動
+            if (moveY)
+            {
+                moveSpd.y = inputUD * moveSpdY;
+            }
 
             // ジャンプ
             if (inputJump)
@@ -105,6 +119,11 @@ public class MoveController : MonoBehaviour
     public void InputLR(int _inputLR)
     {
         inputLR = _inputLR;
+    }
+
+    public void InputUD(int _inputUD)
+    {
+        inputUD = _inputUD;
     }
 
     public void InputJump()

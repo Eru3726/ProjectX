@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+
     [SerializeField, Header("パンチの当たり判定プレハブつけてね")]
     GameObject PunchPrefab;
 
@@ -115,7 +116,7 @@ public class PlayerInput : MonoBehaviour
             GameObject temp = Instantiate(PunchPrefab, plDir, Quaternion.identity);
             temp.transform.parent = this.transform;
 
-            temp.GetComponent<AttackCollider>().atkType = 1;
+            temp.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.NM1;
 
             mc.InputFlick(plDir, 10, 0.2f, true);
 
@@ -130,7 +131,7 @@ public class PlayerInput : MonoBehaviour
             scale.y = 1.5f;
             temp.transform.localScale = scale;
 
-            temp.GetComponent<AttackCollider>().atkType = 2;
+            temp.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.NM2;
 
             mc.InputFlick(plDir, 15, 0.2f, true);
 
@@ -141,7 +142,7 @@ public class PlayerInput : MonoBehaviour
             GameObject temp = Instantiate(PunchPrefab, plDir, Quaternion.identity);
             temp.transform.parent = this.transform;
 
-            temp.GetComponent<AttackCollider>().atkType = 3;
+            temp.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.NM3;
 
             Vector3 scale = temp.transform.localScale;
             scale.y = 2f;

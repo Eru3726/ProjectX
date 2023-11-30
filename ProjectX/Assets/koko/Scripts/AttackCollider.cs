@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AttackCollider : MonoBehaviour
 {
+
     [SerializeField, Header("ダメージ")]
     public float dmg = 5;
 
@@ -11,7 +12,7 @@ public class AttackCollider : MonoBehaviour
     public float shock = 5;
 
     [SerializeField, Header("属性")]
-    public int atkType = 0;
+    public StageData.ATK_DATA atkType;
 
     [SerializeField, Header("攻撃レイヤー")]
     public int atkLayer = 0;
