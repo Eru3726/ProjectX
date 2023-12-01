@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
+using System;
 
 
 public class TextScript : MonoBehaviour
@@ -51,8 +52,9 @@ public class TextScript : MonoBehaviour
     //分割したアイコン名
     private string[] splitIconLeft;
     private string[] splitIconRight;
-    //名前配列の何番目か
-    private int iconNum;
+    //アイコン配列の何番目か
+    private int iconNumL;
+    private int iconNumR;
 
 
     //名前UI
@@ -83,6 +85,18 @@ public class TextScript : MonoBehaviour
 
     [SerializeField] private bool AutoORAanual = false;
 
+    private string allLR = "false";
+    //分割したtrueかfalse
+    private string[] splitLR;
+    //左右配列の何番目か
+    private int LRNum;
+    //立ち絵を変更したかどうか
+    private bool checkLR = false;
+    //どちらの立ち絵を表示するか
+    private bool LorR;
+    //次の立ち絵
+    private bool nextLorR;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,7 +109,7 @@ public class TextScript : MonoBehaviour
 
         nameText = transform.GetChild(3).GetComponentInChildren<Text>();
         nameText.text = "";
-        SetText(allMessage, allName, allIconLeft,allIconRight);
+        SetText(allMessage, allName, allIconLeft,allIconRight,allLR);
 
 
     }
@@ -118,15 +132,31 @@ public class TextScript : MonoBehaviour
                 nameText.text += splitName[nameNum].Substring(nowNameNum);
                 checkName = true;
 
+                Debug.Log(splitLR[LRNum]);
+                Debug.Log(splitLR.Length);
+
+                LorR = Convert.ToBoolean(splitLR[LRNum]);
+                nextLorR = Convert.ToBoolean(splitLR[LRNum + 1]);
                 //アイコン表示
-                Sprite sprite1 = Resources.Load<Sprite>(splitIconLeft[iconNum]) as Sprite;
-                Sprite sprite2 = Resources.Load<Sprite>(splitIconRight[iconNum]) as Sprite;
-                GameObject goImageLeft = GameObject.Find("Icon1");
-                GameObject goImageRight = GameObject.Find("Icon2");
-                Image im1 = goImageLeft.GetComponent<Image>();
-                Image im2 = goImageRight.GetComponent<Image>();
-                im1.sprite = sprite1;
-                im2.sprite = sprite2;
+                //立ち絵左
+                if (!LorR)
+                {
+                    Sprite sprite1 = Resources.Load<Sprite>(splitIconLeft[iconNumL]) as Sprite;
+                    GameObject goImageLeft = GameObject.Find("Icon1");
+                    Image im1 = goImageLeft.GetComponent<Image>();
+                    im1.sprite = sprite1;
+
+                }
+                //立ち絵右
+                else if (LorR)
+                {
+                    Sprite sprite2 = Resources.Load<Sprite>(splitIconRight[iconNumR]) as Sprite;
+                    GameObject goImageRight = GameObject.Find("Icon2");
+                    Image im2 = goImageRight.GetComponent<Image>();
+                    im2.sprite = sprite2;
+
+                }
+
             }
             //テキスト表示時間を経過したらメッセージを追加
             if (elapsedTime >= textSpeed)
@@ -184,7 +214,15 @@ public class TextScript : MonoBehaviour
                     isOneMessage = false;
                     checkName = false;
 
-                    //iconNum++;
+                    if (!nextLorR)
+                    {
+                        iconNumL++;
+                    }
+                    else if (nextLorR)
+                    {
+                        iconNumR++;
+                    }
+                    LRNum++;
 
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
                     if (messageNum >= splitMessage.Length)
@@ -219,7 +257,14 @@ public class TextScript : MonoBehaviour
                     isOneMessage = false;
                     checkName = false;
 
-                    //iconNum++;
+                    if (!nextLorR)
+                    {
+                        iconNumL++;
+                    }
+                    else if (nextLorR)
+                    {
+                        iconNumR++;
+                    }
 
                     autoTimer = 0f;
 
@@ -239,33 +284,38 @@ public class TextScript : MonoBehaviour
         }
     }
 
-    void SetText(string message, string name, string iconLeft, string iconRight)
+    void SetText(string message, string name, string iconLeft, string iconRight, string iconLorR)
     {
         this.allMessage = message;
         this.allName = name;
         this.allIconLeft = iconLeft;
         this.allIconRight = iconRight;
+        this.allLR = iconLorR;
         //分割文字列で一回に表示するメッセージを分割する
         splitMessage = Regex.Split(allMessage, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitName = Regex.Split(allName, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitIconLeft = Regex.Split(allIconLeft, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitIconRight = Regex.Split(allIconRight, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        splitLR = Regex.Split(allLR, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         nowTextNum = 0;
         messageNum = 0;
         messageText.text = "";
-        iconNum = 0;
+        iconNumL = 0;
+        iconNumR = 0;
         nowNameNum = 0;
         nameNum = 0;
         nameText.text = "";
         isOneMessage = false;
         isEndMessage = false;
         TextOnOff = true;
+
+        LRNum = 0;
     }
 
     //他のスクリプトから新しいメッセージを設定し、UIをアクティブにする
-    public void SetTextPanel(string message, string name, string iconLeft, string iconRight)
+    public void SetTextPanel(string message, string name, string iconLeft, string iconRight, string iconLorR)
     {
-        SetText(message, name, iconLeft, iconRight);
+        SetText(message, name, iconLeft, iconRight, iconLorR);
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(2).gameObject.SetActive(true);
