@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AttackCollider : MonoBehaviour
 {
-
     [SerializeField, Header("ダメージ")]
     public float dmg = 5;
 
@@ -15,10 +14,7 @@ public class AttackCollider : MonoBehaviour
     public StageData.ATK_DATA atkType;
 
     [SerializeField, Header("攻撃レイヤー")]
-    public int atkLayer = 0;
-    // 0 ニュートラル
-    // 1 Player
-    // 2 Enemy
+    public StageData.LAYER_DATA atkLayer;
 
     [SerializeField, Header("生存時間オンオフ")]
     protected bool lifeFlag = true;

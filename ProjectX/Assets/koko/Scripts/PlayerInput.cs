@@ -17,44 +17,23 @@ public class PlayerInput : MonoBehaviour
     [SerializeField, Header("アタッチ")]
     HitCollider hc;
 
+    [SerializeField]
     List<bool> inputSkill = new List<bool>();
+    [SerializeField]
     List<float> skillTime = new List<float>();
-
-    // 0 攻撃1
-    // 1 攻撃2
-    // 2 攻撃3
-    // 3
-    // 4
-    // 5 恋
-    // 6 愛
-    // 7
-    // 8
-    // 9
-    // 10 怒攻撃1
-    // 11 怒攻撃2
-    // 12 怒攻撃3
-    // 13 炎
-    // 14 突進
-    // 15 範囲
-    // 16
-    // 17
-    // 18
-    // 19
-    // 20 回避
-    // 21 バリア
-    // 22 ブリンク
-    // 23
-    // 24
+    [SerializeField]
+    List<float> coolTime = new List<float>();
 
     private void Start()
     {
         //mc = GetComponent<MoveController>();
         //hc = GetComponent<HitCollider>();
 
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < (int)StageData.SKILL_DATA.Num; i++)
         {
             inputSkill.Add(false);
             skillTime.Add(0);
+            coolTime.Add(0);
         }
     }
 
@@ -89,29 +68,29 @@ public class PlayerInput : MonoBehaviour
         // 攻撃入力：P
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (skillTime[2] > 0)
+            if (skillTime[(int)StageData.SKILL_DATA.NM3] > 0)
             {
 
             }
-            else if (skillTime[1] > 0)
+            else if (skillTime[(int)StageData.SKILL_DATA.NM2] > 0)
             {
-                inputSkill[2] = true;
-                skillTime[2] = 1;
+                inputSkill[(int)StageData.SKILL_DATA.NM3] = true;
+                skillTime[(int)StageData.SKILL_DATA.NM3] = 1;
             }
-            else if (skillTime[0] > 0)
+            else if (skillTime[(int)StageData.SKILL_DATA.NM1] > 0)
             {
-                inputSkill[1] = true;
-                skillTime[1] = 1;
+                inputSkill[(int)StageData.SKILL_DATA.NM2] = true;
+                skillTime[(int)StageData.SKILL_DATA.NM2] = 1;
             }
             else
             {
-                inputSkill[0] = true;
-                skillTime[0] = 1;
+                inputSkill[(int)StageData.SKILL_DATA.NM1] = true;
+                skillTime[(int)StageData.SKILL_DATA.NM1] = 1;
             }
         }
 
         // 攻撃処理
-        if (inputSkill[0])
+        if (inputSkill[(int)StageData.SKILL_DATA.NM1])
         {
             GameObject temp = Instantiate(PunchPrefab, plDir, Quaternion.identity);
             temp.transform.parent = this.transform;
@@ -120,9 +99,9 @@ public class PlayerInput : MonoBehaviour
 
             mc.InputFlick(plDir, 10, 0.2f, true);
 
-            inputSkill[0] = false;
+            inputSkill[(int)StageData.SKILL_DATA.NM1] = false;
         }
-        else if (inputSkill[1])
+        else if (inputSkill[(int)StageData.SKILL_DATA.NM2])
         {
             GameObject temp = Instantiate(PunchPrefab, plDir, Quaternion.identity);
             temp.transform.parent = this.transform;
@@ -135,9 +114,9 @@ public class PlayerInput : MonoBehaviour
 
             mc.InputFlick(plDir, 15, 0.2f, true);
 
-            inputSkill[1] = false;
+            inputSkill[(int)StageData.SKILL_DATA.NM2] = false;
         }
-        else if (inputSkill[2])
+        else if (inputSkill[(int)StageData.SKILL_DATA.NM3])
         {
             GameObject temp = Instantiate(PunchPrefab, plDir, Quaternion.identity);
             temp.transform.parent = this.transform;
@@ -150,38 +129,56 @@ public class PlayerInput : MonoBehaviour
 
             mc.InputFlick(plDir, 20, 0.2f, true);
 
-            inputSkill[2] = false;
+            inputSkill[(int)StageData.SKILL_DATA.NM3] = false;
         }
+
+
 
         // 回避：S or Shift
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.LeftShift))
         {
-            inputSkill[20] = true;
-            skillTime[20] = 0.1f;
+            if (coolTime[(int)StageData.SKILL_DATA.ND1] <= 0)
+            {
+                inputSkill[(int)StageData.SKILL_DATA.ND1] = true;
+                skillTime[(int)StageData.SKILL_DATA.ND1] = 0.1f;
+                coolTime[(int)StageData.SKILL_DATA.ND1] = 1;
+            }
+        }
 
+        if (inputSkill[(int)StageData.SKILL_DATA.ND1])
+        {
             mc.InputFlick(plDir, 20, 0.1f, true);
             hc.SetInvTime(0.3f);
 
-            inputSkill[20] = false;
+            inputSkill[(int)StageData.SKILL_DATA.ND1] = false;
         }
+
+
 
         // スキル１火炎：F
         if (Input.GetKeyDown(KeyCode.F))
         {
-            for (int i = 0; i < 6; i++)
+            if (coolTime[(int)StageData.SKILL_DATA.AF1] <= 0)
             {
-                GameObject temp = Instantiate(FirePrefab, transform.position, Quaternion.identity);
-                Vector3 lea = temp.transform.localEulerAngles;
-                lea.z = i * 60;
-                temp.transform.localEulerAngles = lea;
+
+                inputSkill[(int)StageData.SKILL_DATA.AF1] = true;
+                skillTime[(int)StageData.SKILL_DATA.AF1] = 0.5f;
+                coolTime[(int)StageData.SKILL_DATA.AF1] = 3;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    GameObject temp = Instantiate(FirePrefab, transform.position, Quaternion.identity);
+                    Vector3 lea = temp.transform.localEulerAngles;
+                    lea.z = i * 60;
+                    temp.transform.localEulerAngles = lea;
+                }
+
             }
-            inputSkill[13] = true;
-            skillTime[13] = 1;
         }
 
-        if (inputSkill[13])
+        if (inputSkill[(int)StageData.SKILL_DATA.AF1])
         {
-            if (skillTime[13] <= 0)
+            if (skillTime[(int)StageData.SKILL_DATA.AF1] <= 0)
             {
                 for (int i = 0; i < 6; i++)
                 {
@@ -190,23 +187,16 @@ public class PlayerInput : MonoBehaviour
                     lea.z = i * 60 + 30;
                     temp.transform.localEulerAngles = lea;
                 }
-                inputSkill[13] = false;
+                inputSkill[(int)StageData.SKILL_DATA.AF1] = false;
             }
             else { mc.InputFlickStop(); }
-
-        }
-
-        // スキル３バリア：B
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-
         }
     }
 
     private void FixedUpdate()
     {
         // スキル時間処理
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < (int)StageData.SKILL_DATA.Num; i++)
         {
             if (skillTime[i] > 0)
             {
@@ -215,6 +205,15 @@ public class PlayerInput : MonoBehaviour
             else
             {
                 skillTime[i] = 0;
+            }
+
+            if (coolTime[i] > 0)
+            {
+                coolTime[i] -= Time.deltaTime;
+            }
+            else
+            {
+                coolTime[i] = 0;
             }
         }
     }

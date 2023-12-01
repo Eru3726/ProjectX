@@ -10,9 +10,8 @@ public class MoveController : MonoBehaviour
     [SerializeField] protected bool moveX = true;
     [SerializeField] protected bool moveY = false;
 
-    [SerializeField] protected float moveSpdX = 5;
-    [SerializeField] protected float moveSpdY = 5;
-    [SerializeField] protected float jumpPow = 10;
+    [SerializeField] public Vector2 speed = new Vector2(5, 5);
+    [SerializeField] public float jumpPow = 10;
 
     [Range(-1, 1)] protected int inputLR = 0;
     [Range(-1, 1)] protected int inputUD = 0;
@@ -40,21 +39,12 @@ public class MoveController : MonoBehaviour
 
         gc.CheckGround();
 
-        InputControl();
-
     }
 
     protected void FixedUpdate()
     {
 
         MoveControl();
-
-    }
-
-
-
-    protected virtual void InputControl()
-    {
 
     }
 
@@ -89,13 +79,13 @@ public class MoveController : MonoBehaviour
             // 横移動
             if (moveX)
             {
-                moveSpd.x = inputLR * moveSpdX;
+                moveSpd.x = inputLR * speed.x;
             }
 
             // 縦移動
             if (moveY)
             {
-                moveSpd.y = inputUD * moveSpdY;
+                moveSpd.y = inputUD * speed.y;
             }
 
             // ジャンプ
@@ -133,10 +123,10 @@ public class MoveController : MonoBehaviour
 
     public void InputFlick(float dir, float pow, float time)
     {
-        inputFlick = true;
         flickDir = dir;
         flickPow = pow;
         flickTime = time;
+        inputFlick = true;
     }
 
     public void InputFlick(float dir, float pow, float time, bool stop)

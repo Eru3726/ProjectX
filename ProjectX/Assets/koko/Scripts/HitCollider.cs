@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class HitCollider : MonoBehaviour
 {
-    [SerializeField, Header("MoveControllerをアタッチ")]
+    [SerializeField, Header("MoveControllerをアタッチ（ノックバックしないなら不要）")]
     MoveController mc;
 
-    [SerializeField, Header("親オブジェクトをアタッチ")]
+    [SerializeField, Header("親オブジェクトをアタッチ（死亡時にDestroy）")]
     GameObject parent;
 
     [SerializeField, Header("最大HP")]
@@ -16,8 +16,14 @@ public class HitCollider : MonoBehaviour
     [SerializeField, Header("現在HP（設定不要）")]
     protected float nowHp;
 
+    [SerializeField, Header("防御力（引き算）")]
+    protected float defence = 0;
+
+    [SerializeField, Header("衝撃耐性（倍率）")]
+    protected float resist = 1;
+
     [SerializeField, Header("被撃レイヤー")]
-    protected int hitLayer = 0;
+    protected StageData.LAYER_DATA hitLayer;
 
     // attackタイプ別無敵時間
     public List<float> invTime = new List<float>();
@@ -44,11 +50,17 @@ public class HitCollider : MonoBehaviour
 
     protected void Damage( float dmg, float shock, Vector3 pos)
     {
-        nowHp -= dmg;
+        float trueDmg;
+        trueDmg = dmg - defence;
+        if(trueDmg <= 0) { trueDmg = 1; }
+
+        nowHp -= trueDmg;
 
         Vector3 shockDir = pos - this.transform.position;
-
-        mc.InputFlick(this.transform.position - shockDir, shock, 0.5f, true);
+        if (mc != null)
+        {
+            mc.InputFlick(this.transform.position - shockDir, shock * resist, 0.5f, false);
+        }
 
         if (nowHp <= 0)
         {
@@ -90,7 +102,7 @@ public class HitCollider : MonoBehaviour
 
     public void SetInvTime(float time)
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < (int)StageData.ATK_DATA.Num; i++)
         {
             invTime[i] = time;
         }

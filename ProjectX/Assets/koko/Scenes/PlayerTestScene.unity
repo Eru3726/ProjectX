@@ -656,8 +656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveX: 1
   moveY: 0
-  moveSpdX: 5
-  moveSpdY: 5
+  speed: {x: 5, y: 5}
   jumpPow: 10
 --- !u!114 &832132381
 MonoBehaviour:
@@ -871,6 +870,8 @@ MonoBehaviour:
   parent: {fileID: 832132374}
   maxHp: 20
   nowHp: 0
+  defence: 0
+  resist: 2
   hitLayer: 2
   invTime: []
 --- !u!212 &1163202334

@@ -57,6 +57,10 @@ public class StageData
         Num     // 28
     }
 
-
-
+    public enum LAYER_DATA
+    {
+        Neutral,
+        Player,
+        Enemy
+    }
 }
