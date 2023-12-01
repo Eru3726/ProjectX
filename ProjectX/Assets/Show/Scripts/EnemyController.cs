@@ -14,6 +14,13 @@ public class EnemyController : MonoBehaviour
     public EnemyState currentState;
     public int Atkdis = 4;
     public bool tracking = true;
+    public bool warpcheck = true;
+
+    public float minX = 3f;  // 移動可能なX座標の最小値
+    public float maxX = 6f;   // 移動可能なX座標の最大値
+    public float minY = 4f;   // 移動可能なY座標の最小値
+    public float maxY = 6f;    // 移動可能なY座標の最大値
+    float warpdelay = 1f; //ワープするまでの時間
 
     public enum EnemyState
     {
@@ -32,16 +39,20 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
         currentState = EnemyState.Move;
+        mc = gameObject.GetComponent<MoveController>();
     }
 
     void FixedUpdate()
     {
-        switch(currentState)
+        Debug.Log(mc.GetLR());
+
+        switch (currentState)
         {
 
             case EnemyState.Idol:　//次の行動に移るための待機
 
-                StartCoroutine(WaitForSomeTime(3f));
+                StartCoroutine(WaitForSomeTime(1f));
+
                 break;
 
             case EnemyState.Move: //ワープの処理
@@ -52,19 +63,20 @@ public class EnemyController : MonoBehaviour
 
             case EnemyState.Homing:　//ホーミング攻撃の処理
 
-
+                Debug.Log("Homing");
+                EnemyHoming();
                 break;
 
             case EnemyState.Dash:　//突進の処理
 
                 EnemyDash();
-                
                 break;
 
             case EnemyState.Warp:  //移動
 
-                
-    
+                Debug.Log("Warp");
+                StartCoroutine(WarpDelay());
+
                 break;
             case EnemyState.Down:　//ダウン
 
@@ -81,6 +93,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("待機中");
         yield return new WaitForSeconds(seconds);
+        mc.InputLR(0);
         currentState = EnemyState.Warp;
     }
 
@@ -90,10 +103,15 @@ public class EnemyController : MonoBehaviour
         {
             Vector2 playerPos = player.transform.position;
             Vector2 enemyPos = transform.position;
-            Vector2 pos = new Vector2(playerPos.x, 0);
-            Vector2 direction = new Vector2(pos.x - transform.position.x, pos.y).normalized;
-            rb.velocity = direction * 3; //プレイヤーを追跡する処理
+            //Vector2 pos = new Vector2(playerPos.x, 0);
+            float directionX = playerPos.x - transform.position.x;
+
+            // rb.velocity = new Vector2(directionX, rb.velocity.y).normalized * 5.0f;
+
+            mc.InputLR((int)Mathf.Sign(directionX));
+
             float dis = Vector2.Distance(playerPos, enemyPos);
+
             if (dis <= Atkdis)
             {
                 Debug.Log("追従");
@@ -106,8 +124,34 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("突進");
         enemyAtk.EnemyAttack();
-        mc.InputFlick(Vector3.left, 50, 1,false);
+        mc.InputFlick(player.transform.position, 20, 0.3f, true);
 
-        mc.InputLR(-1);
+        currentState = EnemyState.Idol;
+    }
+
+    public void EnemyWarp()
+    {
+        if (warpcheck)
+        {
+            this.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 6239);
+            Debug.Log(this.GetComponent<SpriteRenderer>().color);
+            float randomX = Random.Range(minX, maxX);
+            float randomY = Random.Range(minY, maxY);
+
+            transform.position = new Vector3(randomX, randomY, 0);
+            warpcheck = false;
+        }
+        currentState = EnemyState.Homing;
+    }
+
+    IEnumerator WarpDelay()
+    {
+        this.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, -120);
+        yield return new WaitForSeconds(warpdelay);
+        EnemyWarp();
+    }
+    public void EnemyHoming()
+    {
+
     }
 }
