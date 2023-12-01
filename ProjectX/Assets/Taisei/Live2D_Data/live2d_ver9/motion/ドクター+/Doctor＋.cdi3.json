@@ -1,0 +1,37 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "びっくり顔"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "",
+			"Name": "<顔>ビックリ_にちゃぁ"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "ビックリマーク"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "",
+			"Name": "nomal顔"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "モアイ顔"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "にちゃぁ顔"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": []
+}

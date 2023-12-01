@@ -55,8 +55,11 @@ public class AllTexts : MonoBehaviour
                     "(´・ω・｀)<>" +
                     "やぁ";
                 charaIconLeft = "主人公困り<>" +
-        "公1<>" +
-        "主人公困り<>";
+                "公1<>" +
+                "主人公困り<>";
+                charaIconRight = "公1<>" +
+                    "主人公困り<>" +
+                    "公1";
                 Debug.Log("おｋ");
                 break;
 
