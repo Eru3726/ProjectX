@@ -33,9 +33,17 @@ public class TextScript : MonoBehaviour
     private int nowTextNum = 0;
     //マウスクリックを促すアイコン
     private Image clickIcon;
+    private Image clickIcon2;
+    private Image clickIcon3;
+    private Image clickIcon4;
     //　クリックアイコンの点滅秒数
     [SerializeField]
     private float clickFlashTime = 0.2f;
+    //クリックアイコンの表情変化
+    private int changeFace = 0;
+    //クリックアイコンの点滅
+    private bool changeClickIcon = false;
+
     //　1回分のメッセージを表示したかどうか
     private bool isOneMessage = false;
     //　メッセージをすべて表示したかどうか
@@ -97,11 +105,22 @@ public class TextScript : MonoBehaviour
     //次の立ち絵
     private bool nextLorR;
 
+    //最初に出す立ち絵かどうか
+    private bool firstStandP = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        clickIcon = transform.Find("TextPanel/Cursor").GetComponent<Image>();
+        clickIcon = transform.Find("TextPanel/Cursor1").GetComponent<Image>();
         clickIcon.enabled = false;
+        clickIcon2 = transform.Find("TextPanel/Cursor2").GetComponent<Image>();
+        clickIcon2.enabled = false;
+        clickIcon3 = transform.Find("TextPanel/Cursor3").GetComponent<Image>();
+        clickIcon3.enabled = false;
+        clickIcon4 = transform.Find("TextPanel/Cursor4").GetComponent<Image>();
+        clickIcon4.enabled = false;
+
         messageText = transform.GetChild(2).GetComponentInChildren<Text>();
         messageText.text = "";
 
@@ -132,15 +151,17 @@ public class TextScript : MonoBehaviour
                 nameText.text += splitName[nameNum].Substring(nowNameNum);
                 checkName = true;
 
-                Debug.Log(splitLR[LRNum]);
-                Debug.Log(splitLR.Length);
-
                 LorR = Convert.ToBoolean(splitLR[LRNum]);
-                nextLorR = Convert.ToBoolean(splitLR[LRNum + 1]);
+                if (LRNum + 1 < splitLR.Length)
+                {
+                    nextLorR = Convert.ToBoolean(splitLR[LRNum + 1]);
+                }
+
                 //アイコン表示
                 //立ち絵左
                 if (!LorR)
                 {
+                    Debug.Log("左立ち絵更新");
                     Sprite sprite1 = Resources.Load<Sprite>(splitIconLeft[iconNumL]) as Sprite;
                     GameObject goImageLeft = GameObject.Find("Icon1");
                     Image im1 = goImageLeft.GetComponent<Image>();
@@ -150,6 +171,7 @@ public class TextScript : MonoBehaviour
                 //立ち絵右
                 else if (LorR)
                 {
+                    Debug.Log("右立ち絵更新");
                     Sprite sprite2 = Resources.Load<Sprite>(splitIconRight[iconNumR]) as Sprite;
                     GameObject goImageRight = GameObject.Find("Icon2");
                     Image im2 = goImageRight.GetComponent<Image>();
@@ -194,8 +216,39 @@ public class TextScript : MonoBehaviour
                 //クリックアイコンを点滅する時間を超えた時、反転させる
                 if (elapsedTime >= clickFlashTime)
                 {
-                    clickIcon.enabled = !clickIcon.enabled;
+                    switch (changeFace)
+                    {
+                        case 0:
+                            clickIcon.enabled = !clickIcon.enabled;
+                            break;
+
+                        case 1:
+                            clickIcon2.enabled = !clickIcon2.enabled;
+                            break;
+
+                        case 2:
+                            clickIcon3.enabled = !clickIcon3.enabled;
+                            break;
+
+                        case 3:
+                            clickIcon4.enabled = !clickIcon4.enabled;
+                            break;
+                    }
+
+                    changeClickIcon = !changeClickIcon;
+
+                    if (!changeClickIcon)
+                    {
+                        changeFace++;
+                    }
+
+                    if (changeFace >= 4)
+                    {
+                        changeFace = 0;
+                    }
+
                     elapsedTime = 0f;
+
                 }
 
                 //エンターキーor左クリックを押したら次の文字表示処理
@@ -205,6 +258,11 @@ public class TextScript : MonoBehaviour
                     messageNum++;
                     messageText.text = "";
                     clickIcon.enabled = false;
+                    clickIcon2.enabled = false;
+                    clickIcon3.enabled = false;
+                    clickIcon4.enabled = false;
+                    changeFace = 0;
+                    changeClickIcon = false;
                     elapsedTime = 0f;
                     isOneMessage = false;
 
@@ -216,20 +274,28 @@ public class TextScript : MonoBehaviour
 
                     if (!nextLorR)
                     {
-                        iconNumL++;
+                        if (firstStandP)
+                        {
+                            iconNumL++;
+                        }
                     }
                     else if (nextLorR)
                     {
-                        iconNumR++;
+                        if (firstStandP)
+                        {
+                            iconNumR++;
+                        }
                     }
                     LRNum++;
+
+                    firstStandP = true;
 
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
                     if (messageNum >= splitMessage.Length)
                     {
                         isEndMessage = true;
                         TextOnOff = false;
-                        transform.GetChild(0).gameObject.SetActive(false);
+                        //transform.GetChild(0).gameObject.SetActive(false);
                         transform.GetChild(1).gameObject.SetActive(false);
                         transform.GetChild(2).gameObject.SetActive(false);
                         transform.GetChild(3).gameObject.SetActive(false);
@@ -241,6 +307,11 @@ public class TextScript : MonoBehaviour
             {
                 autoTimer += Time.deltaTime;
                 clickIcon.enabled = false;
+                clickIcon2.enabled = false;
+                clickIcon3.enabled = false;
+                clickIcon4.enabled = false;
+                changeFace = 0;
+
 
                 if (autoTimer >= autoTimerLimit)
                 {
@@ -248,6 +319,10 @@ public class TextScript : MonoBehaviour
                     messageNum++;
                     messageText.text = "";
                     clickIcon.enabled = false;
+                    clickIcon2.enabled = false;
+                    clickIcon3.enabled = false;
+                    clickIcon4.enabled = false;
+                    changeFace = 0;
                     elapsedTime = 0f;
                     isOneMessage = false;
 
@@ -259,12 +334,21 @@ public class TextScript : MonoBehaviour
 
                     if (!nextLorR)
                     {
-                        iconNumL++;
+                        if (firstStandP)
+                        {
+                            iconNumL++;
+                        }
                     }
                     else if (nextLorR)
                     {
-                        iconNumR++;
+                        if (firstStandP)
+                        {
+                            iconNumR++;
+                        }
                     }
+                    LRNum++;
+
+                    firstStandP = true;
 
                     autoTimer = 0f;
 
@@ -273,7 +357,7 @@ public class TextScript : MonoBehaviour
                     {
                         isEndMessage = true;
                         TextOnOff = false;
-                        transform.GetChild(0).gameObject.SetActive(false);
+                        //transform.GetChild(0).gameObject.SetActive(false);
                         transform.GetChild(1).gameObject.SetActive(false);
                         transform.GetChild(2).gameObject.SetActive(false);
                         transform.GetChild(3).gameObject.SetActive(false);
@@ -310,13 +394,15 @@ public class TextScript : MonoBehaviour
         TextOnOff = true;
 
         LRNum = 0;
+
+        firstStandP = false;
     }
 
     //他のスクリプトから新しいメッセージを設定し、UIをアクティブにする
     public void SetTextPanel(string message, string name, string iconLeft, string iconRight, string iconLorR)
     {
         SetText(message, name, iconLeft, iconRight, iconLorR);
-        transform.GetChild(0).gameObject.SetActive(true);
+        //transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(2).gameObject.SetActive(true);
         transform.GetChild(3).gameObject.SetActive(true);
