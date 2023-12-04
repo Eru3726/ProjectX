@@ -4,26 +4,62 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField, Header("パンチの当たり判定をつけてね")]
-    GameObject PlayerPunchPrefab;
+    [SerializeField, Header("パンチの当たり判定プレハブつけてね")]
+    GameObject PunchPrefab;
 
-    [SerializeField]
+    [SerializeField, Header("ファイヤーの当たり判定プレハブつけてね")]
+    GameObject FirePrefab;
+
+    [SerializeField, Header("アタッチしろ")]
     MoveController mc;
-    [SerializeField]
+
+    [SerializeField, Header("アタッチ")]
     HitCollider hc;
 
-    bool inputDodge = false;
-    float dodgeTime = 0;
+    List<bool> inputSkill = new List<bool>();
+    List<float> skillTime = new List<float>();
+
+    // 0 攻撃1
+    // 1 攻撃2
+    // 2 攻撃3
+    // 3
+    // 4
+    // 5 恋
+    // 6 愛
+    // 7
+    // 8
+    // 9
+    // 10 怒攻撃1
+    // 11 怒攻撃2
+    // 12 怒攻撃3
+    // 13 炎
+    // 14 突進
+    // 15 範囲
+    // 16
+    // 17
+    // 18
+    // 19
+    // 20 回避
+    // 21 バリア
+    // 22 ブリンク
+    // 23
+    // 24
 
     private void Start()
     {
         //mc = GetComponent<MoveController>();
         //hc = GetComponent<HitCollider>();
+
+        for (int i = 0; i < 25; i++)
+        {
+            inputSkill.Add(false);
+            skillTime.Add(0);
+        }
     }
 
     private void Update()
     {
-        // 左右入力
+        // 左右入力：A and D
         if (Input.GetKey(KeyCode.D)) { mc.InputLR(1); }
         else if (Input.GetKey(KeyCode.A)) { mc.InputLR(-1); }
         else { mc.InputLR(0); }
@@ -36,13 +72,12 @@ public class PlayerInput : MonoBehaviour
             transform.localScale = scale;
         }
 
-        // 上入力
+        // 上入力：W or space
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
         {
-            if (mc.gc.IsGround())
+            if (mc.IsGround())
             {
                 mc.InputJump();
-                return;
             }
         }
 
@@ -50,40 +85,135 @@ public class PlayerInput : MonoBehaviour
         Vector3 plDir = this.transform.position;
         plDir.x += transform.localScale.x;
 
-        // 攻撃
+        // 攻撃入力：P
         if (Input.GetKeyDown(KeyCode.P))
         {
-            GameObject temp = Instantiate(PlayerPunchPrefab, plDir, Quaternion.identity);
-            temp.transform.parent = this.transform;
-        }
-
-        // 回避
-        if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            inputDodge = true;
-            dodgeTime = 0.1f;
-
-            mc.InputFlick(plDir, 20, 0.1f);
-            hc.SetInvTime(0.3f);
-        }
-
-        // 空中停止
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            mc.InputFlickStop();
-        }
-
-        // 回避後処理
-        if (dodgeTime >= 0)
-        {
-            dodgeTime -= Time.deltaTime;
-        }
-        else
-        {
-            if(inputDodge)
+            if (skillTime[2] > 0)
             {
-                mc.InputFlickStop();
-                inputDodge = false;
+
+            }
+            else if (skillTime[1] > 0)
+            {
+                inputSkill[2] = true;
+                skillTime[2] = 1;
+            }
+            else if (skillTime[0] > 0)
+            {
+                inputSkill[1] = true;
+                skillTime[1] = 1;
+            }
+            else
+            {
+                inputSkill[0] = true;
+                skillTime[0] = 1;
+            }
+        }
+
+        // 攻撃処理
+        if (inputSkill[0])
+        {
+            GameObject temp = Instantiate(PunchPrefab, plDir, Quaternion.identity);
+            temp.transform.parent = this.transform;
+
+            temp.GetComponent<AttackCollider>().atkType = 1;
+
+            mc.InputFlick(plDir, 10, 0.2f, true);
+
+            inputSkill[0] = false;
+        }
+        else if (inputSkill[1])
+        {
+            GameObject temp = Instantiate(PunchPrefab, plDir, Quaternion.identity);
+            temp.transform.parent = this.transform;
+
+            Vector3 scale = temp.transform.localScale;
+            scale.y = 1.5f;
+            temp.transform.localScale = scale;
+
+            temp.GetComponent<AttackCollider>().atkType = 2;
+
+            mc.InputFlick(plDir, 15, 0.2f, true);
+
+            inputSkill[1] = false;
+        }
+        else if (inputSkill[2])
+        {
+            GameObject temp = Instantiate(PunchPrefab, plDir, Quaternion.identity);
+            temp.transform.parent = this.transform;
+
+            temp.GetComponent<AttackCollider>().atkType = 3;
+
+            Vector3 scale = temp.transform.localScale;
+            scale.y = 2f;
+            temp.transform.localScale = scale;
+
+            mc.InputFlick(plDir, 20, 0.2f, true);
+
+            inputSkill[2] = false;
+        }
+
+        // 回避：S or Shift
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            inputSkill[20] = true;
+            skillTime[20] = 0.1f;
+
+            mc.InputFlick(plDir, 20, 0.1f, true);
+            hc.SetInvTime(0.3f);
+
+            inputSkill[20] = false;
+        }
+
+        // スキル１火炎：F
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                GameObject temp = Instantiate(FirePrefab, transform.position, Quaternion.identity);
+                Vector3 lea = temp.transform.localEulerAngles;
+                lea.z = i * 60;
+                temp.transform.localEulerAngles = lea;
+            }
+            inputSkill[13] = true;
+            skillTime[13] = 1;
+        }
+
+        if (inputSkill[13])
+        {
+            if (skillTime[13] <= 0)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    GameObject temp = Instantiate(FirePrefab, transform.position, Quaternion.identity);
+                    Vector3 lea = temp.transform.localEulerAngles;
+                    lea.z = i * 60 + 30;
+                    temp.transform.localEulerAngles = lea;
+                }
+                inputSkill[13] = false;
+            }
+            else { mc.InputFlickStop(); }
+
+        }
+
+        // スキル３バリア：B
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        // スキル時間処理
+        for (int i = 0; i < 25; i++)
+        {
+            if (skillTime[i] > 0)
+            {
+                skillTime[i] -= Time.deltaTime;
+            }
+            else
+            {
+                skillTime[i] = 0;
             }
         }
     }
