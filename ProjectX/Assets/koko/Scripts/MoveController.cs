@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveController : MonoBehaviour
 {
     protected Rigidbody2D rb;
-    public GroundChecker gc;
+    protected GroundChecker gc;
 
     [SerializeField] protected float moveSpdX = 5;
     [SerializeField] protected float jumpPow = 10;
@@ -17,6 +17,7 @@ public class MoveController : MonoBehaviour
     protected float flickDir = 0;
     protected float flickPow = 0;
     protected float flickTime = 0;
+    protected bool flickStop = false;
 
     protected virtual void Start()
     {
@@ -45,6 +46,8 @@ public class MoveController : MonoBehaviour
 
     }
 
+
+
     protected virtual void InputControl()
     {
 
@@ -55,7 +58,7 @@ public class MoveController : MonoBehaviour
         Vector3 moveSpd = rb.velocity;
 
         // フリック（最優先）
-        if (flickTime >= 0)
+        if (flickTime > 0)
         {
             flickTime -= Time.deltaTime;
 
@@ -71,14 +74,15 @@ public class MoveController : MonoBehaviour
         }
         else
         {
+            // フリックストップ
+            if(flickStop)
+            {
+                InputFlickStop();
+                flickStop = false;
+            }
+
             // 通常移動
             moveSpd.x = inputLR * moveSpdX;
-
-            //if (inputLR != 0)
-            //{
-            //    moveSpd.x = inputLR * moveSpdX;
-            //    //if (gc.IsGround()) { moveSpd.x = inputLR * moveSpdX; }
-            //}
 
             // ジャンプ
             if (inputJump)
@@ -90,6 +94,8 @@ public class MoveController : MonoBehaviour
 
         rb.velocity = moveSpd;
     }
+
+
 
     public int GetLR()
     {
@@ -114,12 +120,23 @@ public class MoveController : MonoBehaviour
         flickTime = time;
     }
 
+    public void InputFlick(float dir, float pow, float time, bool stop)
+    {
+        InputFlick(dir, pow, time);
+        flickStop = stop;
+    }
+
     public void InputFlick(Vector3 pos, float pow, float time)
     {
         Vector3 posDis = pos - this.transform.position;
         float posDir = Mathf.Atan2(posDis.y, posDis.x) * Mathf.Rad2Deg;
-
         InputFlick(posDir, pow, time);
+    }
+
+    public void InputFlick(Vector3 pos, float pow, float time, bool stop)
+    {
+        InputFlick(pos, pow, time);
+        flickStop = stop;
     }
 
     public void InputFlickStop()
@@ -134,5 +151,10 @@ public class MoveController : MonoBehaviour
     public Vector3 GetVelocity()
     {
         return rb.velocity;
+    }
+
+    public bool IsGround()
+    {
+        return gc.IsGround();
     }
 }
