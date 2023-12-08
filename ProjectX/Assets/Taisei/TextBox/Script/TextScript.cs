@@ -413,4 +413,13 @@ public class TextScript : MonoBehaviour
     {
         return TextOnOff;
     }
+
+    public int Parameter
+    {
+        set
+        {
+            textSpeed = value;
+        }
+    }
+
 }
