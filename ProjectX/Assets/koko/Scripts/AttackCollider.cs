@@ -4,27 +4,30 @@ using UnityEngine;
 
 public class AttackCollider : MonoBehaviour
 {
-    // public float spd = 10;
+    [SerializeField, Header("ダメージ")]
     public float dmg = 5;
+
+    [SerializeField, Header("衝撃")]
     public float shock = 5;
 
+    [SerializeField, Header("属性")]
+    public int atkType = 0;
+
+    [SerializeField, Header("攻撃レイヤー")]
     public int atkLayer = 0;
     // 0 ニュートラル
     // 1 Player
     // 2 Enemy
 
+    [SerializeField, Header("生存時間オンオフ")]
+    protected bool lifeFlag = true;
+
     [SerializeField, Header("生存時間")]
-    float lifeTime = 2;
+    public float lifeTime = 2;
 
     private void FixedUpdate()
     {
-        // this.transform.Translate(Vector3.right * spd * Time.deltaTime);
-
-        lifeTime -= Time.deltaTime;
-        if (lifeTime < 0)
-        {
-            Destroy(this.gameObject);
-        }
+        if (lifeFlag) { UpdateLife(); }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,4 +37,14 @@ public class AttackCollider : MonoBehaviour
         //    Destroy(this.gameObject);
         //}
     }
+
+    protected void UpdateLife()
+    {
+        lifeTime -= Time.deltaTime;
+        if (lifeTime <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 }

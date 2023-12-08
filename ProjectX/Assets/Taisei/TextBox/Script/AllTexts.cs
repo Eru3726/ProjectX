@@ -5,72 +5,89 @@ using UnityEngine;
 public class AllTexts : MonoBehaviour
 {
     [SerializeField]
-    private SystemScript TextSystemScript;
+    private TextScript TextSystemScript;
 
-    //�\�������郁�b�Z�[�W
+    //表示させるメッセージ
     private string message;
 
 
-    //�\�������閼�O
+    //表示させる名前
     private string charaName;
 
-    //�\��������A�C�R�����@���A�C�R�����͉摜���Ɠ����ɂ��邱��
-    private string charaIcon;
+    //表示させるアイコン名　※アイコン名は画像名と同じにすること
+    private string charaIconLeft;
+    private string charaIconRight;
 
+    //どっちの立ち絵変更するか
+    //true=右 false=左
+    private string LorR;
 
-    //�g����
-    //�E�����Ƀe�L�X�g�E���O�E�A�C�R�����Ȃǂ���������ł���
-    //�E�䎌�E���O�E�A�C�R�����������ňꊇ�Ǘ�����
-    //�E�u<>�v������Ƃ��܂ł��ЂƂ̑䎌�ƂȂ�
-    //�E��ԍŌ�̂Ƃ���Ɂu<>�v������Ɠ��삪��肭�����Ȃ��Ȃ邽�߁A
-    //�@���Ȃ��悤�ɒ��ӂ��Ă�������
-    //�Easset�t�H���_�[��Resources�t�H���_�[�����A�����ɃA�C�R���p�̉摜������
-    //�E�����ɏ����A�C�R�����̓A�C�R���p�摜�̖��O�Ɠ����ɂ���
+    //使い方
+    //・ここにテキスト・名前・アイコン名などを書き込んでいく
+    //・台詞・名前・アイコン名をここで一括管理する
+    //・「<>」があるとこまでがひとつの台詞となる
+    //・一番最後のところに「<>」があると動作が上手くいかなくなるため、
+    //　つけないように注意してください
+    //・assetフォルダーにResourcesフォルダーを作り、そこにアイコン用の画像を入れる
+    //・ここに書くアイコン名はアイコン用画像の名前と同じにする
     //
-    //�\��������Ƃ�
-    //�X�N���v�g�Ɉȉ��̕���ǉ�
+    //表示させるとき
+    //スクリプトに以下の文を追加
     //[SerializeField] private AllTexts alltextsscript;
     //[SerializeField] private GameObject talkUI;
     //int textNo;
-    //���͂ǂ���Ƃ��Q�[���I�u�W�F�N�g�́uTalkUI�v��ݒ肷��
+    //上二つはどちらともゲームオブジェクトの「TalkUI」を設定する
     //
-    //�ȉ��̕���update�Ȃǂɒǉ����邱�Ƃő䎌�Ȃǂ�\������
-    //textNo = ���Z;���Ăяo�������Z���t�̔ԍ���ݒ�
+    //以下の文をupdateなどに追加することで台詞などを表示する
+    //textNo = ○〇;←呼び出したいセリフの番号を設定
     //talkUI.SetActive(true);
     //alltextsscript.SetAllTexts(textNo);
     //
-    //���g�p�ၨ�utestSet�v�X�N���v�g
+    //※使用例→「testSet」スクリプト
 
 
     public void SetAllTexts(int textNo)
     {
-        Debug.Log("��");
         switch (textNo)
         {
             case 0:
-                message = "����ɂ���<>" +
-                    "����̓e�X�g�ł�<>" +
-                    "���s�����\n�����Ȃ�܂��B";
-                charaName = "��<>" +
-                    "(�L�E�ցE�M)<>" +
-                    "�₟";
-                charaIcon = "��l������<>" +
-        "��1<>" +
-        "��l������<>";
-                Debug.Log("����");
+                message = "こんにちは<>" +
+                    "これはテストです<>" +
+                    "改行すると\nこうなります。<>" +
+                    "あいうえお<>" +
+                    "かきくけこ<>" +
+                    "さしすせそ";
+                charaName = "あ<>" +
+                    "(´・ω・｀)<>" +
+                    "やぁ<>" +
+                    "どうも<>" +
+                    "こんにちは<>" +
+                    "(´;ω;｀)";
+                charaIconLeft = "主人公困り<>" +
+                "公1<>" +
+                "主人公困り";
+                charaIconRight = "公1<>" +
+                    "主人公困り<>" +
+                    "公1";
+                LorR = "false<>" +
+                    "true<>" +
+                    "false<>" +
+                    "true<>" +
+                    "true<>" +
+                    "false";
                 break;
 
             case 1:
-                message = "����΂��<>" +
-                    "��2�̃e�X�g�ł�";
-                charaName = "�H�H�H<>" +
-                    "���m";
-                charaIcon = "��2<>" +
-                    "��3";
+                message = "こんばんは<>" +
+                    "第2のテストです";
+                charaName = "？？？<>" +
+                    "博士";
+                charaIconLeft = "公2<>" +
+                    "公3";
                 break;
         }
 
-        TextSystemScript.SetTextPanel(message, charaName, charaIcon);
+        TextSystemScript.SetTextPanel(message, charaName, charaIconLeft, charaIconRight, LorR);
 
     }
 }

@@ -1,0 +1,58 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "ParamGroup",
+			"Name": "移動_||_突き刺さり_||_一回転"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "Idle_||_move_||_ぶら下がり_||_落下"
+		},
+		{
+			"Id": "Param7",
+			"GroupId": "",
+			"Name": "スカートひらひら"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "前髪揺れ"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "",
+			"Name": "R_触覚揺れ"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "L_触覚揺れ"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "",
+			"Name": "後ろ髪揺れ"
+		},
+		{
+			"Id": "Param8",
+			"GroupId": "",
+			"Name": "フリフリ"
+		},
+		{
+			"Id": "Param9",
+			"GroupId": "",
+			"Name": "顔"
+		}
+	],
+	"ParameterGroups": [
+		{
+			"Id": "ParamGroup",
+			"GroupId": "",
+			"Name": "Do Not Touch"
+		}
+	],
+	"Parts": []
+}
