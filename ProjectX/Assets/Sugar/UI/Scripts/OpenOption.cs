@@ -7,7 +7,6 @@ public class OpenOption : MonoBehaviour
     [SerializeField] GameObject MenuObj;
     // フェード中のボタン制御
     [SerializeField] GameObject[] fadeList;
-    bool FADE = false;
     // Escキーの連打対策
     bool interval = true;
     // タイミングように

@@ -6,12 +6,15 @@ public class Config : MonoBehaviour
 {
     [SerializeField] GameObject Menu;
     [SerializeField] Text ConfigText;
-    private string[] Text = { "DISPLAY", "AUDIO", "KEYCONFIG" };
+    private string[] Text = { "Game", "AUDIO", "KEYCONFIG" };
 
-    [Header("0:ディスプレイ項目\n" +
+    [Header("0:ゲームプレイ項目\n" +
        " 1:オーディオ項目\n" +
        " 2:操作設定")]
     [SerializeField] GameObject[] List;
+    [Header("今選んでる項目を分かりやすくするためのもの")]
+    [SerializeField] Image[] Listpoint;
+    [SerializeField] GameObject[] List_OutlineScr;
 
     [SerializeField] GameObject OutLine;
     [SerializeField] GameObject Panel;
@@ -65,12 +68,30 @@ public class Config : MonoBehaviour
         for (int i = 0; i < List.Length; i++)
         {
             List[i].SetActive(false);
+            Listpoint[i].transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);// 仮のサイズ 
         }
         List[num].SetActive(true);
+        Listpoint[num].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);// 仮のサイズ 
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            // スクリプトを起動
+            switch (num)
+            {
+                case 0: // ゲーム
+                    List_OutlineScr[num].GetComponent<C_Game>().enabled = true;
+                    break;
+
+                case 1: // オーディオ
+
+                    break;
+                case 2: // 操作
+
+                    break;
+
+            }
             OutLine.SetActive(false);
             Panel.SetActive(false);
+            this.gameObject.GetComponent<Config>().enabled = false;
         }
     }
 }

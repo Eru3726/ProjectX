@@ -28,7 +28,6 @@ public class Fade : MonoBehaviour
         }
         else 
         {
-            Debug.Log("S");
             Menu.SetActive(false);
             Item.SetActive(true);
             this.gameObject.SetActive(false);

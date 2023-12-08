@@ -17,19 +17,13 @@ public class OutLine_Menu : MonoBehaviour
     [SerializeField] Text expText;
     // 他のものを起動した時にこれらを閉じるように
     [SerializeField] GameObject Menu;
-    bool INPUT = false;
     void Start()
     {
         rtf = GetComponent<RectTransform>();
     }
 
-    private void OnEnable()
-    {
-        INPUT = false;
-    }
     void Update()
     {
-        if (INPUT) { return; }
         // 上入力
         if (Input.GetKeyDown(KeyCode.W) &&
             rtf.anchoredPosition != new Vector2(525, -340))
@@ -74,8 +68,8 @@ public class OutLine_Menu : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            INPUT = true;
             Fadeitem[num].SetActive(true);
+            this.gameObject.GetComponent<OutLine_Menu>().enabled = false;
         }
     }
 }
