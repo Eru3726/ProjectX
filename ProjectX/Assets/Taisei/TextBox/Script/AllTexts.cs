@@ -65,7 +65,7 @@ public class AllTexts : MonoBehaviour
                     "(´;ω;｀)";
                 charaIconLeft = "主人公困り<>" +
                 "公1<>" +
-                "主人公困り<>";
+                "主人公困り";
                 charaIconRight = "公1<>" +
                     "主人公困り<>" +
                     "公1";
