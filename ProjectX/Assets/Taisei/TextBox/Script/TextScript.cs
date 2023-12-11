@@ -108,6 +108,18 @@ public class TextScript : MonoBehaviour
     //最初に出す立ち絵かどうか
     private bool firstStandP = false;
 
+    //live2Dprefab
+    //キャラクター番号
+    //0:
+    //1:
+    //2:
+    public List<GameObject> Charas = new List<GameObject>();
+
+    [SerializeField] private GameObject CharaConection;
+    [SerializeField] private Transform LeftPos;
+    [SerializeField] private Transform RightPos;
+    [SerializeField] private RawImage LeftImg;
+    [SerializeField] private RawImage RightImg;
 
     // Start is called before the first frame update
     void Start()
@@ -162,20 +174,34 @@ public class TextScript : MonoBehaviour
                 if (!LorR)
                 {
                     Debug.Log("左立ち絵更新");
-                    Sprite sprite1 = Resources.Load<Sprite>(splitIconLeft[iconNumL]) as Sprite;
-                    GameObject goImageLeft = GameObject.Find("Icon1");
-                    Image im1 = goImageLeft.GetComponent<Image>();
-                    im1.sprite = sprite1;
+                    //画像
+                    //Sprite sprite1 = Resources.Load<Sprite>(splitIconLeft[iconNumL]) as Sprite;
+                    //GameObject goImageLeft = GameObject.Find("Icon1");
+                    //Image im1 = goImageLeft.GetComponent<Image>();
+                    //im1.sprite = sprite1;
+
+                    //live2D
+                    Instantiate(Charas[int.Parse(splitIconLeft[iconNumL])], LeftPos);   //生成
+                    LeftImg.color = new Color(255, 255, 255);
+                    RightImg.color = new Color(140, 140, 140);
+
 
                 }
                 //立ち絵右
                 else if (LorR)
                 {
                     Debug.Log("右立ち絵更新");
-                    Sprite sprite2 = Resources.Load<Sprite>(splitIconRight[iconNumR]) as Sprite;
-                    GameObject goImageRight = GameObject.Find("Icon2");
-                    Image im2 = goImageRight.GetComponent<Image>();
-                    im2.sprite = sprite2;
+                    //画像
+                    //Sprite sprite2 = Resources.Load<Sprite>(splitIconRight[iconNumR]) as Sprite;
+                    //GameObject goImageRight = GameObject.Find("Icon2");
+                    //Image im2 = goImageRight.GetComponent<Image>();
+                    //im2.sprite = sprite2;
+
+                    //live2D
+                    Instantiate(Charas[int.Parse(splitIconRight[iconNumR])], RightPos);
+                    RightImg.color = new Color(255, 255, 255);
+                    LeftImg.color = new Color(140, 140, 140);
+
 
                 }
 
@@ -296,9 +322,10 @@ public class TextScript : MonoBehaviour
                         isEndMessage = true;
                         TextOnOff = false;
                         //transform.GetChild(0).gameObject.SetActive(false);
-                        transform.GetChild(1).gameObject.SetActive(false);
+                        //transform.GetChild(1).gameObject.SetActive(false);
                         transform.GetChild(2).gameObject.SetActive(false);
                         transform.GetChild(3).gameObject.SetActive(false);
+                        CharaConection.SetActive(false);
                         Time.timeScale = 1;
                     }
                 }
@@ -358,9 +385,10 @@ public class TextScript : MonoBehaviour
                         isEndMessage = true;
                         TextOnOff = false;
                         //transform.GetChild(0).gameObject.SetActive(false);
-                        transform.GetChild(1).gameObject.SetActive(false);
+                        //transform.GetChild(1).gameObject.SetActive(false);
                         transform.GetChild(2).gameObject.SetActive(false);
                         transform.GetChild(3).gameObject.SetActive(false);
+                        CharaConection.SetActive(false);
                         Time.timeScale = 1;
                     }
                 }
@@ -403,9 +431,10 @@ public class TextScript : MonoBehaviour
     {
         SetText(message, name, iconLeft, iconRight, iconLorR);
         //transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(1).gameObject.SetActive(true);
+        //transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(2).gameObject.SetActive(true);
         transform.GetChild(3).gameObject.SetActive(true);
+        CharaConection.SetActive(true);
         Time.timeScale = 0;
     }
 
@@ -413,6 +442,7 @@ public class TextScript : MonoBehaviour
     {
         return TextOnOff;
     }
+
 
     public float Parameter
     {

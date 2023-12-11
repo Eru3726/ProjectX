@@ -63,12 +63,19 @@ public class AllTexts : MonoBehaviour
                     "どうも<>" +
                     "こんにちは<>" +
                     "(´;ω;｀)";
-                charaIconLeft = "主人公困り<>" +
-                "公1<>" +
-                "主人公困り";
-                charaIconRight = "公1<>" +
-                    "主人公困り<>" +
-                    "公1";
+                //charaIconLeft = "主人公困り<>" +
+                //"公1<>" +
+                //"主人公困り";
+                //charaIconRight = "公1<>" +
+                //    "主人公困り<>" +
+                //    "公1";
+                charaIconLeft = "0<>" +
+                    "1<>" +
+                    "0";
+                charaIconRight = "1<>" +
+                    "0<>" +
+                    "1";
+
                 LorR = "false<>" +
                     "true<>" +
                     "false<>" +
