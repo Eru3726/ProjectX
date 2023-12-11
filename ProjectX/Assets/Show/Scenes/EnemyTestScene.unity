@@ -288,7 +288,6 @@ GameObject:
   - component: {fileID: 1733025513}
   - component: {fileID: 1733025512}
   - component: {fileID: 1733025511}
-  - component: {fileID: 1733025516}
   - component: {fileID: 1733025517}
   - component: {fileID: 1733025518}
   m_Layer: 6
@@ -310,15 +309,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b839d93737292634885883dbe768ecd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAtk: {fileID: 1733025516}
   currentState: 4
   Atkdis: 4
-  tracking: 1
+  movecheck: 1
   warpcheck: 1
   minX: 3
   maxX: 6
-  minY: 2
-  maxY: 6
+  minY: 0
+  maxY: 0
+  ShellPre: {fileID: 9103142274793599494, guid: 604c7d05a8e8f2e49aba5ab50721ec2e, type: 3}
 --- !u!61 &1733025512
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -408,7 +407,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.7264151, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -432,20 +431,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1733025516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1733025510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 151041d0d307b27478abd741e68cb61b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ChargeForce: 10
-  count: 0
 --- !u!114 &1733025517
 MonoBehaviour:
   m_ObjectHideFlags: 0

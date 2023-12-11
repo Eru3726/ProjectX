@@ -6,26 +6,33 @@ public class EnemyController : MonoBehaviour
 {
     GameObject player;
     MoveController mc;
+    MoveController plmc;
 
     Rigidbody2D rb;
 
-    [SerializeField] EnemyAtk enemyAtk;
-
     public EnemyState currentState;
     public int Atkdis = 4;
-    public bool tracking = true;
+    public bool movecheck = true;
     public bool warpcheck = true;
 
     public float minX = 3f;  // 移動可能なX座標の最小値
     public float maxX = 6f;   // 移動可能なX座標の最大値
     public float minY = 4f;   // 移動可能なY座標の最小値
     public float maxY = 6f;    // 移動可能なY座標の最大値
-    float warpdelay = 1f; //ワープするまでの時間
+
+    public GameObject ShellPre;
+
+   
+    float warpDelay = 1f; //ワープするまでの時間
+    float idolDelay = 1f;
+
 
     public enum EnemyState
     {
         Idol,
+        Idol2,
         Warp,
+        Warp2,
         Homing,
         Dash,
         Move,
@@ -40,22 +47,27 @@ public class EnemyController : MonoBehaviour
         player = GameObject.Find("Player");
         currentState = EnemyState.Move;
         mc = gameObject.GetComponent<MoveController>();
+        plmc = player.gameObject.GetComponent<MoveController>();
     }
 
     void FixedUpdate()
     {
-        Debug.Log(mc.GetLR());
-
         switch (currentState)
         {
 
-            case EnemyState.Idol:　//次の行動に移るための待機
+            case EnemyState.Idol: //次の行動に移るための待機
 
-                StartCoroutine(WaitForSomeTime(1f));
+                movecheck = true;
+                warpcheck = true;
+                currentState = EnemyState.Idol2;
+                StartCoroutine(IdolDelay());
+                break;
 
+            case EnemyState.Idol2: //保護
                 break;
 
             case EnemyState.Move: //ワープの処理
+                Debug.Log("Move");
 
                 EnemyMove(); //Enemyの通常時の動き
 
@@ -69,15 +81,21 @@ public class EnemyController : MonoBehaviour
 
             case EnemyState.Dash:　//突進の処理
 
+                Debug.Log("Dash");
+
                 EnemyDash();
                 break;
 
             case EnemyState.Warp:  //移動
-
                 Debug.Log("Warp");
-                StartCoroutine(WarpDelay());
+                currentState = EnemyState.Warp2;
 
+                StartCoroutine(WarpDelay());
                 break;
+
+            case EnemyState.Warp2:
+                break;
+
             case EnemyState.Down:　//ダウン
 
 
@@ -89,18 +107,25 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    IEnumerator WaitForSomeTime(float seconds)
+    IEnumerator IdolDelay()
     {
         Debug.Log("待機中");
-        yield return new WaitForSeconds(seconds);
-        mc.InputLR(0);
+        yield return new WaitForSeconds(idolDelay);
         currentState = EnemyState.Warp;
+    }
+
+    IEnumerator WarpDelay()
+    {
+        this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+        yield return new WaitForSeconds(warpDelay);
+        EnemyWarp();
     }
 
     public void EnemyMove()
     {
-        if (tracking)
+        if (movecheck && plmc.IsGround())
         {
+            Debug.Log("a");
             Vector2 playerPos = player.transform.position;
             Vector2 enemyPos = transform.position;
             //Vector2 pos = new Vector2(playerPos.x, 0);
@@ -114,18 +139,20 @@ public class EnemyController : MonoBehaviour
 
             if (dis <= Atkdis)
             {
+                mc.InputLR(0);
+
                 Debug.Log("追従");
                 currentState = EnemyState.Dash;
+
             }
         }
+        
     }
 
     public void EnemyDash()
     {
         Debug.Log("突進");
-        enemyAtk.EnemyAttack();
         mc.InputFlick(player.transform.position, 20, 0.3f, true);
-
         currentState = EnemyState.Idol;
     }
 
@@ -133,25 +160,24 @@ public class EnemyController : MonoBehaviour
     {
         if (warpcheck)
         {
-            this.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 6239);
+            this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
             Debug.Log(this.GetComponent<SpriteRenderer>().color);
+
             float randomX = Random.Range(minX, maxX);
             float randomY = Random.Range(minY, maxY);
-
             transform.position = new Vector3(randomX, randomY, 0);
+
             warpcheck = false;
         }
         currentState = EnemyState.Homing;
     }
-
-    IEnumerator WarpDelay()
-    {
-        this.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, -120);
-        yield return new WaitForSeconds(warpdelay);
-        EnemyWarp();
-    }
     public void EnemyHoming()
     {
-
+        for (int i = 0; i <= 15; i++)
+        {
+            Vector3 EnemyPos = transform.position;
+            Instantiate(ShellPre, EnemyPos, Quaternion.identity);
+        }
+        currentState = EnemyState.Down;
     }
 }
