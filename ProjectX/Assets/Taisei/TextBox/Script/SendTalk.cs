@@ -39,13 +39,15 @@ public class SendTalk : MonoBehaviour
         "公1<>" +
         "主人公困り<>" + "主人公困り<>" + "主人公困り<>" + "主人公困り<>" + "主人公困り";
 
+    private string LR = "false";
+
     void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
             obj.SetActive(true);
             //表示したいテキスト、キャラ名、キャラアイコンを送る
-            TextSystemScript.SetTextPanel(message, charaName, charaIcon, charaIcon);
+            TextSystemScript.SetTextPanel(message, charaName, charaIcon, charaIcon,LR);
         }
     }
 
