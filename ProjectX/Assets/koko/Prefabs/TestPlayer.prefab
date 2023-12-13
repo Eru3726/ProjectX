@@ -101,7 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f9327a23714224685d067f600af730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpdX: 5
+  moveX: 1
+  moveY: 0
+  moveSpd: {x: 5, y: 5}
   jumpPow: 10
 --- !u!114 &9188364585238201736
 MonoBehaviour:
@@ -130,10 +132,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164019d92e6891d4ea599182f853ee6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PunchPrefab: {fileID: 30877835086047478, guid: 432dbf6376b9c3d4a988adcf7af2408c, type: 3}
-  FirePrefab: {fileID: 3424937521654278364, guid: 92260d6e0accda947b22f51bdb80da18, type: 3}
+  NMPre: {fileID: 30877835086047478, guid: 432dbf6376b9c3d4a988adcf7af2408c, type: 3}
+  LBPre: {fileID: 6838571167799440004, guid: f02bc7fdb3b74454eb72df9731419c42, type: 3}
+  AFPre: {fileID: 3424937521654278364, guid: 92260d6e0accda947b22f51bdb80da18, type: 3}
   mc: {fileID: 9188364585238201739}
   hc: {fileID: 9188364585603081412}
+  actSkill: 
+  skillTime: []
+  coolTime: []
 --- !u!50 &9188364585238201737
 Rigidbody2D:
   serializedVersion: 4
@@ -282,6 +288,9 @@ MonoBehaviour:
   parent: {fileID: 9188364585238201743}
   maxHp: 20
   nowHp: 0
+  defence: 0
+  resist: 1
+  invincible: 1
   hitLayer: 1
   invTime: []
 --- !u!58 &9188364585603081413

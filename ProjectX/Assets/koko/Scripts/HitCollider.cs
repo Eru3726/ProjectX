@@ -16,11 +16,17 @@ public class HitCollider : MonoBehaviour
     [SerializeField, Header("現在HP（設定不要）")]
     protected float nowHp;
 
+    [SerializeField, Header("バリア")]
+    protected float barrier = 0;
+
     [SerializeField, Header("防御力（引き算）")]
     protected float defence = 0;
 
     [SerializeField, Header("衝撃耐性（倍率）")]
     protected float resist = 1;
+
+    [SerializeField, Header("無敵時間")]
+    protected float invincible = 1;
 
     [SerializeField, Header("被撃レイヤー")]
     protected StageData.LAYER_DATA hitLayer;
@@ -54,7 +60,16 @@ public class HitCollider : MonoBehaviour
         trueDmg = dmg - defence;
         if(trueDmg <= 0) { trueDmg = 1; }
 
-        nowHp -= trueDmg;
+        if (barrier > 0)
+        {
+            barrier -= trueDmg;
+        }
+        else
+        {
+            nowHp -= trueDmg;
+        }
+
+        if (barrier <= 0) { barrier = 0; }
 
         Vector3 shockDir = pos - this.transform.position;
         if (mc != null)
@@ -75,7 +90,7 @@ public class HitCollider : MonoBehaviour
 
     protected void UpdateInv()
     {
-        for (int i = 0; i <10; i++)
+        for (int i = 0; i < (int)StageData.ATK_DATA.Num; i++)
         {
             if (invTime[i] > 0)
             {
@@ -95,7 +110,7 @@ public class HitCollider : MonoBehaviour
             if (atk.atkLayer != hitLayer && invTime[(int)atk.atkType] <= 0)
             {
                 Damage(atk.dmg, atk.shock, atk.transform.position);
-                invTime[(int)atk.atkType] = 1;
+                invTime[(int)atk.atkType] = invincible;
             }
         }
     }
@@ -106,5 +121,15 @@ public class HitCollider : MonoBehaviour
         {
             invTime[i] = time;
         }
+    }
+
+    public void SetBarrier(float value)
+    {
+        barrier = value;
+    }
+
+    public StageData.LAYER_DATA GetHitLayer()
+    {
+        return hitLayer;
     }
 }

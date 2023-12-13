@@ -6,27 +6,44 @@ public class StageData
 {
     public enum SKILL_DATA
     {
-        N,      // 0
+        zero,
+        NM,
+        ND,
+        LM,
+        LB,
+        AM,
+        AF,
+        AC,
+        AA,
+        SB,
+        SD,
+        Num
+    }
+
+    public enum ACT_DATA
+    {
+        Zero,   // 0
         NM1,    // 1
         NM2,    // 2
         NM3,    // 3
-        LM1,    // 4
-        LB1,    // 5
-        AM1,    // 6
-        AM2,    // 7
-        AM3,    // 8
-        AF1,    // 9
-        AC1,    // 10
-        AA1,    // 11
-        ND1,    // 12
-        SB1,    // 13
-        SD1,    // 14
-        Num     // 15
+        ND1,    // 4
+        LM1,    // 5
+        LB1,    // 6
+        AM1,    // 7
+        AM2,    // 8
+        AM3,    // 9
+        AF1,    // 10
+        AF2,    // 11
+        AC1,    // 12
+        AA1,    // 13
+        SB1,    // 14
+        SD1,    // 15
+        Num     // 16
     }
 
     public enum ATK_DATA
     {
-        N,      // 0
+        Zero,   // 0
         NM1,    // 1
         NM2,    // 2
         NM3,    // 3

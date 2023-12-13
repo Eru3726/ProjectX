@@ -10,7 +10,7 @@ public class MoveController : MonoBehaviour
     [SerializeField] protected bool moveX = true;
     [SerializeField] protected bool moveY = false;
 
-    [SerializeField] public Vector2 speed = new Vector2(5, 5);
+    [SerializeField] public Vector2 moveSpd = new Vector2(5, 5);
     [SerializeField] public float jumpPow = 10;
 
     [Range(-1, 1)] protected int inputLR = 0;
@@ -50,7 +50,7 @@ public class MoveController : MonoBehaviour
 
     protected void MoveControl()
     {
-        Vector3 moveSpd = rb.velocity;
+        Vector3 moveVel = rb.velocity;
 
         // フリック（最優先）
         if (flickTime > 0)
@@ -62,8 +62,8 @@ public class MoveController : MonoBehaviour
                 Vector3 temp;
                 temp.x = flickPow * Mathf.Cos(flickDir * Mathf.Deg2Rad);
                 temp.y = flickPow * Mathf.Sin(flickDir * Mathf.Deg2Rad);
-                moveSpd.x = temp.x > 0 && temp.x > moveSpd.x || temp.x < 0 && temp.x < moveSpd.x ? temp.x : moveSpd.x;
-                moveSpd.y = temp.y > 0 && temp.y > moveSpd.y || temp.y < 0 && temp.y < moveSpd.y ? temp.y : moveSpd.y;
+                moveVel.x = temp.x > 0 && temp.x > moveVel.x || temp.x < 0 && temp.x < moveVel.x ? temp.x : moveVel.x;
+                moveVel.y = temp.y > 0 && temp.y > moveVel.y || temp.y < 0 && temp.y < moveVel.y ? temp.y : moveVel.y;
                 inputFlick = false;
             }
         }
@@ -79,24 +79,24 @@ public class MoveController : MonoBehaviour
             // 横移動
             if (moveX)
             {
-                moveSpd.x = inputLR * speed.x;
+                moveVel.x = inputLR * moveSpd.x;
             }
 
             // 縦移動
             if (moveY)
             {
-                moveSpd.y = inputUD * speed.y;
+                moveVel.y = inputUD * moveSpd.y;
             }
 
             // ジャンプ
             if (inputJump)
             {
-                moveSpd.y = jumpPow;
+                moveVel.y = jumpPow;
                 inputJump = false;
             }
         }
 
-        rb.velocity = moveSpd;
+        rb.velocity = moveVel;
     }
 
 
