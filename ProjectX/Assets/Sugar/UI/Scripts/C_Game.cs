@@ -26,14 +26,21 @@ public class C_Game : MonoBehaviour
     float Set_textSpd =0.04f;
     float Send_textSpd =0.04f;
 
+    // TalkUIが完成したらプレファブを差し込む
+    [SerializeField]TextScript textScr;
+
+    float wid = 0;
+    float hei = 0;
     private void Start()
     {
         obj = this.gameObject.GetComponent<RectTransform>();
-        Debug.Log("A");
+
+        // 初期化用
+        wid = obj.rect.width;
+        hei = obj.rect.height;
     }
     private void Update()
     {
-        Debug.Log(Send_textSpd);
         if (panel.activeSelf == true)
         {
             return;
@@ -59,6 +66,7 @@ public class C_Game : MonoBehaviour
     {
         Listnum = 0;
         method = 0;
+        this.gameObject.GetComponent<Image>().enabled = false;
         for (int i = 0; i < textspd.Length; i++)
         {
             textspd[i].GetComponent<Text>().enabled = false;
@@ -95,11 +103,21 @@ public class C_Game : MonoBehaviour
                     {
                         Copynum = num;
                         Send_textSpd = Set_textSpd;
+                      //  textScr.Parameter=Send_textSpd;
                         panel.SetActive(true);
                         ConfigP.GetComponent<Config>().enabled = true;
                         this.gameObject.GetComponent<C_Game>().enabled = false;
+                        this.gameObject.GetComponent<Image>().enabled = false;
                         Listnum = 0;
                     }
+                }
+                if(Input.GetKeyDown(KeyCode.Tab))
+                {
+                    panel.SetActive(true);
+                    ConfigP.GetComponent<Config>().enabled = true;
+                    this.gameObject.GetComponent<C_Game>().enabled = false;
+                    this.gameObject.GetComponent<Image>().enabled = false;
+                    Listnum = 0;
                 }
                 break;
             case 1:
@@ -118,15 +136,25 @@ public class C_Game : MonoBehaviour
                     }
                     method = 0;
                 }
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    for (int i = 0; i < textspd.Length; i++)
+                    {
+                        textspd[i].GetComponent<Text>().enabled = false;
+                    }
+                    method = 0;
+                    Listnum = 0;
+                }
                 break;
         }
     }
     void List_pos()
-    {
+    { 
         x = List[Listnum].anchoredPosition.x;
         y = List[Listnum].anchoredPosition.y;
         obj.anchoredPosition = new Vector2(x, y);
         obj.rotation = List[Listnum].rotation;
+        obj.sizeDelta = new Vector2(wid,hei);
     }
     void TextSpd_posChange()
     {
@@ -134,7 +162,8 @@ public class C_Game : MonoBehaviour
         y = textspd[num].anchoredPosition.y;
         obj.anchoredPosition = new Vector2(x, y);
         obj.rotation = textspd[num].rotation;
-        switch(num)
+        obj.sizeDelta = new Vector2(textspd[num].rect.width, textspd[num].rect.height);
+        switch (num)
         {
             case 0:
                 Set_textSpd = 0.08f;
@@ -147,6 +176,7 @@ public class C_Game : MonoBehaviour
                 break;
         }
     }
-   
+
 }
+
 

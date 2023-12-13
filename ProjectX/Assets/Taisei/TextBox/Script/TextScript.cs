@@ -414,11 +414,12 @@ public class TextScript : MonoBehaviour
         return TextOnOff;
     }
 
-    public int Parameter
+    public float Parameter
     {
         set
         {
             textSpeed = value;
+            Debug.Log(textSpeed);
         }
     }
 

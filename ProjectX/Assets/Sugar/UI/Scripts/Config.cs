@@ -19,19 +19,31 @@ public class Config : MonoBehaviour
     [SerializeField] GameObject OutLine;
     [SerializeField] GameObject Panel;
 
+    [SerializeField] Text[] rsText;
+    [SerializeField] GameObject[] rsitem;
+
     int InputNum=0;
     private void OnEnable()
     {
         // 最初の項目に設定
-        InputNum = 0;
+        // InputNum = 0;
         OutLine.SetActive(true);
         Panel.SetActive(true);
+        for(int i=0;i<rsText.Length;i++)
+        {
+            rsText[i].GetComponent<Text>().enabled = false;
+        }
+        for (int i = 0; i < rsitem.Length; i++)
+        {
+            rsitem[i].SetActive(false);
+        }
     }
     void Update()
     {
         // 入力
         InputKEY();
         ObjActive(InputNum);
+        Debug.Log(InputNum);
     }
 
     void InputKEY()
@@ -79,10 +91,12 @@ public class Config : MonoBehaviour
             {
                 case 0: // ゲーム
                     List_OutlineScr[num].GetComponent<C_Game>().enabled = true;
+                    List_OutlineScr[num].GetComponent<Image>().enabled = true;
                     break;
 
                 case 1: // オーディオ
-
+                    List_OutlineScr[num].GetComponent<C_Audio>().enabled = true;
+                    List_OutlineScr[num].GetComponent<Image>().enabled = true;
                     break;
                 case 2: // 操作
 

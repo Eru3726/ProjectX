@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WindowReset : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class WindowReset : MonoBehaviour
     // 初期座標
     [Header("0:X座標 1:Y座標 2:Z座標")]
     [SerializeField] float[] strPos;
+
+    [SerializeField] GameObject[] Resetitem;
+
     void OnEnable() 
     {
         // このオブジェクトの座標を初期位置にする
@@ -21,5 +25,9 @@ public class WindowReset : MonoBehaviour
             item[i].SetActive(false);
         }
         item[0].SetActive(true);
+        Resetitem[0].GetComponent<C_Game>().enabled = false;
+        Resetitem[0].GetComponent<Image>().enabled = false;
+        Resetitem[1].GetComponent<C_Audio>().enabled = false;
+        Resetitem[1].GetComponent<Image>().enabled = false;
     }
 }
