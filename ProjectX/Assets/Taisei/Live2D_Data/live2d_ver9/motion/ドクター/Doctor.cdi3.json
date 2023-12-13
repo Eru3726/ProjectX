@@ -1,0 +1,17 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "wark_||_utu"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "Idle_||_wire"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": []
+}

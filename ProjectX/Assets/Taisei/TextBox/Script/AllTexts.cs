@@ -18,6 +18,10 @@ public class AllTexts : MonoBehaviour
     private string charaIconLeft;
     private string charaIconRight;
 
+    //どっちの立ち絵変更するか
+    //true=右 false=左
+    private string LorR;
+
     //使い方
     //・ここにテキスト・名前・アイコン名などを書き込んでいく
     //・台詞・名前・アイコン名をここで一括管理する
@@ -44,23 +48,33 @@ public class AllTexts : MonoBehaviour
 
     public void SetAllTexts(int textNo)
     {
-        Debug.Log("仮");
         switch (textNo)
         {
             case 0:
                 message = "こんにちは<>" +
                     "これはテストです<>" +
-                    "改行すると\nこうなります。";
+                    "改行すると\nこうなります。<>" +
+                    "あいうえお<>" +
+                    "かきくけこ<>" +
+                    "さしすせそ";
                 charaName = "あ<>" +
                     "(´・ω・｀)<>" +
-                    "やぁ";
+                    "やぁ<>" +
+                    "どうも<>" +
+                    "こんにちは<>" +
+                    "(´;ω;｀)";
                 charaIconLeft = "主人公困り<>" +
                 "公1<>" +
-                "主人公困り<>";
+                "主人公困り";
                 charaIconRight = "公1<>" +
                     "主人公困り<>" +
                     "公1";
-                Debug.Log("おｋ");
+                LorR = "false<>" +
+                    "true<>" +
+                    "false<>" +
+                    "true<>" +
+                    "true<>" +
+                    "false";
                 break;
 
             case 1:
@@ -73,7 +87,7 @@ public class AllTexts : MonoBehaviour
                 break;
         }
 
-        TextSystemScript.SetTextPanel(message, charaName, charaIconLeft, charaIconRight);
+        TextSystemScript.SetTextPanel(message, charaName, charaIconLeft, charaIconRight, LorR);
 
     }
 }
