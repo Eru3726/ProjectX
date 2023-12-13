@@ -116,8 +116,10 @@ public class TextScript : MonoBehaviour
     public List<GameObject> Charas = new List<GameObject>();
 
     [SerializeField] private GameObject CharaConection;
-    [SerializeField] private Transform LeftPos;
-    [SerializeField] private Transform RightPos;
+    [SerializeField] private Transform LeftPosT;
+    [SerializeField] private GameObject LeftPos;
+    [SerializeField] private Transform RightPosT;
+    [SerializeField] private GameObject RightPos;
     [SerializeField] private RawImage LeftImg;
     [SerializeField] private RawImage RightImg;
 
@@ -181,9 +183,17 @@ public class TextScript : MonoBehaviour
                     //im1.sprite = sprite1;
 
                     //live2D
-                    Instantiate(Charas[int.Parse(splitIconLeft[iconNumL])], LeftPos);   //生成
-                    LeftImg.color = new Color(255, 255, 255);
-                    RightImg.color = new Color(140, 140, 140);
+                    if (firstStandP)
+                    {
+                        foreach(Transform child in LeftPos.transform)
+                        {
+                            Destroy(child.gameObject);
+                        }
+                    }
+
+                    Instantiate(Charas[int.Parse(splitIconLeft[iconNumL])], LeftPosT);   //生成
+                    LeftImg.color = new Color(255, 255, 255, 1);
+                    RightImg.color = Color.gray;
 
 
                 }
@@ -198,9 +208,16 @@ public class TextScript : MonoBehaviour
                     //im2.sprite = sprite2;
 
                     //live2D
-                    Instantiate(Charas[int.Parse(splitIconRight[iconNumR])], RightPos);
-                    RightImg.color = new Color(255, 255, 255);
-                    LeftImg.color = new Color(140, 140, 140);
+                    if (firstStandP)
+                    {
+                        foreach (Transform child in RightPos.transform)
+                        {
+                            Destroy(child.gameObject);
+                        }
+                    }
+                    Instantiate(Charas[int.Parse(splitIconRight[iconNumR])], RightPosT);
+                    RightImg.color = new Color(255, 255, 255, 1);
+                    LeftImg.color = Color.gray;
 
 
                 }
