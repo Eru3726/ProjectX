@@ -5,14 +5,21 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     GameObject player;
+   
     MoveController mc;
+   
     MoveController plmc;
 
+    
     Rigidbody2D rb;
 
+    [Header("Enemyの挙動")]
     public EnemyState currentState;
+    [Header("Playerとの距離")]
     public int Atkdis = 4;
+    [Header("Warpのbool型変数")]
     public bool movecheck = true;
+    [Header("Moveのbool型変数")]
     public bool warpcheck = true;
 
     public float minX = 3f;  // 移動可能なX座標の最小値
@@ -20,11 +27,12 @@ public class EnemyController : MonoBehaviour
     public float minY = 4f;   // 移動可能なY座標の最小値
     public float maxY = 6f;    // 移動可能なY座標の最大値
 
+    [Header("Enemyの弾Prefab")]
     public GameObject ShellPre;
 
    
     float warpDelay = 1f; //ワープするまでの時間
-    float idolDelay = 1f;
+    float idolDelay = 1f; //待機時間
 
 
     public enum EnemyState
@@ -152,7 +160,7 @@ public class EnemyController : MonoBehaviour
     public void EnemyDash()
     {
         Debug.Log("突進");
-        mc.InputFlick(player.transform.position, 20, 0.3f, true);
+        mc.InputFlick(player.transform.position, 30, 0.3f, true);
         currentState = EnemyState.Idol;
     }
 
@@ -173,11 +181,19 @@ public class EnemyController : MonoBehaviour
     }
     public void EnemyHoming()
     {
-        for (int i = 0; i <= 15; i++)
-        {
-            Vector3 EnemyPos = transform.position;
-            Instantiate(ShellPre, EnemyPos, Quaternion.identity);
-        }
-        currentState = EnemyState.Down;
+        //for (int i = 0; i <= 15; i++)
+        //{
+        //    Vector3 EnemyPos = transform.position;
+        //    Instantiate(ShellPre, EnemyPos, Quaternion.identity);
+        //}
+        currentState = EnemyState.Move;
+    }
+    public void EnemyDown()
+    {
+
+    }
+    public void EnemyDie()
+    {
+
     }
 }

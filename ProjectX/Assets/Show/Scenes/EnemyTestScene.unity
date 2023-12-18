@@ -213,6 +213,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9188364585238201739, guid: 33a6e12cbf8e9664080be5fb7ed83822, type: 3}
+      propertyPath: jumpPow
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 9188364585238201743, guid: 33a6e12cbf8e9664080be5fb7ed83822, type: 3}
       propertyPath: m_Name
       value: Player
@@ -309,12 +313,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b839d93737292634885883dbe768ecd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 4
+  currentState: 6
   Atkdis: 4
   movecheck: 1
   warpcheck: 1
-  minX: 3
-  maxX: 6
+  minX: 2
+  maxX: 8
   minY: 0
   maxY: 0
   ShellPre: {fileID: 9103142274793599494, guid: 604c7d05a8e8f2e49aba5ab50721ec2e, type: 3}
@@ -458,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f9327a23714224685d067f600af730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpdX: 5
+  moveSpdX: 8
   jumpPow: 10
 --- !u!1 &1878370765
 GameObject:
