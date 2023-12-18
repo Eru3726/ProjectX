@@ -123,7 +123,9 @@ public class TextScript : MonoBehaviour
     [SerializeField] private RawImage LeftImg;
     [SerializeField] private RawImage RightImg;
 
-    // Start is called before the first frame update
+    //アニメーション関連
+    Animator anim;
+
     void Start()
     {
         clickIcon = transform.Find("TextPanel/Cursor1").GetComponent<Image>();
@@ -147,7 +149,6 @@ public class TextScript : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         //messageが終わっているか、メッセージがない場合はこれ以降何もしない
@@ -195,6 +196,9 @@ public class TextScript : MonoBehaviour
                     LeftImg.color = new Color(255, 255, 255, 1);
                     RightImg.color = Color.gray;
 
+                    //アニメーション関連
+                    anim = GameObject.Find(Charas[int.Parse(splitIconLeft[iconNumL])].name + "(Clone)").GetComponent<Animator>();
+                    anim.Play("Main_rotation_Animation");
 
                 }
                 //立ち絵右
@@ -219,8 +223,12 @@ public class TextScript : MonoBehaviour
                     RightImg.color = new Color(255, 255, 255, 1);
                     LeftImg.color = Color.gray;
 
+                    //アニメーション関連の
+                    anim = GameObject.Find(Charas[int.Parse(splitIconRight[iconNumR])].name + "(Clone)").GetComponent<Animator>();
+                    anim.Play("Doctor_Wire_Animation");
 
                 }
+
 
             }
             //テキスト表示時間を経過したらメッセージを追加
