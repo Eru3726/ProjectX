@@ -125,6 +125,13 @@ public class TextScript : MonoBehaviour
 
     //アニメーション関連
     Animator anim;
+    private string allAnims;
+    private string[] splitAnims;
+    private int animsNum;
+    //アニメーション配列
+    [SerializeField] private string[] chara1_anim;
+    [SerializeField] private string[] chara2_anim;
+
 
     void Start()
     {
@@ -144,7 +151,7 @@ public class TextScript : MonoBehaviour
 
         nameText = transform.GetChild(3).GetComponentInChildren<Text>();
         nameText.text = "";
-        SetText(allMessage, allName, allIconLeft,allIconRight,allLR);
+        SetText(allMessage, allName, allIconLeft, allIconRight, allLR, allAnims);
 
 
     }
@@ -198,7 +205,7 @@ public class TextScript : MonoBehaviour
 
                     //アニメーション関連
                     anim = GameObject.Find(Charas[int.Parse(splitIconLeft[iconNumL])].name + "(Clone)").GetComponent<Animator>();
-                    anim.Play("Main_rotation_Animation");
+                    anim.Play(chara1_anim[0]);
 
                 }
                 //立ち絵右
@@ -225,7 +232,7 @@ public class TextScript : MonoBehaviour
 
                     //アニメーション関連の
                     anim = GameObject.Find(Charas[int.Parse(splitIconRight[iconNumR])].name + "(Clone)").GetComponent<Animator>();
-                    anim.Play("Doctor_Wire_Animation");
+                    anim.Play(chara2_anim[1]);
 
                 }
 
@@ -421,19 +428,22 @@ public class TextScript : MonoBehaviour
         }
     }
 
-    void SetText(string message, string name, string iconLeft, string iconRight, string iconLorR)
+    void SetText(string message, string name, string iconLeft, string iconRight, string iconLorR, string anims)
     {
         this.allMessage = message;
         this.allName = name;
         this.allIconLeft = iconLeft;
         this.allIconRight = iconRight;
         this.allLR = iconLorR;
+        this.allAnims = anims;
         //分割文字列で一回に表示するメッセージを分割する
         splitMessage = Regex.Split(allMessage, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitName = Regex.Split(allName, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitIconLeft = Regex.Split(allIconLeft, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitIconRight = Regex.Split(allIconRight, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitLR = Regex.Split(allLR, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        splitAnims= Regex.Split(allAnims, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+
         nowTextNum = 0;
         messageNum = 0;
         messageText.text = "";
@@ -448,13 +458,15 @@ public class TextScript : MonoBehaviour
 
         LRNum = 0;
 
+        animsNum = 0;
+
         firstStandP = false;
     }
 
     //他のスクリプトから新しいメッセージを設定し、UIをアクティブにする
-    public void SetTextPanel(string message, string name, string iconLeft, string iconRight, string iconLorR)
+    public void SetTextPanel(string message, string name, string iconLeft, string iconRight, string iconLorR, string anims)
     {
-        SetText(message, name, iconLeft, iconRight, iconLorR);
+        SetText(message, name, iconLeft, iconRight, iconLorR, anims);
         //transform.GetChild(0).gameObject.SetActive(true);
         //transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(2).gameObject.SetActive(true);

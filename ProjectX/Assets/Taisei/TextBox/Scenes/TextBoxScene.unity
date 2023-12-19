@@ -1607,6 +1607,7 @@ MonoBehaviour:
   Charas:
   - {fileID: 3599249201339241431, guid: 346344c5b5743094380eb4c4a1834688, type: 3}
   - {fileID: 6435309048720358627, guid: b0ae3653ced5bff4b8ee9cd6183ebd1f, type: 3}
+  - {fileID: 3316196154802180258, guid: 82e1f88b3bfb3144e8b5ba03d4184d7d, type: 3}
   CharaConection: {fileID: 1798310086}
   LeftPosT: {fileID: 17112951}
   LeftPos: {fileID: 17112950}
@@ -1614,6 +1615,12 @@ MonoBehaviour:
   RightPos: {fileID: 700981789}
   LeftImg: {fileID: 382917447}
   RightImg: {fileID: 987788701}
+  chara1_anim:
+  - Main_Idle_Animation
+  - Main_rotation_Animation
+  chara2_anim:
+  - Doctor_Idle_Animation
+  - Doctor_Wire_Animation
 --- !u!1 &1228290736
 GameObject:
   m_ObjectHideFlags: 0

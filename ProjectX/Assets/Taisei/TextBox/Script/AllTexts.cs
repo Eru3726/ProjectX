@@ -22,6 +22,9 @@ public class AllTexts : MonoBehaviour
     //true=右 false=左
     private string LorR;
 
+    //アニメーション番号
+    private string anims;
+
     //使い方
     //・ここにテキスト・名前・アイコン名などを書き込んでいく
     //・台詞・名前・アイコン名をここで一括管理する
@@ -82,6 +85,13 @@ public class AllTexts : MonoBehaviour
                     "true<>" +
                     "true<>" +
                     "false";
+
+                anims = "0<>" +
+                    "0<>" +
+                    "1<>" +
+                    "1<>" +
+                    "0<>" +
+                    "0<>";
                 break;
 
             case 1:
@@ -94,7 +104,7 @@ public class AllTexts : MonoBehaviour
                 break;
         }
 
-        TextSystemScript.SetTextPanel(message, charaName, charaIconLeft, charaIconRight, LorR);
+        TextSystemScript.SetTextPanel(message, charaName, charaIconLeft, charaIconRight, LorR, anims);
 
     }
 }
