@@ -10,13 +10,19 @@ public class ElisManager : MonoBehaviour
     //Avatar
     //FallingAttack
 
+    [SerializeField]
+    private LastBossData lastBossData;
+
     void Start()
     {
-        
-    }
+        Debug.Log(lastBossData.ElisFastData[0].hp);
+        Debug.Log(lastBossData.ElisFastData[0].attackPower);
+        Debug.Log(lastBossData.ElisFastData[0].defensePower);
+        Debug.Log(lastBossData.ElisFastData[0].speed);
 
-    void Update()
-    {
-        
+        Debug.Log(lastBossData.ElisSecondData[0].hp);
+        Debug.Log(lastBossData.ElisSecondData[0].attackPower);
+        Debug.Log(lastBossData.ElisSecondData[0].defensePower);
+        Debug.Log(lastBossData.ElisSecondData[0].speed);
     }
 }
