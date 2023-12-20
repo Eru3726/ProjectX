@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AllTexts : MonoBehaviour
 {
+    public TextData[] textData;
+
     [SerializeField]
     private TextScript TextSystemScript;
 
@@ -15,8 +17,9 @@ public class AllTexts : MonoBehaviour
     private string charaName;
 
     //表示させるアイコン名　※アイコン名は画像名と同じにすること
-    private string charaIconLeft;
-    private string charaIconRight;
+    //private string charaIconLeft;
+    //private string charaIconRight;
+    private string charaIcon;
 
     //どっちの立ち絵変更するか
     //true=右 false=左
@@ -49,6 +52,7 @@ public class AllTexts : MonoBehaviour
     //※使用例→「testSet」スクリプト
 
 
+
     public void SetAllTexts(int textNo)
     {
         switch (textNo)
@@ -72,12 +76,18 @@ public class AllTexts : MonoBehaviour
                 //charaIconRight = "公1<>" +
                 //    "主人公困り<>" +
                 //    "公1";
-                charaIconLeft = "0<>" +
+                //charaIconLeft = "0<>" +
+                //    "1<>" +
+                //    "0";
+                //charaIconRight = "1<>" +
+                //    "0<>" +
+                //    "1";
+                charaIcon = "0<>" +
+                    "1<>" +
+                    "1<>" +
+                    "0<>" +
                     "1<>" +
                     "0";
-                charaIconRight = "1<>" +
-                    "0<>" +
-                    "1";
 
                 LorR = "false<>" +
                     "true<>" +
@@ -99,12 +109,31 @@ public class AllTexts : MonoBehaviour
                     "第2のテストです";
                 charaName = "？？？<>" +
                     "博士";
-                charaIconLeft = "公2<>" +
+                charaIcon = "公2<>" +
                     "公3";
+                break;
+
+            case 999:
+                TextAsset textAsset = new TextAsset();
+                textAsset = Resources.Load("testText", typeof(TextAsset)) as TextAsset;
+                textData = CSVSerializer.Deserialize<TextData>(textAsset.text);
                 break;
         }
 
-        TextSystemScript.SetTextPanel(message, charaName, charaIconLeft, charaIconRight, LorR, anims);
+        TextSystemScript.SetTextPanel(message, charaName, charaIcon, LorR, anims);
 
     }
+}
+
+
+
+//テキスト
+[System.Serializable]
+public class TextData
+{
+    public string message;
+    public string charaName;
+    public string charaIcon;
+    public string LorR;
+    public string anims;
 }

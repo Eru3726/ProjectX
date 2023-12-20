@@ -55,14 +55,17 @@ public class TextScript : MonoBehaviour
     //表示するアイコンの名前
     [SerializeField]
     [TextArea(1, 5)]
-    private string allIconLeft = "主人公困り";
-    private string allIconRight = "公1";
+    //private string allIconLeft = "主人公困り";
+    //private string allIconRight = "公1";
+    private string allIcon;
     //分割したアイコン名
-    private string[] splitIconLeft;
-    private string[] splitIconRight;
+    //private string[] splitIconLeft;
+    //private string[] splitIconRight;
+    private string[] splitIcon;
     //アイコン配列の何番目か
-    private int iconNumL;
-    private int iconNumR;
+    //private int iconNumL;
+    //private int iconNumR;
+    private int iconNum;
 
 
     //名前UI
@@ -128,6 +131,7 @@ public class TextScript : MonoBehaviour
     private string allAnims;
     private string[] splitAnims;
     private int animsNum;
+    private string animStr;
     //アニメーション配列
     [SerializeField] private string[] chara1_anim;
     [SerializeField] private string[] chara2_anim;
@@ -151,7 +155,7 @@ public class TextScript : MonoBehaviour
 
         nameText = transform.GetChild(3).GetComponentInChildren<Text>();
         nameText.text = "";
-        SetText(allMessage, allName, allIconLeft, allIconRight, allLR, allAnims);
+        SetText(allMessage, allName, allIcon, allLR, allAnims);
 
 
     }
@@ -181,6 +185,7 @@ public class TextScript : MonoBehaviour
 
                 //アイコン表示
                 //立ち絵左
+                Debug.Log(splitIcon[iconNum]);
                 if (!LorR)
                 {
                     Debug.Log("左立ち絵更新");
@@ -199,13 +204,23 @@ public class TextScript : MonoBehaviour
                         }
                     }
 
-                    Instantiate(Charas[int.Parse(splitIconLeft[iconNumL])], LeftPosT);   //生成
+                    Instantiate(Charas[int.Parse(splitIcon[iconNum])], LeftPosT);   //生成
                     LeftImg.color = new Color(255, 255, 255, 1);
                     RightImg.color = Color.gray;
 
                     //アニメーション関連
-                    anim = GameObject.Find(Charas[int.Parse(splitIconLeft[iconNumL])].name + "(Clone)").GetComponent<Animator>();
-                    anim.Play(chara1_anim[0]);
+                    anim =LeftPos.transform.Find(Charas[int.Parse(splitIcon[iconNum])].name + "(Clone)").GetComponent<Animator>();
+                    switch (int.Parse(splitIcon[iconNum]))
+                    {
+                        case 0:
+                            animStr = chara1_anim[int.Parse(splitAnims[animsNum])];
+                            break;
+
+                        case 1:
+                            animStr = chara2_anim[int.Parse(splitAnims[animsNum])];
+                            break;
+                    }
+                    anim.Play(animStr);
 
                 }
                 //立ち絵右
@@ -226,13 +241,24 @@ public class TextScript : MonoBehaviour
                             Destroy(child.gameObject);
                         }
                     }
-                    Instantiate(Charas[int.Parse(splitIconRight[iconNumR])], RightPosT);
+                    Instantiate(Charas[int.Parse(splitIcon[iconNum])], RightPosT);
                     RightImg.color = new Color(255, 255, 255, 1);
                     LeftImg.color = Color.gray;
 
                     //アニメーション関連の
-                    anim = GameObject.Find(Charas[int.Parse(splitIconRight[iconNumR])].name + "(Clone)").GetComponent<Animator>();
-                    anim.Play(chara2_anim[1]);
+                    anim = RightPos.transform.Find(Charas[int.Parse(splitIcon[iconNum])].name + "(Clone)").GetComponent<Animator>();
+                    switch (int.Parse(splitIcon[iconNum]))
+                    {
+                        case 0:
+                            animStr = chara1_anim[int.Parse(splitAnims[animsNum])];
+                            break;
+
+                        case 1:
+                            animStr = chara2_anim[int.Parse(splitAnims[animsNum])];
+                            break;
+                    }
+
+                    anim.Play(animStr);
 
                 }
 
@@ -330,21 +356,11 @@ public class TextScript : MonoBehaviour
                     isOneMessage = false;
                     checkName = false;
 
-                    if (!nextLorR)
-                    {
-                        if (firstStandP)
-                        {
-                            iconNumL++;
-                        }
-                    }
-                    else if (nextLorR)
-                    {
-                        if (firstStandP)
-                        {
-                            iconNumR++;
-                        }
-                    }
+                    iconNum++;
+
                     LRNum++;
+
+                    animsNum++;
 
                     firstStandP = true;
 
@@ -391,20 +407,8 @@ public class TextScript : MonoBehaviour
                     isOneMessage = false;
                     checkName = false;
 
-                    if (!nextLorR)
-                    {
-                        if (firstStandP)
-                        {
-                            iconNumL++;
-                        }
-                    }
-                    else if (nextLorR)
-                    {
-                        if (firstStandP)
-                        {
-                            iconNumR++;
-                        }
-                    }
+                    iconNum++;
+
                     LRNum++;
 
                     firstStandP = true;
@@ -428,27 +432,30 @@ public class TextScript : MonoBehaviour
         }
     }
 
-    void SetText(string message, string name, string iconLeft, string iconRight, string iconLorR, string anims)
+    void SetText(string message, string name, string icon, string iconLorR, string anims)
     {
         this.allMessage = message;
         this.allName = name;
-        this.allIconLeft = iconLeft;
-        this.allIconRight = iconRight;
+        //this.allIconLeft = iconLeft;
+        //this.allIconRight = iconRight;
+        this.allIcon = icon;
         this.allLR = iconLorR;
         this.allAnims = anims;
         //分割文字列で一回に表示するメッセージを分割する
         splitMessage = Regex.Split(allMessage, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitName = Regex.Split(allName, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
-        splitIconLeft = Regex.Split(allIconLeft, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
-        splitIconRight = Regex.Split(allIconRight, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        //splitIconLeft = Regex.Split(allIconLeft, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        //splitIconRight = Regex.Split(allIconRight, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        splitIcon= Regex.Split(allIcon, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitLR = Regex.Split(allLR, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
         splitAnims= Regex.Split(allAnims, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
 
         nowTextNum = 0;
         messageNum = 0;
         messageText.text = "";
-        iconNumL = 0;
-        iconNumR = 0;
+        //iconNumL = 0;
+        //iconNumR = 0;
+        iconNum = 0;
         nowNameNum = 0;
         nameNum = 0;
         nameText.text = "";
@@ -464,9 +471,9 @@ public class TextScript : MonoBehaviour
     }
 
     //他のスクリプトから新しいメッセージを設定し、UIをアクティブにする
-    public void SetTextPanel(string message, string name, string iconLeft, string iconRight, string iconLorR, string anims)
+    public void SetTextPanel(string message, string name, string icon, string iconLorR, string anims)
     {
-        SetText(message, name, iconLeft, iconRight, iconLorR, anims);
+        SetText(message, name, icon, iconLorR, anims);
         //transform.GetChild(0).gameObject.SetActive(true);
         //transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(2).gameObject.SetActive(true);
