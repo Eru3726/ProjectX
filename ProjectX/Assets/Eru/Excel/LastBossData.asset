@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: LastBossData
   m_EditorClassIdentifier: 
   ElisFastData:
-  - hp: 150
-    attackPower: 15
+  - hitPoint: 150
+    fallingAttackPower: 30
     defensePower: 20
-    speed: 10
+    moveSpeed: 10
+    b_AttackPower: 10
+    b_MoveSpeed: 10
+    b_MoveTime: 5
   ElisSecondData:
   - hp: 300
     attackPower: 30
