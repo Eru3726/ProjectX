@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 1177302713}
   - component: {fileID: 1177302717}
   - component: {fileID: 1177302716}
+  - component: {fileID: 1177302718}
   m_Layer: 0
   m_Name: Elis
   m_TagString: Untagged
@@ -259,6 +260,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1177302718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177302712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044834364507f4ba0bdf7bc8ff7724ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetSpriteRenderer: {fileID: 1177302714}
+  _afterImageNum: 2
+  _ignoreTimeScale: 0
+  _colorList:
+  - {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+  _isSameColor: 1
+  _materialType: 0
+  _materialList: []
+  _span: 0.05
+  _duraction: 0.1
+  _fadeTime: 0.05
+  _colorNum: 1
+  _materialNum: 1
 --- !u!1 &2084667545
 GameObject:
   m_ObjectHideFlags: 0
