@@ -11,8 +11,10 @@ public enum Elis_MoveType
     FormChange,     //6.形態変化
 }
 
-public class ElisManager : MonoBehaviour
+public class ElisManager : MonoBehaviour, IDamageable
 {
+    public int Health => hp;
+
     [SerializeField,Tooltip("ボスデータ")]
     private LastBossData lastBossData;
 
@@ -24,6 +26,7 @@ public class ElisManager : MonoBehaviour
 
     private float moveSpeed;
 
+    private bool halfHP = false;
 
     void Awake()
     {
@@ -39,5 +42,21 @@ public class ElisManager : MonoBehaviour
 
         moveType = Elis_MoveType.Entry;
         rb.gravityScale = 0;
+        halfHP = false;
+    }
+
+    /// <summary>
+    /// ダメージ処理
+    /// </summary>
+    /// <param name="value"></param>
+    public void TakeDamage(int value)
+    {
+        hp -= value;
+        if (hp <= 0)
+        {
+            // Healthが0になった場合の処理
+            moveType = Elis_MoveType.FormChange;
+        }
+        else if (hp <= lastBossData.ElisFastData[0].hitPoint / 2 && !halfHP) halfHP = true;
     }
 }
