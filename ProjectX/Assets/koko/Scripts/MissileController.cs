@@ -8,6 +8,9 @@ public class MissileController : MonoBehaviour
     GameObject target;
 
     [SerializeField]
+    StageData.LAYER_DATA targetLayer = StageData.LAYER_DATA.Enemy;
+
+    [SerializeField]
     LayerMask targetLm;
 
     [SerializeField]
@@ -17,7 +20,7 @@ public class MissileController : MonoBehaviour
     float rotSpd = 10;
 
     [SerializeField]
-    public float startCount = 1;
+    public float delayCount = 1;
 
     [SerializeField]
     float rayLen = 5;
@@ -35,9 +38,9 @@ public class MissileController : MonoBehaviour
     private void FixedUpdate()
     {
         // カウントが0になったら起動
-        if (startCount > 0)
+        if (delayCount > 0)
         {
-            startCount -= Time.deltaTime;
+            delayCount -= Time.deltaTime;
         }
         else
         {
@@ -57,11 +60,11 @@ public class MissileController : MonoBehaviour
 
                     if (result.collider != null)
                     {
-                        Debug.Log(result.collider);
+                        // Debug.Log(result.collider);
                         var hc = result.collider.GetComponent<HitCollider>();
                         if (hc != null)
                         {
-                            if (hc.GetHitLayer() == StageData.LAYER_DATA.Enemy)
+                            if (hc.GetHitLayer() == targetLayer)
                             {
                                 target = result.collider.gameObject;
                             }

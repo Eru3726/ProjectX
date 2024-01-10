@@ -17,6 +17,9 @@ public class PlayerInput : MonoBehaviour
     [SerializeField, Header("AngerFireプレハブつけてね")]
     GameObject AFPre;
 
+    [SerializeField, Header("AngerAreaプレハブつけてね")]
+    GameObject AAPre;
+
     [SerializeField, Header("アタッチしろ")]
     MoveController mc;
 
@@ -103,8 +106,8 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        // LoveBeam : B
-        if (Input.GetKeyDown(KeyCode.B))
+        // LoveBeam : L
+        if (Input.GetKeyDown(KeyCode.L))
         {
             if (actSkill[(int)StageData.ACT_DATA.LB1] == false && !CheckActSkill())
             {
@@ -126,7 +129,12 @@ public class PlayerInput : MonoBehaviour
         {
             if (actSkill[(int)StageData.ACT_DATA.LM1] == false && !CheckActSkill())
             {
-                ActLM();
+                ActLM(1);
+                ActLM(2);
+                ActLM(3);
+                ActLM(4);
+                ActLM(5);
+                ActLM(6);
                 actSkill[(int)StageData.ACT_DATA.LM1] = true;
                 skillTime[(int)StageData.ACT_DATA.LB1] = 0.5f;
                 coolTime[(int)StageData.ACT_DATA.LB1] = 2;
@@ -166,6 +174,24 @@ public class PlayerInput : MonoBehaviour
                     coolTime[(int)StageData.ACT_DATA.AF2] = coolTime[(int)StageData.ACT_DATA.AF1];
                 }
             }
+        }
+
+        // AngerArea : O
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (actSkill[(int)StageData.ACT_DATA.AA1] == false && !CheckActSkill())
+            {
+                ActAA();
+                actSkill[(int)StageData.ACT_DATA.AA1] = true;
+                skillTime[(int)StageData.ACT_DATA.AA1] = 2;
+                coolTime[(int)StageData.ACT_DATA.AA1] = 10;
+            }
+        }
+
+        if (skillTime[(int)StageData.ACT_DATA.AA1] > 0)
+        {
+            mc.InputFlickStop();
+            mc.InputLR(0);
         }
 
         // SorrowBarrier : B
@@ -263,7 +289,7 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    void ActNM(int rush)
+    void ActNM(int rushNo)
     {
         Vector3 plDir = this.transform.position;
         plDir.x += transform.localScale.x;
@@ -273,12 +299,12 @@ public class PlayerInput : MonoBehaviour
         obj.transform.parent = this.transform;
 
         Vector3 scale = obj.transform.localScale;
-        scale.y = (rush + 1) * 0.5f;
+        scale.y = (rushNo + 1) * 0.5f;
         obj.transform.localScale = scale;
 
-        obj.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.NM1 + rush - 1;
+        obj.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.NM1 + rushNo - 1;
 
-        mc.InputFlick(plDir, (rush + 1) * 5, 0.2f, true);
+        mc.InputFlick(plDir, (rushNo + 1) * 5, 0.2f, true);
     }
 
     void ActND()
@@ -297,19 +323,39 @@ public class PlayerInput : MonoBehaviour
 
         GameObject obj = Instantiate(LBPre, plDir, Quaternion.identity);
 
+        obj.transform.parent = this.transform;
+
         //mc.InputFlick(new Vector3(-plDir.x, plDir.y, plDir.z), 10, 0.3f, false);
     }
 
-    void ActLM()
+    void ActLM(int num)
     {
         Vector3 plDir = this.transform.position;
-        plDir.x += transform.localScale.x;
+        plDir.x -= transform.localScale.x;
 
-        GameObject obj = Instantiate(LMPre, plDir, Quaternion.identity);
+        float dist = 1;
+        Vector3 startPos = new Vector3(plDir.x, plDir.y + (dist * (3.5f - num)), plDir.z);
+        GameObject obj = Instantiate(LMPre, startPos, Quaternion.identity);
+
+        obj.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.LM1 + (num - 1);
+
+        float delay;
+        if (num == 1 || num == 6) { delay = 3; }
+        else if (num == 2 || num == 5) { delay = 2; }
+        else if (num == 3 || num == 4) { delay = 1; }
+        else { delay = 0; }
+        obj.GetComponent<MissileController>().delayCount = 0.1f * delay;
+
         if (transform.localScale.x <= 0)
         {
             Vector3 lea = obj.transform.localEulerAngles;
-            lea.z = 180;
+            lea.z = 180 - (((float)num - 3.5f) *5);
+            obj.transform.localEulerAngles = lea;
+        }
+        else
+        {
+            Vector3 lea = obj.transform.localEulerAngles;
+            lea.z = (((float)num - 3.5f)*5);
             obj.transform.localEulerAngles = lea;
         }
     }
@@ -326,6 +372,12 @@ public class PlayerInput : MonoBehaviour
             lea.z = i * 60 + (num * 30);
             obj.transform.localEulerAngles = lea;
         }
+    }
+
+    void ActAA()
+    {
+        GameObject obj = Instantiate(AAPre, transform.position, Quaternion.identity);
+        obj.transform.parent = this.transform;
     }
 
     void ActSB()

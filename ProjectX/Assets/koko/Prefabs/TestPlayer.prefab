@@ -134,7 +134,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NMPre: {fileID: 30877835086047478, guid: 432dbf6376b9c3d4a988adcf7af2408c, type: 3}
   LBPre: {fileID: 6838571167799440004, guid: f02bc7fdb3b74454eb72df9731419c42, type: 3}
+  LMPre: {fileID: 3798301893042873574, guid: 5b0dadbdee1bbc64f82f39f9ce1c38e3, type: 3}
   AFPre: {fileID: 3424937521654278364, guid: 92260d6e0accda947b22f51bdb80da18, type: 3}
+  AAPre: {fileID: 6224799489942547280, guid: 200482dccc238584e87c19e93f9120c9, type: 3}
   mc: {fileID: 9188364585238201739}
   hc: {fileID: 9188364585603081412}
   actSkill: 
@@ -288,6 +290,7 @@ MonoBehaviour:
   parent: {fileID: 9188364585238201743}
   maxHp: 20
   nowHp: 0
+  barrier: 0
   defence: 0
   resist: 1
   invincible: 1

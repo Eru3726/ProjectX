@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 1, a: 0.5019608}
+  m_Color: {r: 1, g: 0, b: 1, a: 0.2509804}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,14 +97,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54524224d32f5c40980844ef0227917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 10
+  dmg: 2
   shock: 2
-  meleeFlag: 0
+  inv: 0.1
+  apFlag: 1
+  apPos: {x: 0, y: 0, z: 0}
   atkType: 10
   atkLayer: 1
   groundDestroyFlag: 0
-  lifeFlag: 1
-  lifeTime: 1
+  isLife: 1
+  lifeCount: 1
+  isBullet: 0
 --- !u!61 &7319984969953934306
 BoxCollider2D:
   m_ObjectHideFlags: 0

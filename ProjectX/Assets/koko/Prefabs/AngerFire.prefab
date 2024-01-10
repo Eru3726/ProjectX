@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3424937521654278362}
   - component: {fileID: 3424937521654278363}
   m_Layer: 0
-  m_Name: Fire
+  m_Name: AngerFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.5, b: 0, a: 0.5019608}
+  m_Color: {r: 1, g: 0.5, b: 0, a: 0.2509804}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -113,11 +113,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 5
   shock: 0
-  atkType: 4
+  meleeFlag: 0
+  atkType: 14
   atkLayer: 1
   groundDestroyFlag: 1
-  lifeFlag: 1
-  lifeTime: 2
+  isLife: 1
+  lifeCount: 5
+  isBullet: 1
 --- !u!58 &3424937521654278363
 CircleCollider2D:
   m_ObjectHideFlags: 0

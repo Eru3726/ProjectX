@@ -25,11 +25,10 @@ public class HitCollider : MonoBehaviour
     [SerializeField, Header("衝撃耐性（倍率）")]
     protected float resist = 1;
 
-    [SerializeField, Header("無敵時間")]
-    protected float invincible = 1;
-
     [SerializeField, Header("被撃レイヤー")]
     protected StageData.LAYER_DATA hitLayer;
+
+    SpriteRenderer sr;
 
     // attackタイプ別無敵時間
     public List<float> invTime = new List<float>();
@@ -42,14 +41,30 @@ public class HitCollider : MonoBehaviour
         {
             invTime.Add(0);
         }
+
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
     {
         UpdateInv();
+
+        if(barrier <= 0)
+        {
+            sr.color = new Color32(0, 255, 0, 64);
+        }
+        else
+        {
+            sr.color = new Color32(0, 255, 255, 64);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // CheckHitLayer(collision);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         CheckHitLayer(collision);
     }
@@ -105,12 +120,21 @@ public class HitCollider : MonoBehaviour
 
     protected void CheckHitLayer(Collider2D collision)
     {
+        // 当たったコライダーがattackコライダーを持ってるなら取得
         if (collision.TryGetComponent<AttackCollider>(out AttackCollider atk))
         {
+            // 攻撃レイヤーと被撃レイヤーが違うかつ、その攻撃に対応する無敵時間が0の場合のみダメージ処理へ
             if (atk.atkLayer != hitLayer && invTime[(int)atk.atkType] <= 0)
             {
-                Damage(atk.dmg, atk.shock, atk.transform.position);
-                invTime[(int)atk.atkType] = invincible;
+                // ダメージ
+                Damage(atk.dmg, atk.shock, atk.apPos);
+                invTime[(int)atk.atkType] = atk.inv;
+
+                // 弾丸系統ならデストロイ
+                if (atk.isBullet)
+                {
+                    Destroy(atk.gameObject);
+                }
             }
         }
     }

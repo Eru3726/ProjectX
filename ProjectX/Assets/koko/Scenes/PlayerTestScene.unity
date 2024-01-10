@@ -462,7 +462,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.2509804}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -506,8 +506,9 @@ MonoBehaviour:
   atkType: 0
   atkLayer: 2
   groundDestroyFlag: 0
-  lifeFlag: 0
-  lifeTime: 2
+  isLife: 0
+  lifeCount: 2
+  isBullet: 0
 --- !u!1 &832132374
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 832132378}
   - component: {fileID: 832132377}
+  - component: {fileID: 832132375}
   - component: {fileID: 832132380}
   - component: {fileID: 832132381}
   - component: {fileID: 832132376}
@@ -529,6 +531,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &832132375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832132374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ef9f005b6137f44a46a5516e5a6b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mc: {fileID: 0}
 --- !u!61 &832132376
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -920,7 +935,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 1, b: 0, a: 0.2}
+  m_Color: {r: 0, g: 1, b: 0, a: 0.2509804}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -986,6 +1001,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9188364585238201847, guid: 33a6e12cbf8e9664080be5fb7ed83822, type: 3}
+      propertyPath: AAPre
+      value: 
+      objectReference: {fileID: 6224799489942547280, guid: 200482dccc238584e87c19e93f9120c9, type: 3}
+    - target: {fileID: 9188364585238201847, guid: 33a6e12cbf8e9664080be5fb7ed83822, type: 3}
       propertyPath: AFPre
       value: 
       objectReference: {fileID: 3424937521654278364, guid: 92260d6e0accda947b22f51bdb80da18, type: 3}
@@ -1001,6 +1020,10 @@ PrefabInstance:
       propertyPath: NMPre
       value: 
       objectReference: {fileID: 30877835086047478, guid: 432dbf6376b9c3d4a988adcf7af2408c, type: 3}
+    - target: {fileID: 9188364585603081415, guid: 33a6e12cbf8e9664080be5fb7ed83822, type: 3}
+      propertyPath: m_Color.a
+      value: 0.2509804
+      objectReference: {fileID: 0}
     - target: {fileID: 9188364585603081435, guid: 33a6e12cbf8e9664080be5fb7ed83822, type: 3}
       propertyPath: m_Name
       value: HitCol(pl)
