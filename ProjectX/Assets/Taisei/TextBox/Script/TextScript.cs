@@ -137,6 +137,10 @@ public class TextScript : MonoBehaviour
     [SerializeField] private string[] chara2_anim;
 
 
+    //CSV関連
+    public TextData[] textData;
+
+
     void Start()
     {
         clickIcon = transform.Find("TextPanel/Cursor1").GetComponent<Image>();
@@ -157,6 +161,9 @@ public class TextScript : MonoBehaviour
         nameText.text = "";
         SetText(allMessage, allName, allIcon, allLR, allAnims);
 
+        TextAsset textAsset = new TextAsset();
+        textAsset = Resources.Load("testText", typeof(TextAsset)) as TextAsset;
+        textData = CSVSerializer.Deserialize<TextData>(textAsset.text);
 
     }
 
@@ -496,4 +503,64 @@ public class TextScript : MonoBehaviour
         }
     }
 
+    //csvファイルのセット
+    public void SetCSVFile(string csvFiles)
+    {
+        TextAsset textAsset = new TextAsset();
+        textAsset = Resources.Load(csvFiles, typeof(TextAsset)) as TextAsset;
+        textData = CSVSerializer.Deserialize<TextData>(textAsset.text);
+
+        for(int i = 0; i < textData.Length; i++)
+        {
+            this.splitMessage[i] = textData[i].message;
+            this.splitName[i] = textData[i].charaName;
+            this.splitIcon[i] = textData[i].charaIcon;
+            this.splitLR[i] = textData[i].LorR;
+            this.splitAnims[i] = textData[i].anims;
+            Debug.Log("読み込み");
+        }
+
+        nowTextNum = 0;
+        messageNum = 0;
+        messageText.text = "";
+        iconNum = 0;
+        nowNameNum = 0;
+        nameNum = 0;
+        nameText.text = "";
+        isOneMessage = false;
+        isEndMessage = false;
+        TextOnOff = true;
+
+        LRNum = 0;
+
+        animsNum = 0;
+
+        firstStandP = false;
+
+    }
+
+    public void SetCSVPanel(string csvFiles)
+    {
+        SetCSVFile(csvFiles);
+        transform.GetChild(2).gameObject.SetActive(true);
+        transform.GetChild(3).gameObject.SetActive(true);
+        CharaConection.SetActive(true);
+        Time.timeScale = 0;
+
+    }
+
 }
+
+
+
+//テキスト
+[System.Serializable]
+public class TextData
+{
+    public string message;
+    public string charaName;
+    public string charaIcon;
+    public string LorR;
+    public string anims;
+}
+

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AllTexts : MonoBehaviour
 {
-    public TextData[] textData;
-
     [SerializeField]
     private TextScript TextSystemScript;
 
@@ -27,6 +25,9 @@ public class AllTexts : MonoBehaviour
 
     //アニメーション番号
     private string anims;
+
+    //
+    private string csvFiles;
 
     //使い方
     //・ここにテキスト・名前・アイコン名などを書き込んでいく
@@ -114,26 +115,16 @@ public class AllTexts : MonoBehaviour
                 break;
 
             case 999:
-                TextAsset textAsset = new TextAsset();
-                textAsset = Resources.Load("testText", typeof(TextAsset)) as TextAsset;
-                textData = CSVSerializer.Deserialize<TextData>(textAsset.text);
+                //TextAsset textAsset = new TextAsset();
+                //textAsset = Resources.Load("testText", typeof(TextAsset)) as TextAsset;
+                //textData = CSVSerializer.Deserialize<TextData>(textAsset.text);
+
+                csvFiles = "testText";
                 break;
         }
 
         TextSystemScript.SetTextPanel(message, charaName, charaIcon, LorR, anims);
+        //TextSystemScript.SetCSVPanel(csvFiles);
 
     }
-}
-
-
-
-//テキスト
-[System.Serializable]
-public class TextData
-{
-    public string message;
-    public string charaName;
-    public string charaIcon;
-    public string LorR;
-    public string anims;
 }
