@@ -4,27 +4,26 @@ using UnityEngine;
 
 public class ShellController : MonoBehaviour
 {
-    public float ShellSpd = 5f;
-    public float rotateSpd = 200f;
+    [SerializeField] float ShellSpd = 5f;
+    [SerializeField] float rotSpd = 300f;
 
-    float waittime = 0;
-
-    Transform player;
-
+    GameObject player;
 
     void Start()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.Find("Player");
     }
 
     
-    void Update()
+    void FixedUpdate()
     {
-        waittime += Time.deltaTime;
-        if(waittime >= 1f)
-        {
-            Debug.Log("s");
-            Destroy(this.gameObject);
-        }
+        Vector3 direction = player.transform.position - transform.position;
+        float degre = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        Quaternion rotation = Quaternion.AngleAxis(degre,Vector3.forward);
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotSpd * Time.deltaTime);
+
+        Debug.Log(degre);
+        this.transform.Translate(Vector3.right * ShellSpd * Time.deltaTime);
     }
 }

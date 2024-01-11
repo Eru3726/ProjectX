@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
 
    
     float warpDelay = 1f; //ワープするまでの時間
-    float idolDelay = 1f; //待機時間
+    float idolDelay = 1.5f; //待機時間
 
 
     public enum EnemyState
@@ -181,11 +181,17 @@ public class EnemyController : MonoBehaviour
     }
     public void EnemyHoming()
     {
-        //for (int i = 0; i <= 15; i++)
-        //{
-        //    Vector3 EnemyPos = transform.position;
-        //    Instantiate(ShellPre, EnemyPos, Quaternion.identity);
-        //}
+        Vector2 enemyPos = transform.position;
+
+        Instantiate(ShellPre,enemyPos, Quaternion.identity);
+        Instantiate(ShellPre,enemyPos, Quaternion.identity);
+        Instantiate(ShellPre,enemyPos, Quaternion.identity);
+        Instantiate(ShellPre,enemyPos, Quaternion.identity);
+        Instantiate(ShellPre,enemyPos, Quaternion.identity);
+        Instantiate(ShellPre,enemyPos, Quaternion.identity);
+        Instantiate(ShellPre,enemyPos, Quaternion.identity);
+        Instantiate(ShellPre,enemyPos, Quaternion.identity);
+
         currentState = EnemyState.Move;
     }
     public void EnemyDown()
