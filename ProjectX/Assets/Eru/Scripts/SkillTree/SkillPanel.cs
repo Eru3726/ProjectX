@@ -30,13 +30,14 @@ namespace Eru
         [HideInInspector]
         public bool releaseFlg = false;
 
-        private Color arColor = new Color(255 / 255f, 100 / 255f, 100 / 255f, 255 / 255f);
-        private Color srColor = new Color(100 / 255f, 100 / 255f, 255 / 255f, 255 / 255f);
-        private Color lrColor = new Color(255 / 255f, 100 / 255f, 200 / 255f, 255 / 255f);
+        [SerializeField, Header("解放済み画像")]
+        private Sprite releasedSprite;
 
-        private Color anColor = new Color(155 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
-        private Color snColor = new Color(0 / 255f, 0 / 255f, 155 / 255f, 255 / 255f);
-        private Color lnColor = new Color(255 / 255f, 80 / 255f, 90 / 255f, 255 / 255f);
+        [SerializeField, Header("解放可能画像")]
+        private Sprite releasableSprite;
+
+        [SerializeField,Header("ロック画像")]
+        private Sprite lockSprite;
 
 
         void Start()
@@ -46,32 +47,21 @@ namespace Eru
             if ((SkillTreeManager.skillData & skillTree) == skillTree)
             {
                 releaseFlg = true;
-                if ((int)skillTree < 20000) image.color = arColor;
-                else if ((int)skillTree <= 1000000000) image.color = srColor;
-                else image.color = lrColor;
+                image.sprite = releasedSprite;
             }
             else if (releaseConditions != 0 && (releaseConditions & SkillTreeManager.skillData) == 0
                     || stm.angerFlg && skillTree == SkillTreeManager.SkillTree.empty2
                     || stm.angerFlg && skillTree == SkillTreeManager.SkillTree.powerlessness
                     || stm.sorrowFlg && skillTree == SkillTreeManager.SkillTree.angryPrincessTantrum
-                    || stm.sorrowFlg && skillTree == SkillTreeManager.SkillTree.swirlingEmotions)
-            {
-                if ((int)skillTree <= 20000) image.color = anColor;
-                else if ((int)skillTree <= 1000000000) image.color = snColor;
-                else image.color = lnColor;
-            }
+                    || stm.sorrowFlg && skillTree == SkillTreeManager.SkillTree.swirlingEmotions) image.sprite = lockSprite;
         }
 
         void Update()
         {
-            if (stm.sorrowFlg && (int)skillTree >= 2000 && (int)skillTree <= 20000) image.color = anColor;
-            else if (stm.angerFlg && (int)skillTree > 70000000 && (int)skillTree <= 1000000000) image.color = snColor;
+            if (stm.sorrowFlg && (int)skillTree >= 2000 && (int)skillTree <= 20000 ||
+                stm.angerFlg && (int)skillTree > 70000000 && (int)skillTree <= 1000000000) image.sprite = lockSprite;
             else if (releaseConditions == 0 && !releaseFlg
-                || (releaseConditions & SkillTreeManager.skillData) != 0 && !releaseFlg)
-            {
-                if ((int)skillTree < 20000) image.color = Color.red;
-                else if ((int)skillTree <= 1000000000) image.color = Color.blue;
-            }
+                || (releaseConditions & SkillTreeManager.skillData) != 0 && !releaseFlg) image.sprite = releasableSprite;
         }
     }
 }
