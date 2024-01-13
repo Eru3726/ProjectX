@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9b1da20ea012447955e01599657a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastBossData: {fileID: 11400000, guid: f716fa7e1af45a54faebfa06365251c8, type: 2}
+  generalParameter: {fileID: 11400000, guid: c4b6fe7efcb027c4ba7fbfc116ece37b, type: 2}
 --- !u!212 &1177302714
 SpriteRenderer:
   m_ObjectHideFlags: 0

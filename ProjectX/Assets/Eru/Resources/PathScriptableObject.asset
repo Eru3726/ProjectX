@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd3b434ac7724934ea34ecb4b2b8aea4, type: 3}
+  m_Name: PathScriptableObject
+  m_EditorClassIdentifier: 
+  Sheet_URL: https://docs.google.com/spreadsheets/d/1X1d6JfelEl5Xk2PNtTalopwP1oVoBwyBkUrErq6DKQY/edit?usp=sharing
+  GAS_URL: https://script.google.com/macros/s/AKfycbzTHqW_CGxAnqQQcYAwebJCR69PlXebHVRqDGDpVUYGw7St6-8AeZ8y5J5VpjjUsy0/exec
+  GeneralParameter_PATH: Assets/Eru/Resources/GeneralParameter.asset
+  Scripts_PATH:
+  - Assets/Eru/Scripts/GSS/GeneralParameter.cs
+  - Assets/Eru/Scripts/GSS/LoadGSS.cs
+  - Assets/Eru/Scripts/GSS/WebData.cs
