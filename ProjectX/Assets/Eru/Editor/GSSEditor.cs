@@ -17,19 +17,16 @@ namespace EruGSS
             // 生成
             GSSEditor window = GetWindow<GSSEditor>("GSSEditor");
             // 最小サイズ設定
-            window.minSize = new Vector2(220, 190);
+            window.minSize = new Vector2(140, 145);
         }
 
         private PathScriptableObject pathScriptableObject;
 
         //パスをまとめたスクリプタブルオブジェクトのパス
-        private string PathScriptableObject_PATH = "Assets/Eru/Resources/PathScriptableObject.asset";
+        private readonly string PathScriptableObject_PATH = "Assets/Eru/Resources/PathScriptableObject.asset";
 
         //スクロール
         private Vector2 scrollPos;
-
-        //シートの名前
-        private string sheet_Name = "Sample";
 
         /// <summary>
         /// レイアウト
@@ -131,7 +128,7 @@ namespace EruGSS
                     if (GUILayout.Button("データの反映"))
                     {
                         //読み込み
-                        loadGSS.DataLoad(sheet_Name);
+                        loadGSS.DataLoad(PathScriptableObject_PATH);
 
                         // エディタを最新の状態にする
                         AssetDatabase.Refresh();
@@ -139,13 +136,6 @@ namespace EruGSS
 
                     GUI.backgroundColor = defaultColor;
                 }
-            }
-
-            //反映させたいシート名の入力欄
-            using (new GUILayout.VerticalScope(EditorStyles.helpBox))
-            {
-                EditorGUILayout.LabelField("シート名", EditorStyles.boldLabel);
-                sheet_Name = EditorGUILayout.TextField("", sheet_Name);
             }
         }
     }

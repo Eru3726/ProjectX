@@ -16,7 +16,7 @@ public class ElisManager : MonoBehaviour, IDamageable
     public int Health => hp;
 
     [SerializeField]
-    private GeneralParameter generalParameter;
+    private ElisData generalParameter;
 
     private Elis_MoveType moveType;
 

@@ -16,5 +16,16 @@ namespace EruGSS
         public string ElisData_B_AttackPower;
         public string ElisData_B_MoveSpeed;
         public string ElisData_B_MoveTime;
+
+        //第二段階のエリスデータ
+        public string ElisSecondData_HitPoint;
+        public string ElisSecondData_FallingAttackPower;
+        public string ElisSecondData_DefensePower;
+        public string ElisSecondData_MoveSpeed;
+                          
+        //第二段階のエリスの魔法弾データ
+        public string ElisSecondData_B_AttackPower;
+        public string ElisSecondData_B_MoveSpeed;
+        public string ElisSecondData_B_MoveTime;
     }
 }

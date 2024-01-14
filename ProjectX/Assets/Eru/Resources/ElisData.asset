@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71d95231672a22244a1a8128e91bb8ff, type: 3}
-  m_Name: GeneralParameter
+  m_Name: ElisData
   m_EditorClassIdentifier: 
-  param_0: 90
-  param_1: 55
-  param_2: 36
-  param_3: 462
-  param_4: 53
+  ElisData_HitPoint: 100
+  ElisData_FallingAttackPower: 15
+  ElisData_DefensePower: 10
+  ElisData_MoveSpeed: 5
+  ElisData_B_AttackPower: 10
+  ElisData_B_MoveSpeed: 3
+  ElisData_B_MoveTime: 3

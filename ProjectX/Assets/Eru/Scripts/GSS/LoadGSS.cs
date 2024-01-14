@@ -9,21 +9,20 @@ namespace EruGSS
 {
     public class LoadGSS
     {
-        private GeneralParameter generalParameter;
+        private ElisData generalParameter;
+        private ElisSecondData elisSecondData;
         private PathScriptableObject pathScriptableObject;
 
-        //パスをまとめたスクリプタブルオブジェクトのパス
-        private string PathScriptableObject_PATH = "Assets/Eru/Resources/PathScriptableObject.asset";
-
-        public void DataLoad(string sheetName)
+        public void DataLoad(string pso)
         {
-            pathScriptableObject = AssetDatabase.LoadAssetAtPath<PathScriptableObject>(PathScriptableObject_PATH);
-            generalParameter = AssetDatabase.LoadAssetAtPath<GeneralParameter>(pathScriptableObject.GeneralParameter_PATH);
+            pathScriptableObject = AssetDatabase.LoadAssetAtPath<PathScriptableObject>(pso);
+            generalParameter = AssetDatabase.LoadAssetAtPath<ElisData>(pathScriptableObject.DataScriptableObject_PATH[0]);
+            elisSecondData = AssetDatabase.LoadAssetAtPath<ElisSecondData>(pathScriptableObject.DataScriptableObject_PATH[1]);
 
             //URLへアクセス
-            UnityWebRequest req = UnityWebRequest.Get(pathScriptableObject.GAS_URL + "?sheetName=" + sheetName);
+            UnityWebRequest req = UnityWebRequest.Get(pathScriptableObject.GAS_URL);
             req.SendWebRequest();
-            
+
             while (!req.isDone)
             {
                 // リクエストが完了するのを待機
@@ -65,6 +64,17 @@ namespace EruGSS
             generalParameter.ElisData_B_AttackPower = (int)float.Parse(data.ElisData_B_AttackPower);
             generalParameter.ElisData_B_MoveSpeed = float.Parse(data.ElisData_B_MoveSpeed);
             generalParameter.ElisData_B_MoveTime = (int)float.Parse(data.ElisData_B_MoveTime);
+
+            //第二段階のエリスデータ
+            elisSecondData.ElisSecondData_HitPoint = (int)float.Parse(data.ElisSecondData_HitPoint);
+            elisSecondData.ElisSecondData_FallingAttackPower = (int)float.Parse(data.ElisSecondData_FallingAttackPower);
+            elisSecondData.ElisSecondData_DefensePower = (int)float.Parse(data.ElisSecondData_DefensePower);
+            elisSecondData.ElisSecondData_MoveSpeed = float.Parse(data.ElisSecondData_MoveSpeed);
+                               
+            //第二段階のエリスの魔法弾データ
+            elisSecondData.ElisSecondData_B_AttackPower = (int)float.Parse(data.ElisSecondData_B_AttackPower);
+            elisSecondData.ElisSecondData_B_MoveSpeed = float.Parse(data.ElisSecondData_B_MoveSpeed);
+            elisSecondData.ElisSecondData_B_MoveTime = (int)float.Parse(data.ElisSecondData_B_MoveTime);
 
             Debug.Log("GSS反映完了");
         }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/GeneralParameter")]
-public class GeneralParameter : ScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObjects/ElisData")]
+public class ElisData : ScriptableObject
 {
     //実際にゲーム内で使う変数はこれ
     //変数名と型は自由

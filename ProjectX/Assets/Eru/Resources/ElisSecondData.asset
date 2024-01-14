@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8341991c0b160984eaea66b6dc1a1a2b, type: 3}
   m_Name: ElisSecondData
   m_EditorClassIdentifier: 
-  ElisSecondData_HitPoint: 0
-  ElisSecondData_FallingAttackPower: 0
-  ElisSecondData_DefensePower: 0
-  ElisSecondData_MoveSpeed: 0
-  ElisSecondData_B_AttackPower: 0
-  ElisSecondData_B_MoveSpeed: 0
-  ElisSecondData_B_MoveTime: 0
+  ElisSecondData_HitPoint: 200
+  ElisSecondData_FallingAttackPower: 30
+  ElisSecondData_DefensePower: 20
+  ElisSecondData_MoveSpeed: 10
+  ElisSecondData_B_AttackPower: 20
+  ElisSecondData_B_MoveSpeed: 6
+  ElisSecondData_B_MoveTime: 6

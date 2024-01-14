@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: PathScriptableObject
   m_EditorClassIdentifier: 
   Sheet_URL: https://docs.google.com/spreadsheets/d/1X1d6JfelEl5Xk2PNtTalopwP1oVoBwyBkUrErq6DKQY/edit?usp=sharing
-  GAS_URL: https://script.google.com/macros/s/AKfycbzTHqW_CGxAnqQQcYAwebJCR69PlXebHVRqDGDpVUYGw7St6-8AeZ8y5J5VpjjUsy0/exec
-  GeneralParameter_PATH: Assets/Eru/Resources/GeneralParameter.asset
+  GAS_URL: https://script.google.com/macros/s/AKfycbxkqqSVMfoViHwy3WA6-W7vUVVdqzslXdkekeBdZF-apQF9fYhndfk2-BBEqieARtfb/exec
+  DataScriptableObject_PATH:
+  - Assets/Eru/Resources/ElisData.asset
+  - Assets/Eru/Resources/ElisSecondData.asset
   Scripts_PATH:
-  - Assets/Eru/Scripts/GSS/GeneralParameter.cs
   - Assets/Eru/Scripts/GSS/LoadGSS.cs
   - Assets/Eru/Scripts/GSS/WebData.cs
+  - Assets/Eru/Scripts/Data/ElisData.cs
+  - Assets/Eru/Scripts/Data/ElisSecondData.cs
