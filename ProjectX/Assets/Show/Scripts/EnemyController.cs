@@ -10,7 +10,8 @@ public class EnemyController : MonoBehaviour
    
     MoveController plmc;
 
-    
+    ShellController sc;
+
     Rigidbody2D rb;
 
     [Header("Enemyの挙動")]
@@ -34,6 +35,9 @@ public class EnemyController : MonoBehaviour
     float warpDelay = 1f; //ワープするまでの時間
     float idolDelay = 1.5f; //待機時間
 
+    private bool nowHomingFlg = false;
+    public bool ishoming = false;
+
 
     public enum EnemyState
     {
@@ -56,6 +60,7 @@ public class EnemyController : MonoBehaviour
         currentState = EnemyState.Move;
         mc = gameObject.GetComponent<MoveController>();
         plmc = player.gameObject.GetComponent<MoveController>();
+        sc = gameObject.GetComponent<ShellController>();
     }
 
     void FixedUpdate()
@@ -129,7 +134,7 @@ public class EnemyController : MonoBehaviour
         EnemyWarp();
     }
 
-    public void EnemyMove()
+    void EnemyMove()
     {
         if (movecheck && plmc.IsGround())
         {
@@ -157,14 +162,14 @@ public class EnemyController : MonoBehaviour
         
     }
 
-    public void EnemyDash()
+    void EnemyDash()
     {
         Debug.Log("突進");
         mc.InputFlick(player.transform.position, 30, 0.3f, true);
         currentState = EnemyState.Idol;
     }
 
-    public void EnemyWarp()
+    void EnemyWarp()
     {
         if (warpcheck)
         {
@@ -179,27 +184,31 @@ public class EnemyController : MonoBehaviour
         }
         currentState = EnemyState.Homing;
     }
-    public void EnemyHoming()
+    void EnemyHoming()
     {
+        if (ishoming)
+        {
+            currentState = EnemyState.Move;
+            nowHomingFlg = false;
+            ishoming = false;
+            return;
+        }
+        if (nowHomingFlg) return;
+
+        nowHomingFlg = true;
+
         Vector2 enemyPos = transform.position;
 
-        Instantiate(ShellPre,enemyPos, Quaternion.identity);
-        Instantiate(ShellPre,enemyPos, Quaternion.identity);
-        Instantiate(ShellPre,enemyPos, Quaternion.identity);
-        Instantiate(ShellPre,enemyPos, Quaternion.identity);
-        Instantiate(ShellPre,enemyPos, Quaternion.identity);
-        Instantiate(ShellPre,enemyPos, Quaternion.identity);
-        Instantiate(ShellPre,enemyPos, Quaternion.identity);
-        Instantiate(ShellPre,enemyPos, Quaternion.identity);
-
-        currentState = EnemyState.Move;
+        GameObject shell = Instantiate(ShellPre,enemyPos, Quaternion.identity);
+        sc = shell.GetComponent<ShellController>();
+        sc.ec = GetComponent<EnemyController>();
     }
-    public void EnemyDown()
+    void EnemyDown()
     {
 
     }
-    public void EnemyDie()
+    void EnemyDie()
     {
-
+        
     }
 }

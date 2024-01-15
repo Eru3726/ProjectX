@@ -217,6 +217,10 @@ PrefabInstance:
       propertyPath: jumpPow
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 9188364585238201742, guid: 33a6e12cbf8e9664080be5fb7ed83822, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9188364585238201743, guid: 33a6e12cbf8e9664080be5fb7ed83822, type: 3}
       propertyPath: m_Name
       value: Player
@@ -322,6 +326,7 @@ MonoBehaviour:
   minY: 0
   maxY: 0
   ShellPre: {fileID: 9103142274793599494, guid: 604c7d05a8e8f2e49aba5ab50721ec2e, type: 3}
+  ishoming: 0
 --- !u!61 &1733025512
 BoxCollider2D:
   m_ObjectHideFlags: 0
