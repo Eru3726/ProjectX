@@ -47,6 +47,75 @@ public class ElisManager : MonoBehaviour, IDamageable
         halfHP = false;
     }
 
+    private void MoveTypeChange()
+    {
+        switch (moveType)
+        {
+            case Elis_MoveType.Entry:
+                Entry();
+                break;
+
+            case Elis_MoveType.Neutral:
+
+                break;
+
+            case Elis_MoveType.Move:
+
+                break;
+
+            case Elis_MoveType.Shot:
+
+                break;
+
+            case Elis_MoveType.Avatar:
+
+                break;
+
+            case Elis_MoveType.FallingAttack:
+
+                break;
+
+            case Elis_MoveType.FormChange:
+
+                break;
+        }
+    }
+
+    private void Entry()
+    {
+
+    }
+
+    private void Neutral()
+    {
+
+    }
+
+    private void Move()
+    {
+
+    }
+
+    private void Shot()
+    {
+
+    }
+
+    private void Avatar()
+    {
+
+    }
+
+    private void FallingAttack()
+    {
+
+    }
+
+    private void FormChange()
+    {
+
+    }
+
     /// <summary>
     /// ダメージ処理
     /// </summary>
@@ -58,6 +127,7 @@ public class ElisManager : MonoBehaviour, IDamageable
         {
             // Healthが0になった場合の処理
             moveType = Elis_MoveType.FormChange;
+            MoveTypeChange();
         }
         else if (hp <= elisData.ElisData_HitPoint / 2 && !halfHP) halfHP = true;
     }
