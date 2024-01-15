@@ -16,7 +16,7 @@ public class ElisManager : MonoBehaviour, IDamageable
     public int Health => hp;
 
     [SerializeField]
-    private ElisData generalParameter;
+    private ElisData elisData;
 
     private Elis_MoveType moveType;
 
@@ -32,10 +32,10 @@ public class ElisManager : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody2D>();
 
-        hp = generalParameter.ElisData_HitPoint;
-        attackPow = generalParameter.ElisData_FallingAttackPower;
-        defensePow = generalParameter.ElisData_DefensePower;
-        moveSpeed = generalParameter.ElisData_MoveSpeed;
+        hp = elisData.ElisData_HitPoint;
+        attackPow = elisData.ElisData_FallingAttackPower;
+        defensePow = elisData.ElisData_DefensePower;
+        moveSpeed = elisData.ElisData_MoveSpeed;
 
         Debug.Log(hp);
         Debug.Log(attackPow);
@@ -59,6 +59,6 @@ public class ElisManager : MonoBehaviour, IDamageable
             // Healthが0になった場合の処理
             moveType = Elis_MoveType.FormChange;
         }
-        else if (hp <= generalParameter.ElisData_HitPoint / 2 && !halfHP) halfHP = true;
+        else if (hp <= elisData.ElisData_HitPoint / 2 && !halfHP) halfHP = true;
     }
 }
