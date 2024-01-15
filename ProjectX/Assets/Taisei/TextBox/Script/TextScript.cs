@@ -159,7 +159,7 @@ public class TextScript : MonoBehaviour
 
         nameText = transform.GetChild(3).GetComponentInChildren<Text>();
         nameText.text = "";
-        SetText(allMessage, allName, allIcon, allLR, allAnims);
+        //SetText(allMessage, allName, allIcon, allLR, allAnims);
 
         TextAsset textAsset = new TextAsset();
         textAsset = Resources.Load("testText", typeof(TextAsset)) as TextAsset;
@@ -276,7 +276,7 @@ public class TextScript : MonoBehaviour
             {
                 //メッセージ表示
                 messageText.text += splitMessage[messageNum][nowTextNum];
-                audioSource.PlayOneShot(sound1);
+                //audioSource.PlayOneShot(sound1);
                 nowTextNum++;
                 elapsedTime = 0f;
 
@@ -503,6 +503,7 @@ public class TextScript : MonoBehaviour
         }
     }
 
+
     //csvファイルのセット
     public void SetCSVFile(string csvFiles)
     {
@@ -510,7 +511,13 @@ public class TextScript : MonoBehaviour
         textAsset = Resources.Load(csvFiles, typeof(TextAsset)) as TextAsset;
         textData = CSVSerializer.Deserialize<TextData>(textAsset.text);
 
-        for(int i = 0; i < textData.Length; i++)
+        splitMessage = new string[textData.Length];
+        splitName = new string[textData.Length];
+        splitIcon = new string[textData.Length];
+        splitLR = new string[textData.Length];
+        splitAnims = new string[textData.Length];
+
+        for (int i = 0; i < textData.Length; i++)
         {
             this.splitMessage[i] = textData[i].message;
             this.splitName[i] = textData[i].charaName;

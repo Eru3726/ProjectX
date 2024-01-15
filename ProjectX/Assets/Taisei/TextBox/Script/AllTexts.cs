@@ -123,8 +123,8 @@ public class AllTexts : MonoBehaviour
                 break;
         }
 
-        TextSystemScript.SetTextPanel(message, charaName, charaIcon, LorR, anims);
-        //TextSystemScript.SetCSVPanel(csvFiles);
+        //TextSystemScript.SetTextPanel(message, charaName, charaIcon, LorR, anims);
+        TextSystemScript.SetCSVPanel(csvFiles);
 
     }
 }

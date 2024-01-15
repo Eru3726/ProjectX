@@ -21,7 +21,7 @@ public class testSet : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            textNo = 0;
+            textNo = 999;
             talkUI.SetActive(true);
             alltextsscript.SetAllTexts(textNo);
         }
