@@ -248,7 +248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &143560014
 Transform:
   m_ObjectHideFlags: 0
@@ -882,7 +882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &712553648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1386,7 +1386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1218192480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1455,8 +1455,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1218192479}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 43.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1145588441}
@@ -1599,7 +1599,7 @@ MonoBehaviour:
   splitString: <>
   textSpeed: 0.02
   clickFlashTime: 0.6
-  allIconLeft: "\u4E3B\u4EBA\u516C\u56F0\u308A"
+  allIcon: 
   allName: "\u3042\u3042\u3042<>\u3044\u3044\u3044"
   sound1: {fileID: 8300000, guid: f4a547826eb1ced4ebd9c4650404863a, type: 3}
   autoTimerLimit: 2
@@ -1621,6 +1621,8 @@ MonoBehaviour:
   chara2_anim:
   - Doctor_Idle_Animation
   - Doctor_Wire_Animation
+  textData: []
+  BackPanel: {fileID: 1899614189}
 --- !u!1 &1228290736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1815,7 +1817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alltextsscript: {fileID: 1218192484}
-  talkUI: {fileID: 1218192479}
+  talkUI: {fileID: 143560013}
 --- !u!4 &1572422037
 Transform:
   m_ObjectHideFlags: 0

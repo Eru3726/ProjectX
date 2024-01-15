@@ -140,6 +140,10 @@ public class TextScript : MonoBehaviour
     //CSV関連
     public TextData[] textData;
 
+    //暗くする背景
+    [SerializeField] private GameObject BackPanel;
+    //Time.deltaTimeの代わり
+    private float counter = 0f;
 
     void Start()
     {
@@ -279,6 +283,7 @@ public class TextScript : MonoBehaviour
                 //audioSource.PlayOneShot(sound1);
                 nowTextNum++;
                 elapsedTime = 0f;
+                counter = 0;
 
                 //messageを全部表示、または行数が最大数表示された
                 if (nowTextNum >= splitMessage[messageNum].Length)
@@ -286,7 +291,8 @@ public class TextScript : MonoBehaviour
                     isOneMessage = true;
                 }
             }
-            elapsedTime += Time.deltaTime;
+            counter++;
+            elapsedTime += counter / 60f;
 
 
             ////message表示中にエンターを押したら一括表示
@@ -302,7 +308,8 @@ public class TextScript : MonoBehaviour
         {
             if (AutoORAanual == false)
             {
-                elapsedTime += Time.deltaTime;
+                counter++;
+                elapsedTime += counter / 60f;
 
                 //クリックアイコンを点滅する時間を超えた時、反転させる
                 if (elapsedTime >= clickFlashTime)
@@ -339,6 +346,7 @@ public class TextScript : MonoBehaviour
                     }
 
                     elapsedTime = 0f;
+                    counter = 0;
 
                 }
 
@@ -381,13 +389,15 @@ public class TextScript : MonoBehaviour
                         transform.GetChild(2).gameObject.SetActive(false);
                         transform.GetChild(3).gameObject.SetActive(false);
                         CharaConection.SetActive(false);
+                        BackPanel.SetActive(false);
                         Time.timeScale = 1;
                     }
                 }
             }
             else
             {
-                autoTimer += Time.deltaTime;
+                counter++;
+                autoTimer += counter / 60f;
                 clickIcon.enabled = false;
                 clickIcon2.enabled = false;
                 clickIcon3.enabled = false;
@@ -421,6 +431,7 @@ public class TextScript : MonoBehaviour
                     firstStandP = true;
 
                     autoTimer = 0f;
+                    counter = 0;
 
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
                     if (messageNum >= splitMessage.Length)
@@ -432,6 +443,7 @@ public class TextScript : MonoBehaviour
                         transform.GetChild(2).gameObject.SetActive(false);
                         transform.GetChild(3).gameObject.SetActive(false);
                         CharaConection.SetActive(false);
+                        BackPanel.SetActive(false);
                         Time.timeScale = 1;
                     }
                 }
@@ -552,6 +564,7 @@ public class TextScript : MonoBehaviour
         transform.GetChild(2).gameObject.SetActive(true);
         transform.GetChild(3).gameObject.SetActive(true);
         CharaConection.SetActive(true);
+        BackPanel.SetActive(true);
         Time.timeScale = 0;
 
     }
