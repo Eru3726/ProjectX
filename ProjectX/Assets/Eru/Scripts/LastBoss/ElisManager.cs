@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum Elis_MoveType
@@ -15,8 +16,14 @@ public class ElisManager : MonoBehaviour, IDamageable
 {
     public int Health => hp;
 
-    [SerializeField]
+    [SerializeField, Header("マスターデータ")]
     private ElisData elisData;
+
+    [SerializeField, Header("魔法弾")]
+    private GameObject bullet;
+
+    [SerializeField, Header("プレイヤーのTR")]
+    private Transform playerTr;
 
     private Elis_MoveType moveType;
 
@@ -28,23 +35,25 @@ public class ElisManager : MonoBehaviour, IDamageable
 
     private bool halfHP = false;
 
+    private readonly LineShot lineShot = new LineShot();
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        hp = elisData.ElisData_HitPoint;
-        attackPow = elisData.ElisData_FallingAttackPower;
-        defensePow = elisData.ElisData_DefensePower;
-        moveSpeed = elisData.ElisData_MoveSpeed;
+        hp = elisData.HitPoint;
+        attackPow = elisData.FallingAttackPower;
+        defensePow = elisData.DefensePower;
+        moveSpeed = elisData.MoveSpeed;
 
-        Debug.Log(hp);
-        Debug.Log(attackPow);
-        Debug.Log(defensePow);
-        Debug.Log(moveSpeed);
+        if (playerTr == null) playerTr = GameObject.Find("Player").transform;
 
-        moveType = Elis_MoveType.Entry;
+        //moveType = Elis_MoveType.Entry;
+        moveType = Elis_MoveType.Shot;
         rb.gravityScale = 0;
         halfHP = false;
+
+        MoveTypeChange();
     }
 
     private void MoveTypeChange()
@@ -56,27 +65,27 @@ public class ElisManager : MonoBehaviour, IDamageable
                 break;
 
             case Elis_MoveType.Neutral:
-
+                Neutral();
                 break;
 
             case Elis_MoveType.Move:
-
+                Move();
                 break;
 
             case Elis_MoveType.Shot:
-
+                StartCoroutine(Shot());
                 break;
 
             case Elis_MoveType.Avatar:
-
+                Avatar();
                 break;
 
             case Elis_MoveType.FallingAttack:
-
+                FallingAttack();
                 break;
 
             case Elis_MoveType.FormChange:
-
+                FormChange();
                 break;
         }
     }
@@ -96,9 +105,28 @@ public class ElisManager : MonoBehaviour, IDamageable
 
     }
 
-    private void Shot()
+    private IEnumerator Shot()
     {
+        for (int i = 0;i< elisData.ShotNum; i++)
+        {
+            lineShot.Shot(Instantiate(bullet, transform.position, Quaternion.identity), transform, playerTr, elisData);
 
+            yield return new WaitForSeconds(elisData.ShotTime);
+        }
+
+        //体力が半分の時は追撃
+        if (halfHP)
+        {
+            for (int i = 0; i < elisData.ShotNum; i++)
+            {
+                lineShot.Shot(Instantiate(bullet, transform.position, Quaternion.identity), transform, playerTr, elisData);
+
+                yield return new WaitForSeconds(elisData.ShotTime / 2f);
+            }
+        }
+
+        yield return new WaitForSeconds(2f);
+        MoveTypeChange();
     }
 
     private void Avatar()
@@ -129,6 +157,6 @@ public class ElisManager : MonoBehaviour, IDamageable
             moveType = Elis_MoveType.FormChange;
             MoveTypeChange();
         }
-        else if (hp <= elisData.ElisData_HitPoint / 2 && !halfHP) halfHP = true;
+        else if (hp <= elisData.HitPoint / 2 && !halfHP) halfHP = true;
     }
 }

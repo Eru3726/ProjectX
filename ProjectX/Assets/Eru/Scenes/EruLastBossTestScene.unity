@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 1177302718}
   m_Layer: 0
   m_Name: Elis
-  m_TagString: Untagged
+  m_TagString: Elis
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -267,6 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elisData: {fileID: 11400000, guid: c4b6fe7efcb027c4ba7fbfc116ece37b, type: 2}
+  bullet: {fileID: 4181954287682895926, guid: c10e9c0d877f05c49a85ac92d2aed98e, type: 3}
+  playerTr: {fileID: 2045799042}
 --- !u!212 &1177302714
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -327,7 +329,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177302712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.06, y: -3.25, z: 0}
+  m_LocalPosition: {x: 5.06, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -407,9 +409,10 @@ GameObject:
   - component: {fileID: 2045799041}
   - component: {fileID: 2045799040}
   - component: {fileID: 2045799039}
+  - component: {fileID: 2045799043}
   m_Layer: 0
-  m_Name: Square
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -527,6 +530,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2045799043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045799038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbd29450772c26e4cab79b343dffc983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2084667545
 GameObject:
   m_ObjectHideFlags: 0

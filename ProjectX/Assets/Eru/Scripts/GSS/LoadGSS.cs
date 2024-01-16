@@ -9,14 +9,14 @@ namespace EruGSS
 {
     public class LoadGSS
     {
-        private ElisData generalParameter;
+        private ElisData elisData;
         private ElisSecondData elisSecondData;
         private PathScriptableObject pathScriptableObject;
 
         public void DataLoad(string pso)
         {
             pathScriptableObject = AssetDatabase.LoadAssetAtPath<PathScriptableObject>(pso);
-            generalParameter = AssetDatabase.LoadAssetAtPath<ElisData>(pathScriptableObject.DataScriptableObject_PATH[0]);
+            elisData = AssetDatabase.LoadAssetAtPath<ElisData>(pathScriptableObject.DataScriptableObject_PATH[0]);
             elisSecondData = AssetDatabase.LoadAssetAtPath<ElisSecondData>(pathScriptableObject.DataScriptableObject_PATH[1]);
 
             //URLへアクセス
@@ -55,15 +55,17 @@ namespace EruGSS
             //generalParameter.boolParam = data.key_3 == "true" ? true : false;      //bool型の場合
 
             //第一段階のエリスデータ
-            generalParameter.ElisData_HitPoint = (int)float.Parse(data.ElisData_HitPoint);
-            generalParameter.ElisData_FallingAttackPower = (int)float.Parse(data.ElisData_FallingAttackPower);
-            generalParameter.ElisData_DefensePower = (int)float.Parse(data.ElisData_DefensePower);
-            generalParameter.ElisData_MoveSpeed = float.Parse(data.ElisData_MoveSpeed);
+            elisData.HitPoint = (int)float.Parse(data.ElisData_HitPoint);
+            elisData.FallingAttackPower = (int)float.Parse(data.ElisData_FallingAttackPower);
+            elisData.DefensePower = (int)float.Parse(data.ElisData_DefensePower);
+            elisData.MoveSpeed = float.Parse(data.ElisData_MoveSpeed);
+            elisData.ShotNum = (int)float.Parse(data.ElisData_ShotNum);
+            elisData.ShotTime = float.Parse(data.ElisData_ShotTime);
 
             //第一段階のエリスの魔法弾データ
-            generalParameter.ElisData_B_AttackPower = (int)float.Parse(data.ElisData_B_AttackPower);
-            generalParameter.ElisData_B_MoveSpeed = float.Parse(data.ElisData_B_MoveSpeed);
-            generalParameter.ElisData_B_MoveTime = (int)float.Parse(data.ElisData_B_MoveTime);
+            elisData.B_AttackPower = (int)float.Parse(data.ElisData_B_AttackPower);
+            elisData.B_MoveSpeed = float.Parse(data.ElisData_B_MoveSpeed);
+            elisData.B_MoveTime = (int)float.Parse(data.ElisData_B_MoveTime);
 
             //第二段階のエリスデータ
             elisSecondData.ElisSecondData_HitPoint = (int)float.Parse(data.ElisSecondData_HitPoint);

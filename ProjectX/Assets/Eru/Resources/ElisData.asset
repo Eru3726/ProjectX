@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d95231672a22244a1a8128e91bb8ff, type: 3}
   m_Name: ElisData
   m_EditorClassIdentifier: 
-  ElisData_HitPoint: 100
-  ElisData_FallingAttackPower: 15
-  ElisData_DefensePower: 10
-  ElisData_MoveSpeed: 5
-  ElisData_B_AttackPower: 10
-  ElisData_B_MoveSpeed: 3
-  ElisData_B_MoveTime: 3
+  HitPoint: 100
+  FallingAttackPower: 15
+  DefensePower: 10
+  MoveSpeed: 5
+  ShotNum: 4
+  ShotTime: 0.5
+  B_AttackPower: 10
+  B_MoveSpeed: 5
+  B_MoveTime: 5

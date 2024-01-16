@@ -7,14 +7,16 @@ public class ElisData : ScriptableObject
     //変数名と型は自由
 
     //第一段階のエリスデータ
-    public int ElisData_HitPoint;
-    public int ElisData_FallingAttackPower;
-    public int ElisData_DefensePower;
-    public float ElisData_MoveSpeed;
+    public int HitPoint;
+    public int FallingAttackPower;
+    public int DefensePower;
+    public float MoveSpeed;
+    public int ShotNum;
+    public float ShotTime;
 
     //第一段階のエリスの魔法弾データ
-    public int ElisData_B_AttackPower;
-    public float ElisData_B_MoveSpeed;
-    public int ElisData_B_MoveTime;
+    public int B_AttackPower;
+    public float B_MoveSpeed;
+    public int B_MoveTime;
 }
 
