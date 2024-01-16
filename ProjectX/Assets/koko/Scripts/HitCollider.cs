@@ -59,22 +59,19 @@ public class HitCollider : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        // CheckHitLayer(collision);
-    }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         CheckHitLayer(collision);
     }
 
-    protected void Damage( float dmg, float shock, Vector3 pos)
+    protected void Damage( float dmg, float shock, float inv, Vector3 pos)
     {
+        // 与ダメ計算
         float trueDmg;
         trueDmg = dmg - defence;
         if(trueDmg <= 0) { trueDmg = 1; }
 
+        // バリア計算
         if (barrier > 0)
         {
             barrier -= trueDmg;
@@ -86,12 +83,14 @@ public class HitCollider : MonoBehaviour
 
         if (barrier <= 0) { barrier = 0; }
 
+        // 衝撃付与
         Vector3 shockDir = pos - this.transform.position;
         if (mc != null)
         {
             mc.InputFlick(this.transform.position - shockDir, shock * resist, 0.5f, false);
         }
 
+        // 死亡判定
         if (nowHp <= 0)
         {
             Die();
@@ -126,9 +125,11 @@ public class HitCollider : MonoBehaviour
             // 攻撃レイヤーと被撃レイヤーが違うかつ、その攻撃に対応する無敵時間が0の場合のみダメージ処理へ
             if (atk.atkLayer != hitLayer && invTime[(int)atk.atkType] <= 0)
             {
-                // ダメージ
-                Damage(atk.dmg, atk.shock, atk.apPos);
+                // 無敵付与
                 invTime[(int)atk.atkType] = atk.inv;
+
+                // ダメージ
+                Damage(atk.dmg, atk.shock, atk.inv, atk.apPos);
 
                 // 弾丸系統ならデストロイ
                 if (atk.isBullet)

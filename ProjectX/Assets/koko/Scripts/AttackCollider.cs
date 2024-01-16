@@ -37,9 +37,11 @@ public class AttackCollider : MonoBehaviour
     [SerializeField, Header("攻撃が当たったら消えるか")]
     public bool isBullet = false;
 
-    private void Start()
+    private void FixedUpdate()
     {
-        if(apFlag)
+        if (isLife) { UpdateLife(); }
+
+        if (apFlag)
         {
             apPos = transform.parent.position;
         }
@@ -47,11 +49,6 @@ public class AttackCollider : MonoBehaviour
         {
             apPos = this.transform.position;
         }
-    }
-
-    private void FixedUpdate()
-    {
-        if (isLife) { UpdateLife(); }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -69,7 +69,7 @@ public class MoveController : MonoBehaviour
         }
         else
         {
-            // フリックストップ
+            // フリック使用後の慣性がない場合の処理
             if (flickStop)
             {
                 InputFlickStop();

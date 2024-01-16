@@ -17,13 +17,16 @@ public class PlayerInput : MonoBehaviour
     [SerializeField, Header("AngerFireプレハブつけてね")]
     GameObject AFPre;
 
+    [SerializeField, Header("AngerChargeプレハブつけてね")]
+    GameObject ACPre;
+
     [SerializeField, Header("AngerAreaプレハブつけてね")]
     GameObject AAPre;
 
-    [SerializeField, Header("アタッチしろ")]
+    [SerializeField, Header("MoveControllerアタッチ")]
     MoveController mc;
 
-    [SerializeField, Header("アタッチ")]
+    [SerializeField, Header("HitColliderアタッチ")]
     HitCollider hc;
 
     [SerializeField]
@@ -50,10 +53,6 @@ public class PlayerInput : MonoBehaviour
     {
         // 移動処理（横移動、ジャンプ）
         MoveInput();
-
-        // 向いてる方向
-        Vector3 plDir = this.transform.position;
-        plDir.x += transform.localScale.x;
 
         // NomalMelee : P
         if (Input.GetKeyDown(KeyCode.P))
@@ -176,6 +175,23 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
+        // AngerCharge : C
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (actSkill[(int)StageData.ACT_DATA.AC1] == false && !CheckActSkill())
+            {
+                ActAC();
+                actSkill[(int)StageData.ACT_DATA.AC1] = true;
+                skillTime[(int)StageData.ACT_DATA.AC1] = 2;
+                coolTime[(int)StageData.ACT_DATA.AC1] = 3;
+            }
+        }
+
+        if (skillTime[(int)StageData.ACT_DATA.AC1] > 0)
+        {
+            mc.InputFlick((int)transform.localScale.x, 10, 0, false);
+        }
+
         // AngerArea : O
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -206,7 +222,7 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        if (skillTime[(int)StageData.ACT_DATA.AF1] > 0)
+        if (skillTime[(int)StageData.ACT_DATA.SB1] > 0)
         {
             mc.InputFlickStop();
             mc.InputLR(0);
@@ -372,6 +388,12 @@ public class PlayerInput : MonoBehaviour
             lea.z = i * 60 + (num * 30);
             obj.transform.localEulerAngles = lea;
         }
+    }
+
+    void ActAC()
+    {
+        GameObject obj = Instantiate(ACPre, transform.position, Quaternion.identity);
+        obj.transform.parent = this.transform;
     }
 
     void ActAA()
