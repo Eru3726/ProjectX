@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc4396c1a2dd7c54da52373f63ac4fb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,7 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f9327a23714224685d067f600af730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpdX: 5
+  moveX: 1
+  moveY: 0
+  moveSpd: {x: 5, y: 5}
   jumpPow: 10
 --- !u!114 &9188364585238201736
 MonoBehaviour:
@@ -130,10 +132,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164019d92e6891d4ea599182f853ee6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PunchPrefab: {fileID: 30877835086047478, guid: 432dbf6376b9c3d4a988adcf7af2408c, type: 3}
-  FirePrefab: {fileID: 3424937521654278364, guid: 92260d6e0accda947b22f51bdb80da18, type: 3}
+  NMPre: {fileID: 30877835086047478, guid: 432dbf6376b9c3d4a988adcf7af2408c, type: 3}
+  LBPre: {fileID: 6838571167799440004, guid: f02bc7fdb3b74454eb72df9731419c42, type: 3}
+  LMPre: {fileID: 3798301893042873574, guid: 5b0dadbdee1bbc64f82f39f9ce1c38e3, type: 3}
+  AFPre: {fileID: 3424937521654278364, guid: 92260d6e0accda947b22f51bdb80da18, type: 3}
+  ACPre: {fileID: 0}
+  AAPre: {fileID: 6224799489942547280, guid: 200482dccc238584e87c19e93f9120c9, type: 3}
   mc: {fileID: 9188364585238201739}
   hc: {fileID: 9188364585603081412}
+  actSkill: 
+  skillTime: []
+  coolTime: []
 --- !u!50 &9188364585238201737
 Rigidbody2D:
   serializedVersion: 4
@@ -168,18 +177,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.045772016, y: -0.066577494}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2.5, y: 2.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5755682, y: 1.8155752}
   m_EdgeRadius: 0
 --- !u!1 &9188364585603081435
 GameObject:
@@ -282,6 +291,9 @@ MonoBehaviour:
   parent: {fileID: 9188364585238201743}
   maxHp: 20
   nowHp: 0
+  barrier: 0
+  defence: 0
+  resist: 1
   hitLayer: 1
   invTime: []
 --- !u!58 &9188364585603081413
