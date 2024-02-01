@@ -13,7 +13,7 @@ public class testSet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -31,5 +31,6 @@ public class testSet : MonoBehaviour
             talkUI.SetActive(true);
             alltextsscript.SetAllTexts(textNo);
         }
+
     }
 }

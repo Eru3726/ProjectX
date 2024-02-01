@@ -163,7 +163,6 @@ public class TextScript : MonoBehaviour
 
         nameText = transform.GetChild(3).GetComponentInChildren<Text>();
         nameText.text = "";
-        //SetText(allMessage, allName, allIcon, allLR, allAnims);
 
         TextAsset textAsset = new TextAsset();
         textAsset = Resources.Load("testText", typeof(TextAsset)) as TextAsset;
@@ -200,12 +199,6 @@ public class TextScript : MonoBehaviour
                 if (!LorR)
                 {
                     Debug.Log("左立ち絵更新");
-                    //画像
-                    //Sprite sprite1 = Resources.Load<Sprite>(splitIconLeft[iconNumL]) as Sprite;
-                    //GameObject goImageLeft = GameObject.Find("Icon1");
-                    //Image im1 = goImageLeft.GetComponent<Image>();
-                    //im1.sprite = sprite1;
-
                     //live2D
                     if (firstStandP)
                     {
@@ -238,12 +231,6 @@ public class TextScript : MonoBehaviour
                 else if (LorR)
                 {
                     Debug.Log("右立ち絵更新");
-                    //画像
-                    //Sprite sprite2 = Resources.Load<Sprite>(splitIconRight[iconNumR]) as Sprite;
-                    //GameObject goImageRight = GameObject.Find("Icon2");
-                    //Image im2 = goImageRight.GetComponent<Image>();
-                    //im2.sprite = sprite2;
-
                     //live2D
                     if (firstStandP)
                     {
@@ -256,7 +243,7 @@ public class TextScript : MonoBehaviour
                     RightImg.color = new Color(255, 255, 255, 1);
                     LeftImg.color = Color.gray;
 
-                    //アニメーション関連の
+                    //アニメーション関連
                     anim = RightPos.transform.Find(Charas[int.Parse(splitIcon[iconNum])].name + "(Clone)").GetComponent<Animator>();
                     switch (int.Parse(splitIcon[iconNum]))
                     {
@@ -295,12 +282,12 @@ public class TextScript : MonoBehaviour
             elapsedTime += counter / 60f;
 
 
-            ////message表示中にエンターを押したら一括表示
-            //if (Input.GetKeyDown(KeyCode.Return))
-            //{
-            //    messageText.text += splitMessage[messageNum].Substring(nowTextNum);
-            //    isOneMessage = true;
-            //}
+            //message表示中にエンターを押したら一括表示
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                messageText.text += splitMessage[messageNum].Substring(nowTextNum);
+                isOneMessage = true;
+            }
 
         }
         //１回に表示するメッセージを表示した
@@ -353,44 +340,12 @@ public class TextScript : MonoBehaviour
                 //エンターキーor左クリックを押したら次の文字表示処理
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
                 {
-                    nowTextNum = 0;
-                    messageNum++;
-                    messageText.text = "";
-                    clickIcon.enabled = false;
-                    clickIcon2.enabled = false;
-                    clickIcon3.enabled = false;
-                    clickIcon4.enabled = false;
-                    changeFace = 0;
-                    changeClickIcon = false;
-                    elapsedTime = 0f;
-                    isOneMessage = false;
-
-                    nowNameNum = 0;
-                    nameNum++;
-                    nameText.text = "";
-                    isOneMessage = false;
-                    checkName = false;
-
-                    iconNum++;
-
-                    LRNum++;
-
-                    animsNum++;
-
-                    firstStandP = true;
+                    FinishOneText();
 
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
                     if (messageNum >= splitMessage.Length)
                     {
-                        isEndMessage = true;
-                        TextOnOff = false;
-                        //transform.GetChild(0).gameObject.SetActive(false);
-                        //transform.GetChild(1).gameObject.SetActive(false);
-                        transform.GetChild(2).gameObject.SetActive(false);
-                        transform.GetChild(3).gameObject.SetActive(false);
-                        CharaConection.SetActive(false);
-                        BackPanel.SetActive(false);
-                        Time.timeScale = 1;
+                        DestroyText();
                     }
                 }
             }
@@ -407,28 +362,7 @@ public class TextScript : MonoBehaviour
 
                 if (autoTimer >= autoTimerLimit)
                 {
-                    nowTextNum = 0;
-                    messageNum++;
-                    messageText.text = "";
-                    clickIcon.enabled = false;
-                    clickIcon2.enabled = false;
-                    clickIcon3.enabled = false;
-                    clickIcon4.enabled = false;
-                    changeFace = 0;
-                    elapsedTime = 0f;
-                    isOneMessage = false;
-
-                    nowNameNum = 0;
-                    nameNum++;
-                    nameText.text = "";
-                    isOneMessage = false;
-                    checkName = false;
-
-                    iconNum++;
-
-                    LRNum++;
-
-                    firstStandP = true;
+                    FinishOneText();
 
                     autoTimer = 0f;
                     counter = 0;
@@ -436,19 +370,69 @@ public class TextScript : MonoBehaviour
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
                     if (messageNum >= splitMessage.Length)
                     {
-                        isEndMessage = true;
-                        TextOnOff = false;
-                        //transform.GetChild(0).gameObject.SetActive(false);
-                        //transform.GetChild(1).gameObject.SetActive(false);
-                        transform.GetChild(2).gameObject.SetActive(false);
-                        transform.GetChild(3).gameObject.SetActive(false);
-                        CharaConection.SetActive(false);
-                        BackPanel.SetActive(false);
-                        Time.timeScale = 1;
+                        DestroyText();
                     }
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Skip();
+        }
+
+    }
+
+    //次の文字表示処理
+    private void FinishOneText()
+    {
+        nowTextNum = 0;
+        messageNum++;
+        messageText.text = "";
+        clickIcon.enabled = false;
+        clickIcon2.enabled = false;
+        clickIcon3.enabled = false;
+        clickIcon4.enabled = false;
+        changeFace = 0;
+        changeClickIcon = false;
+        elapsedTime = 0f;
+        isOneMessage = false;
+
+        nowNameNum = 0;
+        nameNum++;
+        nameText.text = "";
+        checkName = false;
+
+        iconNum++;
+
+        LRNum++;
+
+        animsNum++;
+
+        firstStandP = true;
+    }
+
+    //全てのメッセージを表示されたら
+    private void DestroyText()
+    {
+        foreach (Transform child in LeftPos.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in RightPos.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        isEndMessage = true;
+        TextOnOff = false;
+        //transform.GetChild(0).gameObject.SetActive(false);
+        //transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(false);
+        transform.GetChild(3).gameObject.SetActive(false);
+        CharaConection.SetActive(false);
+        BackPanel.SetActive(false);
+        Time.timeScale = 1;
     }
 
     void SetText(string message, string name, string icon, string iconLorR, string anims)
@@ -567,6 +551,13 @@ public class TextScript : MonoBehaviour
         BackPanel.SetActive(true);
         Time.timeScale = 0;
 
+    }
+
+    //スキップ処理
+    public void Skip()
+    {
+        FinishOneText();
+        DestroyText();
     }
 
 }
