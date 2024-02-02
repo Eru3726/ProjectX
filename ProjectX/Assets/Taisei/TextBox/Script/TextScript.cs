@@ -113,7 +113,7 @@ public class TextScript : MonoBehaviour
 
     //live2Dprefab
     //キャラクター番号
-    //0:
+    //0:一人用のみ表示用の空データ
     //1:
     //2:
     public List<GameObject> Charas = new List<GameObject>();
@@ -279,7 +279,7 @@ public class TextScript : MonoBehaviour
                 }
             }
             counter++;
-            elapsedTime += counter / 60f;
+            elapsedTime = counter / 60f;
 
 
             //message表示中にエンターを押したら一括表示
@@ -296,7 +296,7 @@ public class TextScript : MonoBehaviour
             if (AutoORAanual == false)
             {
                 counter++;
-                elapsedTime += counter / 60f;
+                elapsedTime = counter / 60f;
 
                 //クリックアイコンを点滅する時間を超えた時、反転させる
                 if (elapsedTime >= clickFlashTime)
