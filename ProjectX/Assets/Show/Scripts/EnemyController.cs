@@ -28,9 +28,13 @@ public class EnemyController : MonoBehaviour
     public float minY = 4f;   // 移動可能なY座標の最小値
     public float maxY = 6f;    // 移動可能なY座標の最大値
 
+    float timer = 0;
+
     [Header("Enemyの弾Prefab")]
     public GameObject ShellPre;
 
+
+    int eight = 8;
    
     float warpDelay = 1f; //ワープするまでの時間
     float idolDelay = 1.5f; //待機時間
@@ -197,11 +201,18 @@ public class EnemyController : MonoBehaviour
 
         nowHomingFlg = true;
 
-        Vector2 enemyPos = transform.position;
+        Vector2[] enemyPos = new Vector2[eight];
+        GameObject[] shell = new GameObject[eight];
+        for (int i = 0; i < eight; i++)
+        {
+            enemyPos[i] = transform.position;
+            enemyPos[i].x += 0.2f;
+            enemyPos[i].y += 2f;
+            shell[i] = Instantiate(ShellPre, enemyPos[i], Quaternion.identity);
 
-        GameObject shell = Instantiate(ShellPre,enemyPos, Quaternion.identity);
-        sc = shell.GetComponent<ShellController>();
-        sc.ec = GetComponent<EnemyController>();
+            sc = shell[i].GetComponent<ShellController>();
+            sc.ec = GetComponent<EnemyController>();
+        }
     }
     void EnemyDown()
     {
