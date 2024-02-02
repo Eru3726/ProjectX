@@ -145,6 +145,8 @@ public class TextScript : MonoBehaviour
     //Time.deltaTimeの代わり
     private float counter = 0f;
 
+    [SerializeField] private GameObject AllTextPare;
+
     void Start()
     {
         clickIcon = transform.Find("TextPanel/Cursor1").GetComponent<Image>();
@@ -164,14 +166,12 @@ public class TextScript : MonoBehaviour
         nameText = transform.GetChild(3).GetComponentInChildren<Text>();
         nameText.text = "";
 
-        TextAsset textAsset = new TextAsset();
-        textAsset = Resources.Load("testText", typeof(TextAsset)) as TextAsset;
-        textData = CSVSerializer.Deserialize<TextData>(textAsset.text);
-
+        AllTextPare.SetActive(false);
     }
 
     void Update()
     {
+        Debug.Log(Time.timeScale);
         //messageが終わっているか、メッセージがない場合はこれ以降何もしない
         if (isEndMessage || allMessage == null)
         {
@@ -278,9 +278,7 @@ public class TextScript : MonoBehaviour
                     isOneMessage = true;
                 }
             }
-            counter++;
-            elapsedTime = counter / 60f;
-
+            Timer();
 
             //message表示中にエンターを押したら一括表示
             if (Input.GetKeyDown(KeyCode.Return))
@@ -293,11 +291,10 @@ public class TextScript : MonoBehaviour
         //１回に表示するメッセージを表示した
         else
         {
+            Timer();
+
             if (AutoORAanual == false)
             {
-                counter++;
-                elapsedTime = counter / 60f;
-
                 //クリックアイコンを点滅する時間を超えた時、反転させる
                 if (elapsedTime >= clickFlashTime)
                 {
@@ -351,8 +348,7 @@ public class TextScript : MonoBehaviour
             }
             else
             {
-                counter++;
-                autoTimer += counter / 60f;
+                autoTimer = elapsedTime;
                 clickIcon.enabled = false;
                 clickIcon2.enabled = false;
                 clickIcon3.enabled = false;
@@ -376,9 +372,17 @@ public class TextScript : MonoBehaviour
             }
         }
 
+        //スキップ
         if (Input.GetKeyDown(KeyCode.S))
         {
             Skip();
+        }
+
+        //オート・マニュアル変更
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            AutoORAanual = !AutoORAanual;
+            Debug.Log(AutoORAanual);
         }
 
     }
@@ -433,6 +437,13 @@ public class TextScript : MonoBehaviour
         CharaConection.SetActive(false);
         BackPanel.SetActive(false);
         Time.timeScale = 1;
+        AllTextPare.SetActive(false);
+    }
+
+    private void Timer()
+    {
+        counter++;
+        elapsedTime = counter / 60f;
     }
 
     void SetText(string message, string name, string icon, string iconLorR, string anims)
