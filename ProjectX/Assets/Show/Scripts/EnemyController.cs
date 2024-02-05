@@ -169,7 +169,7 @@ public class EnemyController : MonoBehaviour
     void EnemyDash()
     {
         Debug.Log("突進");
-        mc.InputFlick(player.transform.position, 30, 0.3f, true);
+        mc.InputFlick(player.transform.position, 30, 0.2f, true);
         currentState = EnemyState.Idol;
     }
 
