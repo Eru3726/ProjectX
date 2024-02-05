@@ -33,10 +33,7 @@ public class ShellController : MonoBehaviour
 
     
     void FixedUpdate()
-    {
-
-        playerPos = player.transform.position;
-
+    { 
         shellVec.x = ShellSpd * Time.deltaTime * Mathf.Cos(radian);
         shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
 
@@ -58,7 +55,7 @@ public class ShellController : MonoBehaviour
         {
             radian += rotSpd * Time.deltaTime;	// 時計回りさせる
         }
-
+       
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

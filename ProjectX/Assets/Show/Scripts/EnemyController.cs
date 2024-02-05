@@ -35,7 +35,7 @@ public class EnemyController : MonoBehaviour
 
 
     int eight = 8;
-   
+ 
     float warpDelay = 1f; //ワープするまでの時間
     float idolDelay = 1.5f; //待機時間
 
@@ -206,8 +206,6 @@ public class EnemyController : MonoBehaviour
         for (int i = 0; i < eight; i++)
         {
             enemyPos[i] = transform.position;
-            enemyPos[i].x += 0.2f;
-            enemyPos[i].y += 2f;
             shell[i] = Instantiate(ShellPre, enemyPos[i], Quaternion.identity);
 
             sc = shell[i].GetComponent<ShellController>();
