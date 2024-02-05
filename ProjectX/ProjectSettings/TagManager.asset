@@ -13,8 +13,13 @@ TagManager:
   - Ground
   - Water
   - UI
+<<<<<<< HEAD
   - Enemy
   - Player
+=======
+  - Hit
+  - 
+>>>>>>> main
   - 
   - 
   - 

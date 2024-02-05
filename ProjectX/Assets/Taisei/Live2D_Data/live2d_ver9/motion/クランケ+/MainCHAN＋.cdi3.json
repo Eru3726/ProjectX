@@ -1,0 +1,42 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "ビックリマークマーク"
+		},
+		{
+			"Id": "Param7",
+			"GroupId": "",
+			"Name": "ビックリ"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "アセアセマーク"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "アセアセ顔"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "ほんわか顔"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "",
+			"Name": "関心顔"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "",
+			"Name": "nomal顔"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": []
+}
