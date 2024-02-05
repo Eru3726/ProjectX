@@ -55,7 +55,6 @@ public class ShellController : MonoBehaviour
         {
             radian += rotSpd * Time.deltaTime;	// 時計回りさせる
         }
-       
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -65,5 +64,11 @@ public class ShellController : MonoBehaviour
            ec.ishoming = true;
            Destroy(this.gameObject);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ec.ishoming = true;
+        Destroy(this.gameObject);
     }
 }
