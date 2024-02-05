@@ -8,10 +8,10 @@ public class DebugPlayer : MonoBehaviour ,IDamageable
 
     private int hp = 100;
 
-    public void TakeDamage(int value)
+    public void TakeDamage(int damage, float shock)
     {
-        Debug.Log("プレイヤーに" + value + "ダメージ");
-        hp -= value;
+        Debug.Log("プレイヤーに" + damage + "ダメージ");
+        hp -= damage;
         if(hp <= 0)
         {
             Debug.Log("プレイヤー死亡");

@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitCollider : MonoBehaviour
+public class HitCollider : MonoBehaviour, IDamageable
 {
+    public int Health { get; }
+    public void TakeDamage(int damage, float shock) { }
+
     [SerializeField, Header("MoveControllerをアタッチ（ノックバックしないなら不要）")]
     MoveController mc;
 
@@ -11,16 +14,16 @@ public class HitCollider : MonoBehaviour
     GameObject parent;
 
     [SerializeField, Header("最大HP")]
-    protected float maxHp = 20;
+    protected int maxHp = 20;
 
     [SerializeField, Header("現在HP（設定不要）")]
-    protected float nowHp;
+    protected int nowHp;
 
     [SerializeField, Header("バリア")]
-    protected float barrier = 0;
+    protected int barrier = 0;
 
     [SerializeField, Header("防御力（引き算）")]
-    protected float defence = 0;
+    protected int defence = 0;
 
     [SerializeField, Header("衝撃耐性（倍率）")]
     protected float resist = 1;
@@ -64,10 +67,10 @@ public class HitCollider : MonoBehaviour
         CheckHitLayer(collision);
     }
 
-    protected void Damage( float dmg, float shock, float inv, Vector3 pos)
+    protected void Damage(int dmg, float shock, Vector3 pos)
     {
         // 与ダメ計算
-        float trueDmg;
+        int trueDmg;
         trueDmg = dmg - defence;
         if(trueDmg <= 0) { trueDmg = 1; }
 
@@ -129,7 +132,7 @@ public class HitCollider : MonoBehaviour
                 invTime[(int)atk.atkType] = atk.inv;
 
                 // ダメージ
-                Damage(atk.dmg, atk.shock, atk.inv, atk.apPos);
+                Damage(atk.dmg, atk.shock, atk.apPos);
 
                 // 弾丸系統ならデストロイ
                 if (atk.isBullet)
@@ -148,7 +151,7 @@ public class HitCollider : MonoBehaviour
         }
     }
 
-    public void SetBarrier(float value)
+    public void SetBarrier(int value)
     {
         barrier = value;
     }

@@ -1,5 +1,6 @@
 public interface IDamageable
 {
     int Health { get; }
-    void TakeDamage(int value);
+    void TakeDamage(int damage, float shock, float inv);
+
 }

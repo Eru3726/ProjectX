@@ -29,6 +29,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField, Header("HitColliderアタッチ")]
     HitCollider hc;
 
+    public int piInputLR = 0;
+
     [SerializeField]
     List<bool> actSkill = new List<bool>();
     [SerializeField]
@@ -67,8 +69,8 @@ public class PlayerInput : MonoBehaviour
                 {
                     ActNM(3);
                     actSkill[(int)StageData.ACT_DATA.NM3] = true;
-                    skillTime[(int)StageData.ACT_DATA.NM3] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM3] = 0.5f;
+                    skillTime[(int)StageData.ACT_DATA.NM3] = 0.3f;
+                    coolTime[(int)StageData.ACT_DATA.NM3] = 0.3f;
                 }
             }
             else if (skillTime[(int)StageData.ACT_DATA.NM1] > 0)
@@ -77,8 +79,8 @@ public class PlayerInput : MonoBehaviour
                 {
                     ActNM(2);
                     actSkill[(int)StageData.ACT_DATA.NM2] = true;
-                    skillTime[(int)StageData.ACT_DATA.NM2] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM2] = 0.5f;
+                    skillTime[(int)StageData.ACT_DATA.NM2] = 0.3f;
+                    coolTime[(int)StageData.ACT_DATA.NM2] = 0.3f;
                 }
             }
             else if (skillTime[(int)StageData.ACT_DATA.NM1] <= 0)
@@ -87,8 +89,8 @@ public class PlayerInput : MonoBehaviour
                 {
                     ActNM(1);
                     actSkill[(int)StageData.ACT_DATA.NM1] = true;
-                    skillTime[(int)StageData.ACT_DATA.NM1] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.5f;
+                    skillTime[(int)StageData.ACT_DATA.NM1] = 0.3f;
+                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.3f;
                 }
             }
         }
@@ -258,9 +260,21 @@ public class PlayerInput : MonoBehaviour
     void MoveInput()
     {
         // 左右入力：A and D
-        if (Input.GetKey(KeyCode.D)) { mc.InputLR(1); }
-        else if (Input.GetKey(KeyCode.A)) { mc.InputLR(-1); }
-        else { mc.InputLR(0); }
+        if (Input.GetKey(KeyCode.D))
+        {
+            mc.InputLR(1);
+            piInputLR = 1;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            mc.InputLR(-1);
+            piInputLR = -1;
+        }
+        else
+        {
+            mc.InputLR(0);
+            piInputLR = 0;
+        }
 
         // キャラの向き変更
         if (mc.GetLR() != 0)

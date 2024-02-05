@@ -54,13 +54,34 @@ public class PlayerAnimController : MonoBehaviour
 
     private void Update()
     {
-        //if (mc.GetLR() != 0)
+        //if (pi.piInputLR != 0)
         //{
-        //    anim.Play("Amari_RunAnimation");
+        //    amariAnim.Play("Amari_RunAnimation");
         //}
         //else
         //{
-        //    anim.Play("Amari_NomalAnimation");
+        //    amariAnim.Play("Amari_NomalAnimation");
         //}
+        if (Input.GetKey(KeyCode.P))
+        {
+            atk1Anim.Play("Amari_Attack1_Animation");
+
+            amari.SetActive(false);
+            amari_Attack1.SetActive(true);
+        }
+        else if (mc.GetLR() != 0)
+        {
+            amariAnim.Play("Amari_RunAnimation");
+
+            amari.SetActive(true);
+            amari_Attack1.SetActive(false);
+        }
+        else
+        {
+            amariAnim.Play("Amari_NomalAnimation");
+
+            amari.SetActive(true);
+            amari_Attack1.SetActive(false);
+        }
     }
 }
