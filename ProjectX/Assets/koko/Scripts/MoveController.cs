@@ -7,10 +7,14 @@ public class MoveController : MonoBehaviour
     protected Rigidbody2D rb;
     protected GroundChecker gc;
 
-    [SerializeField] protected float moveSpdX = 5;
-    [SerializeField] protected float jumpPow = 10;
+    [SerializeField] protected bool moveX = true;
+    [SerializeField] protected bool moveY = false;
+
+    [SerializeField] public Vector2 moveSpd = new Vector2(5, 5);
+    [SerializeField] public float jumpPow = 10;
 
     [Range(-1, 1)] protected int inputLR = 0;
+    [Range(-1, 1)] protected int inputUD = 0;
     protected bool inputJump = false;
 
     protected bool inputFlick = false;
@@ -35,8 +39,6 @@ public class MoveController : MonoBehaviour
 
         gc.CheckGround();
 
-        InputControl();
-
     }
 
     protected void FixedUpdate()
@@ -46,16 +48,9 @@ public class MoveController : MonoBehaviour
 
     }
 
-
-
-    protected virtual void InputControl()
-    {
-
-    }
-
     protected void MoveControl()
     {
-        Vector3 moveSpd = rb.velocity;
+        Vector3 moveVel = rb.velocity;
 
         // フリック（最優先）
         if (flickTime > 0)
@@ -67,32 +62,41 @@ public class MoveController : MonoBehaviour
                 Vector3 temp;
                 temp.x = flickPow * Mathf.Cos(flickDir * Mathf.Deg2Rad);
                 temp.y = flickPow * Mathf.Sin(flickDir * Mathf.Deg2Rad);
-                moveSpd.x = temp.x > 0 && temp.x > moveSpd.x || temp.x < 0 && temp.x < moveSpd.x ? temp.x : moveSpd.x;
-                moveSpd.y = temp.y > 0 && temp.y > moveSpd.y || temp.y < 0 && temp.y < moveSpd.y ? temp.y : moveSpd.y;
+                moveVel.x = temp.x > 0 && temp.x > moveVel.x || temp.x < 0 && temp.x < moveVel.x ? temp.x : moveVel.x;
+                moveVel.y = temp.y > 0 && temp.y > moveVel.y || temp.y < 0 && temp.y < moveVel.y ? temp.y : moveVel.y;
                 inputFlick = false;
             }
         }
         else
         {
-            // フリックストップ
-            if(flickStop)
+            // フリック使用後の慣性がない場合の処理
+            if (flickStop)
             {
                 InputFlickStop();
                 flickStop = false;
             }
 
-            // 通常移動
-            moveSpd.x = inputLR * moveSpdX;
+            // 横移動
+            if (moveX)
+            {
+                moveVel.x = inputLR * moveSpd.x;
+            }
+
+            // 縦移動
+            if (moveY)
+            {
+                moveVel.y = inputUD * moveSpd.y;
+            }
 
             // ジャンプ
             if (inputJump)
             {
-                moveSpd.y = jumpPow;
+                moveVel.y = jumpPow;
                 inputJump = false;
             }
         }
 
-        rb.velocity = moveSpd;
+        rb.velocity = moveVel;
     }
 
 
@@ -107,6 +111,11 @@ public class MoveController : MonoBehaviour
         inputLR = _inputLR;
     }
 
+    public void InputUD(int _inputUD)
+    {
+        inputUD = _inputUD;
+    }
+
     public void InputJump()
     {
         inputJump = true;
@@ -114,10 +123,10 @@ public class MoveController : MonoBehaviour
 
     public void InputFlick(float dir, float pow, float time)
     {
-        inputFlick = true;
         flickDir = dir;
         flickPow = pow;
         flickTime = time;
+        inputFlick = true;
     }
 
     public void InputFlick(float dir, float pow, float time, bool stop)
