@@ -113,7 +113,7 @@ public class TextScript : MonoBehaviour
 
     //live2Dprefab
     //キャラクター番号
-    //0:一人用のみ表示用の空データ
+    //0:一人用のみ表示用&システム用の空データ
     //1:
     //2:
     public List<GameObject> Charas = new List<GameObject>();
@@ -146,6 +146,11 @@ public class TextScript : MonoBehaviour
     private float counter = 0f;
 
     [SerializeField] private GameObject AllTextPare;
+    [SerializeField] private Text OnOffText;
+
+    //選択肢用
+    //flase = 非表示  true = 表示 
+    private bool ChoiceTrigger = false;
 
     void Start()
     {
@@ -172,8 +177,8 @@ public class TextScript : MonoBehaviour
     void Update()
     {
         Debug.Log(Time.timeScale);
-        //messageが終わっているか、メッセージがない場合はこれ以降何もしない
-        if (isEndMessage || allMessage == null)
+        //messageが終わっているか、メッセージがない、選択肢表示中の場合はこれ以降何もしない
+        if (isEndMessage || allMessage == null || ChoiceTrigger)
         {
             return;
         }
@@ -281,7 +286,7 @@ public class TextScript : MonoBehaviour
             Timer();
 
             //message表示中にエンターを押したら一括表示
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
             {
                 messageText.text += splitMessage[messageNum].Substring(nowTextNum);
                 isOneMessage = true;
@@ -382,6 +387,14 @@ public class TextScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             AutoORAanual = !AutoORAanual;
+            if (!AutoORAanual)
+            {
+                OnOffText.text = "OFF";
+            }
+            else
+            {
+                OnOffText.text = "ON";
+            }
             Debug.Log(AutoORAanual);
         }
 
@@ -440,6 +453,7 @@ public class TextScript : MonoBehaviour
         AllTextPare.SetActive(false);
     }
 
+    //時間計測用(TimeScaleの影響でdeltaTimeが使えないため)
     private void Timer()
     {
         counter++;
@@ -553,6 +567,7 @@ public class TextScript : MonoBehaviour
 
     }
 
+    //AllTextsから呼びだす
     public void SetCSVPanel(string csvFiles)
     {
         SetCSVFile(csvFiles);
