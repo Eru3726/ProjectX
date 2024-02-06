@@ -6,6 +6,7 @@ public class Config : MonoBehaviour
 {
     [SerializeField] GameObject Menu;
     [SerializeField] Text ConfigText;
+    [SerializeField] Text Sampletext;
     private string[] Text = { "Game", "AUDIO", "KEYCONFIG" };
 
     [Header("0:ゲームプレイ項目\n" +
@@ -21,12 +22,12 @@ public class Config : MonoBehaviour
 
     [SerializeField] Text[] rsText;
     [SerializeField] GameObject[] rsitem;
-
     int InputNum=0;
     private void OnEnable()
     {
         // 最初の項目に設定
         // InputNum = 0;
+        Sampletext.text = "";
         OutLine.SetActive(true);
         Panel.SetActive(true);
         for(int i=0;i<rsText.Length;i++)

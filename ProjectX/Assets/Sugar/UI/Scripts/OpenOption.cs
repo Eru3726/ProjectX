@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OpenOption : MonoBehaviour
 {
+    [SerializeField] RectTransform under; 
     [SerializeField] GameObject MenuObj;
     // フェード中のボタン制御
     [SerializeField] GameObject[] fadeList;
@@ -11,9 +12,15 @@ public class OpenOption : MonoBehaviour
     bool interval = true;
     // タイミングように
     bool MoveUI = false;
-    // 移動速度
+
+    // 一定時間操作がなかった時にアンダーを表示
+    float timer = 0;
+    // UIの移動速度
     [SerializeField] float spdX;
     [SerializeField] float spdY;
+
+    [SerializeField] float spdX_under;
+    [SerializeField] float spdY_under;
     void Start()
     {
         // マウスカーソル削除
@@ -25,7 +32,7 @@ public class OpenOption : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 書き方汚いいつか直して
+        // 書き方汚いのでいつか修正します。
         if (fadeList[0].activeSelf == true) { return; }
         else if (fadeList[1].activeSelf == true) { return; }
         else if (fadeList[2].activeSelf == true) { return; }
@@ -48,6 +55,36 @@ public class OpenOption : MonoBehaviour
         {
             ColStart();
         }
+
+        // キー入力なしの時アンダーライン表示
+        if(!Input.anyKey)
+        {
+            timer += Time.deltaTime;
+            if (under.anchoredPosition != new Vector2(0, 0) && timer >= 5.0f)
+            {
+                spdX_under = 0;
+                spdY_under = 10.0f;
+                StartCoroutine("moveUnder");
+            }
+            else if (spdY_under>0)
+            {
+                StopCoroutine("moveUnder");
+            }
+        }
+        else
+        {
+            timer = 0;
+            if (under.anchoredPosition != new Vector2(0, -100))
+            {
+                spdX_under = 0;
+                spdY_under = -10.0f;
+                StartCoroutine("moveUnder");
+            }
+            else
+            {
+                StopCoroutine("moveUnder");
+            }
+        }
     }
     void ColStart()
     {
@@ -69,6 +106,13 @@ public class OpenOption : MonoBehaviour
     {
         //ここに処理を書く
         MenuObj.GetComponent<RectTransform>().anchoredPosition-=new Vector2(spdX,spdY);
+
+        yield return null;
+    }
+    IEnumerator moveUnder()
+    {
+        //ここに処理を書く
+        under.anchoredPosition += new Vector2(spdX_under, spdY_under);
 
         yield return null;
     }

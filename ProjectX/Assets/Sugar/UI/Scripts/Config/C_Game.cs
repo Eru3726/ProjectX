@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+
 public class C_Game : MonoBehaviour
 {
     // これが表示されている間動かない
@@ -11,6 +13,9 @@ public class C_Game : MonoBehaviour
     [SerializeField] RectTransform[] textspd;
 
     RectTransform obj;
+
+    // SE関連
+    [SerializeField] Mng_Game Sound;
 
     [SerializeField] GameObject ConfigP;
     float x, y;
@@ -29,6 +34,22 @@ public class C_Game : MonoBehaviour
     // TalkUIが完成したらプレファブを差し込む
     [SerializeField]TextScript textScr;
 
+    //サンプルテキスト関連
+    private string[] sampleMessage= { "テキスト速度を変更できます。\nテキスト制作担当より" };
+    private int sampleNum;
+    private int nowSampleNum = 0;
+    private float textSpeed = 0f;
+    private float elapsedTime = 0f;
+    private bool isOneMessage = false;
+    private bool isEndMessage = false;
+    [SerializeField] private Text sampleMessageText;
+    private bool TextStart = false;
+    int count = 0; // ポーズ画面のためTime.deltatimeが使えない変わりの変数
+
+    //サンプルテキスト関連ここまで
+
+
+
     float wid = 0;
     float hei = 0;
     private void Start()
@@ -38,6 +59,8 @@ public class C_Game : MonoBehaviour
         // 初期化用
         wid = obj.rect.width;
         hei = obj.rect.height;
+
+        sampleMessageText.text = "";
     }
     private void Update()
     {
@@ -46,6 +69,8 @@ public class C_Game : MonoBehaviour
             return;
         }
         move();
+
+        SampleText();
     }
 
     void move()
@@ -55,15 +80,20 @@ public class C_Game : MonoBehaviour
             case 0:
                 InputKey(List.Length, method);
                 List_pos();
+                sampleMessageText.text = "";
+                sampleMessage[0] = "";
                 break;
             case 1:
                 InputKey(textspd.Length, method);
                 TextSpd_posChange();
+                SetSampleText(Set_textSpd);
                 break;
         }
     }
     private void OnEnable()
     {
+        textSpeed = 0;
+        sampleMessageText.text = "";
         Listnum = 0;
         method = 0;
         this.gameObject.GetComponent<Image>().enabled = false;
@@ -84,7 +114,9 @@ public class C_Game : MonoBehaviour
             case 0:
                 // 上入力
                 if (Input.GetKeyDown(KeyCode.W) && Listnum > 0)
-                { Listnum--; }
+                {
+                    Listnum--;
+                }
                 // 下入力
                 else if (Input.GetKeyDown(KeyCode.S) && Listnum < box - 1)
                 { Listnum++; }
@@ -123,10 +155,14 @@ public class C_Game : MonoBehaviour
             case 1:
                 // 上入力
                 if (Input.GetKeyDown(KeyCode.W) && num > 0)
-                { num--; }
+                { 
+                    num--;
+                }
                 // 下入力
                 else if (Input.GetKeyDown(KeyCode.S) && num < box - 1)
-                { num++; }
+                { 
+                    num++;
+                }
 
                 if (Input.GetKeyDown(KeyCode.Return))
                 {   
@@ -135,6 +171,7 @@ public class C_Game : MonoBehaviour
                         textspd[i].GetComponent<Text>().enabled = false;
                     }
                     method = 0;
+                    textSpeed = 0;
                 }
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
@@ -177,6 +214,112 @@ public class C_Game : MonoBehaviour
         }
     }
 
+    private void SampleText()
+    {
+        if (isEndMessage || sampleMessage == null)
+        {
+            return;
+        }
+
+        if (!isOneMessage)
+        {
+            if (elapsedTime >= textSpeed)
+            {
+                Debug.Log(textSpeed);
+                sampleMessageText.text += sampleMessage[sampleNum][nowSampleNum];
+                nowSampleNum++;
+                elapsedTime = 0f;
+                count = 0;
+                if (nowSampleNum >= sampleMessage[sampleNum].Length)
+                {
+                    isOneMessage = true;
+                }
+            }
+            count++;
+            elapsedTime += (float)count/60.0f;
+        }
+        else
+        {
+            nowSampleNum = 0;
+            sampleNum++;
+            count = 0;
+            //sampleMessageText.text = "";
+            isOneMessage = false;
+            if (sampleNum >= sampleMessage.Length)
+            {
+                isEndMessage = true;
+            }
+        }
+    }
+    string TestMessage="こちらはサンプルテキストです。\n速度項目の調整にお使いください";
+    private void SetSampleText(float setspd)
+    {
+        if (setspd != textSpeed)
+        {
+            sampleMessageText.text = "";
+            nowSampleNum = 0;
+            sampleNum = 0;
+            isOneMessage = false;
+            isEndMessage = false;
+            sampleMessage[0] = TestMessage;
+            textSpeed = setspd;   
+        }
+    }
+
+
+    /*private void OnClickedButton()
+    {
+        StartCoroutine(GetRequest("https://www.jma.go.jp/bosai/forecast/data/overview_forecast/230000.json"));
+    }
+
+    private IEnumerator GetRequest(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.result != UnityWebRequest.Result.Success)
+            {
+                // Error.
+                switch (webRequest.result)
+                {
+                    case UnityWebRequest.Result.ConnectionError:
+                    case UnityWebRequest.Result.DataProcessingError:
+                        Debug.LogError("Error: " + webRequest.error);
+                        break;
+                    case UnityWebRequest.Result.ProtocolError:
+                        Debug.LogError("HTTP Error: " + webRequest.error);
+                        break;
+                    default:
+                        // ここにはこない.
+                        break;
+                }
+                yield break;
+            }
+
+            var response = JsonUtility.FromJson<Response>(webRequest.downloadHandler.text);
+            Debug.Log("データ配信元: " + response.publishingOffice);
+            Debug.Log("報告日時: " + response.reportDatetime);
+            Debug.Log("対象の地域: " + response.targetArea);
+            Debug.Log("ヘッドライン: " + response.headlineText);
+            Debug.Log("詳細: " + response.text);
+            TestMessage =response.targetArea+"\n"+response.text;
+            yield return null;
+        }
+    }
+    */
 }
+/*
+[System.Serializable]
+public class Response
+{
+    public string publishingOffice;
+    public string reportDatetime;
+    public string targetArea;
+    public string headlineText;
+    public string text;
+}
+*/
 
 

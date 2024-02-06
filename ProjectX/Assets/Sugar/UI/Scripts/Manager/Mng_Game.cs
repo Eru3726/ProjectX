@@ -20,3 +20,5 @@ public partial class Mng_Game : MonoBehaviour
         Time.timeScale = (obj.activeSelf) ? 0 : 1;
     }
 }
+
+// 音関連のマネージャーはMng_Sound.csにて分割
