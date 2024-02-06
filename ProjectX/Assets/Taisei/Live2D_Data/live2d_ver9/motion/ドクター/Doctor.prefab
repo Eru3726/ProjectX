@@ -1438,7 +1438,7 @@ Transform:
   m_GameObject: {fileID: 6435309048720358627}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 4198127335608992155}
   - {fileID: 8128271166678319580}
@@ -1502,7 +1502,7 @@ MonoBehaviour:
   _modelMultiplyColor: {r: 0, g: 0, b: 0, a: 0}
   _modelScreenColor: {r: 0, g: 0, b: 0, a: 0}
   _sortingLayerId: 0
-  _sortingMode: 2
+  _sortingMode: 0
   _sortingOrder: 0
   CameraToFace: {fileID: 0}
   _drawOrderHandler: {fileID: 0}
@@ -1571,9 +1571,9 @@ Animator:
   m_GameObject: {fileID: 6435309048720358627}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 491c8e509f0198c4ca165ad176e1b840, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
