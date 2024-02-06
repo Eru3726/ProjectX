@@ -12,12 +12,4 @@ public class FireController : MonoBehaviour
     {
         this.transform.Translate(Vector3.right * spd * Time.deltaTime);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            Destroy(this.gameObject);
-        }
-    }
 }
