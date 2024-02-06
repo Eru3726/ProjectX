@@ -171,6 +171,8 @@ public class TextScript : MonoBehaviour
         nameText = transform.GetChild(3).GetComponentInChildren<Text>();
         nameText.text = "";
 
+        OnOffText.color = Color.gray;
+
         AllTextPare.SetActive(false);
     }
 
@@ -390,10 +392,12 @@ public class TextScript : MonoBehaviour
             if (!AutoORAanual)
             {
                 OnOffText.text = "OFF";
+                OnOffText.color = Color.gray;
             }
             else
             {
                 OnOffText.text = "ON";
+                OnOffText.color = Color.white;
             }
             Debug.Log(AutoORAanual);
         }
