@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShellController : MonoBehaviour
 {
-    [SerializeField] float ShellSpd = 5f;
+    [SerializeField] float ShellSpd = 7f;
     [SerializeField] float rotSpd = 1f;
 
     GameObject player;
@@ -13,11 +13,15 @@ public class ShellController : MonoBehaviour
 
     public EnemyController ec;
 
+    public float ShellupSpd = 2;
+
     bool ShellFlg = false;
 
     float radian;
+    int count;
     Vector3 shellVec;
 
+    float time = 1.0f;
 
     void Start()
     {
@@ -33,27 +37,36 @@ public class ShellController : MonoBehaviour
 
     
     void FixedUpdate()
-    { 
-        shellVec.x = ShellSpd * Time.deltaTime * Mathf.Cos(radian);
-        shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
-
-        this.transform.Translate(shellVec);
-
-        // 外積を求めるために、ベクトルを作成する
-        // 弾の位置と、PLの位置のベクトル
-        Vector3 plVec = playerPos - transform.position;
-        // 弾の速度ベクトル
-        Vector3 spdVec = shellVec;
-        // 外積を求める
-        float cross = plVec.x * spdVec.y - spdVec.x * plVec.y;
-
-        if (cross > 0)
+    {
+     
+        time -= Time.deltaTime;
+        if ( time > 0 )
         {
-            radian -= rotSpd * Time.deltaTime;	// 反時計回りさせる
+            transform.Translate(Vector3.up * ShellupSpd * Time.deltaTime);
         }
         else
         {
-            radian += rotSpd * Time.deltaTime;	// 時計回りさせる
+            shellVec.x = ShellSpd * Time.deltaTime * Mathf.Cos(radian);
+            shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
+
+            this.transform.Translate(shellVec);
+
+            // 外積を求めるために、ベクトルを作成する
+            // 弾の位置と、PLの位置のベクトル
+            Vector3 plVec = playerPos - transform.position;
+            // 弾の速度ベクトル
+            Vector3 spdVec = shellVec;
+            // 外積を求める
+            float cross = plVec.x * spdVec.y - spdVec.x * plVec.y;
+
+            if (cross > 0)
+            {
+                radian -= rotSpd * Time.deltaTime;  // 反時計回りさせる
+            }
+            else
+            {
+                radian += rotSpd * Time.deltaTime;  // 時計回りさせる
+            }
         }
     }
 

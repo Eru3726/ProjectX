@@ -98,9 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f65af9f773d1ac4bbef254d06993814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShellSpd: 10
-  rotSpd: 1
+  ShellSpd: 25
+  rotSpd: 4
   ec: {fileID: 0}
+  ShellupSpd: 4
 --- !u!61 &7322154908173641609
 BoxCollider2D:
   m_ObjectHideFlags: 0

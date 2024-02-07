@@ -203,11 +203,14 @@ public class EnemyController : MonoBehaviour
 
         Vector2[] enemyPos = new Vector2[eight];
         GameObject[] shell = new GameObject[eight];
+
         for (int i = 0; i < eight; i++)
         {
             enemyPos[i] = transform.position;
+            enemyPos[i].x += 1f;
+            enemyPos[i].y += 1f;
             shell[i] = Instantiate(ShellPre, enemyPos[i], Quaternion.identity);
-
+    
             sc = shell[i].GetComponent<ShellController>();
             sc.ec = GetComponent<EnemyController>();
         }
