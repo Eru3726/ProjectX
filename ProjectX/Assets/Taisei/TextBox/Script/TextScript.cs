@@ -514,11 +514,6 @@ public class TextScript : MonoBehaviour
     {
         return TextOnOff;
     }
-
-<<<<<<< HEAD
-=======
-
->>>>>>> main
     public float Parameter
     {
         set
