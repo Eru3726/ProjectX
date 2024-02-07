@@ -253,6 +253,9 @@ MonoBehaviour:
   ChoiseCursor:
   - {fileID: 2895443}
   - {fileID: 243984804}
+  PareObj: {fileID: 647388412}
+  choiseFlg: 0
+  textScript: {fileID: 1218192487}
 --- !u!114 &6897226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2416,6 +2419,19 @@ MonoBehaviour:
   BackPanel: {fileID: 1899614189}
   AllTextPare: {fileID: 143560013}
   OnOffText: {fileID: 1949313149}
+  Choises:
+  - {fileID: 0}
+  - {fileID: 647388412}
+  - {fileID: 1518686430}
+  wChoiseData: []
+  WChoises:
+  - {fileID: 1571216520}
+  - {fileID: 582643221}
+  tChoiseData: []
+  TChoises:
+  - {fileID: 2128437742}
+  - {fileID: 1892731076}
+  - {fileID: 1664070735}
 --- !u!1 &1228290736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3998,6 +4014,9 @@ MonoBehaviour:
   - {fileID: 147216567}
   - {fileID: 2053671606}
   - {fileID: 299477007}
+  PareObj: {fileID: 1518686430}
+  choiseFlg: 0
+  textScript: {fileID: 1218192487}
 --- !u!114 &2087386094
 MonoBehaviour:
   m_ObjectHideFlags: 0

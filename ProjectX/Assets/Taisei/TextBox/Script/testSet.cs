@@ -31,6 +31,5 @@ public class testSet : MonoBehaviour
             talkUI.SetActive(true);
             alltextsscript.SetAllTexts(textNo);
         }
-
     }
 }

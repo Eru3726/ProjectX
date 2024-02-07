@@ -10,8 +10,12 @@ public class Choise : MonoBehaviour
     float x, y;
     private RectTransform thisObj;
 
+    [SerializeField] GameObject PareObj;
+
     //選択肢フラグ
-    public static int choiseFlg;
+    public int choiseFlg;
+
+    [SerializeField] private TextScript textScript;
 
 
     // Start is called before the first frame update
@@ -20,6 +24,8 @@ public class Choise : MonoBehaviour
         thisObj = this.gameObject.GetComponent<RectTransform>();
         ListNum = 0;
         CursorMove();
+
+        //PareObj.SetActive(false);
     }
 
     // Update is called once per frame
@@ -47,7 +53,10 @@ public class Choise : MonoBehaviour
         //決定押したとき
         if (Input.GetKeyDown(KeyCode.Return))
         {
-
+            textScript.ChangeCheckChoise();
+            choiseFlg = ListNum;
+            Debug.Log(choiseFlg);
+            PareObj.SetActive(false);
         }
     }
 
@@ -57,5 +66,10 @@ public class Choise : MonoBehaviour
         x = ChoiseCursor[ListNum].anchoredPosition.x;
         y = ChoiseCursor[ListNum].anchoredPosition.y;
         thisObj.anchoredPosition = new Vector2(x, y);
+    }
+
+    public int ChoiseFlg()
+    {
+        return choiseFlg;
     }
 }

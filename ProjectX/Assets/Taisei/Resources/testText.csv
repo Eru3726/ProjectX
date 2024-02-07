@@ -1,8 +1,8 @@
-﻿"message				",charaName,charaIcon,LorR,anims
+﻿"message				",charaName,charaIcon,LorR,anims,choiseNo
 "えんだぁぁぁああああああ！
-いやぁぁあああああ！",あ,1,FALSE,0
-"これはテストです	",(´・ω・｀),2,TRUE,0
-"改行するとこうなります	",やぁ,2,FALSE,1
-"あいうえお	",どうも,1,TRUE,1
-"かきくけこ	",こんにちは,2,TRUE,0
-"さしすせそ	",(´;ω;｀),1,FALSE,0
+いやぁぁあああああ！",あ,1,FALSE,0,0
+"これはテストです	",(´・ω・｀),2,TRUE,0,0
+"改行するとこうなります	",やぁ,2,FALSE,1,0
+"あいうえお	",どうも,1,TRUE,1,0
+"かきくけこ	",こんにちは,2,TRUE,0,0
+"さしすせそ	",(´;ω;｀),1,FALSE,0,2

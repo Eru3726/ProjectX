@@ -28,6 +28,7 @@ public class AllTexts : MonoBehaviour
 
     //
     private string csvFiles;
+    private string csvChoise;
 
     //使い方
     //・ここにテキスト・名前・アイコン名などを書き込んでいく
@@ -120,11 +121,12 @@ public class AllTexts : MonoBehaviour
                 //textData = CSVSerializer.Deserialize<TextData>(textAsset.text);
 
                 csvFiles = "testText";
+                csvChoise = "testChoiseT";
                 break;
         }
 
         //TextSystemScript.SetTextPanel(message, charaName, charaIcon, LorR, anims);
-        TextSystemScript.SetCSVPanel(csvFiles);
+        TextSystemScript.SetCSVPanel(csvFiles, csvChoise);
 
     }
 }

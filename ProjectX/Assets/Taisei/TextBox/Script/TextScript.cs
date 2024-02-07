@@ -61,7 +61,7 @@ public class TextScript : MonoBehaviour
     //分割したアイコン名
     //private string[] splitIconLeft;
     //private string[] splitIconRight;
-    private string[] splitIcon;
+    private int[] splitIcon;
     //アイコン配列の何番目か
     //private int iconNumL;
     //private int iconNumR;
@@ -98,7 +98,7 @@ public class TextScript : MonoBehaviour
 
     private string allLR = "false";
     //分割したtrueかfalse
-    private string[] splitLR;
+    private bool[] splitLR;
     //左右配列の何番目か
     private int LRNum;
     //立ち絵を変更したかどうか
@@ -129,7 +129,7 @@ public class TextScript : MonoBehaviour
     //アニメーション関連
     Animator anim;
     private string allAnims;
-    private string[] splitAnims;
+    private int[] splitAnims;
     private int animsNum;
     private string animStr;
     //アニメーション配列
@@ -149,8 +149,19 @@ public class TextScript : MonoBehaviour
     [SerializeField] private Text OnOffText;
 
     //選択肢用
-    //flase = 非表示  true = 表示 
-    private bool ChoiceTrigger = false;
+    //0=非表示 1=選択肢2個 2=選択肢3個
+    private int[] ChoiseTrigger;
+    private int choiseNum;
+    [SerializeField] private GameObject[] Choises;
+    //選択肢を1回だけ表示
+    private bool OneChoise = false;
+    //選択肢が表示かどうか
+    private bool checkChoise = false;
+
+    public WChoiseData[] wChoiseData;
+    [SerializeField] private Text[] WChoises;
+    public TChoiseData[] tChoiseData;
+    [SerializeField] private Text[] TChoises;
 
     void Start()
     {
@@ -178,9 +189,8 @@ public class TextScript : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Time.timeScale);
         //messageが終わっているか、メッセージがない、選択肢表示中の場合はこれ以降何もしない
-        if (isEndMessage || allMessage == null || ChoiceTrigger)
+        if (isEndMessage || splitMessage == null || checkChoise)
         {
             return;
         }
@@ -215,20 +225,20 @@ public class TextScript : MonoBehaviour
                         }
                     }
 
-                    Instantiate(Charas[int.Parse(splitIcon[iconNum])], LeftPosT);   //生成
+                    Instantiate(Charas[splitIcon[iconNum]], LeftPosT);   //生成
                     LeftImg.color = new Color(255, 255, 255, 1);
                     RightImg.color = Color.gray;
 
                     //アニメーション関連
-                    anim =LeftPos.transform.Find(Charas[int.Parse(splitIcon[iconNum])].name + "(Clone)").GetComponent<Animator>();
-                    switch (int.Parse(splitIcon[iconNum]))
+                    anim = LeftPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
+                    switch (splitIcon[iconNum])
                     {
                         case 0:
-                            animStr = chara1_anim[int.Parse(splitAnims[animsNum])];
+                            animStr = chara1_anim[splitAnims[animsNum]];
                             break;
 
                         case 1:
-                            animStr = chara2_anim[int.Parse(splitAnims[animsNum])];
+                            animStr = chara2_anim[splitAnims[animsNum]];
                             break;
                     }
                     anim.Play(animStr);
@@ -246,20 +256,20 @@ public class TextScript : MonoBehaviour
                             Destroy(child.gameObject);
                         }
                     }
-                    Instantiate(Charas[int.Parse(splitIcon[iconNum])], RightPosT);
+                    Instantiate(Charas[splitIcon[iconNum]], RightPosT);
                     RightImg.color = new Color(255, 255, 255, 1);
                     LeftImg.color = Color.gray;
 
                     //アニメーション関連
-                    anim = RightPos.transform.Find(Charas[int.Parse(splitIcon[iconNum])].name + "(Clone)").GetComponent<Animator>();
-                    switch (int.Parse(splitIcon[iconNum]))
+                    anim = RightPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
+                    switch (splitIcon[iconNum])
                     {
                         case 0:
-                            animStr = chara1_anim[int.Parse(splitAnims[animsNum])];
+                            animStr = chara1_anim[splitAnims[animsNum]];
                             break;
 
                         case 1:
-                            animStr = chara2_anim[int.Parse(splitAnims[animsNum])];
+                            animStr = chara2_anim[splitAnims[animsNum]];
                             break;
                     }
 
@@ -341,11 +351,11 @@ public class TextScript : MonoBehaviour
 
                 }
 
+                OnChoise();
                 //エンターキーor左クリックを押したら次の文字表示処理
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
                 {
                     FinishOneText();
-
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
                     if (messageNum >= splitMessage.Length)
                     {
@@ -402,6 +412,8 @@ public class TextScript : MonoBehaviour
             Debug.Log(AutoORAanual);
         }
 
+
+
     }
 
     //次の文字表示処理
@@ -431,6 +443,8 @@ public class TextScript : MonoBehaviour
         animsNum++;
 
         firstStandP = true;
+
+        choiseNum++;
     }
 
     //全てのメッセージを表示されたら
@@ -464,59 +478,86 @@ public class TextScript : MonoBehaviour
         elapsedTime = counter / 60f;
     }
 
+    //選択肢表示
+    private void OnChoise()
+    {
+        //選択肢表示
+        if (ChoiseTrigger[choiseNum] > 0 && !OneChoise)
+        {
+            switch (ChoiseTrigger[choiseNum])
+            {
+                case 1:
+                    Choises[ChoiseTrigger[choiseNum]].SetActive(true);
+                    break;
+                case 2:
+                    Choises[ChoiseTrigger[choiseNum]].SetActive(true);
+                    break;
+            }
+            OneChoise = true;
+            checkChoise = true;
+        }
+
+    }
+
     void SetText(string message, string name, string icon, string iconLorR, string anims)
     {
-        this.allMessage = message;
-        this.allName = name;
-        //this.allIconLeft = iconLeft;
-        //this.allIconRight = iconRight;
-        this.allIcon = icon;
-        this.allLR = iconLorR;
-        this.allAnims = anims;
-        //分割文字列で一回に表示するメッセージを分割する
-        splitMessage = Regex.Split(allMessage, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
-        splitName = Regex.Split(allName, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
-        //splitIconLeft = Regex.Split(allIconLeft, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
-        //splitIconRight = Regex.Split(allIconRight, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
-        splitIcon= Regex.Split(allIcon, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
-        splitLR = Regex.Split(allLR, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
-        splitAnims= Regex.Split(allAnims, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        //this.allMessage = message;
+        //this.allName = name;
+        ////this.allIconLeft = iconLeft;
+        ////this.allIconRight = iconRight;
+        //this.allIcon = icon;
+        //this.allLR = iconLorR;
+        //this.allAnims = anims;
+        ////分割文字列で一回に表示するメッセージを分割する
+        //splitMessage = Regex.Split(allMessage, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        //splitName = Regex.Split(allName, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        ////splitIconLeft = Regex.Split(allIconLeft, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        ////splitIconRight = Regex.Split(allIconRight, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        //splitIcon= Regex.Split(allIcon, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        //splitLR = Regex.Split(allLR, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
+        //splitAnims= Regex.Split(allAnims, @"\s*" + splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
 
-        nowTextNum = 0;
-        messageNum = 0;
-        messageText.text = "";
-        //iconNumL = 0;
-        //iconNumR = 0;
-        iconNum = 0;
-        nowNameNum = 0;
-        nameNum = 0;
-        nameText.text = "";
-        isOneMessage = false;
-        isEndMessage = false;
-        TextOnOff = true;
+        //nowTextNum = 0;
+        //messageNum = 0;
+        //messageText.text = "";
+        ////iconNumL = 0;
+        ////iconNumR = 0;
+        //iconNum = 0;
+        //nowNameNum = 0;
+        //nameNum = 0;
+        //nameText.text = "";
+        //isOneMessage = false;
+        //isEndMessage = false;
+        //TextOnOff = true;
 
-        LRNum = 0;
+        //LRNum = 0;
 
-        animsNum = 0;
+        //animsNum = 0;
 
-        firstStandP = false;
+        //firstStandP = false;
     }
 
     //他のスクリプトから新しいメッセージを設定し、UIをアクティブにする
     public void SetTextPanel(string message, string name, string icon, string iconLorR, string anims)
     {
-        SetText(message, name, icon, iconLorR, anims);
-        //transform.GetChild(0).gameObject.SetActive(true);
-        //transform.GetChild(1).gameObject.SetActive(true);
-        transform.GetChild(2).gameObject.SetActive(true);
-        transform.GetChild(3).gameObject.SetActive(true);
-        CharaConection.SetActive(true);
-        Time.timeScale = 0;
+        //SetText(message, name, icon, iconLorR, anims);
+        ////transform.GetChild(0).gameObject.SetActive(true);
+        ////transform.GetChild(1).gameObject.SetActive(true);
+        //transform.GetChild(2).gameObject.SetActive(true);
+        //transform.GetChild(3).gameObject.SetActive(true);
+        //CharaConection.SetActive(true);
+        //Time.timeScale = 0;
     }
 
     public bool CheckTextOnOff()
     {
         return TextOnOff;
+    }
+
+    public void ChangeCheckChoise()
+    {
+        checkChoise = false;
+        Skip();
     }
 
 
@@ -530,7 +571,7 @@ public class TextScript : MonoBehaviour
 
 
     //csvファイルのセット
-    public void SetCSVFile(string csvFiles)
+    public void SetCSVFile(string csvFiles, string csvChoise)
     {
         TextAsset textAsset = new TextAsset();
         textAsset = Resources.Load(csvFiles, typeof(TextAsset)) as TextAsset;
@@ -538,9 +579,10 @@ public class TextScript : MonoBehaviour
 
         splitMessage = new string[textData.Length];
         splitName = new string[textData.Length];
-        splitIcon = new string[textData.Length];
-        splitLR = new string[textData.Length];
-        splitAnims = new string[textData.Length];
+        splitIcon = new int[textData.Length];
+        splitLR = new bool[textData.Length];
+        splitAnims = new int[textData.Length];
+        ChoiseTrigger = new int[textData.Length];
 
         for (int i = 0; i < textData.Length; i++)
         {
@@ -549,6 +591,7 @@ public class TextScript : MonoBehaviour
             this.splitIcon[i] = textData[i].charaIcon;
             this.splitLR[i] = textData[i].LorR;
             this.splitAnims[i] = textData[i].anims;
+            this.ChoiseTrigger[i] = textData[i].choiseNo;
             Debug.Log("読み込み");
         }
 
@@ -569,12 +612,46 @@ public class TextScript : MonoBehaviour
 
         firstStandP = false;
 
+        choiseNum = 0;
+        OneChoise = false;
+        checkChoise = false;
+
+        //選択肢があるかどうか
+        for(int j = 0; j < textData.Length; j++)
+        {
+            //選択肢があった場合
+            if(ChoiseTrigger[j] != 0)
+            {
+                //選択肢のテキストをセット
+                switch (ChoiseTrigger[j])
+                {
+                    case 1:
+                        TextAsset wChoiseAsset = new TextAsset();
+                        wChoiseAsset = Resources.Load(csvChoise, typeof(TextAsset)) as TextAsset;
+                        wChoiseData = CSVSerializer.Deserialize<WChoiseData>(wChoiseAsset.text);
+
+                        WChoises[0].text = wChoiseData[0].UpText;
+                        WChoises[1].text = wChoiseData[0].DownText;
+                        break;
+
+                    case 2:
+                        TextAsset tChoiseAsset = new TextAsset();
+                        tChoiseAsset = Resources.Load(csvChoise, typeof(TextAsset)) as TextAsset;
+                        tChoiseData = CSVSerializer.Deserialize<TChoiseData>(tChoiseAsset.text);
+
+                        TChoises[0].text = tChoiseData[0].UpText;
+                        TChoises[1].text = tChoiseData[0].CenterText;
+                        TChoises[2].text = tChoiseData[0].DownText;
+                        break;
+                }
+            }
+        }
     }
 
     //AllTextsから呼びだす
-    public void SetCSVPanel(string csvFiles)
+    public void SetCSVPanel(string csvFiles, string csvChoise)
     {
-        SetCSVFile(csvFiles);
+        SetCSVFile(csvFiles, csvChoise);
         transform.GetChild(2).gameObject.SetActive(true);
         transform.GetChild(3).gameObject.SetActive(true);
         CharaConection.SetActive(true);
@@ -590,6 +667,7 @@ public class TextScript : MonoBehaviour
         DestroyText();
     }
 
+
 }
 
 
@@ -600,8 +678,25 @@ public class TextData
 {
     public string message;
     public string charaName;
-    public string charaIcon;
-    public string LorR;
-    public string anims;
+    public int charaIcon;
+    public bool LorR;
+    public int anims;
+    public int choiseNo;
 }
 
+//選択肢2個用
+[System.Serializable]
+public class WChoiseData
+{
+    public string UpText;
+    public string DownText;
+}
+
+//選択肢3個用
+[System.Serializable]
+public class TChoiseData
+{
+    public string UpText;
+    public string CenterText;
+    public string DownText;
+}
