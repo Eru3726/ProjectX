@@ -70,7 +70,7 @@ public class PlayerInput : MonoBehaviour
                     ActNM(3);
                     actSkill[(int)StageData.ACT_DATA.NM3] = true;
                     skillTime[(int)StageData.ACT_DATA.NM3] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM3] = 0.5f;
+                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.75f;
                 }
             }
             else if (skillTime[(int)StageData.ACT_DATA.NM1] > 0)
@@ -80,7 +80,7 @@ public class PlayerInput : MonoBehaviour
                     ActNM(2);
                     actSkill[(int)StageData.ACT_DATA.NM2] = true;
                     skillTime[(int)StageData.ACT_DATA.NM2] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM2] = 0.5f;
+                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.75f;
                 }
             }
             else if (skillTime[(int)StageData.ACT_DATA.NM1] <= 0)
@@ -90,7 +90,7 @@ public class PlayerInput : MonoBehaviour
                     ActNM(1);
                     actSkill[(int)StageData.ACT_DATA.NM1] = true;
                     skillTime[(int)StageData.ACT_DATA.NM1] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.5f;
+                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.75f;
                 }
             }
         }
