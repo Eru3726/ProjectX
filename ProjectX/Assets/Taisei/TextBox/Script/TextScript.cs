@@ -8,12 +8,17 @@ using System;
 
 public class TextScript : MonoBehaviour
 {
+    //テキストセット用
+    [SerializeField] private AllTexts alltextsscript;
+    int textNo;
+
+
     //トークUI
     private Text messageText;
 
     //表示するテキスト
-    [SerializeField]
-    [TextArea(1, 10)]
+    //[SerializeField]
+    //[TextArea(1, 10)]
     private string allMessage = "今回はRPGでよく使われるメッセージ表示機能を作りたいと思います。\n"
             + "メッセージが表示されるスピードの調節も可能であり、改行にも対応します。\n"
             + "改善の余地がかなりありますが、               最低限の機能は備えていると思われます。\n"
@@ -53,10 +58,10 @@ public class TextScript : MonoBehaviour
     //キャラアイコンの画像はAssetsフォルダ内にResourceフォルダを作り、そこに入れること
     private Image charaIcon;
     //表示するアイコンの名前
-    [SerializeField]
-    [TextArea(1, 5)]
     //private string allIconLeft = "主人公困り";
     //private string allIconRight = "公1";
+    //[SerializeField]
+    //[TextArea(1, 5)]
     private string allIcon;
     //分割したアイコン名
     //private string[] splitIconLeft;
@@ -71,8 +76,8 @@ public class TextScript : MonoBehaviour
     //名前UI
     private Text nameText;
     //表示する名前
-    [SerializeField]
-    [TextArea(1, 5)]
+    //[SerializeField]
+    //[TextArea(1, 5)]
     private string allName = "あああ<>" +
                            "いいい";
     //分割した名前
@@ -94,7 +99,7 @@ public class TextScript : MonoBehaviour
     private float autoTimer = 0f;
     [SerializeField] float autoTimerLimit = 2f;
 
-    [SerializeField] private bool AutoORAanual = false;
+    private bool AutoORAanual = false;
 
     private string allLR = "false";
     //分割したtrueかfalse
@@ -114,7 +119,7 @@ public class TextScript : MonoBehaviour
     //live2Dprefab
     //キャラクター番号
     //0:一人用のみ表示用&システム用の空データ
-    //1:
+    //1:主人公
     //2:
     public List<GameObject> Charas = new List<GameObject>();
 
@@ -152,19 +157,49 @@ public class TextScript : MonoBehaviour
     //0=非表示 1=選択肢2個 2=選択肢3個
     private int[] ChoiseTrigger;
     private int choiseNum;
+    //選択肢配列
+    //0=空(選択肢無し) 1=選択肢2個バージョン 2=選択肢3個バージョン
     [SerializeField] private GameObject[] Choises;
     //選択肢を1回だけ表示
     private bool OneChoise = false;
     //選択肢が表示かどうか
     private bool checkChoise = false;
+    //選択肢フラグ
+    private int choiseFlg;
 
     public WChoiseData[] wChoiseData;
     [SerializeField] private Text[] WChoises;
     public TChoiseData[] tChoiseData;
     [SerializeField] private Text[] TChoises;
 
+    //スキップ処理関連
+    private Choise choiseW; //選択肢2個バージョン
+    private Choise choiseT; //選択肢3個バージョン
+    private Choise choiseSkip;  //スキップ時用
+    //スキップする場所の番号
+    private int[] skipPoint;
+    private int skipCount = 0;
+    private int skipNum = 0;
+    //スキップ時に選択肢があるかどうか
+    private bool skipFlg = false;
+    //スキップ時のテキスト表示用;
+    [SerializeField] private GameObject SkipTextObj;
+    private Text skipText;
+    private string[] splitSkipText = { "スキップしますか？" };
+    private int nowSkipNo = 0;
+    private float skipTextTime = 0f;
+    private bool skipMessage = false;
+    private bool skipFinishMessage = false;
+    [SerializeField] private GameObject SkipChoise;
+    [SerializeField] private Text[] SkipChoiseText;
+    private bool skipOnOff = false;
+
+
     void Start()
     {
+        skipText = transform.GetChild(5).GetComponentInChildren<Text>();
+        skipText.text = "";
+
         clickIcon = transform.Find("TextPanel/Cursor1").GetComponent<Image>();
         clickIcon.enabled = false;
         clickIcon2 = transform.Find("TextPanel/Cursor2").GetComponent<Image>();
@@ -184,10 +219,29 @@ public class TextScript : MonoBehaviour
 
         OnOffText.color = Color.gray;
 
+        choiseW = Choises[1].GetComponent<Choise>();
+        choiseT = Choises[2].GetComponent<Choise>();
+        choiseSkip = SkipChoise.GetComponent<Choise>();
+
+        SkipTextObj.SetActive(false);
         AllTextPare.SetActive(false);
     }
 
     void Update()
+    {
+        Debug.Log("skipONOFF" + skipOnOff);
+        if (!skipOnOff)
+        {
+            TextMain();
+        }
+        else
+        {
+            SkipText();
+        }
+
+    }
+
+    private void TextMain()
     {
         //messageが終わっているか、メッセージがない、選択肢表示中の場合はこれ以降何もしない
         if (isEndMessage || splitMessage == null || checkChoise)
@@ -212,14 +266,13 @@ public class TextScript : MonoBehaviour
 
                 //アイコン表示
                 //立ち絵左
-                Debug.Log(splitIcon[iconNum]);
                 if (!LorR)
                 {
                     Debug.Log("左立ち絵更新");
                     //live2D
                     if (firstStandP)
                     {
-                        foreach(Transform child in LeftPos.transform)
+                        foreach (Transform child in LeftPos.transform)
                         {
                             Destroy(child.gameObject);
                         }
@@ -230,18 +283,13 @@ public class TextScript : MonoBehaviour
                     RightImg.color = Color.gray;
 
                     //アニメーション関連
-                    anim = LeftPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
-                    switch (splitIcon[iconNum])
+                    //システム以外の場合
+                    if (splitIcon[iconNum] != 0)
                     {
-                        case 0:
-                            animStr = chara1_anim[splitAnims[animsNum]];
-                            break;
-
-                        case 1:
-                            animStr = chara2_anim[splitAnims[animsNum]];
-                            break;
+                        anim = LeftPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
+                        CharaAnim();
+                        anim.Play(animStr);
                     }
-                    anim.Play(animStr);
 
                 }
                 //立ち絵右
@@ -261,19 +309,14 @@ public class TextScript : MonoBehaviour
                     LeftImg.color = Color.gray;
 
                     //アニメーション関連
-                    anim = RightPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
-                    switch (splitIcon[iconNum])
+                    //システム以外の場合
+                    if (splitIcon[iconNum] != 0)
                     {
-                        case 0:
-                            animStr = chara1_anim[splitAnims[animsNum]];
-                            break;
-
-                        case 1:
-                            animStr = chara2_anim[splitAnims[animsNum]];
-                            break;
+                        anim = RightPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
+                        CharaAnim();
+                        anim.Play(animStr);
                     }
 
-                    anim.Play(animStr);
 
                 }
 
@@ -372,7 +415,8 @@ public class TextScript : MonoBehaviour
                 clickIcon4.enabled = false;
                 changeFace = 0;
 
-
+                OnChoise();
+                //設定した時間を超えたら次の文字表示処理
                 if (autoTimer >= autoTimerLimit)
                 {
                     FinishOneText();
@@ -388,11 +432,13 @@ public class TextScript : MonoBehaviour
                 }
             }
         }
-
         //スキップ
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Skip();
+            skipOnOff = true;
+            SkipTextObj.SetActive(true);
+            //do while使った今の状態で始めると無限ループ入って処理止まるから注意
+            //SkipText();
         }
 
         //オート・マニュアル変更
@@ -411,9 +457,6 @@ public class TextScript : MonoBehaviour
             }
             Debug.Log(AutoORAanual);
         }
-
-
-
     }
 
     //次の文字表示処理
@@ -459,6 +502,14 @@ public class TextScript : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        //選択肢箇所があった場合
+        if (skipPoint != null && skipPoint.Length != 0)
+        {
+            Debug.Log("配列リセット");
+            //選択肢表示場所を保存した配列をリセット
+            Array.Clear(skipPoint, 0, skipCount);
+        }
+
         isEndMessage = true;
         TextOnOff = false;
         //transform.GetChild(0).gameObject.SetActive(false);
@@ -495,6 +546,21 @@ public class TextScript : MonoBehaviour
             }
             OneChoise = true;
             checkChoise = true;
+        }
+
+    }
+
+    private void CharaAnim()
+    {
+        switch (splitIcon[iconNum])
+        {
+            case 0:
+                animStr = chara1_anim[splitAnims[animsNum]];
+                break;
+
+            case 1:
+                animStr = chara2_anim[splitAnims[animsNum]];
+                break;
         }
 
     }
@@ -554,10 +620,11 @@ public class TextScript : MonoBehaviour
         return TextOnOff;
     }
 
+    //選択肢を選んで決定を押したとき
     public void ChangeCheckChoise()
     {
         checkChoise = false;
-        Skip();
+
     }
 
 
@@ -622,6 +689,7 @@ public class TextScript : MonoBehaviour
             //選択肢があった場合
             if(ChoiseTrigger[j] != 0)
             {
+                Debug.Log("選択肢発見");
                 //選択肢のテキストをセット
                 switch (ChoiseTrigger[j])
                 {
@@ -644,6 +712,8 @@ public class TextScript : MonoBehaviour
                         TChoises[2].text = tChoiseData[0].DownText;
                         break;
                 }
+                skipPoint[skipCount] = j;
+                skipCount++;
             }
         }
     }
@@ -667,6 +737,109 @@ public class TextScript : MonoBehaviour
         DestroyText();
     }
 
+    private void SkipText()
+    {
+        Debug.Log("スキップ処理開始");
+        SkipTextObj.SetActive(true);
+        if (!skipMessage)
+        {
+            if (skipTextTime >= textSpeed)
+            {
+                Debug.Log("スキップ文字表示中");
+                skipText.text += splitSkipText[0][nowSkipNo];
+                nowSkipNo++;
+                skipTextTime = 0f;
+                counter = 0;
+                elapsedTime = 0f;
+                if (nowSkipNo >= splitSkipText[0].Length)
+                {
+                    skipMessage = true;
+                }
+            }
+            Timer();
+            skipTextTime = elapsedTime;
+        }
+        else
+        {
+            SkipChoise.SetActive(true);
+            checkChoise = true;
+            if (!checkChoise)
+            {
+                skipFinishMessage = true;
+                choiseFlg = choiseSkip.ChoiseFlg();
+                Debug.Log(choiseFlg);
+                if (choiseFlg == 0)
+                {
+                    SkipReset();
+                    SkipCheck();
+                    SkipTextObj.SetActive(false);
+                }
+                else
+                {
+                    SkipReset();
+                    SkipTextObj.SetActive(false);
+                }
+            }
+        }
+
+        
+    }
+
+    private void SkipCheck()
+    {
+        //選択肢があるかどうか
+        if (skipPoint == null || skipPoint.Length == 0)
+        {
+            //選択肢がない場合
+            Skip();
+            Debug.Log("選択肢無し");
+        }
+        else
+        {
+            //選択肢がある場合
+            nowTextNum = 0;
+            messageNum = skipPoint[skipNum];
+            messageText.text = "";
+            clickIcon.enabled = false;
+            clickIcon2.enabled = false;
+            clickIcon3.enabled = false;
+            clickIcon4.enabled = false;
+            changeFace = 0;
+            changeClickIcon = false;
+            elapsedTime = 0f;
+            isOneMessage = false;
+            nowNameNum = 0;
+            nameNum = skipPoint[skipNum];
+            nameText.text = "";
+            checkName = false;
+            iconNum = skipPoint[skipNum];
+            LRNum = skipPoint[skipNum];
+            animsNum = skipPoint[skipNum];
+            firstStandP = true;
+            choiseNum = skipPoint[skipNum];
+
+            if (AutoORAanual)
+            {
+                autoTimer = 0f;
+                counter = 0;
+            }
+
+            skipNum++;
+
+            Debug.Log("選択肢あり");
+        }
+
+    }
+
+    private void SkipReset()
+    {
+        skipText.text = "";
+        nowTextNum = 0;
+        skipMessage = false;
+        skipFinishMessage = false;
+        skipOnOff = false;
+    }
+
 
 }
 
@@ -683,6 +856,7 @@ public class TextData
     public int anims;
     public int choiseNo;
 }
+
 
 //選択肢2個用
 [System.Serializable]

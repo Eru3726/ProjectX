@@ -116,13 +116,10 @@ public class AllTexts : MonoBehaviour
                 break;
 
             case 999:
-                //TextAsset textAsset = new TextAsset();
-                //textAsset = Resources.Load("testText", typeof(TextAsset)) as TextAsset;
-                //textData = CSVSerializer.Deserialize<TextData>(textAsset.text);
-
                 csvFiles = "testText";
                 csvChoise = "testChoiseT";
                 break;
+
         }
 
         //TextSystemScript.SetTextPanel(message, charaName, charaIcon, LorR, anims);
