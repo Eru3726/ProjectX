@@ -6,7 +6,7 @@ public class EnemyAnimation : MonoBehaviour
 {
     enum AnimData
     {
-
+        
     }
     void Start()
     {
