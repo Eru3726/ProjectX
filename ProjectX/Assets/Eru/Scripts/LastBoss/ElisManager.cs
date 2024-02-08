@@ -148,9 +148,9 @@ public class ElisManager : MonoBehaviour, IDamageable
     /// ダメージ処理
     /// </summary>
     /// <param name="value"></param>
-    public void TakeDamage(int damage, float shock)
+    public void TakeDamage(int value)
     {
-        hp -= damage;
+        hp -= value;
         if (hp <= 0)
         {
             // Healthが0になった場合の処理

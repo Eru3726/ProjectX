@@ -17,7 +17,7 @@ public class ElisBullet : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Elis") && collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            damageable.TakeDamage(attackPower, 0);
+            damageable.TakeDamage(attackPower);
             Destroy(this.gameObject);
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class HitCollider : MonoBehaviour, IDamageable
 {
     public int Health { get; }
-    public void TakeDamage(int damage, float shock) { }
+    public void TakeDamage(int value) { }
 
     [SerializeField, Header("MoveControllerをアタッチ（ノックバックしないなら不要）")]
     MoveController mc;
@@ -67,7 +67,7 @@ public class HitCollider : MonoBehaviour, IDamageable
         CheckHitLayer(collision);
     }
 
-    protected void Damage(int dmg, float shock, Vector3 pos)
+    protected void Damage(int dmg)
     {
         // 与ダメ計算
         int trueDmg;
@@ -86,17 +86,21 @@ public class HitCollider : MonoBehaviour, IDamageable
 
         if (barrier <= 0) { barrier = 0; }
 
-        // 衝撃付与
-        Vector3 shockDir = pos - this.transform.position;
-        if (mc != null)
-        {
-            mc.InputFlick(this.transform.position - shockDir, shock * resist, 0.5f, false);
-        }
-
         // 死亡判定
         if (nowHp <= 0)
         {
             Die();
+        }
+    }
+
+    protected void Shock(float shock, Vector3 pos)
+    {
+        // 衝撃付与
+        Vector3 shockDir = pos - this.transform.position;
+
+        if (mc != null)
+        {
+            mc.InputFlick(this.transform.position - shockDir, shock * resist, 0.5f, false);
         }
     }
 
@@ -132,7 +136,8 @@ public class HitCollider : MonoBehaviour, IDamageable
                 invTime[(int)atk.atkType] = atk.inv;
 
                 // ダメージ
-                Damage(atk.dmg, atk.shock, atk.apPos);
+                Damage(atk.dmg);
+                Shock(atk.shock, atk.apPos);
 
                 // 弾丸系統ならデストロイ
                 if (atk.isBullet)
