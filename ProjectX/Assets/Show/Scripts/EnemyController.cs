@@ -143,9 +143,9 @@ public class EnemyController : MonoBehaviour
 
     void EnemyMove()
     {
+        //animator.Play();
         if (movecheck && plmc.IsGround())
         {
-            Debug.Log("a");
             Vector2 playerPos = player.transform.position;
             Vector2 enemyPos = transform.position;
             //Vector2 pos = new Vector2(playerPos.x, 0);
@@ -178,6 +178,8 @@ public class EnemyController : MonoBehaviour
 
     void EnemyWarp()
     {
+        Debug.Log("a");
+        animator.Play("Guren_FSAnimation");
         if (warpcheck)
         {
             this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
