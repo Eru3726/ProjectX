@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     GameObject player;
+
+    Animator animator;
    
     MoveController mc;
    
@@ -65,6 +67,7 @@ public class EnemyController : MonoBehaviour
         mc = gameObject.GetComponent<MoveController>();
         plmc = player.gameObject.GetComponent<MoveController>();
         sc = gameObject.GetComponent<ShellController>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -217,7 +220,7 @@ public class EnemyController : MonoBehaviour
     }
     void EnemyDown()
     {
-
+       
     }
     void EnemyDie()
     {

@@ -22,6 +22,7 @@ public class ShellController : MonoBehaviour
     Vector3 shellVec;
 
     float time = 1.0f;
+    float timer = 1.0f;
 
     void Start()
     {
@@ -40,7 +41,7 @@ public class ShellController : MonoBehaviour
     {
      
         time -= Time.deltaTime;
-        if ( time > 0 )
+        if (time > 0 )
         {
             transform.Translate(Vector3.up * ShellupSpd * Time.deltaTime);
         }
@@ -68,6 +69,7 @@ public class ShellController : MonoBehaviour
                 radian += rotSpd * Time.deltaTime;  // 時計回りさせる
             }
         }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
