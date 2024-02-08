@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class Player2Input : MonoBehaviour
 {
 
     [SerializeField, Header("NomalMeleeプレハブつけてね")]
@@ -57,7 +57,7 @@ public class PlayerInput : MonoBehaviour
         MoveInput();
 
         // NomalMelee : P
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             if (skillTime[(int)StageData.ACT_DATA.NM3] > 0)
             {
@@ -96,7 +96,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         // NomalDodge : S or Shift
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightShift))
         {
             if (actSkill[(int)StageData.ACT_DATA.ND1] == false && !CheckActSkill())
             {
@@ -107,128 +107,128 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        // LoveBeam : L
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            if (actSkill[(int)StageData.ACT_DATA.LB1] == false && !CheckActSkill())
-            {
-                ActLB();
-                actSkill[(int)StageData.ACT_DATA.LB1] = true;
-                skillTime[(int)StageData.ACT_DATA.LB1] = 1;
-                coolTime[(int)StageData.ACT_DATA.LB1] = 2;
-            }
-        }
+        //// LoveBeam : L
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    if (actSkill[(int)StageData.ACT_DATA.LB1] == false && !CheckActSkill())
+        //    {
+        //        ActLB();
+        //        actSkill[(int)StageData.ACT_DATA.LB1] = true;
+        //        skillTime[(int)StageData.ACT_DATA.LB1] = 1;
+        //        coolTime[(int)StageData.ACT_DATA.LB1] = 2;
+        //    }
+        //}
 
-        if (skillTime[(int)StageData.ACT_DATA.LB1] > 0)
-        {
-            mc.InputFlickStop();
-            mc.InputLR(0);
-        }
+        //if (skillTime[(int)StageData.ACT_DATA.LB1] > 0)
+        //{
+        //    mc.InputFlickStop();
+        //    mc.InputLR(0);
+        //}
 
-        // LoveMissile : M
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (actSkill[(int)StageData.ACT_DATA.LM1] == false && !CheckActSkill())
-            {
-                ActLM(1);
-                ActLM(2);
-                ActLM(3);
-                ActLM(4);
-                ActLM(5);
-                ActLM(6);
-                actSkill[(int)StageData.ACT_DATA.LM1] = true;
-                skillTime[(int)StageData.ACT_DATA.LB1] = 0.5f;
-                coolTime[(int)StageData.ACT_DATA.LB1] = 2;
-            }
-        }
+        //// LoveMissile : M
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    if (actSkill[(int)StageData.ACT_DATA.LM1] == false && !CheckActSkill())
+        //    {
+        //        ActLM(1);
+        //        ActLM(2);
+        //        ActLM(3);
+        //        ActLM(4);
+        //        ActLM(5);
+        //        ActLM(6);
+        //        actSkill[(int)StageData.ACT_DATA.LM1] = true;
+        //        skillTime[(int)StageData.ACT_DATA.LB1] = 0.5f;
+        //        coolTime[(int)StageData.ACT_DATA.LB1] = 2;
+        //    }
+        //}
 
-        if (skillTime[(int)StageData.ACT_DATA.LM1] > 0)
-        {
-            mc.InputFlickStop();
-            mc.InputLR(0);
-        }
+        //if (skillTime[(int)StageData.ACT_DATA.LM1] > 0)
+        //{
+        //    mc.InputFlickStop();
+        //    mc.InputLR(0);
+        //}
 
-        // AngerFire : F
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (actSkill[(int)StageData.ACT_DATA.AF1] == false && !CheckActSkill())
-            {
-                ActAF(0);
-                actSkill[(int)StageData.ACT_DATA.AF1] = true;
-                skillTime[(int)StageData.ACT_DATA.AF1] = 1;
-                coolTime[(int)StageData.ACT_DATA.AF1] = 3;
-            }
-        }
+        //// AngerFire : F
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    if (actSkill[(int)StageData.ACT_DATA.AF1] == false && !CheckActSkill())
+        //    {
+        //        ActAF(0);
+        //        actSkill[(int)StageData.ACT_DATA.AF1] = true;
+        //        skillTime[(int)StageData.ACT_DATA.AF1] = 1;
+        //        coolTime[(int)StageData.ACT_DATA.AF1] = 3;
+        //    }
+        //}
 
-        if (skillTime[(int)StageData.ACT_DATA.AF1] > 0)
-        {
-            mc.InputFlickStop();
-            mc.InputLR(0);
+        //if (skillTime[(int)StageData.ACT_DATA.AF1] > 0)
+        //{
+        //    mc.InputFlickStop();
+        //    mc.InputLR(0);
 
-            if (skillTime[(int)StageData.ACT_DATA.AF1] <= 0.5f)
-            {
-                if (actSkill[(int)StageData.ACT_DATA.AF2] == false)
-                {
-                    ActAF(1);
-                    actSkill[(int)StageData.ACT_DATA.AF2] = true;
-                    skillTime[(int)StageData.ACT_DATA.AF2] = 0;
-                    coolTime[(int)StageData.ACT_DATA.AF2] = coolTime[(int)StageData.ACT_DATA.AF1];
-                }
-            }
-        }
+        //    if (skillTime[(int)StageData.ACT_DATA.AF1] <= 0.5f)
+        //    {
+        //        if (actSkill[(int)StageData.ACT_DATA.AF2] == false)
+        //        {
+        //            ActAF(1);
+        //            actSkill[(int)StageData.ACT_DATA.AF2] = true;
+        //            skillTime[(int)StageData.ACT_DATA.AF2] = 0;
+        //            coolTime[(int)StageData.ACT_DATA.AF2] = coolTime[(int)StageData.ACT_DATA.AF1];
+        //        }
+        //    }
+        //}
 
-        // AngerCharge : C
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (actSkill[(int)StageData.ACT_DATA.AC1] == false && !CheckActSkill())
-            {
-                ActAC();
-                actSkill[(int)StageData.ACT_DATA.AC1] = true;
-                skillTime[(int)StageData.ACT_DATA.AC1] = 2;
-                coolTime[(int)StageData.ACT_DATA.AC1] = 3;
-            }
-        }
+        //// AngerCharge : C
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    if (actSkill[(int)StageData.ACT_DATA.AC1] == false && !CheckActSkill())
+        //    {
+        //        ActAC();
+        //        actSkill[(int)StageData.ACT_DATA.AC1] = true;
+        //        skillTime[(int)StageData.ACT_DATA.AC1] = 2;
+        //        coolTime[(int)StageData.ACT_DATA.AC1] = 3;
+        //    }
+        //}
 
-        if (skillTime[(int)StageData.ACT_DATA.AC1] > 0)
-        {
-            mc.InputFlick((int)transform.localScale.x, 10, 0, false);
-        }
+        //if (skillTime[(int)StageData.ACT_DATA.AC1] > 0)
+        //{
+        //    mc.InputFlick((int)transform.localScale.x, 10, 0, false);
+        //}
 
-        // AngerArea : O
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            if (actSkill[(int)StageData.ACT_DATA.AA1] == false && !CheckActSkill())
-            {
-                ActAA();
-                actSkill[(int)StageData.ACT_DATA.AA1] = true;
-                skillTime[(int)StageData.ACT_DATA.AA1] = 2;
-                coolTime[(int)StageData.ACT_DATA.AA1] = 10;
-            }
-        }
+        //// AngerArea : O
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    if (actSkill[(int)StageData.ACT_DATA.AA1] == false && !CheckActSkill())
+        //    {
+        //        ActAA();
+        //        actSkill[(int)StageData.ACT_DATA.AA1] = true;
+        //        skillTime[(int)StageData.ACT_DATA.AA1] = 2;
+        //        coolTime[(int)StageData.ACT_DATA.AA1] = 10;
+        //    }
+        //}
 
-        if (skillTime[(int)StageData.ACT_DATA.AA1] > 0)
-        {
-            mc.InputFlickStop();
-            mc.InputLR(0);
-        }
+        //if (skillTime[(int)StageData.ACT_DATA.AA1] > 0)
+        //{
+        //    mc.InputFlickStop();
+        //    mc.InputLR(0);
+        //}
 
-        // SorrowBarrier : B
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (actSkill[(int)StageData.ACT_DATA.SB1] == false && !CheckActSkill())
-            {
-                ActSB();
-                actSkill[(int)StageData.ACT_DATA.SB1] = true;
-                skillTime[(int)StageData.ACT_DATA.SB1] = 0.5f;
-                coolTime[(int)StageData.ACT_DATA.SB1] = 10;
-            }
-        }
+        //// SorrowBarrier : B
+        //if (Input.GetKeyDown(KeyCode.B))
+        //{
+        //    if (actSkill[(int)StageData.ACT_DATA.SB1] == false && !CheckActSkill())
+        //    {
+        //        ActSB();
+        //        actSkill[(int)StageData.ACT_DATA.SB1] = true;
+        //        skillTime[(int)StageData.ACT_DATA.SB1] = 0.5f;
+        //        coolTime[(int)StageData.ACT_DATA.SB1] = 10;
+        //    }
+        //}
 
-        if (skillTime[(int)StageData.ACT_DATA.SB1] > 0)
-        {
-            mc.InputFlickStop();
-            mc.InputLR(0);
-        }
+        //if (skillTime[(int)StageData.ACT_DATA.SB1] > 0)
+        //{
+        //    mc.InputFlickStop();
+        //    mc.InputLR(0);
+        //}
     }
 
     private void FixedUpdate()
@@ -247,7 +247,7 @@ public class PlayerInput : MonoBehaviour
             totalTime += skillTime[i];
         }
 
-        if(totalTime > 0)
+        if (totalTime > 0)
         {
             return true;
         }
@@ -260,12 +260,12 @@ public class PlayerInput : MonoBehaviour
     void MoveInput()
     {
         // 左右入力：A and D
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             mc.InputLR(1);
             piInputLR = 1;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             mc.InputLR(-1);
             piInputLR = -1;
@@ -285,7 +285,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         // 上入力：W or space
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             if (mc.IsGround())
             {
@@ -333,6 +333,7 @@ public class PlayerInput : MonoBehaviour
         obj.transform.localScale = scale;
 
         obj.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.NM1 + rushNo - 1;
+        obj.GetComponent<AttackCollider>().atkLayer = StageData.LAYER_DATA.Enemy;
 
         plDir.y += 0.1f;
         if (rushNo == 3) { plDir.y += 0.4f; }
@@ -382,13 +383,13 @@ public class PlayerInput : MonoBehaviour
         if (transform.localScale.x <= 0)
         {
             Vector3 lea = obj.transform.localEulerAngles;
-            lea.z = 180 - (((float)num - 3.5f) *5);
+            lea.z = 180 - (((float)num - 3.5f) * 5);
             obj.transform.localEulerAngles = lea;
         }
         else
         {
             Vector3 lea = obj.transform.localEulerAngles;
-            lea.z = (((float)num - 3.5f)*5);
+            lea.z = (((float)num - 3.5f) * 5);
             obj.transform.localEulerAngles = lea;
         }
     }

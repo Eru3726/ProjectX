@@ -5,7 +5,7 @@ using UnityEngine;
 public class AttackCollider : MonoBehaviour
 {
     [SerializeField, Header("ダメージ")]
-    public float dmg = 5;
+    public int dmg = 5;
 
     [SerializeField, Header("衝撃")]
     public float shock = 5;
@@ -56,6 +56,11 @@ public class AttackCollider : MonoBehaviour
         if (collision.gameObject.tag == "Ground" && groundDestroyFlag)
         {
             Destroy(this.gameObject);
+        }
+
+        if (collision.TryGetComponent<IDamageable>(out IDamageable damageable))
+        {
+            //damageable.TakeDamage();
         }
     }
 
