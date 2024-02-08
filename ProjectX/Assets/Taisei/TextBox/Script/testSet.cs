@@ -13,7 +13,7 @@ public class testSet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -21,15 +21,16 @@ public class testSet : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            textNo = 0;
+            textNo = 999;
             talkUI.SetActive(true);
             alltextsscript.SetAllTexts(textNo);
         }
         else if (Input.GetKeyDown(KeyCode.B))
         {
-            textNo = 1;
+            textNo = 999;
             talkUI.SetActive(true);
             alltextsscript.SetAllTexts(textNo);
         }
+
     }
 }
