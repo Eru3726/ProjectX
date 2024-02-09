@@ -8,11 +8,6 @@ using System;
 
 public class TextScript : MonoBehaviour
 {
-    //テキストセット用
-    [SerializeField] private AllTexts alltextsscript;
-    int textNo;
-
-
     //トークUI
     private Text messageText;
 
@@ -166,11 +161,28 @@ public class TextScript : MonoBehaviour
     private bool checkChoise = false;
     //選択肢フラグ
     private int choiseFlg;
+    //選択肢があるかどうか
+    private bool choiseYN = false;
+
+    //使用する選択肢シート
+    private string[] ChoiseName;
+    private int cNameNum = 0;
 
     public WChoiseData[] wChoiseData;
     [SerializeField] private Text[] WChoises;
     public TChoiseData[] tChoiseData;
     [SerializeField] private Text[] TChoises;
+
+    private int[] textFlg;
+    private int tFlgNum = 0;
+
+    //選択肢で決定を押したかどうか
+    private bool EnterCheck = false;
+    
+    //次の文章を表示するとき
+    //0=3つ先の文章に飛ばす 1=2つ先の文章に飛ばす 2=1つ先の文章に飛ばす 
+    private int routeFlg = 2;
+    private bool routeOnOFF = false;
 
     //スキップ処理関連
     private Choise choiseW; //選択肢2個バージョン
@@ -183,6 +195,7 @@ public class TextScript : MonoBehaviour
     //スキップ時に選択肢があるかどうか
     private bool skipFlg = false;
     //スキップ時のテキスト表示用;
+    public SkipChoiseData[] sChoiseData;
     [SerializeField] private GameObject SkipTextObj;
     private Text skipText;
     private string[] splitSkipText = { "スキップしますか？" };
@@ -194,10 +207,13 @@ public class TextScript : MonoBehaviour
     [SerializeField] private Text[] SkipChoiseText;
     private bool skipOnOff = false;
 
+    //テキスト配列の現在地確認用
+    private int nowPoint = 0;
+
 
     void Start()
     {
-        skipText = transform.GetChild(5).GetComponentInChildren<Text>();
+        skipText = transform.GetChild(4).GetComponentInChildren<Text>();
         skipText.text = "";
 
         clickIcon = transform.Find("TextPanel/Cursor1").GetComponent<Image>();
@@ -229,7 +245,6 @@ public class TextScript : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("skipONOFF" + skipOnOff);
         if (!skipOnOff)
         {
             TextMain();
@@ -335,6 +350,7 @@ public class TextScript : MonoBehaviour
                 //messageを全部表示、または行数が最大数表示された
                 if (nowTextNum >= splitMessage[messageNum].Length)
                 {
+                    OnChoise();
                     isOneMessage = true;
                 }
             }
@@ -394,9 +410,8 @@ public class TextScript : MonoBehaviour
 
                 }
 
-                OnChoise();
                 //エンターキーor左クリックを押したら次の文字表示処理
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || EnterCheck)
                 {
                     FinishOneText();
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
@@ -415,9 +430,8 @@ public class TextScript : MonoBehaviour
                 clickIcon4.enabled = false;
                 changeFace = 0;
 
-                OnChoise();
                 //設定した時間を超えたら次の文字表示処理
-                if (autoTimer >= autoTimerLimit)
+                if (autoTimer >= autoTimerLimit || EnterCheck)
                 {
                     FinishOneText();
 
@@ -462,8 +476,84 @@ public class TextScript : MonoBehaviour
     //次の文字表示処理
     private void FinishOneText()
     {
+        //選択肢直後
+        if (routeOnOFF)
+        {
+            Debug.Log("選択肢直後");
+            //分岐後の処理
+            switch (routeFlg)
+            {
+                case 0:
+                    PlusThree();
+                    break;
+
+                case 1:
+                    PlusTwo();
+                    break;
+
+                case 2:
+                    PlusOne();
+                    break;
+            }
+            routeOnOFF = false;
+            routeFlg = 2;
+        }
+        //選択肢直後以外
+        else
+        {
+            Debug.Log("選択肢直後以外");
+            //選択肢による分岐
+            switch (ChoiseTrigger[choiseNum])
+            {
+                case 0:
+                    PlusOne();
+                    routeFlg = 2;
+                    break;
+
+                case 1:
+                    if (choiseW.ChoiseFlg() == 0)
+                    {
+                        PlusOne();
+
+                        routeFlg = 1;
+                        routeOnOFF = true;
+                    }
+                    else
+                    {
+                        PlusTwo();
+
+                        routeFlg = 2;
+                        routeOnOFF = true;
+                    }
+                    break;
+
+                case 2:
+                    if (choiseT.ChoiseFlg() == 0)
+                    {
+                        PlusOne();
+
+                        routeFlg = 0;
+                        routeOnOFF = true;
+
+                    }
+                    else if (choiseT.ChoiseFlg() == 1)
+                    {
+                        PlusTwo();
+
+                        routeFlg = 1;
+                        routeOnOFF = true;
+                    }
+                    else
+                    {
+                        PlusThree();
+
+                        routeFlg = 2;
+                        routeOnOFF = true;
+                    }
+                    break;
+            }
+        }
         nowTextNum = 0;
-        messageNum++;
         messageText.text = "";
         clickIcon.enabled = false;
         clickIcon2.enabled = false;
@@ -475,19 +565,49 @@ public class TextScript : MonoBehaviour
         isOneMessage = false;
 
         nowNameNum = 0;
-        nameNum++;
         nameText.text = "";
         checkName = false;
 
-        iconNum++;
-
-        LRNum++;
-
-        animsNum++;
-
         firstStandP = true;
+        OneChoise = false;
+        EnterCheck = false;
+        nowPoint++;
+    }
 
+    private void PlusOne()
+    {
+        messageNum++;
+        nameNum++;
+        iconNum++;
+        LRNum++;
+        animsNum++;
         choiseNum++;
+        cNameNum++;
+        tFlgNum++;
+    }
+
+    private void PlusTwo()
+    {
+        messageNum += 2;
+        nameNum += 2;
+        iconNum += 2;
+        LRNum += 2;
+        animsNum += 2;
+        choiseNum += 2;
+        cNameNum += 2;
+        tFlgNum += 2;
+    }
+
+    private void PlusThree()
+    {
+        messageNum += 3;
+        nameNum += 3;
+        iconNum += 3;
+        LRNum += 3;
+        animsNum += 3;
+        choiseNum += 3;
+        cNameNum += 3;
+        tFlgNum += 3;
     }
 
     //全てのメッセージを表示されたら
@@ -510,6 +630,8 @@ public class TextScript : MonoBehaviour
             Array.Clear(skipPoint, 0, skipCount);
         }
 
+        routeFlg = 2;
+        routeOnOFF = false;
         isEndMessage = true;
         TextOnOff = false;
         //transform.GetChild(0).gameObject.SetActive(false);
@@ -533,14 +655,30 @@ public class TextScript : MonoBehaviour
     private void OnChoise()
     {
         //選択肢表示
-        if (ChoiseTrigger[choiseNum] > 0 && !OneChoise)
+        if (ChoiseTrigger[choiseNum] != 0 && !OneChoise)
         {
             switch (ChoiseTrigger[choiseNum])
             {
                 case 1:
+                    TextAsset wChoiseAsset = new TextAsset();
+                    wChoiseAsset = Resources.Load(ChoiseName[cNameNum], typeof(TextAsset)) as TextAsset;
+                    wChoiseData = CSVSerializer.Deserialize<WChoiseData>(wChoiseAsset.text);
+
+                    WChoises[0].text = wChoiseData[0].UpText;
+                    WChoises[1].text = wChoiseData[0].DownText;
+
                     Choises[ChoiseTrigger[choiseNum]].SetActive(true);
                     break;
+
                 case 2:
+                    TextAsset tChoiseAsset = new TextAsset();
+                    tChoiseAsset= Resources.Load(ChoiseName[cNameNum], typeof(TextAsset)) as TextAsset;
+                    tChoiseData = CSVSerializer.Deserialize<TChoiseData>(tChoiseAsset.text);
+
+                    TChoises[0].text = tChoiseData[0].UpText;
+                    TChoises[1].text = tChoiseData[0].CenterText;
+                    TChoises[2].text = tChoiseData[0].DownText;
+
                     Choises[ChoiseTrigger[choiseNum]].SetActive(true);
                     break;
             }
@@ -550,6 +688,7 @@ public class TextScript : MonoBehaviour
 
     }
 
+    //キャラのアニメーション
     private void CharaAnim()
     {
         switch (splitIcon[iconNum])
@@ -624,9 +763,8 @@ public class TextScript : MonoBehaviour
     public void ChangeCheckChoise()
     {
         checkChoise = false;
-
+        EnterCheck = true;
     }
-
 
     public float Parameter
     {
@@ -638,7 +776,7 @@ public class TextScript : MonoBehaviour
 
 
     //csvファイルのセット
-    public void SetCSVFile(string csvFiles, string csvChoise)
+    public void SetCSVFile(string csvFiles)
     {
         TextAsset textAsset = new TextAsset();
         textAsset = Resources.Load(csvFiles, typeof(TextAsset)) as TextAsset;
@@ -650,6 +788,10 @@ public class TextScript : MonoBehaviour
         splitLR = new bool[textData.Length];
         splitAnims = new int[textData.Length];
         ChoiseTrigger = new int[textData.Length];
+        ChoiseName = new string[textData.Length];
+        textFlg = new int[textData.Length];
+
+        skipPoint = new int[textData.Length];
 
         for (int i = 0; i < textData.Length; i++)
         {
@@ -659,7 +801,20 @@ public class TextScript : MonoBehaviour
             this.splitLR[i] = textData[i].LorR;
             this.splitAnims[i] = textData[i].anims;
             this.ChoiseTrigger[i] = textData[i].choiseNo;
+            this.ChoiseName[i] = textData[i].choiseName;
+            this.textFlg[i] = textData[i].textFlg;
             Debug.Log("読み込み");
+
+            //選択肢があった場合
+            if (ChoiseTrigger[i] != 0)
+            {
+                Debug.Log("選択肢発見");
+                skipPoint[i] = i;
+            }
+            else
+            {
+                skipPoint[i] = 0;
+            }
         }
 
         nowTextNum = 0;
@@ -682,51 +837,22 @@ public class TextScript : MonoBehaviour
         choiseNum = 0;
         OneChoise = false;
         checkChoise = false;
+        cNameNum = 0;
+        tFlgNum = 0;
+        nowPoint = 0;
 
-        //選択肢があるかどうか
-        for(int j = 0; j < textData.Length; j++)
-        {
-            //選択肢があった場合
-            if(ChoiseTrigger[j] != 0)
-            {
-                Debug.Log("選択肢発見");
-                //選択肢のテキストをセット
-                switch (ChoiseTrigger[j])
-                {
-                    case 1:
-                        TextAsset wChoiseAsset = new TextAsset();
-                        wChoiseAsset = Resources.Load(csvChoise, typeof(TextAsset)) as TextAsset;
-                        wChoiseData = CSVSerializer.Deserialize<WChoiseData>(wChoiseAsset.text);
-
-                        WChoises[0].text = wChoiseData[0].UpText;
-                        WChoises[1].text = wChoiseData[0].DownText;
-                        break;
-
-                    case 2:
-                        TextAsset tChoiseAsset = new TextAsset();
-                        tChoiseAsset = Resources.Load(csvChoise, typeof(TextAsset)) as TextAsset;
-                        tChoiseData = CSVSerializer.Deserialize<TChoiseData>(tChoiseAsset.text);
-
-                        TChoises[0].text = tChoiseData[0].UpText;
-                        TChoises[1].text = tChoiseData[0].CenterText;
-                        TChoises[2].text = tChoiseData[0].DownText;
-                        break;
-                }
-                skipPoint[skipCount] = j;
-                skipCount++;
-            }
-        }
     }
 
     //AllTextsから呼びだす
-    public void SetCSVPanel(string csvFiles, string csvChoise)
+    public void SetCSVPanel(string csvFiles)
     {
-        SetCSVFile(csvFiles, csvChoise);
         transform.GetChild(2).gameObject.SetActive(true);
         transform.GetChild(3).gameObject.SetActive(true);
         CharaConection.SetActive(true);
         BackPanel.SetActive(true);
         Time.timeScale = 0;
+        SetCSVFile(csvFiles);
+
 
     }
 
@@ -753,7 +879,17 @@ public class TextScript : MonoBehaviour
                 elapsedTime = 0f;
                 if (nowSkipNo >= splitSkipText[0].Length)
                 {
+                    TextAsset skipChoiseAsset = new TextAsset();
+                    skipChoiseAsset = Resources.Load("testChoiseW", typeof(TextAsset)) as TextAsset;
+                    sChoiseData = CSVSerializer.Deserialize<SkipChoiseData>(skipChoiseAsset.text);
+
+                    SkipChoiseText[0].text = sChoiseData[0].UpText;
+                    SkipChoiseText[1].text = sChoiseData[0].DownText;
+
+                    Debug.Log("文字送り終了");
                     skipMessage = true;
+                    checkChoise = true;
+                    SkipChoise.SetActive(true);
                 }
             }
             Timer();
@@ -761,34 +897,41 @@ public class TextScript : MonoBehaviour
         }
         else
         {
-            SkipChoise.SetActive(true);
-            checkChoise = true;
+            Debug.Log("スキップするかの選択中");
             if (!checkChoise)
             {
                 skipFinishMessage = true;
                 choiseFlg = choiseSkip.ChoiseFlg();
-                Debug.Log(choiseFlg);
                 if (choiseFlg == 0)
                 {
+                    Debug.Log("スキップします");
+                    SkipTextObj.SetActive(false);
                     SkipReset();
                     SkipCheck();
-                    SkipTextObj.SetActive(false);
                 }
                 else
                 {
-                    SkipReset();
+                    Debug.Log("スキップしません");
                     SkipTextObj.SetActive(false);
+                    SkipReset();
                 }
             }
         }
-
-        
     }
 
     private void SkipCheck()
     {
         //選択肢があるかどうか
-        if (skipPoint == null || skipPoint.Length == 0)
+        for(int i = nowPoint; i < textData.Length; i++)
+        {
+            if (ChoiseTrigger[i] != 0)
+            {
+                choiseYN = true;
+                skipNum = i;
+                break;
+            }
+        }
+        if (!choiseYN)
         {
             //選択肢がない場合
             Skip();
@@ -797,6 +940,7 @@ public class TextScript : MonoBehaviour
         else
         {
             //選択肢がある場合
+            Debug.Log("選択肢あり");
             nowTextNum = 0;
             messageNum = skipPoint[skipNum];
             messageText.text = "";
@@ -817,24 +961,27 @@ public class TextScript : MonoBehaviour
             animsNum = skipPoint[skipNum];
             firstStandP = true;
             choiseNum = skipPoint[skipNum];
+            cNameNum = skipPoint[skipNum];
+            tFlgNum = skipPoint[skipNum];
 
             if (AutoORAanual)
             {
                 autoTimer = 0f;
                 counter = 0;
             }
-
             skipNum++;
-
-            Debug.Log("選択肢あり");
+            choiseYN = false;
+            nowPoint = skipPoint[skipNum];
         }
-
     }
 
     private void SkipReset()
     {
+        Debug.Log("スキップ処理をリセットします");
         skipText.text = "";
-        nowTextNum = 0;
+        nowSkipNo = 0;
+        counter = 0;
+        elapsedTime = 0f;
         skipMessage = false;
         skipFinishMessage = false;
         skipOnOff = false;
@@ -855,6 +1002,8 @@ public class TextData
     public bool LorR;
     public int anims;
     public int choiseNo;
+    public string choiseName;
+    public int textFlg;
 }
 
 
@@ -872,5 +1021,13 @@ public class TChoiseData
 {
     public string UpText;
     public string CenterText;
+    public string DownText;
+}
+
+//スキップ用選択肢
+[System.Serializable]
+public class SkipChoiseData
+{
+    public string UpText;
     public string DownText;
 }

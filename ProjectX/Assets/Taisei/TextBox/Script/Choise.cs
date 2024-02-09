@@ -13,7 +13,7 @@ public class Choise : MonoBehaviour
     [SerializeField] GameObject PareObj;
 
     //選択肢フラグ
-    private int choiseFlg;
+    private int choiseFlg = 0;
 
     [SerializeField] private TextScript textScript;
 
@@ -23,7 +23,6 @@ public class Choise : MonoBehaviour
     {
         ListNum = 0;
         CursorMove();
-        Debug.Log("選択" + ListNum);
         //PareObj.SetActive(false);
     }
 
@@ -52,8 +51,11 @@ public class Choise : MonoBehaviour
         //決定押したとき
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            Debug.Log("決定");
             choiseFlg = ListNum;
             textScript.ChangeCheckChoise();
+
+            ListNum = 0;
             PareObj.SetActive(false);
         }
     }

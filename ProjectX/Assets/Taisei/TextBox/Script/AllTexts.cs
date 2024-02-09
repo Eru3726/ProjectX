@@ -28,7 +28,6 @@ public class AllTexts : MonoBehaviour
 
     //
     private string csvFiles;
-    private string csvChoise;
 
     //使い方
     //・ここにテキスト・名前・アイコン名などを書き込んでいく
@@ -116,14 +115,13 @@ public class AllTexts : MonoBehaviour
                 break;
 
             case 999:
-                csvFiles = "testText";
-                csvChoise = "testChoiseT";
+                csvFiles = "testText2";
                 break;
 
         }
 
         //TextSystemScript.SetTextPanel(message, charaName, charaIcon, LorR, anims);
-        TextSystemScript.SetCSVPanel(csvFiles, csvChoise);
+        TextSystemScript.SetCSVPanel(csvFiles);
 
     }
 }
