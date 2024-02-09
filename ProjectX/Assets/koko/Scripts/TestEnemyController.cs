@@ -17,7 +17,7 @@ public class TestEnemyController : MonoBehaviour
     {
         if (mc.IsGround())
         {
-            //mc.InputJump();
+            mc.InputJump();
         }
     }
 

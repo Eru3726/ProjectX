@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimController : MonoBehaviour
+public class Player2AnimController : MonoBehaviour
 {
     enum AnimData
     {
@@ -38,7 +38,7 @@ public class PlayerAnimController : MonoBehaviour
     Animator atk3Anim;
 
     [SerializeField, Header("PlayerInputアタッチ")]
-    PlayerInput pi;
+    Player2Input pi;
 
     [SerializeField, Header("MoveControllerアタッチ")]
     MoveController mc;
