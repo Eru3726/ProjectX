@@ -293,14 +293,14 @@ public class TextScript : MonoBehaviour
                         }
                     }
 
-                    Instantiate(Charas[splitIcon[iconNum]], LeftPosT);   //生成
-                    LeftImg.color = new Color(255, 255, 255, 1);
-                    RightImg.color = Color.gray;
-
                     //アニメーション関連
                     //システム以外の場合
                     if (splitIcon[iconNum] != 0)
                     {
+                        Instantiate(Charas[splitIcon[iconNum]], LeftPosT);   //生成
+                        LeftImg.color = new Color(255, 255, 255, 1);
+                        RightImg.color = Color.gray;
+
                         anim = LeftPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
                         CharaAnim();
                         anim.Play(animStr);
@@ -319,14 +319,15 @@ public class TextScript : MonoBehaviour
                             Destroy(child.gameObject);
                         }
                     }
-                    Instantiate(Charas[splitIcon[iconNum]], RightPosT);
-                    RightImg.color = new Color(255, 255, 255, 1);
-                    LeftImg.color = Color.gray;
 
                     //アニメーション関連
                     //システム以外の場合
                     if (splitIcon[iconNum] != 0)
                     {
+                        Instantiate(Charas[splitIcon[iconNum]], RightPosT);
+                        RightImg.color = new Color(255, 255, 255, 1);
+                        LeftImg.color = Color.gray;
+
                         anim = RightPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
                         CharaAnim();
                         anim.Play(animStr);
@@ -479,7 +480,6 @@ public class TextScript : MonoBehaviour
         //選択肢直後
         if (routeOnOFF)
         {
-            Debug.Log("選択肢直後");
             //分岐後の処理
             switch (routeFlg)
             {
@@ -501,7 +501,6 @@ public class TextScript : MonoBehaviour
         //選択肢直後以外
         else
         {
-            Debug.Log("選択肢直後以外");
             //選択肢による分岐
             switch (ChoiseTrigger[choiseNum])
             {
@@ -571,7 +570,6 @@ public class TextScript : MonoBehaviour
         firstStandP = true;
         OneChoise = false;
         EnterCheck = false;
-        nowPoint++;
     }
 
     private void PlusOne()
@@ -584,6 +582,8 @@ public class TextScript : MonoBehaviour
         choiseNum++;
         cNameNum++;
         tFlgNum++;
+        skipNum++;
+        nowPoint++;
     }
 
     private void PlusTwo()
@@ -596,6 +596,8 @@ public class TextScript : MonoBehaviour
         choiseNum += 2;
         cNameNum += 2;
         tFlgNum += 2;
+        skipNum += 2;
+        nowPoint += 2;
     }
 
     private void PlusThree()
@@ -608,6 +610,8 @@ public class TextScript : MonoBehaviour
         choiseNum += 3;
         cNameNum += 3;
         tFlgNum += 3;
+        skipNum += 3;
+        nowPoint += 3;
     }
 
     //全てのメッセージを表示されたら
@@ -840,6 +844,7 @@ public class TextScript : MonoBehaviour
         cNameNum = 0;
         tFlgNum = 0;
         nowPoint = 0;
+        skipNum = 0;
 
     }
 
@@ -865,13 +870,11 @@ public class TextScript : MonoBehaviour
 
     private void SkipText()
     {
-        Debug.Log("スキップ処理開始");
         SkipTextObj.SetActive(true);
         if (!skipMessage)
         {
             if (skipTextTime >= textSpeed)
             {
-                Debug.Log("スキップ文字表示中");
                 skipText.text += splitSkipText[0][nowSkipNo];
                 nowSkipNo++;
                 skipTextTime = 0f;
@@ -886,7 +889,6 @@ public class TextScript : MonoBehaviour
                     SkipChoiseText[0].text = sChoiseData[0].UpText;
                     SkipChoiseText[1].text = sChoiseData[0].DownText;
 
-                    Debug.Log("文字送り終了");
                     skipMessage = true;
                     checkChoise = true;
                     SkipChoise.SetActive(true);
@@ -897,21 +899,18 @@ public class TextScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("スキップするかの選択中");
             if (!checkChoise)
             {
                 skipFinishMessage = true;
                 choiseFlg = choiseSkip.ChoiseFlg();
                 if (choiseFlg == 0)
                 {
-                    Debug.Log("スキップします");
                     SkipTextObj.SetActive(false);
                     SkipReset();
                     SkipCheck();
                 }
                 else
                 {
-                    Debug.Log("スキップしません");
                     SkipTextObj.SetActive(false);
                     SkipReset();
                 }
@@ -935,12 +934,10 @@ public class TextScript : MonoBehaviour
         {
             //選択肢がない場合
             Skip();
-            Debug.Log("選択肢無し");
         }
         else
         {
             //選択肢がある場合
-            Debug.Log("選択肢あり");
             nowTextNum = 0;
             messageNum = skipPoint[skipNum];
             messageText.text = "";
@@ -969,9 +966,9 @@ public class TextScript : MonoBehaviour
                 autoTimer = 0f;
                 counter = 0;
             }
-            skipNum++;
             choiseYN = false;
             nowPoint = skipPoint[skipNum];
+            routeOnOFF = false;
         }
     }
 
