@@ -93,8 +93,11 @@ public class TextScript : MonoBehaviour
 
     private float autoTimer = 0f;
     [SerializeField] float autoTimerLimit = 2f;
-
+    
+    //自動再生か手動再生か
     private bool AutoORAanual = false;
+    //早送り中かどうか
+    private bool FastORNormal = false;
 
     private string allLR = "false";
     //分割したtrueかfalse
@@ -147,6 +150,7 @@ public class TextScript : MonoBehaviour
 
     [SerializeField] private GameObject AllTextPare;
     [SerializeField] private Text OnOffText;
+    [SerializeField] private Text OnOffFastText;
 
     //選択肢用
     //0=非表示 1=選択肢2個 2=選択肢3個
@@ -234,6 +238,7 @@ public class TextScript : MonoBehaviour
         nameText.text = "";
 
         OnOffText.color = Color.gray;
+        OnOffFastText.color = Color.gray;
 
         choiseW = Choises[1].GetComponent<Choise>();
         choiseT = Choises[2].GetComponent<Choise>();
@@ -470,7 +475,27 @@ public class TextScript : MonoBehaviour
                 OnOffText.text = "ON";
                 OnOffText.color = Color.white;
             }
-            Debug.Log(AutoORAanual);
+        }
+
+        //早送り
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            FastORNormal = !FastORNormal;
+            if (!FastORNormal)
+            {
+                OnOffFastText.text = "OFF";
+                OnOffFastText.color = Color.gray;
+                textSpeed *= 2;
+                autoTimerLimit *= 2;
+            }
+            else
+            {
+                OnOffFastText.text = "ON";
+                OnOffFastText.color = Color.white;
+                textSpeed /= 2;
+                autoTimerLimit /= 2;
+            }
+
         }
     }
 
