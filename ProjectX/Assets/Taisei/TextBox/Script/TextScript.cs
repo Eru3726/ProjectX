@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
 using System;
+using System.Text;
 
 
 public class TextScript : MonoBehaviour
@@ -177,9 +178,6 @@ public class TextScript : MonoBehaviour
     public TChoiseData[] tChoiseData;
     [SerializeField] private Text[] TChoises;
 
-    private int[] textFlg;
-    private int tFlgNum = 0;
-
     //選択肢で決定を押したかどうか
     private bool EnterCheck = false;
     
@@ -214,6 +212,19 @@ public class TextScript : MonoBehaviour
     //テキスト配列の現在地確認用
     private int nowPoint = 0;
 
+    //テキストログ関連
+    [SerializeField] private GameObject LogObj;
+    //ログを表示しているかどうか
+    public bool logCheck = false;
+    //ログ出力先テキスト
+    [SerializeField] private Text logMessage;
+    //データ
+    private List<string> allLogs;
+    //ログを保存する数
+    [SerializeField] private int allLogDataNum = 10;
+    //縦のスクロールバー
+    [SerializeField] private Scrollbar verticalScrollbar;
+    private StringBuilder logTextStringBuilder;
 
     void Start()
     {
@@ -244,6 +255,10 @@ public class TextScript : MonoBehaviour
         choiseT = Choises[2].GetComponent<Choise>();
         choiseSkip = SkipChoise.GetComponent<Choise>();
 
+        allLogs = new List<string>();
+        logTextStringBuilder = new StringBuilder();
+
+        LogObj.SetActive(false);
         SkipTextObj.SetActive(false);
         AllTextPare.SetActive(false);
     }
@@ -253,18 +268,30 @@ public class TextScript : MonoBehaviour
         if (!skipOnOff)
         {
             TextMain();
+            //ログ表示
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                if (!logCheck)
+                {
+                    LogObj.SetActive(true);
+                }
+                else
+                {
+                    LogObj.SetActive(false);
+                }
+                logCheck = !logCheck;
+            }
         }
         else
         {
             SkipText();
         }
-
     }
 
     private void TextMain()
     {
         //messageが終わっているか、メッセージがない、選択肢表示中の場合はこれ以降何もしない
-        if (isEndMessage || splitMessage == null || checkChoise)
+        if (isEndMessage || splitMessage == null || checkChoise || logCheck)
         {
             return;
         }
@@ -457,8 +484,6 @@ public class TextScript : MonoBehaviour
         {
             skipOnOff = true;
             SkipTextObj.SetActive(true);
-            //do while使った今の状態で始めると無限ループ入って処理止まるから注意
-            //SkipText();
         }
 
         //オート・マニュアル変更
@@ -495,13 +520,19 @@ public class TextScript : MonoBehaviour
                 textSpeed /= 2;
                 autoTimerLimit /= 2;
             }
-
         }
+
     }
 
     //次の文字表示処理
     private void FinishOneText()
     {
+        //テキストログの追加
+        AddLogText();
+        if (ChoiseTrigger[choiseNum] != 0)
+        {
+            AddLogChoise();
+        }
         //選択肢直後
         if (routeOnOFF)
         {
@@ -606,7 +637,6 @@ public class TextScript : MonoBehaviour
         animsNum++;
         choiseNum++;
         cNameNum++;
-        tFlgNum++;
         skipNum++;
         nowPoint++;
     }
@@ -620,7 +650,6 @@ public class TextScript : MonoBehaviour
         animsNum += 2;
         choiseNum += 2;
         cNameNum += 2;
-        tFlgNum += 2;
         skipNum += 2;
         nowPoint += 2;
     }
@@ -634,7 +663,6 @@ public class TextScript : MonoBehaviour
         animsNum += 3;
         choiseNum += 3;
         cNameNum += 3;
-        tFlgNum += 3;
         skipNum += 3;
         nowPoint += 3;
     }
@@ -818,7 +846,6 @@ public class TextScript : MonoBehaviour
         splitAnims = new int[textData.Length];
         ChoiseTrigger = new int[textData.Length];
         ChoiseName = new string[textData.Length];
-        textFlg = new int[textData.Length];
 
         skipPoint = new int[textData.Length];
 
@@ -831,7 +858,6 @@ public class TextScript : MonoBehaviour
             this.splitAnims[i] = textData[i].anims;
             this.ChoiseTrigger[i] = textData[i].choiseNo;
             this.ChoiseName[i] = textData[i].choiseName;
-            this.textFlg[i] = textData[i].textFlg;
             Debug.Log("読み込み");
 
             //選択肢があった場合
@@ -867,7 +893,6 @@ public class TextScript : MonoBehaviour
         OneChoise = false;
         checkChoise = false;
         cNameNum = 0;
-        tFlgNum = 0;
         nowPoint = 0;
         skipNum = 0;
 
@@ -984,7 +1009,6 @@ public class TextScript : MonoBehaviour
             firstStandP = true;
             choiseNum = skipPoint[skipNum];
             cNameNum = skipPoint[skipNum];
-            tFlgNum = skipPoint[skipNum];
 
             if (AutoORAanual)
             {
@@ -1009,6 +1033,59 @@ public class TextScript : MonoBehaviour
         skipOnOff = false;
     }
 
+    //ログテキストの追加
+    public void AddLogText()
+    {
+        allLogs.Add(splitName[nameNum] + "\n" + splitMessage[messageNum]) ;
+        //ログの最大保存数を超えたら古いログを削除
+        if (allLogs.Count > allLogDataNum)
+        {
+            allLogs.RemoveRange(0, allLogs.Count - allLogDataNum);
+        }
+        //ログテキストの表示
+        ViewLogText();
+    }
+
+    //選択肢の内容をログに追加
+    public void AddLogChoise()
+    {
+        if(ChoiseTrigger[choiseNum]== 1)
+        {
+            allLogs.Add("<color=#EA0F0F>Select\n" + WChoises[choiseW.ChoiseFlg()].text + "</color>");
+        }
+        else if (ChoiseTrigger[choiseNum] == 2)
+        {
+            allLogs.Add("<color=#EA0F0F>Select\n" + TChoises[choiseT.ChoiseFlg()].text + "</color>");
+        }
+        //ログの最大保存数を超えたら古いログを削除
+        if (allLogs.Count > allLogDataNum)
+        {
+            allLogs.RemoveRange(0, allLogs.Count - allLogDataNum);
+        }
+        //ログテキストの表示
+        ViewLogText();
+    }
+
+    //ログテキストの表示
+    public void ViewLogText()
+    {
+        logTextStringBuilder.Clear();
+        List<string> selectedLogs = new List<string>();
+        selectedLogs = allLogs;
+        foreach(var log in selectedLogs)
+        {
+            logTextStringBuilder.Append(Environment.NewLine + log);
+        }
+        logMessage.text = logTextStringBuilder.ToString().TrimEnd();
+        UpdataScrollBar();
+    }
+
+    //スクロールバーの位置を更新
+    public void UpdataScrollBar()
+    {
+        verticalScrollbar.value = 0f;
+    }
+
 
 }
 
@@ -1025,7 +1102,6 @@ public class TextData
     public int anims;
     public int choiseNo;
     public string choiseName;
-    public int textFlg;
 }
 
 

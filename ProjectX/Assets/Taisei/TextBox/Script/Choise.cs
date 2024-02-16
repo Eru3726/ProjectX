@@ -29,6 +29,10 @@ public class Choise : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (textScript.logCheck)
+        {
+            return;
+        }
         //カーソルの上下移動
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
