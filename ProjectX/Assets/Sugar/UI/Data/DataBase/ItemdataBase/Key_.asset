@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
-  m_Name: koko.fadeMotionList
+  m_Script: {fileID: 11500000, guid: 84271065c11333a4c8adc97f373edd64, type: 3}
+  m_Name: Key_
   m_EditorClassIdentifier: 
-  MotionInstanceIds: 82c1ffff
-  CubismFadeMotionObjects:
-  - {fileID: 11400000, guid: 3392595f19cd1014e9e95dd01b7c432c, type: 2}
+  getFlag: 0
+  iIcon: {fileID: 0}
+  iname: "\u30A2\u30A4\u30C6\u30E0\u306E\u540D\u524D"
+  infomation: "\u30A2\u30A4\u30C6\u30E0\u306E\u8AAC\u660E"
+  type: 0

@@ -29,12 +29,14 @@ public class PlayerInput : MonoBehaviour
     [SerializeField, Header("HitColliderアタッチ")]
     HitCollider hc;
 
+    public int piInputLR = 0;
+
     [SerializeField]
-    List<bool> actSkill = new List<bool>();
+    public List<bool> actSkill = new List<bool>();
     [SerializeField]
-    List<float> skillTime = new List<float>();
+    public List<float> skillTime = new List<float>();
     [SerializeField]
-    List<float> coolTime = new List<float>();
+    public List<float> coolTime = new List<float>();
 
     private void Start()
     {
@@ -55,7 +57,7 @@ public class PlayerInput : MonoBehaviour
         MoveInput();
 
         // NomalMelee : P
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Space))
         {
             if (skillTime[(int)StageData.ACT_DATA.NM3] > 0)
             {
@@ -258,9 +260,21 @@ public class PlayerInput : MonoBehaviour
     void MoveInput()
     {
         // 左右入力：A and D
-        if (Input.GetKey(KeyCode.D)) { mc.InputLR(1); }
-        else if (Input.GetKey(KeyCode.A)) { mc.InputLR(-1); }
-        else { mc.InputLR(0); }
+        if (Input.GetKey(KeyCode.D))
+        {
+            mc.InputLR(1);
+            piInputLR = 1;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            mc.InputLR(-1);
+            piInputLR = -1;
+        }
+        else
+        {
+            mc.InputLR(0);
+            piInputLR = 0;
+        }
 
         // キャラの向き変更
         if (mc.GetLR() != 0)
@@ -271,7 +285,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         // 上入力：W or space
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
             if (mc.IsGround())
             {
@@ -320,7 +334,10 @@ public class PlayerInput : MonoBehaviour
 
         obj.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.NM1 + rushNo - 1;
 
-        mc.InputFlick(plDir, (rushNo + 1) * 5, 0.2f, true);
+        plDir.y += 0.1f;
+        if (rushNo == 3) { plDir.y += 0.4f; }
+
+        mc.InputFlick(plDir, (rushNo + 1) * 3, 0.2f, true);
     }
 
     void ActND()

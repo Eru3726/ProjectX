@@ -50,17 +50,57 @@ public class PlayerAnimController : MonoBehaviour
         atk1Anim = amari_Attack1.GetComponent<Animator>();
 
         atk3Anim = amari_Attack3.GetComponent<Animator>();
+
     }
 
     private void Update()
     {
-        //if (mc.GetLR() != 0)
-        //{
-        //    anim.Play("Amari_RunAnimation");
-        //}
-        //else
-        //{
-        //    anim.Play("Amari_NomalAnimation");
-        //}
+        if (pi.skillTime[(int)StageData.ACT_DATA.NM3] > 0)
+        {
+            atk3Anim.Play("Amari_Attack3_Animation");
+
+            amari.SetActive(false);
+            amari_Attack1.SetActive(false);
+            // amari_Attack2.SetActive(false);
+            amari_Attack3.SetActive(true);
+        }
+        else if (pi.skillTime[(int)StageData.ACT_DATA.NM2] > 0)
+        {
+            atk1Anim.Play("Amari_Attack1_Animation");
+            //atk2Anim.Play("Amari_Attack2_Animation");
+
+            amari.SetActive(false);
+            amari_Attack1.SetActive(true);
+            //amari_Attack1.SetActive(false);
+            //amari_Attack2.SetActive(true);
+            amari_Attack3.SetActive(false);
+        }
+        else if (pi.skillTime[(int)StageData.ACT_DATA.NM1] > 0)
+        {
+            atk1Anim.Play("Amari_Attack1_Animation");
+
+            amari.SetActive(false);
+            amari_Attack1.SetActive(true);
+            //amari_Attack2.SetActive(false);
+            amari_Attack3.SetActive(false);
+        }
+        else if (mc.GetLR() != 0)
+        {
+            amariAnim.Play("Amari_RunAnimation");
+
+            amari.SetActive(true);
+            amari_Attack1.SetActive(false);
+            //amari_Attack2.SetActive(false);
+            amari_Attack3.SetActive(false);
+        }
+        else
+        {
+            amariAnim.Play("Amari_NomalAnimation");
+
+            amari.SetActive(true);
+            amari_Attack1.SetActive(false);
+            //amari_Attack2.SetActive(false);
+            amari_Attack3.SetActive(false);
+        }
     }
 }
