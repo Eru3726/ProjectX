@@ -9605,5 +9605,9 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 24544
+<<<<<<< HEAD
+    intParameter: 36522
+=======
+    intParameter: 24576
+>>>>>>> main
     messageOptions: 1

@@ -15,12 +15,19 @@ public class AllTexts : MonoBehaviour
     private string charaName;
 
     //表示させるアイコン名　※アイコン名は画像名と同じにすること
-    private string charaIconLeft;
-    private string charaIconRight;
+    //private string charaIconLeft;
+    //private string charaIconRight;
+    private string charaIcon;
 
     //どっちの立ち絵変更するか
     //true=右 false=左
     private string LorR;
+
+    //アニメーション番号
+    private string anims;
+
+    //
+    private string csvFiles;
 
     //使い方
     //・ここにテキスト・名前・アイコン名などを書き込んでいく
@@ -46,6 +53,7 @@ public class AllTexts : MonoBehaviour
     //※使用例→「testSet」スクリプト
 
 
+
     public void SetAllTexts(int textNo)
     {
         switch (textNo)
@@ -63,18 +71,38 @@ public class AllTexts : MonoBehaviour
                     "どうも<>" +
                     "こんにちは<>" +
                     "(´;ω;｀)";
-                charaIconLeft = "主人公困り<>" +
-                "公1<>" +
-                "主人公困り<>";
-                charaIconRight = "公1<>" +
-                    "主人公困り<>" +
-                    "公1";
+                //charaIconLeft = "主人公困り<>" +
+                //"公1<>" +
+                //"主人公困り";
+                //charaIconRight = "公1<>" +
+                //    "主人公困り<>" +
+                //    "公1";
+                //charaIconLeft = "0<>" +
+                //    "1<>" +
+                //    "0";
+                //charaIconRight = "1<>" +
+                //    "0<>" +
+                //    "1";
+                charaIcon = "0<>" +
+                    "1<>" +
+                    "1<>" +
+                    "0<>" +
+                    "1<>" +
+                    "0";
+
                 LorR = "false<>" +
                     "true<>" +
                     "false<>" +
                     "true<>" +
                     "true<>" +
                     "false";
+
+                anims = "0<>" +
+                    "0<>" +
+                    "1<>" +
+                    "1<>" +
+                    "0<>" +
+                    "0<>";
                 break;
 
             case 1:
@@ -82,12 +110,21 @@ public class AllTexts : MonoBehaviour
                     "第2のテストです";
                 charaName = "？？？<>" +
                     "博士";
-                charaIconLeft = "公2<>" +
+                charaIcon = "公2<>" +
                     "公3";
+                break;
+
+            case 999:
+                //TextAsset textAsset = new TextAsset();
+                //textAsset = Resources.Load("testText", typeof(TextAsset)) as TextAsset;
+                //textData = CSVSerializer.Deserialize<TextData>(textAsset.text);
+
+                csvFiles = "testText";
                 break;
         }
 
-        TextSystemScript.SetTextPanel(message, charaName, charaIconLeft, charaIconRight, LorR);
+        //TextSystemScript.SetTextPanel(message, charaName, charaIcon, LorR, anims);
+        TextSystemScript.SetCSVPanel(csvFiles);
 
     }
 }
