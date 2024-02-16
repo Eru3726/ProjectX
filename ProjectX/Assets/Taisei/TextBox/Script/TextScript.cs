@@ -815,7 +815,6 @@ public class TextScript : MonoBehaviour
     {
         return TextOnOff;
     }
-<<<<<<< HEAD
 
     //選択肢を選んで決定を押したとき
     public void ChangeCheckChoise()
@@ -824,8 +823,6 @@ public class TextScript : MonoBehaviour
         EnterCheck = true;
     }
 
-=======
->>>>>>> main
     public float Parameter
     {
         set
