@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 30877835086047475}
   - component: {fileID: 30877835086047472}
   - component: {fileID: 30877835086047473}
+  - component: {fileID: 7086110862558004560}
   - component: {fileID: -8416073097259278250}
+  - component: {fileID: -3528007047864004672}
   m_Layer: 0
   m_Name: NormalMelee
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,16 +94,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30877835086047478}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b54524224d32f5c40980844ef0227917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 5
   shock: 5
-  meleeFlag: 0
+  inv: 1
+  apFlag: 0
+  apPos: {x: 0, y: 0, z: 0}
   atkType: 1
   atkLayer: 1
+--- !u!114 &7086110862558004560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30877835086047478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedb5144f10b05b4e9e7376e0dc6e11f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   groundDestroyFlag: 0
   isLife: 1
   lifeCount: 0.5
@@ -122,3 +138,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-3528007047864004672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30877835086047478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45520b8b03789b48bdfc557f3fbf6f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  shock: 10
+  inv: 1
