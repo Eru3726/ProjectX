@@ -553,6 +553,12 @@ public class TextScript : MonoBehaviour
             }
             routeOnOFF = false;
             routeFlg = 2;
+
+            if (ChoiseTrigger[choiseNum] == 999)
+            {
+                //テキスト終了
+                DestroyText();
+            }
         }
         //選択肢直後以外
         else
