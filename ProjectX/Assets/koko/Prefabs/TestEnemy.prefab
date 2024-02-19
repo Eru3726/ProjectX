@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 296017413996355102}
   - component: {fileID: 296017413996355099}
-  - component: {fileID: 296017413996355096}
   - component: {fileID: 296017413996355097}
+  - component: {fileID: 562909922384492729}
   m_Layer: 6
   m_Name: HitCol(em)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,27 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &296017413996355096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296017413996355103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8359e3a94e2cd74fa82b3137bb90b61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mc: {fileID: 296017415938589721}
-  parent: {fileID: 296017415938589715}
-  maxHp: 20
-  nowHp: 0
-  barrier: 0
-  defence: 0
-  resist: 2
-  hitLayer: 2
-  invTime: []
 --- !u!58 &296017413996355097
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -122,6 +101,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &562909922384492729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296017413996355103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c4990eb155f56b419fec0c3811a8977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 50
+  nowHp: 0
+  resist: 1
+  inv: 0
+  mc: {fileID: 296017415938589721}
+  body: {fileID: 296017415938589715}
 --- !u!1 &296017415706032009
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,11 +129,11 @@ GameObject:
   m_Component:
   - component: {fileID: 296017415706032008}
   - component: {fileID: 296017415706032011}
-  - component: {fileID: 296017415706032021}
   - component: {fileID: 296017415706032010}
+  - component: {fileID: 5283065052214382927}
   m_Layer: 0
   m_Name: AtkCol
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,29 +204,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &296017415706032021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296017415706032009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54524224d32f5c40980844ef0227917, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dmg: 5
-  shock: 10
-  inv: 1
-  apFlag: 1
-  apPos: {x: 0, y: 0, z: 0}
-  atkType: 0
-  atkLayer: 2
-  groundDestroyFlag: 0
-  isLife: 0
-  lifeCount: 2
-  isBullet: 0
 --- !u!58 &296017415706032010
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -246,6 +220,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &5283065052214382927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296017415706032009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45520b8b03789b48bdfc557f3fbf6f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  shock: 10
+  inv: 1
 --- !u!1 &296017415938589715
 GameObject:
   m_ObjectHideFlags: 0

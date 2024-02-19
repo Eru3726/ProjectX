@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6838571167799440006}
   - component: {fileID: 6838571167799440005}
   - component: {fileID: 4044823987527137949}
+  - component: {fileID: 6374653709501565348}
   - component: {fileID: 7319984969953934306}
   m_Layer: 0
   m_Name: LoveBeam
@@ -104,6 +105,22 @@ MonoBehaviour:
   apPos: {x: 0, y: 0, z: 0}
   atkType: 10
   atkLayer: 1
+  groundDestroyFlag: 0
+  isLife: 1
+  lifeCount: 1
+  isBullet: 0
+--- !u!114 &6374653709501565348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838571167799440004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedb5144f10b05b4e9e7376e0dc6e11f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   groundDestroyFlag: 0
   isLife: 1
   lifeCount: 1

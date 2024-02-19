@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3798301893042873575}
   - component: {fileID: 3798301893042873569}
   - component: {fileID: 3798301893042873571}
+  - component: {fileID: 793324893083432923}
   - component: {fileID: 3798301893042873570}
   m_Layer: 0
   m_Name: LoveMissile
@@ -123,9 +124,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 1
   shock: 5
-  meleeFlag: 0
+  inv: 1
+  apFlag: 0
+  apPos: {x: 0, y: 0, z: 0}
   atkType: 4
   atkLayer: 1
+  groundDestroyFlag: 1
+  isLife: 1
+  lifeCount: 5
+  isBullet: 1
+--- !u!114 &793324893083432923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798301893042873574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedb5144f10b05b4e9e7376e0dc6e11f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   groundDestroyFlag: 1
   isLife: 1
   lifeCount: 5
