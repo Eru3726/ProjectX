@@ -196,7 +196,7 @@ MonoBehaviour:
   ACPre: {fileID: 0}
   AAPre: {fileID: 6224799489942547280, guid: 200482dccc238584e87c19e93f9120c9, type: 3}
   mc: {fileID: 9188364585238201739}
-  hc: {fileID: 9188364585603081412}
+  hc: {fileID: 0}
   piInputLR: 0
   actSkill: 
   skillTime: []
@@ -258,11 +258,11 @@ GameObject:
   m_Component:
   - component: {fileID: 9188364585603081434}
   - component: {fileID: 9188364585603081415}
-  - component: {fileID: 9188364585603081412}
   - component: {fileID: 9188364585603081413}
+  - component: {fileID: 7352228621135923580}
   m_Layer: 0
   m_Name: HitCol
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -333,27 +333,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9188364585603081412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9188364585603081435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8359e3a94e2cd74fa82b3137bb90b61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mc: {fileID: 9188364585238201739}
-  parent: {fileID: 9188364585238201743}
-  maxHp: 20
-  nowHp: 0
-  barrier: 0
-  defence: 0
-  resist: 1
-  hitLayer: 1
-  invTime: []
 --- !u!58 &9188364585603081413
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -370,6 +349,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &7352228621135923580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9188364585603081435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c4990eb155f56b419fec0c3811a8977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 20
+  nowHp: 0
+  resist: 1
+  inv: 0
+  mc: {fileID: 9188364585238201739}
+  body: {fileID: 9188364585238201743}
 --- !u!1001 &3947380097502386048
 PrefabInstance:
   m_ObjectHideFlags: 0

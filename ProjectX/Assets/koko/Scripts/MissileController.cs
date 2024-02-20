@@ -61,7 +61,7 @@ public class MissileController : MonoBehaviour
                     if (result.collider != null)
                     {
                         // Debug.Log(result.collider);
-                        var hc = result.collider.GetComponent<HitCollider>();
+                        var hc = result.collider.GetComponent<OldHitCollider>();
                         if (hc != null)
                         {
                             if (hc.GetHitLayer() == targetLayer)
