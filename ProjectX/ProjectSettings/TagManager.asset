@@ -7,6 +7,8 @@ TagManager:
   - UI
   - Ground
   - Elis
+  - Enemy
+  - Neutral
   layers:
   - Default
   - TransparentFX

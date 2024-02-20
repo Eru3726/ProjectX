@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitCollider : MonoBehaviour, IDamageable
+public class OldHitCollider : MonoBehaviour, IDamageable
 {
     public int Health { get; }
     public void TakeDamage(int value) { }
@@ -127,7 +127,7 @@ public class HitCollider : MonoBehaviour, IDamageable
     protected void CheckHitLayer(Collider2D collision)
     {
         // 当たったコライダーがattackコライダーを持ってるなら取得
-        if (collision.TryGetComponent<AttackCollider>(out AttackCollider atk))
+        if (collision.TryGetComponent<OldAttackCollider>(out OldAttackCollider atk))
         {
             // 攻撃レイヤーと被撃レイヤーが違うかつ、その攻撃に対応する無敵時間が0の場合のみダメージ処理へ
             if (atk.atkLayer != hitLayer && invTime[(int)atk.atkType] <= 0)
@@ -138,12 +138,6 @@ public class HitCollider : MonoBehaviour, IDamageable
                 // ダメージ
                 Damage(atk.dmg);
                 Shock(atk.shock, atk.apPos);
-
-                // 弾丸系統ならデストロイ
-                if (atk.isBullet)
-                {
-                    Destroy(atk.gameObject);
-                }
             }
         }
     }

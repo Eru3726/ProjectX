@@ -27,7 +27,7 @@ public class Player2Input : MonoBehaviour
     MoveController mc;
 
     [SerializeField, Header("HitColliderアタッチ")]
-    HitCollider hc;
+    OldHitCollider hc;
 
     public int piInputLR = 0;
 
@@ -70,7 +70,7 @@ public class Player2Input : MonoBehaviour
                     ActNM(3);
                     actSkill[(int)StageData.ACT_DATA.NM3] = true;
                     skillTime[(int)StageData.ACT_DATA.NM3] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM3] = 0.5f;
+                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.75f;
                 }
             }
             else if (skillTime[(int)StageData.ACT_DATA.NM1] > 0)
@@ -80,7 +80,7 @@ public class Player2Input : MonoBehaviour
                     ActNM(2);
                     actSkill[(int)StageData.ACT_DATA.NM2] = true;
                     skillTime[(int)StageData.ACT_DATA.NM2] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM2] = 0.5f;
+                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.75f;
                 }
             }
             else if (skillTime[(int)StageData.ACT_DATA.NM1] <= 0)
@@ -90,7 +90,7 @@ public class Player2Input : MonoBehaviour
                     ActNM(1);
                     actSkill[(int)StageData.ACT_DATA.NM1] = true;
                     skillTime[(int)StageData.ACT_DATA.NM1] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.5f;
+                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.75f;
                 }
             }
         }
@@ -332,8 +332,8 @@ public class Player2Input : MonoBehaviour
         scale.y = (rushNo + 1) * 0.5f;
         obj.transform.localScale = scale;
 
-        obj.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.NM1 + rushNo - 1;
-        obj.GetComponent<AttackCollider>().atkLayer = StageData.LAYER_DATA.Enemy;
+        obj.GetComponent<OldAttackCollider>().atkType = StageData.ATK_DATA.NM1 + rushNo - 1;
+        obj.GetComponent<OldAttackCollider>().atkLayer = StageData.LAYER_DATA.Enemy;
 
         plDir.y += 0.1f;
         if (rushNo == 3) { plDir.y += 0.4f; }
@@ -371,7 +371,7 @@ public class Player2Input : MonoBehaviour
         Vector3 startPos = new Vector3(plDir.x, plDir.y + (dist * (3.5f - num)), plDir.z);
         GameObject obj = Instantiate(LMPre, startPos, Quaternion.identity);
 
-        obj.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.LM1 + (num - 1);
+        obj.GetComponent<OldAttackCollider>().atkType = StageData.ATK_DATA.LM1 + (num - 1);
 
         float delay;
         if (num == 1 || num == 6) { delay = 3; }
@@ -400,7 +400,7 @@ public class Player2Input : MonoBehaviour
         {
             GameObject obj = Instantiate(AFPre, transform.position, Quaternion.identity);
 
-            obj.GetComponent<AttackCollider>().atkType = StageData.ATK_DATA.AF1 + i + (num * 6);
+            obj.GetComponent<OldAttackCollider>().atkType = StageData.ATK_DATA.AF1 + i + (num * 6);
 
             Vector3 lea = obj.transform.localEulerAngles;
             lea.z = i * 60 + (num * 30);
