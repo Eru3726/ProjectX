@@ -1727,7 +1727,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 600079980}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -45, y: 0, z: -4}
+  m_LocalPosition: {x: -45, y: 0.1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 290580602}
@@ -3242,7 +3242,7 @@ MonoBehaviour:
   autoTimerLimit: 1.5
   Charas:
   - {fileID: 0}
-  - {fileID: 3599249201339241431, guid: 346344c5b5743094380eb4c4a1834688, type: 3}
+  - {fileID: 5441247244740018681, guid: 6950063803f39194b9c83265420d6cb7, type: 3}
   - {fileID: 6435309048720358627, guid: b0ae3653ced5bff4b8ee9cd6183ebd1f, type: 3}
   CharaConection: {fileID: 1798310086}
   LeftPosT: {fileID: 17112951}
@@ -3252,8 +3252,10 @@ MonoBehaviour:
   LeftImg: {fileID: 382917447}
   RightImg: {fileID: 987788701}
   chara1_anim:
-  - Main_Idle_Animation
-  - Main_rotation_Animation
+  - Amari_Idle
+  - Amari_Pose
+  - Amari_happy
+  - Amari_angry
   chara2_anim:
   - Doctor_Idle_Animation
   - Doctor_Wire_Animation
@@ -5733,7 +5735,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140086258}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30, y: 0, z: -4}
+  m_LocalPosition: {x: -30, y: 0.1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1564612644}
