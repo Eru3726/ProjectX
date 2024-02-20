@@ -9,6 +9,9 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
     [SerializeField] float resist = 1;
     [SerializeField] float inv = 0;
 
+    [SerializeField]
+    public int barrier = 0;
+
     [SerializeField, Header("mcアタッチ")]
     public MoveController mc;
 
@@ -25,7 +28,6 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
     {
         if (inv <= 0)
         {
-            Debug.Log("itee");
             nowHp -= value;
 
             if (nowHp <= 0)
@@ -58,7 +60,10 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
 
     void Die()
     {
-        Destroy(body.gameObject);
+        if (body != null)
+        {
+            Destroy(body.gameObject);
+        }
     }
 
     void Start()

@@ -19,6 +19,8 @@ public class AttackOption : MonoBehaviour
 
     int delay = 0;
 
+    int groundLayer = 3;
+
     private void FixedUpdate()
     {
         lifeCount -= Time.deltaTime;
@@ -30,18 +32,14 @@ public class AttackOption : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Ground" && groundDestroyFlag)
+        if (collision.gameObject.layer == groundLayer && groundDestroyFlag)
         {
             Destroy(this.gameObject);
         }
 
-        if(isBullet)
+        if (!collision.gameObject.CompareTag(this.gameObject.tag.ToString()) && isBullet)
         {
-            delay++;
-            if(delay >= 3)
-            {
-                Destroy(this.gameObject);
-            }
+            Destroy(this.gameObject);
         }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlAtkCol : MonoBehaviour
+public class AtkCol : MonoBehaviour
 {
     [SerializeField]
     int damage = 10;
@@ -15,8 +15,6 @@ public class PlAtkCol : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject);
-
         if (!collision.gameObject.CompareTag(this.gameObject.tag.ToString()))
         {
             if (collision.TryGetComponent<IDamageable>(out IDamageable iDamage))
