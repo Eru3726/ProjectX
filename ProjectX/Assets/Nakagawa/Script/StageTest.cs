@@ -26,11 +26,11 @@ public class StageTest : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position -= speed * transform.up * Time.deltaTime;
+            transform.position -= speed * transform.up * Time.deltaTime*2;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += speed * transform.up * Time.deltaTime;
+            transform.position += speed * transform.up * Time.deltaTime*2;
         }
     }
 }
