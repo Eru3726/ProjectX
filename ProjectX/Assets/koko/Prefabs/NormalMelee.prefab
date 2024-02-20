@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 30877835086047475}
   - component: {fileID: 30877835086047472}
-  - component: {fileID: 30877835086047473}
   - component: {fileID: 7086110862558004560}
   - component: {fileID: -8416073097259278250}
-  - component: {fileID: -3528007047864004672}
+  - component: {fileID: -9192837936746384788}
   m_Layer: 0
   m_Name: NormalMelee
   m_TagString: Player
@@ -87,25 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &30877835086047473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30877835086047478}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54524224d32f5c40980844ef0227917, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dmg: 5
-  shock: 5
-  inv: 1
-  apFlag: 0
-  apPos: {x: 0, y: 0, z: 0}
-  atkType: 1
-  atkLayer: 1
 --- !u!114 &7086110862558004560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +118,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-3528007047864004672
+--- !u!114 &-9192837936746384788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,9 +127,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 30877835086047478}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e45520b8b03789b48bdfc557f3fbf6f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5029246a38c09b644a076398a950d2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 9188364585238201743, guid: 33a6e12cbf8e9664080be5fb7ed83822, type: 3}
   damage: 10
-  shock: 10
-  inv: 1
