@@ -6,6 +6,7 @@ public class DebugPlayer : MonoBehaviour ,IDamageable
 {
     public int Health => hp;
 
+    [SerializeField]
     private int hp = 100;
 
     public void TakeDamage(int value)
