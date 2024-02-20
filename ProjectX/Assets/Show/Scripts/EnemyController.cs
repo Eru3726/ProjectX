@@ -14,6 +14,8 @@ public class EnemyController : MonoBehaviour
 
     ShellController sc;
 
+    public EnemyAnimController eac;
+
     Rigidbody2D rb;
 
     [Header("Enemyの挙動")]
@@ -25,6 +27,15 @@ public class EnemyController : MonoBehaviour
     [Header("Moveのbool型変数")]
     public bool warpcheck = true;
 
+    public bool FingerFlg = false;
+    public bool MoveFlg = false;
+    public bool DashFlg = false;
+    public bool WarpFlg = false;
+    public bool HomingFlg = false;
+    public bool DownFlg = false;
+
+    public bool nowDashFlg = false;
+
     public float minX = 3f;  // 移動可能なX座標の最小値
     public float maxX = 6f;   // 移動可能なX座標の最大値
     public float minY = 4f;   // 移動可能なY座標の最小値
@@ -35,8 +46,9 @@ public class EnemyController : MonoBehaviour
     [Header("Enemyの弾Prefab")]
     public GameObject ShellPre;
 
-
     int eight = 8;
+    int FingerMovecount = 0;
+    int FingerHomcount = 0;
  
     float warpDelay = 1f; //ワープするまでの時間
     float idolDelay = 1.5f; //待機時間
@@ -67,6 +79,7 @@ public class EnemyController : MonoBehaviour
         mc = gameObject.GetComponent<MoveController>();
         plmc = player.gameObject.GetComponent<MoveController>();
         sc = gameObject.GetComponent<ShellController>();
+        eac = gameObject.GetComponent<EnemyAnimController>();
         animator = gameObject.GetComponent<Animator>();
     }
 
@@ -74,7 +87,6 @@ public class EnemyController : MonoBehaviour
     {
         switch (currentState)
         {
-
             case EnemyState.Idol: //次の行動に移るための待機
 
                 movecheck = true;
@@ -125,6 +137,7 @@ public class EnemyController : MonoBehaviour
 
                 break;
         }
+
     }
 
     IEnumerator IdolDelay()
@@ -143,15 +156,20 @@ public class EnemyController : MonoBehaviour
 
     void EnemyMove()
     {
-        //animator.Play();
         if (movecheck && plmc.IsGround())
         {
+            if(FingerMovecount <= 0)
+            {
+                FingerFlg = true;
+                FingerMovecount++;
+            }
+            if(FingerFlg)
+            {
+                FingerMovecount = 0;
+            }
             Vector2 playerPos = player.transform.position;
             Vector2 enemyPos = transform.position;
-            //Vector2 pos = new Vector2(playerPos.x, 0);
             float directionX = playerPos.x - transform.position.x;
-
-            // rb.velocity = new Vector2(directionX, rb.velocity.y).normalized * 5.0f;
 
             mc.InputLR((int)Mathf.Sign(directionX));
 
@@ -160,11 +178,9 @@ public class EnemyController : MonoBehaviour
             if (dis <= Atkdis)
             {
                 mc.InputLR(0);
-
-                Debug.Log("追従");
                 currentState = EnemyState.Dash;
-
             }
+
         }
         
     }
@@ -173,6 +189,8 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("突進");
         mc.InputFlick(player.transform.position, 20, 0.3f, true);
+        FingerFlg = false;
+        DashFlg = true;
         currentState = EnemyState.Idol;
     }
 
@@ -180,6 +198,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("a");
         animator.Play("Guren_FSAnimation");
+
         if (warpcheck)
         {
             this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
@@ -195,6 +214,7 @@ public class EnemyController : MonoBehaviour
     }
     void EnemyHoming()
     {
+        FingerFlg = true;
         if (ishoming)
         {
             currentState = EnemyState.Move;
@@ -212,17 +232,15 @@ public class EnemyController : MonoBehaviour
         for (int i = 0; i < eight; i++)
         {
             enemyPos[i] = transform.position;
-            enemyPos[i].x += 1f;
             enemyPos[i].y += 1f;
             shell[i] = Instantiate(ShellPre, enemyPos[i], Quaternion.identity);
-    
             sc = shell[i].GetComponent<ShellController>();
             sc.ec = GetComponent<EnemyController>();
         }
     }
     void EnemyDown()
     {
-       
+        DownFlg = true;
     }
     void EnemyDie()
     {
