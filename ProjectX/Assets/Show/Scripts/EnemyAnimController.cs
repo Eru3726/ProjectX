@@ -21,12 +21,10 @@ public class EnemyAnimController : MonoBehaviour
        if(ec.FingerFlg)
        {
             Debug.Log("FingerAnim");
-            GurenAnim.Play("Guren_FSAnimation");
        }
-       else if(ec.DashFlg)
+       else if(ec.FingerSnapOnlyFlg)
        {
-            Debug.Log("DashAnim");
-            GurenAnim.Play("Guren_NomalAnimation");
+            GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
        }
        else if(ec.DownFlg)
        {

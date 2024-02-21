@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmHitCol : MonoBehaviour, IDamageable, IShockable
+public class EmHitCol : MonoBehaviour, IDamageable
 {
-    [SerializeField] int maxHp = 20;
+    [SerializeField] int maxHp = 10;
     [SerializeField] int nowHp;
     [SerializeField] float resist = 1;
 
@@ -25,16 +25,6 @@ public class EmHitCol : MonoBehaviour, IDamageable, IShockable
         if (nowHp <= 0)
         {
             Die();
-        }
-    }
-
-    public void TakeShock(float value, Vector3 pos)
-    {
-        Vector3 shockDir = pos - this.transform.position;
-
-        if (mc != null)
-        {
-            mc.InputFlick(this.transform.position - shockDir, value * resist, 0.5f, false);
         }
     }
 

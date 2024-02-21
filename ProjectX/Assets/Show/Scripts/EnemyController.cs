@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+
+    [SerializeField] GameObject Guren_GS;
+
+    [SerializeField] Animator GurenAnim;
+
     GameObject player;
 
-    Animator animator;
-   
     MoveController mc;
    
     MoveController plmc;
 
     ShellController sc;
-
-    public EnemyAnimController eac;
 
     Rigidbody2D rb;
 
@@ -28,6 +29,7 @@ public class EnemyController : MonoBehaviour
     public bool warpcheck = true;
 
     public bool FingerFlg = false;
+    public bool FingerSnapOnlyFlg = false;
     public bool MoveFlg = false;
     public bool DashFlg = false;
     public bool WarpFlg = false;
@@ -79,8 +81,7 @@ public class EnemyController : MonoBehaviour
         mc = gameObject.GetComponent<MoveController>();
         plmc = player.gameObject.GetComponent<MoveController>();
         sc = gameObject.GetComponent<ShellController>();
-        eac = gameObject.GetComponent<EnemyAnimController>();
-        animator = gameObject.GetComponent<Animator>();
+        GurenAnim = Guren_GS.GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -88,7 +89,6 @@ public class EnemyController : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.Idol: //次の行動に移るための待機
-
                 movecheck = true;
                 warpcheck = true;
                 currentState = EnemyState.Idol2;
@@ -158,15 +158,7 @@ public class EnemyController : MonoBehaviour
     {
         if (movecheck && plmc.IsGround())
         {
-            if(FingerMovecount <= 0)
-            {
-                FingerFlg = true;
-                FingerMovecount++;
-            }
-            if(FingerFlg)
-            {
-                FingerMovecount = 0;
-            }
+            GurenAnim.Play("Guren_FSAnimation");
             Vector2 playerPos = player.transform.position;
             Vector2 enemyPos = transform.position;
             float directionX = playerPos.x - transform.position.x;
@@ -189,16 +181,12 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("突進");
         mc.InputFlick(player.transform.position, 20, 0.3f, true);
-        FingerFlg = false;
         DashFlg = true;
         currentState = EnemyState.Idol;
     }
 
     void EnemyWarp()
     {
-        Debug.Log("a");
-        animator.Play("Guren_FSAnimation");
-
         if (warpcheck)
         {
             this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
@@ -214,7 +202,7 @@ public class EnemyController : MonoBehaviour
     }
     void EnemyHoming()
     {
-        FingerFlg = true;
+        GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
         if (ishoming)
         {
             currentState = EnemyState.Move;
@@ -239,8 +227,8 @@ public class EnemyController : MonoBehaviour
         }
     }
     void EnemyDown()
-    {
-        DownFlg = true;
+    { 
+        GurenAnim.Play("Guren_GS_DownAnimation");
     }
     void EnemyDie()
     {
