@@ -39,7 +39,6 @@ public class ShellController : MonoBehaviour
     
     void FixedUpdate()
     {
-     
         time -= Time.deltaTime;
         if (time > 0 )
         {
@@ -69,7 +68,6 @@ public class ShellController : MonoBehaviour
                 radian += rotSpd * Time.deltaTime;  // 時計回りさせる
             }
         }
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

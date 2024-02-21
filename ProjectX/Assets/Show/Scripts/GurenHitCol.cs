@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmHitCol : MonoBehaviour, IDamageable
+public class GurenHitCol : MonoBehaviour, IDamageable
 {
     [SerializeField] int maxHp = 10;
     [SerializeField] int nowHp;
@@ -26,7 +26,7 @@ public class EmHitCol : MonoBehaviour, IDamageable
 
         if (nowHp <= 0)
         {
-            Die();
+            ec.EnemyDown();
         }
     }
 

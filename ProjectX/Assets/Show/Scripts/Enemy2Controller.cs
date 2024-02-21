@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class Enemy2Controller : MonoBehaviour
 {
 
     [SerializeField] GameObject Guren_GS;
@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     GameObject player;
 
     MoveController mc;
-   
+
     MoveController plmc;
 
     ShellController sc;
@@ -28,6 +28,14 @@ public class EnemyController : MonoBehaviour
     [Header("Moveのbool型変数")]
     public bool warpcheck = true;
 
+    public bool FingerFlg = false;
+    public bool FingerSnapOnlyFlg = false;
+    public bool MoveFlg = false;
+    public bool DashFlg = false;
+    public bool WarpFlg = false;
+    public bool HomingFlg = false;
+    public bool DownFlg = false;
+
     public bool nowDashFlg = false;
 
     public float minX = 3f;  // 移動可能なX座標の最小値
@@ -41,9 +49,7 @@ public class EnemyController : MonoBehaviour
     public GameObject ShellPre;
 
     int eight = 8;
-    int FingerMovecount = 0;
-    int FingerHomcount = 0;
- 
+
     float warpDelay = 1f; //ワープするまでの時間
     float idolDelay = 2f; //待機時間
 
@@ -77,7 +83,7 @@ public class EnemyController : MonoBehaviour
     }
 
     void FixedUpdate()
-    { 
+    {
         switch (currentState)
         {
             case EnemyState.Idol: //次の行動に移るための待機
@@ -141,7 +147,7 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator WarpDelay()
     {
-        //this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+        this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         yield return new WaitForSeconds(warpDelay);
         EnemyWarp();
     }
@@ -166,16 +172,14 @@ public class EnemyController : MonoBehaviour
             }
 
         }
-        else
-        {
-            GurenAnim.Play("Guren_NomalAnimation");
-        }
+
     }
 
     void EnemyDash()
     {
         Debug.Log("突進");
-        mc.InputFlick(player.transform.position, 30, 0.3f, true);
+        mc.InputFlick(player.transform.position, 40, 0.3f, true);
+        DashFlg = true;
         currentState = EnemyState.Idol;
     }
 
@@ -197,7 +201,6 @@ public class EnemyController : MonoBehaviour
     void EnemyHoming()
     {
         GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
-
         if (ishoming)
         {
             currentState = EnemyState.Move;
@@ -222,7 +225,7 @@ public class EnemyController : MonoBehaviour
         }
     }
     public void EnemyDown()
-    { 
+    {
         GurenAnim.Play("Guren_GS_DownAnimation");
     }
     public void EnemyDie()
