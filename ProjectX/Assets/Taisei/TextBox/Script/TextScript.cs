@@ -119,7 +119,12 @@ public class TextScript : MonoBehaviour
     //キャラクター番号
     //0:一人用のみ表示用&システム用の空データ
     //1:主人公
-    //2:
+    //2:ドーラ
+    //3:メソメソ
+    //4:ムカムカ
+    //5:マスター
+    //6:グレン
+    //7:
     public List<GameObject> Charas = new List<GameObject>();
 
     [SerializeField] private GameObject CharaConection;
@@ -140,8 +145,6 @@ public class TextScript : MonoBehaviour
     [SerializeField] private string[] chara1_anim;  //主人公
     [SerializeField] private string[] chara2_anim;  //
     
-
-
     //CSV関連
     public TextData[] textData;
 
@@ -960,8 +963,6 @@ public class TextScript : MonoBehaviour
         BackPanel.SetActive(true);
         Time.timeScale = 0;
         SetCSVFile(csvFiles);
-
-
     }
 
     //スキップ処理
@@ -1089,7 +1090,7 @@ public class TextScript : MonoBehaviour
     //ログテキストの追加
     public void AddLogText()
     {
-        allLogs.Add(splitName[nameNum] + "\n" + splitMessage[messageNum]);
+        allLogs.Add("・" + splitName[nameNum] + "\n" + "『" + splitMessage[messageNum] + "』");
         //ログの最大保存数を超えたら古いログを削除
         if (allLogs.Count > allLogDataNum)
         {
