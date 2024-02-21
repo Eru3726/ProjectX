@@ -228,6 +228,7 @@ public class EnemyController : MonoBehaviour
     }
     void EnemyDown()
     { 
+
         GurenAnim.Play("Guren_GS_DownAnimation");
     }
     void EnemyDie()
