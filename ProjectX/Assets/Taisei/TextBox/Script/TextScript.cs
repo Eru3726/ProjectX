@@ -135,8 +135,12 @@ public class TextScript : MonoBehaviour
     [SerializeField] private RawImage LeftImg;
     [SerializeField] private RawImage RightImg;
 
+    private string checkChildNameL;
+    private string checkChildNameR;
+
     //アニメーション関連
-    Animator anim;
+    Animator animL;
+    Animator animR;
     private string allAnims;
     private int[] splitAnims;
     private int animsNum;
@@ -321,15 +325,15 @@ public class TextScript : MonoBehaviour
                 if (!LorR)
                 {
                     Debug.Log("左立ち絵更新");
+                    LeftImg.color = new Color(255, 255, 255, 1);
+                    RightImg.color = Color.gray;
                     //キャラの立ち絵を表示させる場合
                     if (splitIcon[iconNum] != 0)
                     {
                         //今表示しているキャラと次表示するキャラが違ったらor何も生成されてなかったら
-                        if (LeftPosT.Find(Charas[splitIcon[iconNum]].name + "(Clone)") == null ||
-                        LeftPos.transform.Find(Charas[splitIcon[iconNum - routeIdx]].name + "(Clone)").name
-                        != Charas[splitIcon[iconNum]].name + "(Clone)")
+                        if (LeftPos.transform.childCount == 0 
+                            || !checkChildNameL.Contains(Charas[splitIcon[iconNum]].name))
                         {
-                            Debug.Log("新キャラ更新");
                             //live2D
                             if (firstStandP)
                             {
@@ -338,19 +342,17 @@ public class TextScript : MonoBehaviour
                                     Destroy(child.gameObject);
                                 }
                             }
-
                             //アニメーション関連
                             //システム以外の場合
                             if (splitIcon[iconNum] != 0)
                             {
                                 Instantiate(Charas[splitIcon[iconNum]], LeftPosT);   //生成
-                                LeftImg.color = new Color(255, 255, 255, 1);
-                                RightImg.color = Color.gray;
+                                checkChildNameL = Charas[splitIcon[iconNum]].name;
                             }
+                            animL = LeftPosT.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
                         }
-                            anim = LeftPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
-                            CharaAnim();
-                            anim.Play(animStr);
+                        CharaAnim(); 
+                        animL.Play(animStr);
                     }
                     //システムメッセージの場合
                     else
@@ -365,16 +367,15 @@ public class TextScript : MonoBehaviour
                 else if (LorR)
                 {
                     Debug.Log("右立ち絵更新");
+                    RightImg.color = new Color(255, 255, 255, 1);
+                    LeftImg.color = Color.gray;
                     //キャラの立ち絵を表示させる場合
                     if (splitIcon[iconNum] != 0)
                     {
                         //今表示しているキャラと次表示するキャラが違ったらor何も生成されてなかったら
-                        if (RightPosT.Find(Charas[splitIcon[iconNum]].name + "(Clone)") == null ||
-                        RightPos.transform.Find(Charas[splitIcon[iconNum - routeIdx]].name + "(Clone)").name
-                        != Charas[splitIcon[iconNum]].name + "(Clone)")
+                        if (RightPos.transform.childCount == 0
+                            || !checkChildNameR.Contains(Charas[splitIcon[iconNum]].name))
                         {
-                            Debug.Log("新キャラ更新");
-
                             //live2D
                             if (firstStandP)
                             {
@@ -389,14 +390,12 @@ public class TextScript : MonoBehaviour
                             if (splitIcon[iconNum] != 0)
                             {
                                 Instantiate(Charas[splitIcon[iconNum]], RightPosT);
-                                RightImg.color = new Color(255, 255, 255, 1);
-                                LeftImg.color = Color.gray;
+                                checkChildNameR = Charas[splitIcon[iconNum]].name;
                             }
-
+                            animR = RightPosT.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
                         }
-                            anim = RightPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
-                            CharaAnim();
-                            anim.Play(animStr);
+                        CharaAnim();
+                        animR.Play(animStr);
                     }
                     //システムメッセージの場合
                     else

@@ -3355,7 +3355,7 @@ MonoBehaviour:
   autoTimerLimit: 1.5
   Charas:
   - {fileID: 0}
-  - {fileID: 5441247244740018681, guid: 6950063803f39194b9c83265420d6cb7, type: 3}
+  - {fileID: 2854018393099498570, guid: 0245f8a3416bb79418f32734888b119b, type: 3}
   - {fileID: 6435309048720358627, guid: b0ae3653ced5bff4b8ee9cd6183ebd1f, type: 3}
   CharaConection: {fileID: 1798310086}
   LeftPosT: {fileID: 17112951}
@@ -3365,10 +3365,10 @@ MonoBehaviour:
   LeftImg: {fileID: 382917447}
   RightImg: {fileID: 987788701}
   chara1_anim:
-  - Amari_Idle
-  - Amari_Pose
-  - Amari_happy
-  - Amari_angry
+  - Amari_Idle_ver1
+  - Amari_Pose_ver1
+  - Amari_happy_ver1
+  - Amari_angry_ver1
   chara2_anim:
   - Doctor_Idle_Animation
   - Doctor_Wire_Animation
