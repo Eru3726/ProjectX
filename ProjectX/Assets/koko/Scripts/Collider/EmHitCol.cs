@@ -38,6 +38,11 @@ public class EmHitCol : MonoBehaviour, IDamageable, IShockable
         }
     }
 
+    public void TakeStop() 
+    {
+        mc.InputFlickStop();
+    }
+
     void Die()
     {
         if (body != null)

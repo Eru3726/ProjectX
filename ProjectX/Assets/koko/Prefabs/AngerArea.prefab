@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4657750010129952731}
   m_Layer: 0
   m_Name: AngerArea
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,10 +104,6 @@ MonoBehaviour:
   apPos: {x: 0, y: 0, z: 0}
   atkType: 27
   atkLayer: 1
-  groundDestroyFlag: 0
-  isLife: 1
-  lifeCount: 2
-  isBullet: 0
 --- !u!61 &-4657750010129952731
 BoxCollider2D:
   m_ObjectHideFlags: 0
