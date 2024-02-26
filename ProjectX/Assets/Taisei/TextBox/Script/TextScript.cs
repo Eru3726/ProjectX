@@ -871,15 +871,13 @@ public class TextScript : MonoBehaviour
         return TextOnOff;
     }
 
-<<<<<<< HEAD
-=======
+
     //選択肢を選んで決定を押したとき
     public void ChangeCheckChoise()
     {
         checkChoise = false;
         EnterCheck = true;
     }
->>>>>>> main
 
     public float Parameter
     {
