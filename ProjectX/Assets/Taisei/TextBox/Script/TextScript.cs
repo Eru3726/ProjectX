@@ -119,7 +119,12 @@ public class TextScript : MonoBehaviour
     //キャラクター番号
     //0:一人用のみ表示用&システム用の空データ
     //1:主人公
-    //2:
+    //2:ドーラ
+    //3:メソメソ
+    //4:ムカムカ
+    //5:マスター
+    //6:グレン
+    //7:
     public List<GameObject> Charas = new List<GameObject>();
 
     [SerializeField] private GameObject CharaConection;
@@ -130,17 +135,20 @@ public class TextScript : MonoBehaviour
     [SerializeField] private RawImage LeftImg;
     [SerializeField] private RawImage RightImg;
 
+    private string checkChildNameL;
+    private string checkChildNameR;
+
     //アニメーション関連
-    Animator anim;
+    Animator animL;
+    Animator animR;
     private string allAnims;
     private int[] splitAnims;
     private int animsNum;
     private string animStr;
     //アニメーション配列
-    [SerializeField] private string[] chara1_anim;
-    [SerializeField] private string[] chara2_anim;
-
-
+    [SerializeField] private string[] chara1_anim;  //主人公
+    [SerializeField] private string[] chara2_anim;  //
+    
     //CSV関連
     public TextData[] textData;
 
@@ -185,6 +193,7 @@ public class TextScript : MonoBehaviour
     //0=3つ先の文章に飛ばす 1=2つ先の文章に飛ばす 2=1つ先の文章に飛ばす 
     private int routeFlg = 2;
     private bool routeOnOFF = false;
+    private int routeIdx = 0;
 
     //スキップ処理関連
     private Choise choiseW; //選択肢2個バージョン
@@ -316,59 +325,87 @@ public class TextScript : MonoBehaviour
                 if (!LorR)
                 {
                     Debug.Log("左立ち絵更新");
-                    //live2D
-                    if (firstStandP)
+                    LeftImg.color = new Color(255, 255, 255, 1);
+                    RightImg.color = Color.gray;
+                    //キャラの立ち絵を表示させる場合
+                    if (splitIcon[iconNum] != 0)
+                    {
+                        //今表示しているキャラと次表示するキャラが違ったらor何も生成されてなかったら
+                        if (LeftPos.transform.childCount == 0 
+                            || !checkChildNameL.Contains(Charas[splitIcon[iconNum]].name))
+                        {
+                            //live2D
+                            if (firstStandP)
+                            {
+                                foreach (Transform child in LeftPos.transform)
+                                {
+                                    Destroy(child.gameObject);
+                                }
+                            }
+                            //アニメーション関連
+                            //システム以外の場合
+                            if (splitIcon[iconNum] != 0)
+                            {
+                                Instantiate(Charas[splitIcon[iconNum]], LeftPosT);   //生成
+                                checkChildNameL = Charas[splitIcon[iconNum]].name;
+                            }
+                            animL = LeftPosT.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
+                        }
+                        CharaAnim(); 
+                        animL.Play(animStr);
+                    }
+                    //システムメッセージの場合
+                    else
                     {
                         foreach (Transform child in LeftPos.transform)
                         {
                             Destroy(child.gameObject);
                         }
                     }
-
-                    //アニメーション関連
-                    //システム以外の場合
-                    if (splitIcon[iconNum] != 0)
-                    {
-                        Instantiate(Charas[splitIcon[iconNum]], LeftPosT);   //生成
-                        LeftImg.color = new Color(255, 255, 255, 1);
-                        RightImg.color = Color.gray;
-
-                        anim = LeftPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
-                        CharaAnim();
-                        anim.Play(animStr);
-                    }
-
                 }
                 //立ち絵右
                 else if (LorR)
                 {
                     Debug.Log("右立ち絵更新");
-                    //live2D
-                    if (firstStandP)
+                    RightImg.color = new Color(255, 255, 255, 1);
+                    LeftImg.color = Color.gray;
+                    //キャラの立ち絵を表示させる場合
+                    if (splitIcon[iconNum] != 0)
+                    {
+                        //今表示しているキャラと次表示するキャラが違ったらor何も生成されてなかったら
+                        if (RightPos.transform.childCount == 0
+                            || !checkChildNameR.Contains(Charas[splitIcon[iconNum]].name))
+                        {
+                            //live2D
+                            if (firstStandP)
+                            {
+                                foreach (Transform child in RightPos.transform)
+                                {
+                                    Destroy(child.gameObject);
+                                }
+                            }
+
+                            //アニメーション関連
+                            //システム以外の場合
+                            if (splitIcon[iconNum] != 0)
+                            {
+                                Instantiate(Charas[splitIcon[iconNum]], RightPosT);
+                                checkChildNameR = Charas[splitIcon[iconNum]].name;
+                            }
+                            animR = RightPosT.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
+                        }
+                        CharaAnim();
+                        animR.Play(animStr);
+                    }
+                    //システムメッセージの場合
+                    else
                     {
                         foreach (Transform child in RightPos.transform)
                         {
                             Destroy(child.gameObject);
                         }
                     }
-
-                    //アニメーション関連
-                    //システム以外の場合
-                    if (splitIcon[iconNum] != 0)
-                    {
-                        Instantiate(Charas[splitIcon[iconNum]], RightPosT);
-                        RightImg.color = new Color(255, 255, 255, 1);
-                        LeftImg.color = Color.gray;
-
-                        anim = RightPos.transform.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
-                        CharaAnim();
-                        anim.Play(animStr);
-                    }
-
-
                 }
-
-
             }
             //テキスト表示時間を経過したらメッセージを追加
             if (elapsedTime >= textSpeed)
@@ -450,6 +487,7 @@ public class TextScript : MonoBehaviour
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
                     if (messageNum >= splitMessage.Length)
                     {
+                        Debug.Log("テキスト終了");
                         DestroyText();
                     }
                 }
@@ -474,6 +512,7 @@ public class TextScript : MonoBehaviour
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
                     if (messageNum >= splitMessage.Length)
                     {
+                        Debug.Log("テキスト終了");
                         DestroyText();
                     }
                 }
@@ -521,93 +560,103 @@ public class TextScript : MonoBehaviour
                 autoTimerLimit /= 2;
             }
         }
-
     }
 
     //次の文字表示処理
     private void FinishOneText()
     {
-        //テキストログの追加
-        AddLogText();
-        if (ChoiseTrigger[choiseNum] != 0)
+        if (messageNum < splitMessage.Length)
         {
-            AddLogChoise();
-        }
-        //選択肢直後
-        if (routeOnOFF)
-        {
-            //分岐後の処理
-            switch (routeFlg)
+            //テキストログの追加
+            AddLogText();
+            if (ChoiseTrigger[choiseNum] != 0)
             {
-                case 0:
-                    PlusThree();
-                    break;
-
-                case 1:
-                    PlusTwo();
-                    break;
-
-                case 2:
-                    PlusOne();
-                    break;
+                AddLogChoise();
             }
-            routeOnOFF = false;
-            routeFlg = 2;
-        }
-        //選択肢直後以外
-        else
-        {
-            //選択肢による分岐
-            switch (ChoiseTrigger[choiseNum])
+
+            //選択肢直後
+            if (routeOnOFF)
             {
-                case 0:
-                    PlusOne();
-                    routeFlg = 2;
-                    break;
+                if (ChoiseTrigger[choiseNum] == 999)
+                {
+                    //テキスト終了
+                    DestroyText();
+                }
 
-                case 1:
-                    if (choiseW.ChoiseFlg() == 0)
-                    {
-                        PlusOne();
-
-                        routeFlg = 1;
-                        routeOnOFF = true;
-                    }
-                    else
-                    {
-                        PlusTwo();
-
-                        routeFlg = 2;
-                        routeOnOFF = true;
-                    }
-                    break;
-
-                case 2:
-                    if (choiseT.ChoiseFlg() == 0)
-                    {
-                        PlusOne();
-
-                        routeFlg = 0;
-                        routeOnOFF = true;
-
-                    }
-                    else if (choiseT.ChoiseFlg() == 1)
-                    {
-                        PlusTwo();
-
-                        routeFlg = 1;
-                        routeOnOFF = true;
-                    }
-                    else
-                    {
+                //分岐後の処理
+                switch (routeFlg)
+                {
+                    case 0:
                         PlusThree();
+                        break;
 
+                    case 1:
+                        PlusTwo();
+                        break;
+
+                    case 2:
+                        PlusOne();
+                        break;
+                }
+                routeOnOFF = false;
+                routeFlg = 2;
+            }
+            //選択肢直後以外
+            else
+            {
+                //選択肢による分岐
+                switch (ChoiseTrigger[choiseNum])
+                {
+                    case 0:
+                        PlusOne();
                         routeFlg = 2;
-                        routeOnOFF = true;
-                    }
-                    break;
+                        break;
+
+                    case 1:
+                        if (choiseW.ChoiseFlg() == 0)
+                        {
+                            PlusOne();
+
+                            routeFlg = 1;
+                            routeOnOFF = true;
+                        }
+                        else
+                        {
+                            PlusTwo();
+
+                            routeFlg = 2;
+                            routeOnOFF = true;
+                        }
+                        break;
+
+                    case 2:
+                        if (choiseT.ChoiseFlg() == 0)
+                        {
+                            PlusOne();
+
+                            routeFlg = 0;
+                            routeOnOFF = true;
+
+                        }
+                        else if (choiseT.ChoiseFlg() == 1)
+                        {
+                            PlusTwo();
+
+                            routeFlg = 1;
+                            routeOnOFF = true;
+                        }
+                        else
+                        {
+                            PlusThree();
+
+                            routeFlg = 2;
+                            routeOnOFF = true;
+                        }
+                        break;
+                }
             }
         }
+
         nowTextNum = 0;
         messageText.text = "";
         clickIcon.enabled = false;
@@ -639,6 +688,8 @@ public class TextScript : MonoBehaviour
         cNameNum++;
         skipNum++;
         nowPoint++;
+
+        routeIdx = 1;
     }
 
     private void PlusTwo()
@@ -652,6 +703,8 @@ public class TextScript : MonoBehaviour
         cNameNum += 2;
         skipNum += 2;
         nowPoint += 2;
+
+        routeIdx = 2;
     }
 
     private void PlusThree()
@@ -665,6 +718,8 @@ public class TextScript : MonoBehaviour
         cNameNum += 3;
         skipNum += 3;
         nowPoint += 3;
+
+        routeIdx = 3;
     }
 
     //全てのメッセージを表示されたら
@@ -688,6 +743,7 @@ public class TextScript : MonoBehaviour
         }
 
         routeFlg = 2;
+        routeIdx = 0;
         routeOnOFF = false;
         isEndMessage = true;
         TextOnOff = false;
@@ -750,15 +806,14 @@ public class TextScript : MonoBehaviour
     {
         switch (splitIcon[iconNum])
         {
-            case 0:
+            case 1:
                 animStr = chara1_anim[splitAnims[animsNum]];
                 break;
 
-            case 1:
+            case 2:
                 animStr = chara2_anim[splitAnims[animsNum]];
                 break;
         }
-
     }
 
     void SetText(string message, string name, string icon, string iconLorR, string anims)
@@ -896,7 +951,6 @@ public class TextScript : MonoBehaviour
         cNameNum = 0;
         nowPoint = 0;
         skipNum = 0;
-
     }
 
     //AllTextsから呼びだす
@@ -908,8 +962,6 @@ public class TextScript : MonoBehaviour
         BackPanel.SetActive(true);
         Time.timeScale = 0;
         SetCSVFile(csvFiles);
-
-
     }
 
     //スキップ処理
@@ -1037,7 +1089,7 @@ public class TextScript : MonoBehaviour
     //ログテキストの追加
     public void AddLogText()
     {
-        allLogs.Add(splitName[nameNum] + "\n" + splitMessage[messageNum]) ;
+        allLogs.Add("・" + splitName[nameNum] + "\n" + "『" + splitMessage[messageNum] + "』");
         //ログの最大保存数を超えたら古いログを削除
         if (allLogs.Count > allLogDataNum)
         {
@@ -1086,10 +1138,7 @@ public class TextScript : MonoBehaviour
     {
         verticalScrollbar.value = 0f;
     }
-
-
 }
-
 
 
 //テキスト
