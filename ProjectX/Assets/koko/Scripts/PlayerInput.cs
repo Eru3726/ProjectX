@@ -332,8 +332,6 @@ public class PlayerInput : MonoBehaviour
         scale.y = (rushNo + 1) * 0.5f;
         obj.transform.localScale = scale;
 
-        obj.GetComponent<OldAttackCollider>().atkType = StageData.ATK_DATA.NM1 + rushNo - 1;
-
         plDir.y += 0.1f;
         if (rushNo == 3) { plDir.y += 0.4f; }
 
