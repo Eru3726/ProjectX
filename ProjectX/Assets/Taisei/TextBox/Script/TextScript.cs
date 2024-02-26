@@ -871,6 +871,7 @@ public class TextScript : MonoBehaviour
         return TextOnOff;
     }
 
+
     //選択肢を選んで決定を押したとき
     public void ChangeCheckChoise()
     {

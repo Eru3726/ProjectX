@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Config : MonoBehaviour
 {
+    [SerializeField] Mng_Game Manager;
     [SerializeField] GameObject Menu;
     [SerializeField] Text ConfigText;
     [SerializeField] Text Sampletext;
@@ -53,18 +54,21 @@ public class Config : MonoBehaviour
         if (OutLine.activeSelf == false) { return; }
         if(Input.GetKeyDown(KeyCode.D))
         {
+            Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
             // 最大値より上にならないように
             if (InputNum == Text.Length-1) { InputNum = 0; return; }
             InputNum++;
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
+            Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
             // 最小値
             if (InputNum == 0) { InputNum = Text.Length-1; return; }
             InputNum--;
         }
         if(Input.GetKeyDown(KeyCode.Tab))
         {
+            Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.tab);
             // メニュー画面に戻る
             Menu.SetActive(true);
             this.gameObject.SetActive(false);
@@ -87,6 +91,7 @@ public class Config : MonoBehaviour
         Listpoint[num].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);// 仮のサイズ 
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.enter);
             // スクリプトを起動
             switch (num)
             {
