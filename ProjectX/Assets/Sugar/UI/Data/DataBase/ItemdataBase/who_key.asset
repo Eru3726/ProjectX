@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84271065c11333a4c8adc97f373edd64, type: 3}
-  m_Name: Key_1
+  m_Name: who_key
   m_EditorClassIdentifier: 
   getFlag: 0
-  iIcon: {fileID: 21300000, guid: fc437bb0f9bf82647b625f45ed45c836, type: 3}
-  iname: "\u54C0"
-  infomation: "\u3042\u3042\u3042\u3042\u3042"
+  iIcon: {fileID: 21300000, guid: 2320aaa7d06f2ca4c90b6746ed2f9f4b, type: 3}
+  iname: "\u559C"
+  infomation: happy
   type: 0
