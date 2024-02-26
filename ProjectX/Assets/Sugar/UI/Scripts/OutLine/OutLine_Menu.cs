@@ -4,8 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 public class OutLine_Menu : MonoBehaviour
 {
+    [SerializeField] Mng_Game Manager;
+
     [SerializeField]RectTransform rtf;
-    int[] angle = new int[] { 0,120,240};
+    int[] angleL = new int[] { 0,120,240};
+    int[] angleR = new int[] { 0,-240,-120};
+    public int targetRot = 0;
+    int countZ = 0;
+    int InputLR = 0;
     public int num = 0;
     // 設定項目
     [Header("0:アイテムウィンドウ\n" +
@@ -22,9 +28,16 @@ public class OutLine_Menu : MonoBehaviour
 
     void Update()
     {
-        // 上入力
+        // 左入力
         if (Input.GetKeyDown(KeyCode.A))
         {
+            InputLR = -1;
+            targetRot -= 120;
+            if(targetRot==-360)
+            {
+                targetRot = 0;
+            }
+            Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
             if (num == 0)
             {
                 num = 2;
@@ -34,9 +47,16 @@ public class OutLine_Menu : MonoBehaviour
                 num--;
             }
         }
-        // 下入力
+        // 右入力
         else if (Input.GetKeyDown(KeyCode.D))
         {
+            InputLR = 1;
+            targetRot += 120;
+            if (targetRot == 360)
+            {
+                targetRot = 0;
+            }
+            Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
             if (num == 2)
             {
                 num = 0;
@@ -78,12 +98,50 @@ public class OutLine_Menu : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.enter);
             Fadeitem[num].SetActive(true);
             this.gameObject.GetComponent<OutLine_Menu>().enabled = false;
         }
     }
     void ObjAngle(int i)
     {
-        rtf.rotation = Quaternion.Euler(0, 0, angle[i]);
+        if (countZ == 360||countZ==-360)
+        {
+            countZ = 0;
+        }
+        if (rtf.localRotation == Quaternion.Euler(0, 0, angleL[0]))
+        { 
+            countZ = 0;
+        }
+        else if (rtf.localRotation == Quaternion.Euler(0, 0, angleR[0]))
+        {
+            countZ = 0;
+        }
+        else if(rtf.localRotation == Quaternion.Euler(0, 0, angleL[1]))
+        {
+            countZ = 120;
+        }
+        else if (rtf.localRotation == Quaternion.Euler(0, 0, angleR[1]))
+        {
+            countZ = -240;
+        }
+        else if (rtf.localRotation == Quaternion.Euler(0, 0, angleL[2]))
+        {
+            countZ = 240;
+        }
+        else if (rtf.localRotation == Quaternion.Euler(0, 0, angleR[2]))
+        {
+            countZ = -120;
+        }
+        if (countZ!= targetRot&& InputLR == 1)
+        {
+            countZ += 10;
+            rtf.localRotation = Quaternion.Euler(0, 0, countZ);
+        }
+        else if (countZ!=targetRot&& InputLR==-1)
+        {
+            countZ -= 10;
+            rtf.localRotation = Quaternion.Euler(0, 0, countZ);
+        }
     }
 }
