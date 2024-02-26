@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5120809049468997970}
   m_Layer: 0
   m_Name: AngerCharge
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,3 @@ MonoBehaviour:
   apPos: {x: 0, y: 0, z: 0}
   atkType: 26
   atkLayer: 0
-  groundDestroyFlag: 0
-  isLife: 1
-  lifeCount: 2
-  isBullet: 0

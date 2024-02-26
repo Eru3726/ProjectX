@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 3798301893042873568}
   - component: {fileID: 3798301893042873575}
   - component: {fileID: 3798301893042873569}
-  - component: {fileID: 3798301893042873571}
+  - component: {fileID: 793324893083432923}
   - component: {fileID: 3798301893042873570}
   m_Layer: 0
   m_Name: LoveMissile
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   rayLen: 3
   rayRot: 360
   rayValue: 36
---- !u!114 &3798301893042873571
+--- !u!114 &793324893083432923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,18 +118,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3798301893042873574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54524224d32f5c40980844ef0227917, type: 3}
+  m_Script: {fileID: 11500000, guid: bedb5144f10b05b4e9e7376e0dc6e11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 1
-  shock: 5
-  meleeFlag: 0
-  atkType: 4
-  atkLayer: 1
   groundDestroyFlag: 1
   isLife: 1
   lifeCount: 5
   isBullet: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!61 &3798301893042873570
 BoxCollider2D:
   m_ObjectHideFlags: 0
