@@ -81,6 +81,7 @@ public class ShellController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("消えた");
         ec.ishoming = true;
         Destroy(this.gameObject);
     }

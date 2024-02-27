@@ -41,11 +41,19 @@ public class EnemyController : MonoBehaviour
     public GameObject ShellPre;
 
     int eight = 8;
-    int FingerMovecount = 0;
-    int FingerHomcount = 0;
- 
-    float warpDelay = 1f; //ワープするまでの時間
-    float idolDelay = 2f; //待機時間
+    int Movecounter = 0;
+    int Homcounter = 0;
+
+    float warpDelay = 0.7f; //ワープするまでの時間
+    float idolDelay = 1f; //待機時間
+    float Movetimer = 0f;
+    float Homtimer = 0f;
+
+
+
+    bool animeHomFlg = false;
+    bool animeMoveFlg = false;
+
 
     private bool nowHomingFlg = false;
     public bool ishoming = false;
@@ -77,7 +85,8 @@ public class EnemyController : MonoBehaviour
     }
 
     void FixedUpdate()
-    { 
+    {
+        Movetimer += Time.deltaTime;
         switch (currentState)
         {
             case EnemyState.Idol: //次の行動に移るための待機
@@ -148,34 +157,49 @@ public class EnemyController : MonoBehaviour
 
     void EnemyMove()
     {
-        if (movecheck && plmc.IsGround())
-        {
-            GurenAnim.Play("Guren_FSAnimation");
-            Vector2 playerPos = player.transform.position;
-            Vector2 enemyPos = transform.position;
-            float directionX = playerPos.x - transform.position.x;
+        //if (movecheck && plmc.IsGround())
+        //{
+        //    GurenAnim.Play("Guren_FSAnimation");
+        //    Vector2 playerPos = player.transform.position;
+        //    Vector2 enemyPos = transform.position;
+        //    float directionX = playerPos.x - transform.position.x;
 
-            mc.InputLR((int)Mathf.Sign(directionX));
+        //    mc.InputLR((int)Mathf.Sign(directionX));
 
-            float dis = Vector2.Distance(playerPos, enemyPos);
+        //    float dis = Vector2.Distance(playerPos, enemyPos);
 
-            if (dis <= Atkdis)
+        //    if (dis <= Atkdis)
+        //    {
+        //        mc.InputLR(0);
+        if (!animeMoveFlg) 
+        { 
+            if (Movetimer >=  2)
             {
-                mc.InputLR(0);
+                animeMoveFlg = true;
+                GurenAnim.Play("Guren_FSAnimation");
+            }
+        }
+        else{
+            if (Movetimer >= 3)
+            {
                 currentState = EnemyState.Dash;
             }
+        }
 
-        }
-        else
-        {
-            GurenAnim.Play("Guren_NomalAnimation");
-        }
-    }
+    //    }
+
+    //}
+    //else
+    //{
+    //    GurenAnim.Play("Guren_NomalAnimation");
+    //}
+}
 
     void EnemyDash()
     {
         Debug.Log("突進");
-        mc.InputFlick(player.transform.position, 30, 0.3f, true);
+        Vector3 pos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+        mc.InputFlick(pos, 35, 0.3f, true);
         currentState = EnemyState.Idol;
     }
 
@@ -196,10 +220,15 @@ public class EnemyController : MonoBehaviour
     }
     void EnemyHoming()
     {
-        GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
-
+        if (!animeHomFlg)
+        {
+            GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
+            animeHomFlg = true;
+        }
         if (ishoming)
         {
+            Movetimer = 0;
+            animeMoveFlg = false;
             currentState = EnemyState.Move;
             nowHomingFlg = false;
             ishoming = false;
@@ -208,15 +237,19 @@ public class EnemyController : MonoBehaviour
         if (nowHomingFlg) return;
 
         nowHomingFlg = true;
+      
 
         Vector2[] enemyPos = new Vector2[eight];
         GameObject[] shell = new GameObject[eight];
 
         for (int i = 0; i < eight; i++)
         {
+            Debug.Log("a");
             enemyPos[i] = transform.position;
-            enemyPos[i].y += 1f;
+            enemyPos[i].x += 1.3f;
+            enemyPos[i].y += 1.3f;
             shell[i] = Instantiate(ShellPre, enemyPos[i], Quaternion.identity);
+            Debug.Log(shell[i]);
             sc = shell[i].GetComponent<ShellController>();
             sc.ec = GetComponent<EnemyController>();
         }

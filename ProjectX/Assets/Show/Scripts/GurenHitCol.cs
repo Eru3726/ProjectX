@@ -30,14 +30,14 @@ public class GurenHitCol : MonoBehaviour, IDamageable
         }
     }
 
-    void Die()
-    {
-        if (body != null)
-        {
+    //void Die()
+    //{
+    //    if (body != null)
+    //    {
             
-            Destroy(body.gameObject);
-        }
-    }
+    //        Destroy(body.gameObject);
+    //    }
+    //}
 
     void Start()
     {
