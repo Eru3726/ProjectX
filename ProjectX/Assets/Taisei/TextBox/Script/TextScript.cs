@@ -192,6 +192,8 @@ public class TextScript : MonoBehaviour
 
     //選択肢で決定を押したかどうか
     private bool EnterCheck = false;
+    //選択肢で選んだやつを外部が参照するようのやつ
+    private int checkRouteFlg;
     
     //次の文章を表示するとき
     //0=3つ先の文章に飛ばす 1=2つ先の文章に飛ばす 2=1つ先の文章に飛ばす 
@@ -874,11 +876,17 @@ public class TextScript : MonoBehaviour
         //Time.timeScale = 0;
     }
 
+    //テキストが終わったかどうか
     public bool CheckTextOnOff()
     {
         return TextOnOff;
     }
 
+    //選んだ選択肢を外部で参照するやつ
+    public int CheckRouteFlg()
+    {
+        return checkRouteFlg;
+    }
 
     //選択肢を選んで決定を押したとき
     public void ChangeCheckChoise()
