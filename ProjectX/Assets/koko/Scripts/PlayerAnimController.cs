@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class PlayerAnimController : MonoBehaviour
 {
-    enum AnimData
-    {
-        idol,
-        run,
-        attack1,
-        attack2,
-        attack3
-    }
 
     [SerializeField, Header("amariアニメアタッチ")]
     GameObject amari;
+
+    [SerializeField, Header("amariアニメアタッチ")]
+    GameObject amariRun;
 
     [SerializeField, Header("Playerアタッチ")]
     GameObject parentPlayer;
 
     [SerializeField]
     Animator anim;
+
+    [SerializeField]
+    Animator animRun;
 
     [SerializeField]
     PlayerInput pi;
@@ -34,6 +32,7 @@ public class PlayerAnimController : MonoBehaviour
     private void Start()
     {
         anim = amari.GetComponent<Animator>();
+        // animRun = amariRun.GetComponent<Animator>();
 
         pi = parentPlayer.GetComponent<PlayerInput>();
         mc = parentPlayer.GetComponent<MoveController>();
@@ -42,21 +41,28 @@ public class PlayerAnimController : MonoBehaviour
 
     private void Update()
     {
-        if (pi.skillTime[(int)StageData.ACT_DATA.NM3] > 0)
+        if (pi.CheckActSkill())
         {
-            anim.Play("Amari_Attack3Animation_Final");
-        }
-        else if (pi.skillTime[(int)StageData.ACT_DATA.NM2] > 0)
-        {
-            anim.Play("Amari_Attack2Animation_Final");
-        }
-        else if (pi.skillTime[(int)StageData.ACT_DATA.NM1] > 0)
-        {
-            anim.Play("Amari_Attack1Animation_Final");
-        }
-        else if (pi.skillTime[(int)StageData.ACT_DATA.LB1] > 0)
-        {
-            anim.Play("Amari_BeamBAnimation_Final");
+            if (pi.skillTime[(int)StageData.ACT_DATA.NM3] > 0)
+            {
+                anim.Play("Amari_Attack3Animation_Final");
+            }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.NM2] > 0)
+            {
+                anim.Play("Amari_Attack2Animation_Final");
+            }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.NM1] > 0)
+            {
+                anim.Play("Amari_Attack1Animation_Final");
+            }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.LB1] > 0)
+            {
+                anim.Play("Amari_BeamPAnimation_Final");
+            }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.AA1] > 0)
+            {
+                anim.Play("Amari_BeamRAnimation_Final");
+            }
         }
         else if(!mc.IsGround())
         {
@@ -69,13 +75,16 @@ public class PlayerAnimController : MonoBehaviour
                 anim.Play("Amari_FallingAnimation_Final");
             }
         }
-        else if (mc.GetLR() != 0)
-        {
-            anim.Play("Amari_RunAnimation_Final");
-        }
         else
         {
-            anim.Play("Amari_IdleAnimation_Final");
+            if (mc.GetLR() != 0)
+            {
+                anim.Play("Amari_RunAnimation_Final");
+            }
+            else
+            {
+                anim.Play("Amari_IdleAnimation_Final");
+            }
         }
     }
 }

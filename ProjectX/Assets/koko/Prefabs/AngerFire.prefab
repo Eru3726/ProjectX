@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3424937521654278343}
   - component: {fileID: 3424937521654278360}
   - component: {fileID: 3424937521654278361}
-  - component: {fileID: 3424937521654278362}
+  - component: {fileID: -2477058006438018102}
   - component: {fileID: 754696040179851032}
   - component: {fileID: 3424937521654278363}
   m_Layer: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spd: 10
---- !u!114 &3424937521654278362
+--- !u!114 &-2477058006438018102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,16 +110,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3424937521654278364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54524224d32f5c40980844ef0227917, type: 3}
+  m_Script: {fileID: 11500000, guid: e45520b8b03789b48bdfc557f3fbf6f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 5
-  shock: 0
+  damage: 5
+  shock: 5
   inv: 1
-  apFlag: 0
-  apPos: {x: 0, y: 0, z: 0}
-  atkType: 14
-  atkLayer: 1
 --- !u!114 &754696040179851032
 MonoBehaviour:
   m_ObjectHideFlags: 0

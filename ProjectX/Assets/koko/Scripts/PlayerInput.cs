@@ -27,7 +27,7 @@ public class PlayerInput : MonoBehaviour
     MoveController mc;
 
     [SerializeField, Header("HitColliderアタッチ")]
-    OldHitCollider hc;
+    PlHitCol hc;
 
     public int piInputLR = 0;
 
@@ -68,9 +68,7 @@ public class PlayerInput : MonoBehaviour
                 if (actSkill[(int)StageData.ACT_DATA.NM3] == false)
                 {
                     ActNM(3);
-                    actSkill[(int)StageData.ACT_DATA.NM3] = true;
-                    skillTime[(int)StageData.ACT_DATA.NM3] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.75f;
+                    SetSkill((int)StageData.ACT_DATA.NM3, 0.5f, 0.75f);
                 }
             }
             else if (skillTime[(int)StageData.ACT_DATA.NM1] > 0)
@@ -78,9 +76,7 @@ public class PlayerInput : MonoBehaviour
                 if (actSkill[(int)StageData.ACT_DATA.NM2] == false)
                 {
                     ActNM(2);
-                    actSkill[(int)StageData.ACT_DATA.NM2] = true;
-                    skillTime[(int)StageData.ACT_DATA.NM2] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.75f;
+                    SetSkill((int)StageData.ACT_DATA.NM2, 0.5f, 0.75f);
                 }
             }
             else if (skillTime[(int)StageData.ACT_DATA.NM1] <= 0)
@@ -88,9 +84,7 @@ public class PlayerInput : MonoBehaviour
                 if (actSkill[(int)StageData.ACT_DATA.NM1] == false && !CheckActSkill())
                 {
                     ActNM(1);
-                    actSkill[(int)StageData.ACT_DATA.NM1] = true;
-                    skillTime[(int)StageData.ACT_DATA.NM1] = 0.5f;
-                    coolTime[(int)StageData.ACT_DATA.NM1] = 0.75f;
+                    SetSkill((int)StageData.ACT_DATA.NM1, 0.5f, 0.75f);
                 }
             }
         }
@@ -101,9 +95,7 @@ public class PlayerInput : MonoBehaviour
             if (actSkill[(int)StageData.ACT_DATA.ND1] == false && !CheckActSkill())
             {
                 ActND();
-                actSkill[(int)StageData.ACT_DATA.ND1] = true;
-                skillTime[(int)StageData.ACT_DATA.ND1] = 0.3f;
-                coolTime[(int)StageData.ACT_DATA.ND1] = 1;
+                SetSkill((int)StageData.ACT_DATA.ND1, 0.3f, 1);
             }
         }
 
@@ -113,9 +105,7 @@ public class PlayerInput : MonoBehaviour
             if (actSkill[(int)StageData.ACT_DATA.LB1] == false && !CheckActSkill())
             {
                 ActLB();
-                actSkill[(int)StageData.ACT_DATA.LB1] = true;
-                skillTime[(int)StageData.ACT_DATA.LB1] = 1;
-                coolTime[(int)StageData.ACT_DATA.LB1] = 2;
+                SetSkill((int)StageData.ACT_DATA.LB1, 1, 2);
             }
         }
 
@@ -136,9 +126,7 @@ public class PlayerInput : MonoBehaviour
                 ActLM(4);
                 ActLM(5);
                 ActLM(6);
-                actSkill[(int)StageData.ACT_DATA.LM1] = true;
-                skillTime[(int)StageData.ACT_DATA.LB1] = 0.5f;
-                coolTime[(int)StageData.ACT_DATA.LB1] = 2;
+                SetSkill((int)StageData.ACT_DATA.LM1, 0.5f, 2);
             }
         }
 
@@ -154,9 +142,7 @@ public class PlayerInput : MonoBehaviour
             if (actSkill[(int)StageData.ACT_DATA.AF1] == false && !CheckActSkill())
             {
                 ActAF(0);
-                actSkill[(int)StageData.ACT_DATA.AF1] = true;
-                skillTime[(int)StageData.ACT_DATA.AF1] = 0.5f;
-                coolTime[(int)StageData.ACT_DATA.AF1] = 3;
+                SetSkill((int)StageData.ACT_DATA.AF1, 0.5f, 3);
             }
         }
 
@@ -170,9 +156,7 @@ public class PlayerInput : MonoBehaviour
                 if (actSkill[(int)StageData.ACT_DATA.AF2] == false)
                 {
                     ActAF(1);
-                    actSkill[(int)StageData.ACT_DATA.AF2] = true;
-                    skillTime[(int)StageData.ACT_DATA.AF2] = 0;
-                    coolTime[(int)StageData.ACT_DATA.AF2] = coolTime[(int)StageData.ACT_DATA.AF1];
+                    SetSkill((int)StageData.ACT_DATA.AF2, 0, coolTime[(int)StageData.ACT_DATA.AF1]);
                 }
             }
         }
@@ -183,9 +167,7 @@ public class PlayerInput : MonoBehaviour
             if (actSkill[(int)StageData.ACT_DATA.AC1] == false && !CheckActSkill())
             {
                 ActAC();
-                actSkill[(int)StageData.ACT_DATA.AC1] = true;
-                skillTime[(int)StageData.ACT_DATA.AC1] = 2;
-                coolTime[(int)StageData.ACT_DATA.AC1] = 3;
+                SetSkill((int)StageData.ACT_DATA.AC1, 2, 3);
             }
         }
 
@@ -200,9 +182,7 @@ public class PlayerInput : MonoBehaviour
             if (actSkill[(int)StageData.ACT_DATA.AA1] == false && !CheckActSkill())
             {
                 ActAA();
-                actSkill[(int)StageData.ACT_DATA.AA1] = true;
-                skillTime[(int)StageData.ACT_DATA.AA1] = 2;
-                coolTime[(int)StageData.ACT_DATA.AA1] = 10;
+                SetSkill((int)StageData.ACT_DATA.AA1, 2, 10);
             }
         }
 
@@ -218,9 +198,7 @@ public class PlayerInput : MonoBehaviour
             if (actSkill[(int)StageData.ACT_DATA.SB1] == false && !CheckActSkill())
             {
                 ActSB();
-                actSkill[(int)StageData.ACT_DATA.SB1] = true;
-                skillTime[(int)StageData.ACT_DATA.SB1] = 0.5f;
-                coolTime[(int)StageData.ACT_DATA.SB1] = 10;
+                SetSkill((int)StageData.ACT_DATA.SB1, 0.5f, 10);
             }
         }
 
@@ -238,7 +216,7 @@ public class PlayerInput : MonoBehaviour
     }
 
     // スキルが起動中かどうか確認
-    bool CheckActSkill()
+    public bool CheckActSkill()
     {
         float totalTime = 0;
 
@@ -259,21 +237,24 @@ public class PlayerInput : MonoBehaviour
 
     void MoveInput()
     {
-        // 左右入力：A and D
-        if (Input.GetKey(KeyCode.D))
+        if (!CheckActSkill())
         {
-            mc.InputLR(1);
-            piInputLR = 1;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            mc.InputLR(-1);
-            piInputLR = -1;
-        }
-        else
-        {
-            mc.InputLR(0);
-            piInputLR = 0;
+            // 左右入力：A and D
+            if (Input.GetKey(KeyCode.D))
+            {
+                mc.InputLR(1);
+                piInputLR = 1;
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                mc.InputLR(-1);
+                piInputLR = -1;
+            }
+            else
+            {
+                mc.InputLR(0);
+                piInputLR = 0;
+            }
         }
 
         // キャラの向き変更
@@ -319,6 +300,13 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    void SetSkill(int num, float st, float ct)
+    {
+        actSkill[num] = true;
+        skillTime[num] = st;
+        coolTime[num] = ct;
+    }
+
     void ActNM(int rushNo)
     {
         Vector3 plDir = this.transform.position;
@@ -344,7 +332,7 @@ public class PlayerInput : MonoBehaviour
         plDir.x += transform.localScale.x;
 
         mc.InputFlick(plDir, 20, 0.2f, true);
-        hc.SetInvTime(0.3f);
+        hc.time = 0.3f; ;
     }
 
     void ActLB()
@@ -419,6 +407,6 @@ public class PlayerInput : MonoBehaviour
 
     void ActSB()
     {
-        hc.SetBarrier(10);
+        hc.barrier = 10;
     }
 }
