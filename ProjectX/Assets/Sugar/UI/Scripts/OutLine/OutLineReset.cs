@@ -9,5 +9,6 @@ public class OutLineReset : MonoBehaviour
     {
         MenuOut.GetComponent<OutLine_Menu>().enabled = true;
         MenuOut.GetComponent<OutLine_Menu>().num = 0;
+        MenuOut.GetComponent<OutLine_Menu>().targetRot = 0;
     }
 }

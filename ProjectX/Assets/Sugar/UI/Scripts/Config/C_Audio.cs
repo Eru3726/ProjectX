@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class C_Audio : MonoBehaviour
 {
+    // 音源
+    [SerializeField] Mng_Game Manager;
+
     // 音量変更
     [SerializeField] Mng_Game para;
 
@@ -66,6 +69,7 @@ public class C_Audio : MonoBehaviour
             return;
         }
         move();
+        ActBar();
     }
 
     private void OnEnable()
@@ -120,7 +124,35 @@ public class C_Audio : MonoBehaviour
                 break;
         }
     }
-
+    void ActBar()
+    {
+        if (Listnum == 0)
+        {
+            _Master.SetActive(true);
+            _BGM.SetActive(false);
+            _SE.SetActive(false);
+        }
+        // BGM
+        else if (Listnum == 1)
+        {
+            _BGM.SetActive(true);
+            _Master.SetActive(false);
+            _SE.SetActive(false);
+        }
+        // SE
+        else if (Listnum == 2)
+        {
+            _SE.SetActive(true);
+            _BGM.SetActive(false);
+            _Master.SetActive(false);
+        }
+        else if (Listnum == 3) // 完了ボタン
+        {
+            _SE.SetActive(false);
+            _BGM.SetActive(false);
+            _Master.SetActive(false);
+        }
+    }
     void InputKey(int box, int method0)
     {
         switch (method0)
@@ -128,30 +160,34 @@ public class C_Audio : MonoBehaviour
             case 0:
                 // 上入力
                 if (Input.GetKeyDown(KeyCode.W) && Listnum > 0)
-                { Listnum--; }
+                {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
+                    Listnum--;
+                }
                 // 下入力
                 else if (Input.GetKeyDown(KeyCode.S) && Listnum < box - 1)
-                { Listnum++; }
+                {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
+                    Listnum++; 
+                }
 
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.enter);
                     // マスター
                     if (Listnum == 0)
                     {
                         method = 1;
-                        _Master.SetActive(true);
                     }
                     // BGM
                     else if (Listnum == 1)
                     {
                         method = 2;
-                        _BGM.SetActive(true);
                     }
                     // SE
                     else if (Listnum == 2)
                     {
                         method = 3;
-                        _SE.SetActive(true);
                     }
                     else if(Listnum==3) // 完了ボタン
                     {
@@ -171,6 +207,7 @@ public class C_Audio : MonoBehaviour
                 }
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.tab);
                     obj.GetComponent<C_Audio>().enabled = false;
                     this.gameObject.GetComponent<Image>().enabled = false;
                     panel.SetActive(true);
@@ -189,16 +226,19 @@ public class C_Audio : MonoBehaviour
                 // 左入力
                 if (Input.GetKeyDown(KeyCode.A)&&Master_Num>0 )
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
                     Master_Num--;
                 }
                 // 右入力
                 else if (Input.GetKeyDown(KeyCode.D)&&Master_Num<box-1 )
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
                     Master_Num++;
                 }
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
-                    if(Master_Now_Num!=10&&Master_Num==1)
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.enter);
+                    if (Master_Now_Num!=10&&Master_Num==1)
                     {
                         Master_Now_Num++;
                     }
@@ -213,15 +253,18 @@ public class C_Audio : MonoBehaviour
                 // 左入力
                 if (Input.GetKeyDown(KeyCode.A) && BGM_Num > 0)
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
                     BGM_Num--;
                 }
                 // 右入力
                 else if (Input.GetKeyDown(KeyCode.D) && BGM_Num < box - 1)
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
                     BGM_Num++;
                 }
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.enter);
                     if (BGM_Now_Num != 10 && BGM_Num == 1)
                     {
                         BGM_Now_Num++;
@@ -237,15 +280,18 @@ public class C_Audio : MonoBehaviour
                 // 左入力
                 if (Input.GetKeyDown(KeyCode.A) && SE_Num > 0)
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
                     SE_Num--;
                 }
                 // 右入力
                 else if (Input.GetKeyDown(KeyCode.D) && SE_Num < box - 1)
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
                     SE_Num++;
                 }
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.enter);
                     if (SE_Now_Num != 10 && SE_Num == 1)
                     {
                         SE_Now_Num++;
@@ -260,6 +306,7 @@ public class C_Audio : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Tab))
         {
+            Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.tab);
             Master_Num = 0;
             BGM_Num = 0;
             SE_Num = 0;

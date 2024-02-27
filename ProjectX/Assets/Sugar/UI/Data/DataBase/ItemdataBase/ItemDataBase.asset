@@ -12,4 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e128239456d978d46af8546c6a7db0c2, type: 3}
   m_Name: ItemDataBase
   m_EditorClassIdentifier: 
-  ItemDATA: []
+  ItemDATA:
+  - {fileID: 11400000, guid: c7373d4fb651ac8478bd6e59bb07579f, type: 2}
+  - {fileID: 11400000, guid: 09f6112738bc13846be155ff48df762a, type: 2}
+  - {fileID: 11400000, guid: 816decfa41f7cab449428da2d93cf135, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
