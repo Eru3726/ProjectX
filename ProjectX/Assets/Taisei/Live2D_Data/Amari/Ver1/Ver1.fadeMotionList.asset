@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
-  m_Name: Enemy.fadeMotionList
+  m_Name: Ver1.fadeMotionList
   m_EditorClassIdentifier: 
-  MotionInstanceIds: 84c2ffff
+  MotionInstanceIds: 802ffeff882ffeff782ffeff942ffeff
   CubismFadeMotionObjects:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 5a1bf1be24a50504cbf85fb30a4b2c4d, type: 2}
+  - {fileID: 11400000, guid: 29c0cb314f246ff48bb29a7fa5242f93, type: 2}
+  - {fileID: 11400000, guid: ee09bbf75be97fc4fba06218bd2725a3, type: 2}
+  - {fileID: 11400000, guid: c5a8509ca623d154a9e204000bb03237, type: 2}

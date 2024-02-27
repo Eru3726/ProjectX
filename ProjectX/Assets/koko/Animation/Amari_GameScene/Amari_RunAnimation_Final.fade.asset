@@ -12,11 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1ee1adc36a8a04a8d7c42ac5d6bc27, type: 3}
   m_Name: Amari_RunAnimation_Final.fade
   m_EditorClassIdentifier: 
-<<<<<<< HEAD:ProjectX/Assets/koko/Animation/Amari2/Amari_RunAnimation.fade.asset
-  MotionName: Assets/koko/Animation/Amari2/Amari_RunAnimation.motion3.json
-=======
   MotionName: Assets/koko/Animation/Amari_GameScene/Amari_RunAnimation_Final.motion3.json
->>>>>>> main:ProjectX/Assets/koko/Animation/Amari_GameScene/Amari_RunAnimation_Final.fade.asset
   FadeInTime: 1
   FadeOutTime: 1
   ParameterIds:
