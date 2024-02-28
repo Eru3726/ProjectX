@@ -87,56 +87,64 @@ public class EnemyController : MonoBehaviour
     void FixedUpdate()
     {
         Movetimer += Time.deltaTime;
-        switch (currentState)
+
+        if(currentState == EnemyState.Homing || currentState == EnemyState.Dash)
         {
-            case EnemyState.Idol: //次の行動に移るための待機
-                movecheck = true;
-                warpcheck = true;
-                currentState = EnemyState.Idol2;
-                StartCoroutine(IdolDelay());
-                break;
+            animeMoveFlg = false;
+        }
+        if(Movetimer >= Random.Range(2f,4f))
+        {
+            currentState = (EnemyState)Random.Range(0, (int)EnemyState.Num);
+            switch (currentState)
+            {
+                case EnemyState.Idol: //次の行動に移るための待機
+                    movecheck = true;
+                    warpcheck = true;
+                    currentState = EnemyState.Idol2;
+                    StartCoroutine(IdolDelay());
+                    break;
 
-            case EnemyState.Idol2: //保護
-                break;
+                case EnemyState.Idol2: //保護
+                    break;
 
-            case EnemyState.Move: //ワープの処理
-                Debug.Log("Move");
+                case EnemyState.Move: //ワープの処理
+                    Debug.Log("Move");
 
-                EnemyMove(); //Enemyの通常時の動き
+                    EnemyMove(); //Enemyの通常時の動き
 
-                break;
+                    break;
 
-            case EnemyState.Homing:　//ホーミング攻撃の処理
+                case EnemyState.Homing: //ホーミング攻撃の処理
 
-                Debug.Log("Homing");
-                EnemyHoming();
-                break;
+                    Debug.Log("Homing");
+                    EnemyHoming();
+                    break;
 
-            case EnemyState.Dash:　//突進の処理
+                case EnemyState.Dash: //突進の処理
 
-                Debug.Log("Dash");
+                    Debug.Log("Dash");
 
-                EnemyDash();
-                break;
+                    EnemyDash();
+                    break;
 
-            case EnemyState.Warp:  //移動
-                Debug.Log("Warp");
-                currentState = EnemyState.Warp2;
+                case EnemyState.Warp:  //移動
+                    Debug.Log("Warp");
+                    currentState = EnemyState.Warp2;
 
-                StartCoroutine(WarpDelay());
-                break;
+                    StartCoroutine(WarpDelay());
+                    break;
 
-            case EnemyState.Warp2:
-                break;
+                case EnemyState.Warp2:
+                    break;
 
-            case EnemyState.Down:　//ダウン
-
-
-                break;
-            case EnemyState.Die:　//消滅
+                case EnemyState.Down: //ダウン
 
 
-                break;
+                    break;
+                case EnemyState.Die: //死んだ後の処理
+                    break;
+            }
+
         }
 
     }
@@ -179,8 +187,9 @@ public class EnemyController : MonoBehaviour
                 GurenAnim.Play("Guren_FSAnimation");
             }
         }
-        else{
-            if (Movetimer >= 3)
+        else
+        {
+            if (Movetimer >= 4)
             {
                 currentState = EnemyState.Dash;
             }
@@ -199,7 +208,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("突進");
         Vector3 pos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
-        mc.InputFlick(pos, 35, 0.3f, true);
+        mc.InputFlick(pos, 35 ,0.3f, true);
         currentState = EnemyState.Idol;
     }
 
@@ -219,12 +228,8 @@ public class EnemyController : MonoBehaviour
         currentState = EnemyState.Homing;
     }
     void EnemyHoming()
-    {
-        if (!animeHomFlg)
-        {
-            GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
-            animeHomFlg = true;
-        }
+    { 
+        GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
         if (ishoming)
         {
             Movetimer = 0;
@@ -239,16 +244,19 @@ public class EnemyController : MonoBehaviour
         nowHomingFlg = true;
       
 
-        Vector2[] enemyPos = new Vector2[eight];
+        //Vector2[] enemyPos = new Vector2[eight];
         GameObject[] shell = new GameObject[eight];
+
+        Vector2 enemyPos = transform.position;
+        enemyPos.x += 1.0f;
 
         for (int i = 0; i < eight; i++)
         {
             Debug.Log("a");
-            enemyPos[i] = transform.position;
-            enemyPos[i].x += 1.3f;
-            enemyPos[i].y += 1.3f;
-            shell[i] = Instantiate(ShellPre, enemyPos[i], Quaternion.identity);
+            //enemyPos[i] = transform.position;
+            enemyPos.y += 0.4f;
+            //transform.position = enemyPos[i];
+            shell[i] = Instantiate(ShellPre, enemyPos, Quaternion.identity);
             Debug.Log(shell[i]);
             sc = shell[i].GetComponent<ShellController>();
             sc.ec = GetComponent<EnemyController>();
@@ -261,6 +269,7 @@ public class EnemyController : MonoBehaviour
     public void EnemyDie()
     {
         //死亡処理
-
+        GurenAnim.Play("Guren_FSAnimation");
+        Destroy(this.gameObject);
     }
 }
