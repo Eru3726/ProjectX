@@ -3068,8 +3068,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -578, y: 292.56}
-  m_SizeDelta: {x: 366.64, y: 83.64}
+  m_AnchoredPosition: {x: -437.16, y: 292.56}
+  m_SizeDelta: {x: 648.32, y: 83.64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1173556996
 MonoBehaviour:
@@ -3357,7 +3357,8 @@ MonoBehaviour:
   Charas:
   - {fileID: 0}
   - {fileID: 2854018393099498570, guid: 0245f8a3416bb79418f32734888b119b, type: 3}
-  - {fileID: 6435309048720358627, guid: b0ae3653ced5bff4b8ee9cd6183ebd1f, type: 3}
+  - {fileID: 7583203451687980125, guid: 222575bf8f9dac04cb1f9c430da12091, type: 3}
+  - {fileID: 371216475006941570, guid: 254366aea32aaff4aa97f6e5332cd379, type: 3}
   CharaConection: {fileID: 1798310086}
   LeftPosT: {fileID: 17112951}
   LeftPos: {fileID: 17112950}
@@ -3371,8 +3372,9 @@ MonoBehaviour:
   - Amari_happy_ver1
   - Amari_angry_ver1
   chara2_anim:
-  - Doctor_Idle_Animation
-  - Doctor_Wire_Animation
+  - mukamuka_NormalAnimation
+  chara3_anim:
+  - mesomeso_NomalAnimation
   textData: []
   BackPanel: {fileID: 1899614189}
   AllTextPare: {fileID: 143560013}

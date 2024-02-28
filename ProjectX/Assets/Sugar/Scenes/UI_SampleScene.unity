@@ -5177,6 +5177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Manager: {fileID: 1161789634}
   rtf: {fileID: 1254419464}
+  targetRot: 0
   num: 0
   item:
   - {fileID: 919030701}
@@ -5623,7 +5624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &919030702
 RectTransform:
   m_ObjectHideFlags: 0

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84271065c11333a4c8adc97f373edd64, type: 3}
-  m_Name: Gren_photo
+  m_Name: Skill_Love
   m_EditorClassIdentifier: 
   getFlag: 0
-  iIcon: {fileID: 21300000, guid: 1c31d58f4925cbb4ab544dc16bc5bda2, type: 3}
-  iname: "\u30B0\u30EC\u30F3\u306E\u5199\u771F"
-  infomation: "\u30DE\u30B9\u30BF\u30FC\u304B\u3089\u8CB0\u3063\u305F\u3002\u30B0\u30EC\u30F3\u304C\u5199\u3063\u3066\u3044\u308B\u3002"
+  iIcon: {fileID: 21300000, guid: 508f9b8e8543bd44886513cad32b09ec, type: 3}
+  iname: "\u604B\u306E\u529B\u304C\u8A70\u307E\u3063\u305F\u5C0F\u74F6"
+  infomation: "\u6FC0\u3057\u304F\u71C3\u3048\u308B\u604B\u5FC3\u306E\u6B20\u7247\u304C\u8A70\u307E\u3063\u3066\u3044\u308B\u3002"
   type: 0

@@ -123,12 +123,12 @@ public class TextScript : MonoBehaviour
     //キャラクター番号
     //0:一人用のみ表示用&システム用の空データ
     //1:主人公
-    //2:ドーラ
+    //2:ムカムカ
     //3:メソメソ
-    //4:ムカムカ
+    //4:ドーラ
     //5:マスター
     //6:グレン
-    //7:
+    //7:エリス
     public List<GameObject> Charas = new List<GameObject>();
 
     [SerializeField] private GameObject CharaConection;
@@ -151,8 +151,9 @@ public class TextScript : MonoBehaviour
     private string animStr;
     //アニメーション配列
     [SerializeField] private string[] chara1_anim;  //主人公
-    [SerializeField] private string[] chara2_anim;  //
-    
+    [SerializeField] private string[] chara2_anim;  //ムカムカ
+    [SerializeField] private string[] chara3_anim;  //メソメソ
+        
     //CSV関連
     public TextData[] textData;
 
@@ -816,12 +817,19 @@ public class TextScript : MonoBehaviour
     {
         switch (splitIcon[iconNum])
         {
+            //主人公
             case 1:
                 animStr = chara1_anim[splitAnims[animsNum]];
                 break;
 
+            //ムカムカ
             case 2:
                 animStr = chara2_anim[splitAnims[animsNum]];
+                break;
+
+            //メソメソ
+            case 3:
+                animStr = chara3_anim[splitAnims[animsNum]];
                 break;
         }
     }
