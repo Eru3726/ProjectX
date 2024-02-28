@@ -63,6 +63,10 @@ public class PlayerAnimController : MonoBehaviour
             {
                 anim.Play("Amari_BeamRAnimation_Final");
             }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.ND1] > 0)
+            {
+                anim.Play("Amari_AvoidanceAnimation");
+            }
         }
         else if(!mc.IsGround())
         {

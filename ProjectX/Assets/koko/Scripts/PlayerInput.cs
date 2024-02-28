@@ -29,7 +29,11 @@ public class PlayerInput : MonoBehaviour
     [SerializeField, Header("HitColliderアタッチ")]
     PlHitCol hc;
 
+    [SerializeField, Header("左右")]
     public int piInputLR = 0;
+
+    [SerializeField, Header("後退可不可")]
+    public bool notEsc = false;
 
     [SerializeField]
     public List<bool> actSkill = new List<bool>();
@@ -245,7 +249,7 @@ public class PlayerInput : MonoBehaviour
                 mc.InputLR(1);
                 piInputLR = 1;
             }
-            else if (Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A) && !notEsc)
             {
                 mc.InputLR(-1);
                 piInputLR = -1;
