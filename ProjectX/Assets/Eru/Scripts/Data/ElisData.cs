@@ -15,6 +15,11 @@ public class ElisData : ScriptableObject
     public float ShotTime;
     public float WaitTime;
 
+    //第一段階のエリスの落下攻撃データ
+    public float F_MoveUpSpeed;
+    public float F_MoveDownSpeed;
+    public float F_WaitTime;
+
     //第一段階のエリスの分身データ
     public float A_MoveSpeed;
     public int A_ShotNum;

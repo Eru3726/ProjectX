@@ -15,6 +15,11 @@ namespace EruGSS
         public string ElisData_ShotTime;
         public string ElisData_WaitTime;
 
+        //第一段階のエリスの落下攻撃データ
+        public string ElisData_F_MoveUpSpeed;
+        public string ElisData_F_MoveDownSpeed;
+        public string ElisData_F_WaitTime;
+
         //第一段階のエリスの分身データ
         public string ElisData_A_MoveSpeed;
         public string ElisData_A_ShotNum;

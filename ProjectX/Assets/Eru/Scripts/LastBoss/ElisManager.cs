@@ -38,6 +38,12 @@ public class ElisManager : MonoBehaviour, IDamageable
     [SerializeField, Header("分身")]
     private GameObject avatarObj;
 
+    [SerializeField, Header("地面のレイヤー")]
+    private LayerMask groundLeyer;
+
+    [SerializeField, Header("レイの長さ")]
+    private float rayLength = 0.6f;
+
     private Elis_MoveType moveType;
 
     private Rigidbody2D rb;
@@ -66,6 +72,12 @@ public class ElisManager : MonoBehaviour, IDamageable
     [HideInInspector]
     public bool mianAvatarDeadFlg = false;
 
+    private bool floatingFlg = false;
+    private bool floatedFlg = false;
+    private bool felldownFlg = false;
+
+    private Vector2 directionF;
+
 
     void Awake()
     {
@@ -86,11 +98,24 @@ public class ElisManager : MonoBehaviour, IDamageable
         shotFlg = false;
         moveFlg = false;
         avatarStartFlg = false;
+        floatingFlg = false;
+        floatedFlg = false;
+        felldownFlg = false;
     }
 
     private void Update()
     {
         MoveTypeChange();
+        SeePlayer();
+    }
+
+    /// <summary>
+    /// プレイヤーの方向を見る
+    /// </summary>
+    private void SeePlayer()
+    {
+        if (playerTr.transform.position.x <= transform.position.x) transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        else transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     }
 
     private void MoveTypeChange()
@@ -263,7 +288,77 @@ public class ElisManager : MonoBehaviour, IDamageable
     /// </summary>
     private void FallingAttack()
     {
+        //画面外まで飛び上がる
+        if (!floatedFlg)
+        {
+            if (!floatingFlg)
+            {
+                floatingFlg = true;
 
+                //画面の左側にいるとき
+                if (playerTr.transform.position.x <= transform.position.x) targetPos = new Vector2(transform.position.x - 1, transform.position.y + 5);
+                else targetPos = new Vector2(transform.position.x + 1, transform.position.y + 5);
+            }
+
+            // 現在位置から目標位置までの方向を取得
+            Vector2 direction = ((Vector3)targetPos - transform.position).normalized;
+
+            // 移動ベクトルを計算
+            Vector2 moveVector = elisData.F_MoveUpSpeed * Time.deltaTime * direction;
+
+            // Rigidbody2D に速度を適用
+            rb.velocity = moveVector;
+
+            // 目標位置に近づいたかどうかを判定
+            if (Vector2.Distance(transform.position, targetPos) < 0.1f)
+            {
+                // 目標位置に到達したら移動を停止
+                rb.velocity = Vector2.zero;
+                floatedFlg = true;
+                floatingFlg = false;
+                targetPos = playerTr.transform.position;
+
+                //プレイヤーの真上付近まで移動
+                if (targetPos.x < transform.position.x) transform.position = new Vector2(targetPos.x + 1f, transform.position.y);
+                else transform.position = new Vector2(targetPos.x - 1f, transform.position.y);
+
+                // 現在位置から目標位置までの方向を取得
+                directionF = ((Vector3)targetPos - transform.position).normalized;
+            }
+        }
+        //落下
+        else
+        {
+            if (!felldownFlg)
+            {
+                // 移動ベクトルを計算
+                Vector2 moveVector = elisData.F_MoveDownSpeed * Time.deltaTime * directionF;
+
+                // Rigidbody2D に速度を適用
+                rb.velocity = moveVector;
+
+                //着地判定
+                if (GroundCheck())
+                {
+                    felldownFlg = true;
+                    rb.velocity = Vector2.zero;
+
+                    //衝撃波
+                }
+            }
+            else
+            {
+                //着地後の硬直
+                if (timer >= elisData.F_WaitTime)
+                {
+                    moveType = Elis_MoveType.Move;
+                    timer = 0;
+                    floatedFlg = false;
+                    felldownFlg = false;
+                }
+                else timer += Time.deltaTime;
+            }
+        }
     }
 
     /// <summary>
@@ -319,12 +414,28 @@ public class ElisManager : MonoBehaviour, IDamageable
     /// </summary>
     /// <param name="value"></param>
     /// <param name="pos"></param>
-    public void MainAvatarDead(int value,Vector3 pos)
+    public void MainAvatarDead(int value, Vector3 pos)
     {
         this.transform.position = pos;
         TakeDamage(value);
         mianAvatarDeadFlg = true;
         moveType = Elis_MoveType.Move;
         avatarStartFlg = false;
+    }
+
+
+    private bool GroundCheck()
+    {
+        // レイの始点をこのオブジェクトの位置に設定
+        Vector2 origin = transform.position;
+
+        // レイの方向を真下に設定
+        Vector2 direction = Vector2.down;
+
+        // レイキャストを実行し、当たったオブジェクトの情報を取得
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, rayLength, groundLeyer);
+        Debug.DrawRay(origin, direction * rayLength, Color.red);
+
+        return hit.collider != null;
     }
 }

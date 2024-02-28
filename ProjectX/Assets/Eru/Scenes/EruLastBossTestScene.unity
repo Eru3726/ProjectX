@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 295809897}
   - component: {fileID: 295809896}
   - component: {fileID: 295809895}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -273,6 +273,10 @@ MonoBehaviour:
   centerPos: {x: 0, y: 1}
   leftPos: {x: -5, y: 2}
   avatarObj: {fileID: 3098009637320079483, guid: 019e1e400ee0a77458c5ffee751f3c51, type: 3}
+  groundLeyer:
+    serializedVersion: 2
+    m_Bits: 8
+  rayLength: 0.6
   avatarStartFlg: 0
   mianAvatarDeadFlg: 0
 --- !u!212 &1177302714
@@ -351,7 +355,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
