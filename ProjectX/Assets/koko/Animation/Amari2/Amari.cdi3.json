@@ -1,0 +1,17 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "走り_アイドル"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "髪揺れ"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": []
+}
