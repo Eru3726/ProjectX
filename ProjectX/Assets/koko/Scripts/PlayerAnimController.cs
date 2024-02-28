@@ -4,103 +4,91 @@ using UnityEngine;
 
 public class PlayerAnimController : MonoBehaviour
 {
-    enum AnimData
-    {
-        idol,
-        run,
-        attack1,
-        attack2,
-        attack3
-    }
 
-    [SerializeField, Header("amariアタッチ")]
+    [SerializeField, Header("amariアニメアタッチ")]
     GameObject amari;
 
-    [SerializeField, Header("amari_attack1アタッチ")]
-    GameObject amari_Attack1;
+    [SerializeField, Header("amariアニメアタッチ")]
+    GameObject amariRun;
 
-    [SerializeField, Header("amari_attack2アタッチ")]
-    GameObject amari_Attack2;
+    [SerializeField, Header("Playerアタッチ")]
+    GameObject parentPlayer;
 
-    [SerializeField, Header("amari_attack3アタッチ")]
-    GameObject amari_Attack3;
+    [SerializeField]
+    Animator anim;
 
-    [SerializeField, Header("idol and run")]
-    Animator amariAnim;
+    [SerializeField]
+    Animator animRun;
 
-    [SerializeField, Header("atk1")]
-    Animator atk1Anim;
-
-    [SerializeField, Header("atk2")]
-    Animator atk2Anim;
-
-    [SerializeField, Header("atk3")]
-    Animator atk3Anim;
-
-    [SerializeField, Header("PlayerInputアタッチ")]
+    [SerializeField]
     PlayerInput pi;
 
-    [SerializeField, Header("MoveControllerアタッチ")]
+    [SerializeField]
     MoveController mc;
+
+    [SerializeField]
+    Rigidbody2D rb2d;
 
     private void Start()
     {
-        amariAnim = amari.GetComponent<Animator>();
+        anim = amari.GetComponent<Animator>();
+        // animRun = amariRun.GetComponent<Animator>();
 
-        atk1Anim = amari_Attack1.GetComponent<Animator>();
-
-        atk3Anim = amari_Attack3.GetComponent<Animator>();
-
+        pi = parentPlayer.GetComponent<PlayerInput>();
+        mc = parentPlayer.GetComponent<MoveController>();
+        rb2d = parentPlayer.GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        if (pi.skillTime[(int)StageData.ACT_DATA.NM3] > 0)
+        if (pi.CheckActSkill())
         {
-            atk3Anim.Play("Amari_Attack3_Animation");
-
-            amari.SetActive(false);
-            amari_Attack1.SetActive(false);
-            // amari_Attack2.SetActive(false);
-            amari_Attack3.SetActive(true);
+            if (pi.skillTime[(int)StageData.ACT_DATA.NM3] > 0)
+            {
+                anim.Play("Amari_Attack3Animation_Final");
+            }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.NM2] > 0)
+            {
+                anim.Play("Amari_Attack2Animation_Final");
+            }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.NM1] > 0)
+            {
+                anim.Play("Amari_Attack1Animation_Final");
+            }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.LB1] > 0)
+            {
+                anim.Play("Amari_BeamPAnimation_Final");
+            }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.AA1] > 0)
+            {
+                anim.Play("Amari_BeamRAnimation_Final");
+            }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.ND1] > 0)
+            {
+                anim.Play("Amari_AvoidanceAnimation");
+            }
         }
-        else if (pi.skillTime[(int)StageData.ACT_DATA.NM2] > 0)
+        else if(!mc.IsGround())
         {
-            atk1Anim.Play("Amari_Attack1_Animation");
-            //atk2Anim.Play("Amari_Attack2_Animation");
-
-            amari.SetActive(false);
-            amari_Attack1.SetActive(true);
-            //amari_Attack1.SetActive(false);
-            //amari_Attack2.SetActive(true);
-            amari_Attack3.SetActive(false);
-        }
-        else if (pi.skillTime[(int)StageData.ACT_DATA.NM1] > 0)
-        {
-            atk1Anim.Play("Amari_Attack1_Animation");
-
-            amari.SetActive(false);
-            amari_Attack1.SetActive(true);
-            //amari_Attack2.SetActive(false);
-            amari_Attack3.SetActive(false);
-        }
-        else if (mc.GetLR() != 0)
-        {
-            amariAnim.Play("Amari_RunAnimation");
-
-            amari.SetActive(true);
-            amari_Attack1.SetActive(false);
-            //amari_Attack2.SetActive(false);
-            amari_Attack3.SetActive(false);
+            if(rb2d.velocity.y >= 0)
+            {
+                anim.Play("Amari_JumpAnimation_Final");
+            }
+            else
+            {
+                anim.Play("Amari_FallingAnimation_Final");
+            }
         }
         else
         {
-            amariAnim.Play("Amari_NomalAnimation");
-
-            amari.SetActive(true);
-            amari_Attack1.SetActive(false);
-            //amari_Attack2.SetActive(false);
-            amari_Attack3.SetActive(false);
+            if (mc.GetLR() != 0)
+            {
+                anim.Play("Amari_RunAnimation_Final");
+            }
+            else
+            {
+                anim.Play("Amari_IdleAnimation_Final");
+            }
         }
     }
 }

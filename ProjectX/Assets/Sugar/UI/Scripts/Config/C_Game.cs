@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Networking;
+//using UnityEngine.Networking;
 
 public class C_Game : MonoBehaviour
 {
+    [SerializeField] Mng_Game Manager;
     // これが表示されている間動かない
     [SerializeField] GameObject panel;
 
@@ -115,14 +116,19 @@ public class C_Game : MonoBehaviour
                 // 上入力
                 if (Input.GetKeyDown(KeyCode.W) && Listnum > 0)
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
                     Listnum--;
                 }
                 // 下入力
                 else if (Input.GetKeyDown(KeyCode.S) && Listnum < box - 1)
-                { Listnum++; }
+                {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
+                    Listnum++; 
+                }
 
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.enter);
                     if (Listnum == 0)
                     {
                         method = 1;
@@ -145,6 +151,7 @@ public class C_Game : MonoBehaviour
                 }
                 if(Input.GetKeyDown(KeyCode.Tab))
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.tab);
                     panel.SetActive(true);
                     ConfigP.GetComponent<Config>().enabled = true;
                     this.gameObject.GetComponent<C_Game>().enabled = false;
@@ -155,18 +162,21 @@ public class C_Game : MonoBehaviour
             case 1:
                 // 上入力
                 if (Input.GetKeyDown(KeyCode.W) && num > 0)
-                { 
+                {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
                     num--;
                 }
                 // 下入力
                 else if (Input.GetKeyDown(KeyCode.S) && num < box - 1)
-                { 
+                {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.wasd);
                     num++;
                 }
 
                 if (Input.GetKeyDown(KeyCode.Return))
-                {   
-                    for(int i=0;i<textspd.Length;i++)
+                {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.enter);
+                    for (int i=0;i<textspd.Length;i++)
                     {
                         textspd[i].GetComponent<Text>().enabled = false;
                     }
@@ -175,6 +185,7 @@ public class C_Game : MonoBehaviour
                 }
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
+                    Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.tab);
                     for (int i = 0; i < textspd.Length; i++)
                     {
                         textspd[i].GetComponent<Text>().enabled = false;

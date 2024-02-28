@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
-  m_Name: slime (1).fadeMotionList
+  m_Name: Enemy.fadeMotionList
   m_EditorClassIdentifier: 
-  MotionInstanceIds: a2a7feff
+  MotionInstanceIds: 84c2ffff
   CubismFadeMotionObjects:
-  - {fileID: 11400000, guid: 00e7a6edb5b07c042a8c65cde1f1ba0a, type: 2}
+  - {fileID: 0}

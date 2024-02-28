@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2411580333464648911}
   - component: {fileID: 191597946307321407}
-  - component: {fileID: 3855151044812910856}
   - component: {fileID: -4657750010129952731}
+  - component: {fileID: 277167498728950975}
+  - component: {fileID: 7291180857355555855}
   m_Layer: 0
   m_Name: AngerArea
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,29 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3855151044812910856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6224799489942547280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54524224d32f5c40980844ef0227917, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dmg: 1
-  shock: 1
-  inv: 0.1
-  apFlag: 1
-  apPos: {x: 0, y: 0, z: 0}
-  atkType: 27
-  atkLayer: 1
-  groundDestroyFlag: 0
-  isLife: 1
-  lifeCount: 2
-  isBullet: 0
 --- !u!61 &-4657750010129952731
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134,3 +112,35 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &277167498728950975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6224799489942547280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5029246a38c09b644a076398a950d2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  damage: 10
+  delay: 1
+  list: []
+--- !u!114 &7291180857355555855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6224799489942547280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedb5144f10b05b4e9e7376e0dc6e11f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundDestroyFlag: 0
+  isLife: 1
+  lifeCount: 2
+  isBullet: 0

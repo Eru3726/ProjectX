@@ -7,7 +7,7 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
     [SerializeField] int maxHp = 20;
     [SerializeField] int nowHp;
     [SerializeField] float resist = 1;
-    [SerializeField] float inv = 0;
+    [SerializeField] public float time = 0;
 
     [SerializeField]
     public int barrier = 0;
@@ -22,13 +22,24 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
 
     public float shockResist => resist;
 
-    public float invTime => inv;
+    public float invTime => time;
 
     public void TakeDamage(int value)
     {
-        if (inv <= 0)
+        if (time <= 0)
         {
-            nowHp -= value;
+            if (barrier > 0)
+            {
+                barrier -= value;
+                if (barrier <= 0)
+                {
+                    barrier = 0;
+                }
+            }
+            else
+            {
+                nowHp -= value;
+            }
 
             if (nowHp <= 0)
             {
@@ -39,7 +50,7 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
 
     public void TakeShock(float value, Vector3 pos)
     {
-        if (inv <= 0)
+        if (time <= 0)
         {
             Vector3 shockDir = pos - this.transform.position;
 
@@ -50,11 +61,13 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
         }
     }
 
+    public void TakeStop() { }
+
     public void TakeInv(float value)
     {
-        if (inv <= 0)
+        if (time <= 0)
         {
-            inv = value;
+            time = value;
         }
     }
 
@@ -73,13 +86,13 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
 
     void FixedUpdate()
     {
-        if (inv > 0)
+        if (time > 0)
         {
-            inv -= Time.deltaTime;
+            time -= Time.deltaTime;
         }
         else
         {
-            inv = 0;
+            time = 0;
         }
     }
 }
