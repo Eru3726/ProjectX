@@ -1,0 +1,23 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "amari_3.moc3",
+		"Textures": [
+			"amari_3.2048/texture_00.png"
+		],
+		"Physics": "amari_3.physics3.json",
+		"DisplayInfo": "amari_3.cdi3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": []
+		}
+	]
+}

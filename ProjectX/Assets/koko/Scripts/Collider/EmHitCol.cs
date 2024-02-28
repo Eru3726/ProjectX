@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmHitCol : MonoBehaviour, IDamageable
+public class EmHitCol : MonoBehaviour, IDamageable, IShockable
 {
-    [SerializeField] int maxHp = 10;
+    [SerializeField] int maxHp = 20;
     [SerializeField] int nowHp;
     [SerializeField] float resist = 1;
 
     [SerializeField, Header("mcアタッチ")]
     public MoveController mc;
-
-    public EnemyController ec;
 
     [SerializeField, Header("本体アタッチ")]
     public GameObject body;
@@ -30,11 +28,25 @@ public class EmHitCol : MonoBehaviour, IDamageable
         }
     }
 
+    public void TakeShock(float value, Vector3 pos)
+    {
+        Vector3 shockDir = pos - this.transform.position;
+
+        if (mc != null)
+        {
+            mc.InputFlick(this.transform.position - shockDir, value * resist, 0.5f, false);
+        }
+    }
+
+    public void TakeStop() 
+    {
+        mc.InputFlickStop();
+    }
+
     void Die()
     {
         if (body != null)
         {
-            
             Destroy(body.gameObject);
         }
     }
@@ -42,10 +54,5 @@ public class EmHitCol : MonoBehaviour, IDamageable
     void Start()
     {
         nowHp = maxHp;
-    }
-
-    void FixedUpdate()
-    {
-        
     }
 }

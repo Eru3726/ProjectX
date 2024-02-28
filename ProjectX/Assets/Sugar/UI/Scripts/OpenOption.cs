@@ -21,6 +21,8 @@ public class OpenOption : MonoBehaviour
 
     [SerializeField] float spdX_under;
     [SerializeField] float spdY_under;
+
+    [SerializeField] Mng_Game Manager;
     void Start()
     {
         // マウスカーソル削除
@@ -41,13 +43,15 @@ public class OpenOption : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if (MenuObj.activeSelf==false&&interval) 
-            { 
+            {
+                Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.esc);
                 MenuObj.SetActive(true);
                 MoveUI = true;
                 
             }
             else if(MenuObj.activeSelf==true&&interval)
             {
+                Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.tab);
                 MenuObj.SetActive(false);
             }
         }

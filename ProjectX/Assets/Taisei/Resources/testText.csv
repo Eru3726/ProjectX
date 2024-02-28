@@ -1,8 +1,8 @@
-﻿"message				",charaName,charaIcon,LorR,anims,choiseNo,choiseName,textFlg
+﻿"message				",charaName,charaIcon,LorR,anims,choiseNo,choiseName
 "えんだぁぁぁああああああ！
-いやぁぁあああああ！",あ,1,FALSE,0,0,,
-"これはテストです	",(´・ω・｀),2,TRUE,0,0,,
-"改行するとこうなります	",やぁ,2,FALSE,1,0,,
-"あいうえお	",どうも,1,TRUE,1,0,,
-"かきくけこ	",こんにちは,2,TRUE,0,0,,
-"さしすせそ	",(´;ω;｀),1,FALSE,0,0,,
+いやぁぁあああああ！",あ,1,FALSE,0,0,
+"これはテストです	",(´・ω・｀),2,TRUE,0,0,
+"改行するとこうなります	",やぁ,1,FALSE,1,0,
+"あいうえお	",どうも,1,TRUE,2,0,
+"かきくけこ	",こんにちは,2,FALSE,0,0,
+"さしすせそ	",(´;ω;｀),1,TRUE,3,0,
