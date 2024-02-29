@@ -132,6 +132,9 @@ MonoBehaviour:
   isLife: 1
   lifeCount: 5
   isBullet: 1
+  groundLm:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!58 &3424937521654278363
 CircleCollider2D:
   m_ObjectHideFlags: 0
