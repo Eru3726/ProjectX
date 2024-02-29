@@ -86,15 +86,8 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Movetimer += Time.deltaTime;
+            Movetimer += Time.deltaTime;
 
-        if(currentState == EnemyState.Homing || currentState == EnemyState.Dash)
-        {
-            animeMoveFlg = false;
-        }
-        if(Movetimer >= Random.Range(2f,4f))
-        {
-            currentState = (EnemyState)Random.Range(0, (int)EnemyState.Num);
             switch (currentState)
             {
                 case EnemyState.Idol: //次の行動に移るための待機
@@ -144,9 +137,6 @@ public class EnemyController : MonoBehaviour
                 case EnemyState.Die: //死んだ後の処理
                     break;
             }
-
-        }
-
     }
 
     IEnumerator IdolDelay()
