@@ -92,7 +92,7 @@ public class ElisManager : MonoBehaviour, IDamageable
         if (playerTr == null) playerTr = GameObject.Find("Player").transform;
 
         //moveType = Elis_MoveType.Entry;
-        moveType = Elis_MoveType.Standby;
+        moveType = Elis_MoveType.Move;
         rb.gravityScale = 0;
         halfHP = false;
         shotFlg = false;
@@ -296,8 +296,8 @@ public class ElisManager : MonoBehaviour, IDamageable
                 floatingFlg = true;
 
                 //画面の左側にいるとき
-                if (playerTr.transform.position.x <= transform.position.x) targetPos = new Vector2(transform.position.x - 1, transform.position.y + 5);
-                else targetPos = new Vector2(transform.position.x + 1, transform.position.y + 5);
+                if (playerTr.transform.position.x < transform.position.x) targetPos = new Vector2(playerTr.transform.position.x + 1f, transform.position.y + 5);
+                else targetPos = new Vector2(playerTr.transform.position.x - 1f, transform.position.y + 5);
             }
 
             // 現在位置から目標位置までの方向を取得
@@ -392,6 +392,7 @@ public class ElisManager : MonoBehaviour, IDamageable
     {
         if (halfHP) probabilities = new float[] { 0.60f, 0.25f, 0.15f };
         else probabilities = new float[] { 0.70f, 0.30f, 0.00f };
+        //else probabilities = new float[] { 0.0f, 0.0f, 1.00f };
 
         float rand = UnityEngine.Random.value; // 0.0から1.0までのランダムな値を生成
 
