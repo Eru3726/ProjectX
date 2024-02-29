@@ -1,0 +1,22 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "Dora_TextScene_Final.moc3",
+		"Textures": [
+			"Dora_TextScene_Final.1024/texture_00.png"
+		],
+		"DisplayInfo": "Dora_TextScene_Final.cdi3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		}
+	]
+}
