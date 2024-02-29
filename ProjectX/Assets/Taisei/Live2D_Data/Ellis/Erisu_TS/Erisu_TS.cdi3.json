@@ -1,0 +1,37 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "ベロピロピロ"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "髪揺れ"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "",
+			"Name": "呼吸"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "瞬き"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "腕"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part",
+			"Name": "フォルダー 1"
+		}
+	]
+}

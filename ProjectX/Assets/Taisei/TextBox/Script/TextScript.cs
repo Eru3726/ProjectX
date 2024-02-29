@@ -149,10 +149,15 @@ public class TextScript : MonoBehaviour
     private int[] splitAnims;
     private int animsNum;
     private string animStr;
+    private string saveAnim;
     //アニメーション配列
     [SerializeField] private string[] chara1_anim;  //主人公
     [SerializeField] private string[] chara2_anim;  //ムカムカ
     [SerializeField] private string[] chara3_anim;  //メソメソ
+    [SerializeField] private string[] chara4_anim;  //ドーラ
+    [SerializeField] private string[] chara5_anim;  //マスター
+    [SerializeField] private string[] chara6_anim;  //グレン
+    [SerializeField] private string[] chara7_anim;  //エリス
         
     //CSV関連
     public TextData[] textData;
@@ -358,8 +363,12 @@ public class TextScript : MonoBehaviour
                             }
                             animL = LeftPosT.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
                         }
-                        CharaAnim(); 
-                        animL.Play(animStr);
+                        CharaAnim();
+                        if (animStr != saveAnim || !firstStandP)
+                        {
+                            animL.Play(animStr);
+                        }
+                        saveAnim = animStr;
                     }
                     //システムメッセージの場合
                     else
@@ -402,7 +411,11 @@ public class TextScript : MonoBehaviour
                             animR = RightPosT.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
                         }
                         CharaAnim();
-                        animR.Play(animStr);
+                        if (animStr != saveAnim || !firstStandP)
+                        {
+                            animR.Play(animStr);
+                        }
+                        saveAnim = animStr;
                     }
                     //システムメッセージの場合
                     else
