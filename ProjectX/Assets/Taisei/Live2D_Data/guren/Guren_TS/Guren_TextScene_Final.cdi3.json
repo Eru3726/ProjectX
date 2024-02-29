@@ -1,0 +1,126 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "Normal"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "こぶし"
+		},
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "髪揺れ"
+		},
+		{
+			"Id": "Param9",
+			"GroupId": "",
+			"Name": "瞬き"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "あわわくち"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "",
+			"Name": "ニヤリくち"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "",
+			"Name": "つむぎくち"
+		},
+		{
+			"Id": "Param8",
+			"GroupId": "",
+			"Name": "惚れ"
+		},
+		{
+			"Id": "Param7",
+			"GroupId": "",
+			"Name": "青ざめ"
+		},
+		{
+			"Id": "Param10",
+			"GroupId": "",
+			"Name": "呼吸"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part",
+			"Name": "フォルダー 4"
+		},
+		{
+			"Id": "Part2",
+			"Name": "じょうはんしん"
+		},
+		{
+			"Id": "Part3",
+			"Name": "顔"
+		},
+		{
+			"Id": "Part13",
+			"Name": "下絵"
+		},
+		{
+			"Id": "PartSketch0",
+			"Name": "[ 下絵 ]"
+		},
+		{
+			"Id": "Part4",
+			"Name": "ひだりめ"
+		},
+		{
+			"Id": "Part6",
+			"Name": "みぎめ"
+		},
+		{
+			"Id": "Part8",
+			"Name": "顔基礎"
+		},
+		{
+			"Id": "Part11",
+			"Name": "かお-いろ"
+		},
+		{
+			"Id": "Part12",
+			"Name": "うしろがみ"
+		},
+		{
+			"Id": "Part14",
+			"Name": "フォルダー 3 のコピー"
+		},
+		{
+			"Id": "Part15",
+			"Name": "フォルダー 5"
+		},
+		{
+			"Id": "Part16",
+			"Name": "フォルダー 3"
+		},
+		{
+			"Id": "Part5",
+			"Name": "ひだりめいろ"
+		},
+		{
+			"Id": "Part7",
+			"Name": "フォルダー 7"
+		},
+		{
+			"Id": "Part9",
+			"Name": "まえがみ1"
+		},
+		{
+			"Id": "Part10",
+			"Name": "フォルダー 2"
+		}
+	]
+}

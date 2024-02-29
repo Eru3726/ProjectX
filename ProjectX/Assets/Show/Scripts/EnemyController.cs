@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+
+    [SerializeField] GameObject Guren_GS;
+
+    [SerializeField] Animator GurenAnim;
+
     GameObject player;
-   
+
     MoveController mc;
    
     MoveController plmc;
@@ -23,6 +28,8 @@ public class EnemyController : MonoBehaviour
     [Header("Moveのbool型変数")]
     public bool warpcheck = true;
 
+    public bool nowDashFlg = false;
+
     public float minX = 3f;  // 移動可能なX座標の最小値
     public float maxX = 6f;   // 移動可能なX座標の最大値
     public float minY = 4f;   // 移動可能なY座標の最小値
@@ -33,11 +40,21 @@ public class EnemyController : MonoBehaviour
     [Header("Enemyの弾Prefab")]
     public GameObject ShellPre;
 
-
     int eight = 8;
- 
-    float warpDelay = 1f; //ワープするまでの時間
-    float idolDelay = 1.5f; //待機時間
+    int Movecounter = 0;
+    int Homcounter = 0;
+
+    float warpDelay = 0.7f; //ワープするまでの時間
+    float idolDelay = 1f; //待機時間
+    float Movetimer = 0f;
+    float Homtimer = 0f;
+    float distance = 0.1f;
+
+
+
+    bool animeHomFlg = false;
+    bool animeMoveFlg = false;
+
 
     private bool nowHomingFlg = false;
     public bool ishoming = false;
@@ -65,63 +82,73 @@ public class EnemyController : MonoBehaviour
         mc = gameObject.GetComponent<MoveController>();
         plmc = player.gameObject.GetComponent<MoveController>();
         sc = gameObject.GetComponent<ShellController>();
+        GurenAnim = Guren_GS.GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
-        switch (currentState)
+        Movetimer += Time.deltaTime;
+
+        Vector3 dis = player.transform.position - transform.position;
+
+        if (dis.x >= -distance)
         {
-
-            case EnemyState.Idol: //次の行動に移るための待機
-
-                movecheck = true;
-                warpcheck = true;
-                currentState = EnemyState.Idol2;
-                StartCoroutine(IdolDelay());
-                break;
-
-            case EnemyState.Idol2: //保護
-                break;
-
-            case EnemyState.Move: //ワープの処理
-                Debug.Log("Move");
-
-                EnemyMove(); //Enemyの通常時の動き
-
-                break;
-
-            case EnemyState.Homing:　//ホーミング攻撃の処理
-
-                Debug.Log("Homing");
-                EnemyHoming();
-                break;
-
-            case EnemyState.Dash:　//突進の処理
-
-                Debug.Log("Dash");
-
-                EnemyDash();
-                break;
-
-            case EnemyState.Warp:  //移動
-                Debug.Log("Warp");
-                currentState = EnemyState.Warp2;
-
-                StartCoroutine(WarpDelay());
-                break;
-
-            case EnemyState.Warp2:
-                break;
-
-            case EnemyState.Down:　//ダウン
-
-
-                break;
-            case EnemyState.Die:　//消滅
-
-
-                break;
+            transform.localScale = new Vector3(-2, 2, 1);
         }
+        if (dis.x <= distance)
+        {
+            transform.localScale = new Vector3(2, 2, 1);
+        }
+
+        switch (currentState)
+            {
+                case EnemyState.Idol: //次の行動に移るための待機
+                    movecheck = true;
+                    warpcheck = true;
+                    currentState = EnemyState.Idol2;
+                    StartCoroutine(IdolDelay());
+                    break;
+
+                case EnemyState.Idol2: //保護
+                    break;
+
+                case EnemyState.Move: //ワープの処理
+                    Debug.Log("Move");
+
+                    EnemyMove(); //Enemyの通常時の動き
+
+                    break;
+
+                case EnemyState.Homing: //ホーミング攻撃の処理
+
+                    Debug.Log("Homing");
+                    EnemyHoming();
+                    break;
+
+                case EnemyState.Dash: //突進の処理
+
+                    Debug.Log("Dash");
+
+                    EnemyDash();
+                    break;
+
+                case EnemyState.Warp:  //移動
+                    Debug.Log("Warp");
+                    currentState = EnemyState.Warp2;
+
+                    StartCoroutine(WarpDelay());
+                    break;
+
+                case EnemyState.Warp2:
+                    break;
+
+                case EnemyState.Down: //ダウン
+
+
+                    break;
+                case EnemyState.Die: //死んだ後の処理
+                    break;
+            }
     }
 
     IEnumerator IdolDelay()
@@ -133,43 +160,57 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator WarpDelay()
     {
-        this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+        //this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         yield return new WaitForSeconds(warpDelay);
         EnemyWarp();
     }
 
     void EnemyMove()
     {
-        if (movecheck && plmc.IsGround())
-        {
-            Debug.Log("a");
-            Vector2 playerPos = player.transform.position;
-            Vector2 enemyPos = transform.position;
-            //Vector2 pos = new Vector2(playerPos.x, 0);
-            float directionX = playerPos.x - transform.position.x;
+        //if (movecheck && plmc.IsGround())
+        //{
+        //    GurenAnim.Play("Guren_FSAnimation");
+        //    Vector2 playerPos = player.transform.position;
+        //    Vector2 enemyPos = transform.position;
+        //    float directionX = playerPos.x - transform.position.x;
 
-            // rb.velocity = new Vector2(directionX, rb.velocity.y).normalized * 5.0f;
+        //    mc.InputLR((int)Mathf.Sign(directionX));
 
-            mc.InputLR((int)Mathf.Sign(directionX));
+        //    float dis = Vector2.Distance(playerPos, enemyPos);
 
-            float dis = Vector2.Distance(playerPos, enemyPos);
-
-            if (dis <= Atkdis)
+        //    if (dis <= Atkdis)
+        //    {
+        //        mc.InputLR(0);
+        if (!animeMoveFlg) 
+        { 
+            if (Movetimer >=  2)
             {
-                mc.InputLR(0);
-
-                Debug.Log("追従");
-                currentState = EnemyState.Dash;
-
+                animeMoveFlg = true;
+                GurenAnim.Play("Guren_FSAnimation");
             }
         }
-        
-    }
+        else
+        {
+            if (Movetimer >= 4)
+            {
+                currentState = EnemyState.Dash;
+            }
+        }
+
+    //    }
+
+    //}
+    //else
+    //{
+    //    GurenAnim.Play("Guren_NomalAnimation");
+    //}
+}
 
     void EnemyDash()
     {
         Debug.Log("突進");
-        mc.InputFlick(player.transform.position, 20, 0.3f, true);
+        Vector3 pos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+        mc.InputFlick(pos, 35 ,0.3f, true);
         currentState = EnemyState.Idol;
     }
 
@@ -189,9 +230,12 @@ public class EnemyController : MonoBehaviour
         currentState = EnemyState.Homing;
     }
     void EnemyHoming()
-    {
+    { 
+        GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
         if (ishoming)
         {
+            Movetimer = 0;
+            animeMoveFlg = false;
             currentState = EnemyState.Move;
             nowHomingFlg = false;
             ishoming = false;
@@ -200,27 +244,34 @@ public class EnemyController : MonoBehaviour
         if (nowHomingFlg) return;
 
         nowHomingFlg = true;
+      
 
-        Vector2[] enemyPos = new Vector2[eight];
+        //Vector2[] enemyPos = new Vector2[eight];
         GameObject[] shell = new GameObject[eight];
+
+        Vector2 enemyPos = transform.position;
+        enemyPos.x += 1.0f;
 
         for (int i = 0; i < eight; i++)
         {
-            enemyPos[i] = transform.position;
-            enemyPos[i].x += 1f;
-            enemyPos[i].y += 1f;
-            shell[i] = Instantiate(ShellPre, enemyPos[i], Quaternion.identity);
-    
+            Debug.Log("a");
+            //enemyPos[i] = transform.position;
+            enemyPos.y += 0.4f;
+            //transform.position = enemyPos[i];
+            shell[i] = Instantiate(ShellPre, enemyPos, Quaternion.identity);
+            Debug.Log(shell[i]);
             sc = shell[i].GetComponent<ShellController>();
             sc.ec = GetComponent<EnemyController>();
         }
     }
-    void EnemyDown()
-    {
-
+    public void EnemyDown()
+    { 
+        GurenAnim.Play("Guren_GS_DownAnimation");
     }
-    void EnemyDie()
+    public void EnemyDie()
     {
-        
+        //死亡処理
+        GurenAnim.Play("Guren_FSAnimation");
+        Destroy(this.gameObject);
     }
 }

@@ -7,7 +7,7 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
     [SerializeField] int maxHp = 20;
     [SerializeField] int nowHp;
     [SerializeField] float resist = 1;
-    [SerializeField] float time = 0;
+    [SerializeField] public float time = 0;
 
     [SerializeField]
     public int barrier = 0;
@@ -28,7 +28,18 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
     {
         if (time <= 0)
         {
-            nowHp -= value;
+            if (barrier > 0)
+            {
+                barrier -= value;
+                if (barrier <= 0)
+                {
+                    barrier = 0;
+                }
+            }
+            else
+            {
+                nowHp -= value;
+            }
 
             if (nowHp <= 0)
             {
