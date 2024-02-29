@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  targetLayer: 2
   targetLm:
     serializedVersion: 2
     m_Bits: 64
@@ -141,6 +140,9 @@ MonoBehaviour:
   isLife: 1
   lifeCount: 5
   isBullet: 1
+  groundLm:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!61 &3798301893042873570
 BoxCollider2D:
   m_ObjectHideFlags: 0
