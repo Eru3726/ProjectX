@@ -1,0 +1,22 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "パタパタ"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "ぱちぱち"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "アイドル"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": []
+}

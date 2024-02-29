@@ -1,11 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OpenOption : MonoBehaviour
 {
     [SerializeField] RectTransform under; 
     [SerializeField] GameObject MenuObj;
+
+    [SerializeField] GameObject Panel1; // Item
+    [SerializeField] GameObject Panel2; // Skill
+    [SerializeField]string SceneName1; // Item項目をどこのシーンから解放するか
+    [SerializeField]string SceneName2; // Skill
+    // アウトラインの座標を戻すように
+    [SerializeField] RectTransform rtf;
     // フェード中のボタン制御
     [SerializeField] GameObject[] fadeList;
     // Escキーの連打対策
@@ -23,10 +31,29 @@ public class OpenOption : MonoBehaviour
     [SerializeField] float spdY_under;
 
     [SerializeField] Mng_Game Manager;
+    public static OpenOption instance;
+    // シーン切り替えても破棄
+    // されないようにする
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        CheckInstance();
+    }
+    void CheckInstance()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         // マウスカーソル削除
-        Cursor.visible = false;
+       // Cursor.visible = false;
         // メニュー画面を閉じておく
         MenuObj.SetActive(false);
     }
@@ -34,6 +61,19 @@ public class OpenOption : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // タイトルシーンではアイテムとスキル項目をロック
+        if(SceneManager.GetActiveScene().name == "TitleScene") { 
+            Panel1.SetActive(true);
+            Panel2.SetActive(true);
+        }
+        if (SceneManager.GetActiveScene().name == SceneName1)
+        {
+            Panel1.SetActive(false);
+        }
+        else if (SceneManager.GetActiveScene().name == SceneName2)
+        {
+            Panel2.SetActive(false);
+        }
         // 書き方汚いのでいつか修正します。
         if (fadeList[0].activeSelf == true) { return; }
         else if (fadeList[1].activeSelf == true) { return; }
@@ -52,6 +92,7 @@ public class OpenOption : MonoBehaviour
             else if(MenuObj.activeSelf==true&&interval)
             {
                 Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.tab);
+                rtf.localRotation = Quaternion.Euler(0, 0, 0);
                 MenuObj.SetActive(false);
             }
         }
@@ -61,7 +102,7 @@ public class OpenOption : MonoBehaviour
         }
 
         // キー入力なしの時アンダーライン表示
-        if(!Input.anyKey)
+        if(!Input.anyKey&& SceneManager.GetActiveScene().name != "TitleScene")
         {
             timer += Time.deltaTime;
             if (under.anchoredPosition != new Vector2(0, 0) && timer >= 5.0f)
