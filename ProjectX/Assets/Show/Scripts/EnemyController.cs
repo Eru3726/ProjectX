@@ -48,6 +48,7 @@ public class EnemyController : MonoBehaviour
     float idolDelay = 1f; //待機時間
     float Movetimer = 0f;
     float Homtimer = 0f;
+    float distance = 0.1f;
 
 
 
@@ -86,9 +87,20 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-            Movetimer += Time.deltaTime;
+        Movetimer += Time.deltaTime;
 
-            switch (currentState)
+        Vector3 dis = player.transform.position - transform.position;
+
+        if (dis.x >= -distance)
+        {
+            transform.localScale = new Vector3(-2, 2, 1);
+        }
+        if (dis.x <= distance)
+        {
+            transform.localScale = new Vector3(2, 2, 1);
+        }
+
+        switch (currentState)
             {
                 case EnemyState.Idol: //次の行動に移るための待機
                     movecheck = true;

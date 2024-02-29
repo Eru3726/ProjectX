@@ -46,27 +46,32 @@ public class ShellController : MonoBehaviour
         }
         else
         {
-            shellVec.x = ShellSpd * Time.deltaTime * Mathf.Cos(radian);
-            shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
+            Vector3 direction = playerPos - transform.position;
+            direction.Normalize();
 
-            this.transform.Translate(shellVec);
+            // ミサイルをプレイヤーの方向に移動
+            transform.Translate(direction * ShellSpd * Time.deltaTime);
+            //shellVec.x = ShellSpd * Time.deltaTime * Mathf.Cos(radian);
+            //shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
 
-            // 外積を求めるために、ベクトルを作成する
-            // 弾の位置と、PLの位置のベクトル
-            Vector3 plVec = playerPos - transform.position;
-            // 弾の速度ベクトル
-            Vector3 spdVec = shellVec;
-            // 外積を求める
-            float cross = plVec.x * spdVec.y - spdVec.x * plVec.y;
+            //this.transform.Translate(shellVec);
 
-            if (cross > 0)
-            {
-                radian -= rotSpd * Time.deltaTime;  // 反時計回りさせる
-            }
-            else
-            {
-                radian += rotSpd * Time.deltaTime;  // 時計回りさせる
-            }
+            //// 外積を求めるために、ベクトルを作成する
+            //// 弾の位置と、PLの位置のベクトル
+            //Vector3 plVec = playerPos - transform.position;
+            //// 弾の速度ベクトル
+            //Vector3 spdVec = shellVec;
+            //// 外積を求める
+            //float cross = plVec.x * spdVec.y - spdVec.x * plVec.y;
+
+            //if (cross > 0)
+            //{
+            //    radian -= rotSpd * Time.deltaTime;  // 反時計回りさせる
+            //}
+            //else
+            //{
+            //    radian += rotSpd * Time.deltaTime;  // 時計回りさせる
+            //
         }
     }
 
