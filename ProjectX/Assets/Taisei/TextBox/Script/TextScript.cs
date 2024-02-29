@@ -844,6 +844,26 @@ public class TextScript : MonoBehaviour
             case 3:
                 animStr = chara3_anim[splitAnims[animsNum]];
                 break;
+
+            //ドーラ
+            case 4:
+                animStr = chara4_anim[splitAnims[animsNum]];
+                break;
+
+            //マスター
+            case 5:
+                animStr = chara5_anim[splitAnims[animsNum]];
+                break;
+
+            //グレン
+            case 6:
+                animStr = chara6_anim[splitAnims[animsNum]];
+                break;
+
+            //エリス
+            case 7:
+                animStr = chara7_anim[splitAnims[animsNum]];
+                break;
         }
     }
 

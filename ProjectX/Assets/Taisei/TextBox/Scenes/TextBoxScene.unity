@@ -3359,10 +3359,10 @@ MonoBehaviour:
   - {fileID: 2854018393099498570, guid: 0245f8a3416bb79418f32734888b119b, type: 3}
   - {fileID: 7583203451687980125, guid: 222575bf8f9dac04cb1f9c430da12091, type: 3}
   - {fileID: 371216475006941570, guid: 254366aea32aaff4aa97f6e5332cd379, type: 3}
-  - {fileID: 681977249184526006, guid: 0d9a85f871a2757449390c0ad880caf1, type: 3}
+  - {fileID: 5124840608017549081, guid: 0d9a85f871a2757449390c0ad880caf1, type: 3}
   - {fileID: 0}
   - {fileID: 7152933766715622264, guid: f454baa1557871f46971017dfa59b85c, type: 3}
-  - {fileID: 5003052059046682646, guid: 9f431429ab38f4548b4c7c866a76bb9a, type: 3}
+  - {fileID: 6696555694035199319, guid: 9f431429ab38f4548b4c7c866a76bb9a, type: 3}
   CharaConection: {fileID: 1798310086}
   LeftPosT: {fileID: 17112951}
   LeftPos: {fileID: 17112950}
