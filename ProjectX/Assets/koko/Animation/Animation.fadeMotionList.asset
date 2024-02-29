@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
   m_Name: Animation.fadeMotionList
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  MotionInstanceIds: 92f1ffff40dfffffa6eafffff6e7ffff
-=======
   MotionInstanceIds: 92f1ffff40dfffffa6eafffff6e7ffff20e0ffff16e0ffff0ee0ffff06e0fffffedfffff0adbffff02dbfffffadafffff2daffffeadaffff
->>>>>>> main
   CubismFadeMotionObjects:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+<<<<<<< HEAD
 =======
   - {fileID: 11400000, guid: 19aa2023d578659419325fdeffcf2b00, type: 2}
   - {fileID: 11400000, guid: 72d63158ca1d5684a9919cd65d54dfc6, type: 2}
@@ -41,4 +41,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7ab656014ffe189468bf3fd3e0983f8c, type: 2}
   - {fileID: 11400000, guid: 0b9967a5c1ebc204cbf524033a477e4a, type: 2}
   - {fileID: 11400000, guid: aa496a7c3d8c82349b746d414a4b64a3, type: 2}
+>>>>>>> main
+=======
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 >>>>>>> main

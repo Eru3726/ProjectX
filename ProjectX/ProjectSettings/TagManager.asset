@@ -9,6 +9,7 @@ TagManager:
   - Elis
   - Enemy
   - Neutral
+  - Shell
   layers:
   - Default
   - TransparentFX
@@ -17,9 +18,9 @@ TagManager:
   - Water
   - UI
   - Hit
-  - 
-  - 
-  - 
+  - Shell
+  - Player
+  - Enemy
   - 
   - 
   - 
