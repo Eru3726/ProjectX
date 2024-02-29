@@ -36,45 +36,40 @@ public class ShellController : MonoBehaviour
         shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
     }
 
-    
+
     void FixedUpdate()
     {
         time -= Time.deltaTime;
-        if (time > 0 )
+        if (time > 0)
         {
             transform.Translate(Vector3.up * ShellupSpd * Time.deltaTime);
         }
         else
         {
-            Vector3 direction = playerPos - transform.position;
-            direction.Normalize();
+            shellVec.x = ShellSpd * Time.deltaTime * Mathf.Cos(radian);
+            shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
 
-            // ミサイルをプレイヤーの方向に移動
-            transform.Translate(direction * ShellSpd * Time.deltaTime);
-            //shellVec.x = ShellSpd * Time.deltaTime * Mathf.Cos(radian);
-            //shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
+            this.transform.Translate(shellVec);
 
-            //this.transform.Translate(shellVec);
+            // 外積を求めるために、ベクトルを作成する
+            // 弾の位置と、PLの位置のベクトル
+            Vector3 plVec = playerPos - transform.position;
+            // 弾の速度ベクトル
+            Vector3 spdVec = shellVec;
+            // 外積を求める
+            float cross = plVec.x * spdVec.y - spdVec.x * plVec.y;
 
-            //// 外積を求めるために、ベクトルを作成する
-            //// 弾の位置と、PLの位置のベクトル
-            //Vector3 plVec = playerPos - transform.position;
-            //// 弾の速度ベクトル
-            //Vector3 spdVec = shellVec;
-            //// 外積を求める
-            //float cross = plVec.x * spdVec.y - spdVec.x * plVec.y;
+            if (cross > 0)
+            {
+                radian -= rotSpd * Time.deltaTime;  // 反時計回りさせる
+            }
+            else
+            {
+                radian += rotSpd * Time.deltaTime;  // 時計回りさせる
 
-            //if (cross > 0)
-            //{
-            //    radian -= rotSpd * Time.deltaTime;  // 反時計回りさせる
-            //}
-            //else
-            //{
-            //    radian += rotSpd * Time.deltaTime;  // 時計回りさせる
-            //
+            }
         }
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player")
