@@ -32,8 +32,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField, Header("左右")]
     public int piInputLR = 0;
 
-    [SerializeField, Header("後退可不可")]
-    public bool notEsc = false;
+    [SerializeField, Header("後退不可")]
+    public bool notBack = false;
 
     [SerializeField]
     public List<bool> actSkill = new List<bool>();
@@ -249,7 +249,7 @@ public class PlayerInput : MonoBehaviour
                 mc.InputLR(1);
                 piInputLR = 1;
             }
-            else if (Input.GetKey(KeyCode.A) && !notEsc)
+            else if (Input.GetKey(KeyCode.A) && !notBack)
             {
                 mc.InputLR(-1);
                 piInputLR = -1;
@@ -336,7 +336,7 @@ public class PlayerInput : MonoBehaviour
         plDir.x += transform.localScale.x;
 
         mc.InputFlick(plDir, 20, 0.2f, true);
-        hc.time = 0.3f; ;
+        hc.time = 0.3f;
     }
 
     void ActLB()
@@ -359,8 +359,6 @@ public class PlayerInput : MonoBehaviour
         float dist = 1;
         Vector3 startPos = new Vector3(plDir.x, plDir.y + (dist * (3.5f - num)), plDir.z);
         GameObject obj = Instantiate(LMPre, startPos, Quaternion.identity);
-
-        obj.GetComponent<OldAttackCollider>().atkType = StageData.ATK_DATA.LM1 + (num - 1);
 
         float delay;
         if (num == 1 || num == 6) { delay = 3; }
@@ -388,8 +386,6 @@ public class PlayerInput : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
             GameObject obj = Instantiate(AFPre, transform.position, Quaternion.identity);
-
-            obj.GetComponent<OldAttackCollider>().atkType = StageData.ATK_DATA.AF1 + i + (num * 6);
 
             Vector3 lea = obj.transform.localEulerAngles;
             lea.z = i * 60 + (num * 30);

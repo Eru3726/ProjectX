@@ -8,6 +8,9 @@ public class AttackOption : MonoBehaviour
     [SerializeField, Header("地形に当たったらDestroy")]
     protected bool groundDestroyFlag = false;
 
+    [SerializeField, Header("Groundをアタッチ")]
+    LayerMask groundLm;
+
     [SerializeField, Header("生存時間オンオフ")]
     protected bool isLife = false;
 
@@ -17,9 +20,6 @@ public class AttackOption : MonoBehaviour
     [SerializeField, Header("攻撃が当たったら消えるか")]
     public bool isBullet = false;
 
-    int delay = 0;
-
-    int groundLayer = 3;
 
     private void FixedUpdate()
     {
@@ -32,14 +32,18 @@ public class AttackOption : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == groundLayer && groundDestroyFlag)
+        if (collision.gameObject.layer == groundLm && groundDestroyFlag)
         {
+            Debug.Log("settinau");
             Destroy(this.gameObject);
         }
 
         if (!collision.gameObject.CompareTag(this.gameObject.tag.ToString()) && isBullet)
         {
-            Destroy(this.gameObject);
+            if (TryGetComponent<IDamageable>(out IDamageable id))
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

@@ -7,10 +7,7 @@ public class MissileController : MonoBehaviour
     [SerializeField]
     GameObject target;
 
-    [SerializeField]
-    StageData.LAYER_DATA targetLayer = StageData.LAYER_DATA.Enemy;
-
-    [SerializeField]
+    [SerializeField, Header("Hitをアタッチ")]
     LayerMask targetLm;
 
     [SerializeField]
@@ -30,10 +27,6 @@ public class MissileController : MonoBehaviour
 
     [SerializeField]
     float rayValue = 5;
-
-    
-
-    
 
     private void FixedUpdate()
     {
@@ -60,14 +53,9 @@ public class MissileController : MonoBehaviour
 
                     if (result.collider != null)
                     {
-                        // Debug.Log(result.collider);
-                        var hc = result.collider.GetComponent<OldHitCollider>();
-                        if (hc != null)
+                        if (!result.collider.gameObject.CompareTag(this.gameObject.tag.ToString()))
                         {
-                            if (hc.GetHitLayer() == targetLayer)
-                            {
-                                target = result.collider.gameObject;
-                            }
+                            target = result.collider.gameObject;
                         }
                     }
                     nowRot -= partRot;
@@ -84,7 +72,5 @@ public class MissileController : MonoBehaviour
             // 移動
             this.transform.Translate(Vector3.right * spd * Time.deltaTime);
         }
-
-
     }
 }
