@@ -12,45 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
   m_Name: Animation.fadeMotionList
   m_EditorClassIdentifier: 
-  MotionInstanceIds: 92f1ffff40dfffffa6eafffff6e7ffff20e0ffff16e0ffff0ee0ffff06e0fffffedfffff0adbffff02dbfffffadafffff2daffffeadaffff
+  MotionInstanceIds: aaf300005c23ffff72f30000d6f30000d2f3000042f300003ef3000080f30000def3000046f300006af30000e2f3000018f30000
   CubismFadeMotionObjects:
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> main
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-<<<<<<< HEAD
-=======
-  - {fileID: 11400000, guid: 19aa2023d578659419325fdeffcf2b00, type: 2}
-  - {fileID: 11400000, guid: 72d63158ca1d5684a9919cd65d54dfc6, type: 2}
-  - {fileID: 11400000, guid: d82c5da50b222fd48994c05fc0ae48e5, type: 2}
-  - {fileID: 11400000, guid: da6e0b453e9e3c64289a6066eb117341, type: 2}
-<<<<<<< HEAD
-=======
->>>>>>> main
-  - {fileID: 11400000, guid: 5c8295654b4d9644d8ab3a8e94ba96bb, type: 2}
-  - {fileID: 11400000, guid: 79aa2295c6198bb4fa69e2ed54039b59, type: 2}
-  - {fileID: 11400000, guid: c6999f6e5a537b14faa4ba938846869b, type: 2}
-  - {fileID: 11400000, guid: e4ced25857b4b2249a745f9624d68f4c, type: 2}
   - {fileID: 11400000, guid: d1cca3b948ab782458ad0f1eb6068b9f, type: 2}
-  - {fileID: 11400000, guid: 108daf99c7abd814e979216376b6cb19, type: 2}
-  - {fileID: 11400000, guid: c446539be306f9241ad3c84645f57b7c, type: 2}
-  - {fileID: 11400000, guid: 7ab656014ffe189468bf3fd3e0983f8c, type: 2}
   - {fileID: 11400000, guid: 0b9967a5c1ebc204cbf524033a477e4a, type: 2}
-  - {fileID: 11400000, guid: aa496a7c3d8c82349b746d414a4b64a3, type: 2}
->>>>>>> main
-=======
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
->>>>>>> main
+  - {fileID: 11400000, guid: a0776aca022f19140b0fde092623a4c4, type: 2}
+  - {fileID: 11400000, guid: e4ced25857b4b2249a745f9624d68f4c, type: 2}
+  - {fileID: 11400000, guid: fcd9803c3ff08c7429b28152cb14f544, type: 2}
+  - {fileID: 11400000, guid: f49c5edd31f4c8d46b9c487cd307af54, type: 2}
+  - {fileID: 11400000, guid: 79aa2295c6198bb4fa69e2ed54039b59, type: 2}
+  - {fileID: 11400000, guid: 1040e16b6cfb9a440beb794e6cb6f6c7, type: 2}
+  - {fileID: 11400000, guid: 2d378f6125db05b4e9965162200843cd, type: 2}
+  - {fileID: 11400000, guid: 108daf99c7abd814e979216376b6cb19, type: 2}
+  - {fileID: 11400000, guid: f657ee08600aa674face2b5f5ed0fd46, type: 2}
+  - {fileID: 11400000, guid: 21b81ef810428184da2297e844dd4441, type: 2}
+  - {fileID: 11400000, guid: 315bece0b12c22444ac83a666b3e5b49, type: 2}
