@@ -14,6 +14,7 @@ public class WindowReset : MonoBehaviour
 
     [SerializeField] GameObject[] Resetitem;
 
+    
     void OnEnable() 
     {
         // このオブジェクトの座標を初期位置にする

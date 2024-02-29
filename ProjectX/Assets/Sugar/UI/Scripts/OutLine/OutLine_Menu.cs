@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class OutLine_Menu : MonoBehaviour
 {
     [SerializeField] Mng_Game Manager;
-
+    [SerializeField] GameObject Panel1; // Item
+    [SerializeField] GameObject Panel2; // Skill
     [SerializeField]RectTransform rtf;
     int[] angleL = new int[] { 0,120,240};
     int[] angleR = new int[] { 0,-240,-120};
@@ -69,17 +70,17 @@ public class OutLine_Menu : MonoBehaviour
         switch(num)
         {
             case 0:
-                expText.text = "アイテムの確認/使用";
+                expText.text = "持ち物の確認";
                 ObjAngle(0);
                 ObjActive(0);
                 break;
             case 1:
-                expText.text = "スキルポイント割り振り";
+                expText.text = "スキル割り振り";
                 ObjAngle(1);
                 ObjActive(1);
                 break;
             case 2:
-                expText.text = "ゲーム内設定";
+                expText.text = "各種設定";
                 ObjAngle(2);
                 ObjActive(2);
                 break;
@@ -98,8 +99,11 @@ public class OutLine_Menu : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
+           if (num == 0 && Panel1.activeSelf) { return; }
+           if (num == 1 && Panel2.activeSelf) { return; }
             Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.enter);
             Fadeitem[num].SetActive(true);
+            countZ = 0;
             this.gameObject.GetComponent<OutLine_Menu>().enabled = false;
         }
     }

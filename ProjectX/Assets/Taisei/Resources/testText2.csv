@@ -1,11 +1,11 @@
-﻿"message				",charaName,charaIcon,LorR,anims,choiseNo,choiseName
-えんだぁぁぁああああああ！いやぁぁあああああ！,あ,1,FALSE,0,0,
-"これはテストです	",(´・ω・｀),2,TRUE,0,0,
-"改行するとこうなります	",やぁ,1,FALSE,1,1,testChoiseW
-うわぁぁぁぁぁぁぁぁぁ,…え？,1,TRUE,2,0,
-"あいうえお	",どうも,1,TRUE,3,0,
-"かきくけこ	",こんにちは,2,FALSE,0,0,
-"さしすせそ	",(´;ω;｀),1,TRUE,1,2,testChoiseT
-選択肢１を選んだね？,おじじ,1,FALSE,3,0,
-選択肢２を選んだね？,おばば,1,TRUE,1,0,
-選択肢３を選んだね？,おかか,0,TRUE,0,0,
+﻿"message				",charaName,charaIcon,LorR,anims,choiseNo,choiseName,ItemFrg
+えんだぁぁぁああああああ！いやぁぁあああああ！,あ,4,FALSE,0,0,,999
+"これはテストです	",(´・ω・｀),7,TRUE,0,0,,999
+"改行するとこうなります	",やぁ,6,FALSE,1,1,testChoiseW,999
+うわぁぁぁぁぁぁぁぁぁ,…え？,1,TRUE,2,0,,999
+"あいうえお	",どうも,1,TRUE,3,0,,999
+"かきくけこ	",こんにちは,2,FALSE,0,0,,999
+"さしすせそ	",(´;ω;｀),3,TRUE,1,2,testChoiseT,999
+選択肢１を選んだね？,おじじ,1,FALSE,3,0,,999
+選択肢２を選んだね？,おばば,1,TRUE,1,0,,999
+選択肢３を選んだね？,おかか,0,TRUE,0,0,,999
