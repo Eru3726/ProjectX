@@ -7,6 +7,9 @@ public class Fade : MonoBehaviour
     [Header("項目のオブジェクトを入れる")]
     [SerializeField] GameObject Item;
     [SerializeField] GameObject Menu;
+
+    // アウトラインの座標を戻すように
+    [SerializeField] RectTransform rtf;
     Color col;
     private void Start()
     {
@@ -23,11 +26,12 @@ public class Fade : MonoBehaviour
     {
         if(col.a<=1)
         {
-            col.a += 0.05f;
+            col.a += 0.1f;
             this.gameObject.GetComponent<Image>().color = col;
         }
         else 
         {
+            rtf.localRotation = Quaternion.Euler(0, 0, 0);
             Menu.SetActive(false);
             Item.SetActive(true);
             this.gameObject.SetActive(false);
