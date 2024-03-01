@@ -1,0 +1,5 @@
+﻿"message				",charaName,charaIcon,LorR,anims,choiseNo,choseName,ItemFrg
+家に入りますか？,,0,FALSE,0,1,testChoiseW,999
+"勝手に入ってんじゃねぇ！
+勝手に入らないでよぉ～",ムカムカ・メソメソ,0,FALSE,0,0,,999
+やっぱやめておこう,アマリ,1,FALSE,0,0,,999

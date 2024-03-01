@@ -6,6 +6,7 @@ public partial class Mng_Game : MonoBehaviour
 {
     // メニュー開いている間時間を止めるよ
     [SerializeField] GameObject obj;
+    [SerializeField] GameObject Text;
     void Start()
     {
         // 音量の初期化
@@ -17,12 +18,12 @@ public partial class Mng_Game : MonoBehaviour
     void Update()
     {
         // ポーズ用時間停止
-        Time.timeScale = (obj.activeSelf) ? 0 : 1;
+        Time.timeScale = (obj.activeSelf||Text.activeSelf) ? 0 : 1;
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            SceneManager.LoadScene("TitleScene");
-        }
+        //if(Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    SceneManager.LoadScene("TitleScene");
+        //}
     }
 }
 

@@ -67,7 +67,7 @@ public class AllTexts : MonoBehaviour
                 csvFiles = "tutorial2";
                 break;
 
-            //チュートリアル後    
+            //ストーリー    
             case 2:
                 csvFiles = "story0-1";
                 break;
