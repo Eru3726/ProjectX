@@ -1,0 +1,22 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "Guren_TextScene_Final.moc3",
+		"Textures": [
+			"Guren_TextScene_Final.1024/texture_00.png"
+		],
+		"DisplayInfo": "Guren_TextScene_Final.cdi3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		}
+	]
+}

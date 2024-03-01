@@ -9,6 +9,10 @@ using System.Text;
 
 public class TextScript : MonoBehaviour
 {
+    [SerializeField] ItemDataBase iData;
+    private int[] splitItemFrg;
+    private int itemFrgNum = 0;
+
     //トークUI
     private Text messageText;
 
@@ -119,12 +123,12 @@ public class TextScript : MonoBehaviour
     //キャラクター番号
     //0:一人用のみ表示用&システム用の空データ
     //1:主人公
-    //2:ドーラ
+    //2:ムカムカ
     //3:メソメソ
-    //4:ムカムカ
+    //4:ドーラ
     //5:マスター
     //6:グレン
-    //7:
+    //7:エリス
     public List<GameObject> Charas = new List<GameObject>();
 
     [SerializeField] private GameObject CharaConection;
@@ -145,10 +149,16 @@ public class TextScript : MonoBehaviour
     private int[] splitAnims;
     private int animsNum;
     private string animStr;
+    private string saveAnim;
     //アニメーション配列
     [SerializeField] private string[] chara1_anim;  //主人公
-    [SerializeField] private string[] chara2_anim;  //
-    
+    [SerializeField] private string[] chara2_anim;  //ムカムカ
+    [SerializeField] private string[] chara3_anim;  //メソメソ
+    [SerializeField] private string[] chara4_anim;  //ドーラ
+    [SerializeField] private string[] chara5_anim;  //マスター
+    [SerializeField] private string[] chara6_anim;  //グレン
+    [SerializeField] private string[] chara7_anim;  //エリス
+        
     //CSV関連
     public TextData[] textData;
 
@@ -188,6 +198,8 @@ public class TextScript : MonoBehaviour
 
     //選択肢で決定を押したかどうか
     private bool EnterCheck = false;
+    //選択肢で選んだやつを外部が参照するようのやつ
+    private int checkRouteFlg;
     
     //次の文章を表示するとき
     //0=3つ先の文章に飛ばす 1=2つ先の文章に飛ばす 2=1つ先の文章に飛ばす 
@@ -351,8 +363,12 @@ public class TextScript : MonoBehaviour
                             }
                             animL = LeftPosT.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
                         }
-                        CharaAnim(); 
-                        animL.Play(animStr);
+                        CharaAnim();
+                        if (animStr != saveAnim || !firstStandP)
+                        {
+                            animL.Play(animStr);
+                        }
+                        saveAnim = animStr;
                     }
                     //システムメッセージの場合
                     else
@@ -395,7 +411,11 @@ public class TextScript : MonoBehaviour
                             animR = RightPosT.Find(Charas[splitIcon[iconNum]].name + "(Clone)").GetComponent<Animator>();
                         }
                         CharaAnim();
-                        animR.Play(animStr);
+                        if (animStr != saveAnim || !firstStandP)
+                        {
+                            animR.Play(animStr);
+                        }
+                        saveAnim = animStr;
                     }
                     //システムメッセージの場合
                     else
@@ -483,6 +503,7 @@ public class TextScript : MonoBehaviour
                 //エンターキーor左クリックを押したら次の文字表示処理
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || EnterCheck)
                 {
+                    ItemFlgOn();
                     FinishOneText();
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
                     if (messageNum >= splitMessage.Length)
@@ -688,6 +709,7 @@ public class TextScript : MonoBehaviour
         cNameNum++;
         skipNum++;
         nowPoint++;
+        itemFrgNum++;
 
         routeIdx = 1;
     }
@@ -703,6 +725,7 @@ public class TextScript : MonoBehaviour
         cNameNum += 2;
         skipNum += 2;
         nowPoint += 2;
+        itemFrgNum += 2;
 
         routeIdx = 2;
     }
@@ -718,6 +741,7 @@ public class TextScript : MonoBehaviour
         cNameNum += 3;
         skipNum += 3;
         nowPoint += 3;
+        itemFrgNum += 3;
 
         routeIdx = 3;
     }
@@ -806,12 +830,19 @@ public class TextScript : MonoBehaviour
     {
         switch (splitIcon[iconNum])
         {
+            //主人公
             case 1:
                 animStr = chara1_anim[splitAnims[animsNum]];
                 break;
 
+            //ムカムカ
             case 2:
                 animStr = chara2_anim[splitAnims[animsNum]];
+                break;
+
+            //メソメソ
+            case 3:
+                animStr = chara3_anim[splitAnims[animsNum]];
                 break;
         }
     }
@@ -866,11 +897,17 @@ public class TextScript : MonoBehaviour
         //Time.timeScale = 0;
     }
 
+    //テキストが終わったかどうか
     public bool CheckTextOnOff()
     {
         return TextOnOff;
     }
 
+    //選んだ選択肢を外部で参照するやつ
+    public int CheckRouteFlg()
+    {
+        return checkRouteFlg;
+    }
 
     //選択肢を選んで決定を押したとき
     public void ChangeCheckChoise()
@@ -903,6 +940,7 @@ public class TextScript : MonoBehaviour
         splitAnims = new int[textData.Length];
         ChoiseTrigger = new int[textData.Length];
         ChoiseName = new string[textData.Length];
+        splitItemFrg = new int[textData.Length];
 
         skipPoint = new int[textData.Length];
 
@@ -915,6 +953,7 @@ public class TextScript : MonoBehaviour
             this.splitAnims[i] = textData[i].anims;
             this.ChoiseTrigger[i] = textData[i].choiseNo;
             this.ChoiseName[i] = textData[i].choiseName;
+            this.splitItemFrg[i] = textData[i].ItemFrg;
             Debug.Log("読み込み");
 
             //選択肢があった場合
@@ -952,6 +991,7 @@ public class TextScript : MonoBehaviour
         cNameNum = 0;
         nowPoint = 0;
         skipNum = 0;
+        itemFrgNum = 0;
     }
 
     //AllTextsから呼びだす
@@ -1027,6 +1067,8 @@ public class TextScript : MonoBehaviour
         //選択肢があるかどうか
         for(int i = nowPoint; i < textData.Length; i++)
         {
+            itemFrgNum = i;
+            ItemFlgOn();
             if (ChoiseTrigger[i] != 0)
             {
                 choiseYN = true;
@@ -1063,6 +1105,7 @@ public class TextScript : MonoBehaviour
             firstStandP = true;
             choiseNum = skipPoint[skipNum];
             cNameNum = skipPoint[skipNum];
+            itemFrgNum = skipPoint[skipNum];
 
             if (AutoORAanual)
             {
@@ -1139,6 +1182,15 @@ public class TextScript : MonoBehaviour
     {
         verticalScrollbar.value = 0f;
     }
+
+    //アイテムフラグ関連
+    public void ItemFlgOn()
+    {
+        if (splitItemFrg[itemFrgNum] != 999)
+        {
+            iData.ItemDATA[splitItemFrg[itemFrgNum]].getFlag = true;
+        }
+    }
 }
 
 
@@ -1153,6 +1205,7 @@ public class TextData
     public int anims;
     public int choiseNo;
     public string choiseName;
+    public int ItemFrg;
 }
 
 

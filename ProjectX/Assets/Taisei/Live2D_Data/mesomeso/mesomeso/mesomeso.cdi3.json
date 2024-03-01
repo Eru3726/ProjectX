@@ -1,0 +1,27 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "髪揺れ"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "羽根"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "手"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "呼吸"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": []
+}
