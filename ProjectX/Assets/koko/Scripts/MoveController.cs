@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class MoveController : MonoBehaviour
 {
-    protected Rigidbody2D rb;
-    protected GroundChecker gc;
+    Rigidbody2D rb;
+    GroundChecker gc;
 
-    [SerializeField] protected bool moveX = true;
-    [SerializeField] protected bool moveY = false;
+    [SerializeField] bool moveX = true;
+    [SerializeField] bool moveY = false;
 
     [SerializeField] public Vector2 moveSpd = new Vector2(5, 5);
     [SerializeField] public float jumpPow = 10;
 
-    [Range(-1, 1)] protected int inputLR = 0;
-    [Range(-1, 1)] protected int inputUD = 0;
-    protected bool inputJump = false;
+    [Range(-1, 1)] int inputLR = 0;
+    [Range(-1, 1)] int inputUD = 0;
+    bool inputJump = false;
 
-    protected bool inputFlick = false;
-    protected float flickDir = 0;
-    protected float flickPow = 0;
-    protected float flickTime = 0;
-    protected bool flickStop = false;
+    bool inputFlick = false;
+    float flickDir = 0;
+    float flickPow = 0;
+    float flickTime = 0;
+    bool flickStop = false;
 
     protected virtual void Start()
     {

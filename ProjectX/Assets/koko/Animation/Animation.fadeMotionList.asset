@@ -12,18 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
   m_Name: Animation.fadeMotionList
   m_EditorClassIdentifier: 
-  MotionInstanceIds: aaf300005c23ffff72f30000d6f30000d2f3000042f300003ef3000080f30000def3000046f300006af30000e2f3000018f30000
+  MotionInstanceIds: d2f30000e2f30000ec49ffffe449ffffdc49ffffe844ffffe044ffffd844ffffd044ffffc844ffffc044ffffb844ffffb044ffff84fafeff94e6feff8ce6feff84e6feff7ce6feff14e4feff0ce4feffb8e2feffe4e1feff
   CubismFadeMotionObjects:
-  - {fileID: 11400000, guid: d1cca3b948ab782458ad0f1eb6068b9f, type: 2}
-  - {fileID: 11400000, guid: 0b9967a5c1ebc204cbf524033a477e4a, type: 2}
-  - {fileID: 11400000, guid: a0776aca022f19140b0fde092623a4c4, type: 2}
-  - {fileID: 11400000, guid: e4ced25857b4b2249a745f9624d68f4c, type: 2}
   - {fileID: 11400000, guid: fcd9803c3ff08c7429b28152cb14f544, type: 2}
-  - {fileID: 11400000, guid: f49c5edd31f4c8d46b9c487cd307af54, type: 2}
-  - {fileID: 11400000, guid: 79aa2295c6198bb4fa69e2ed54039b59, type: 2}
-  - {fileID: 11400000, guid: 1040e16b6cfb9a440beb794e6cb6f6c7, type: 2}
-  - {fileID: 11400000, guid: 2d378f6125db05b4e9965162200843cd, type: 2}
-  - {fileID: 11400000, guid: 108daf99c7abd814e979216376b6cb19, type: 2}
-  - {fileID: 11400000, guid: f657ee08600aa674face2b5f5ed0fd46, type: 2}
   - {fileID: 11400000, guid: 21b81ef810428184da2297e844dd4441, type: 2}
-  - {fileID: 11400000, guid: 315bece0b12c22444ac83a666b3e5b49, type: 2}
+  - {fileID: 11400000, guid: 27feac7ed203edf409fbe6c8cddedd97, type: 2}
+  - {fileID: 11400000, guid: 810e284147477a744be5dcc3f22aef2f, type: 2}
+  - {fileID: 11400000, guid: ddcdcbaa7c2d5c24fb90de1dead3a7f3, type: 2}
+  - {fileID: 11400000, guid: 03972b9ff32e9ac4db5a683527974e6b, type: 2}
+  - {fileID: 11400000, guid: f85c5ee0cdb30e14d88119960ac15b8a, type: 2}
+  - {fileID: 11400000, guid: 2972dd156bdb51148ba53d268cd7e798, type: 2}
+  - {fileID: 11400000, guid: a8f1b6c79455c2b4aa900d0eff7e00f8, type: 2}
+  - {fileID: 11400000, guid: 1023877c842778a4cb61969922e890ed, type: 2}
+  - {fileID: 11400000, guid: c9722e21633b1104389d38d3b5d8fd75, type: 2}
+  - {fileID: 11400000, guid: aad9e23df37e0ba4f82c711f2018c62b, type: 2}
+  - {fileID: 11400000, guid: 3aaa5ea549f4b6b47b439fd4b25fd774, type: 2}
+  - {fileID: 11400000, guid: 7e3d0b0b6e0bf564a908e6213ff59af1, type: 2}
+  - {fileID: 11400000, guid: e5f84338c1ab55e47a2b64d5d3fce1c8, type: 2}
+  - {fileID: 11400000, guid: 7b45067bc9ce66d4e82f1ab68dc4f85c, type: 2}
+  - {fileID: 11400000, guid: 378fab9f8710a7c40a7646f18e724811, type: 2}
+  - {fileID: 11400000, guid: 17739b0861a25a94e94cb876a9257c36, type: 2}
+  - {fileID: 11400000, guid: e0c92805b5dc7d4449deca2907418abf, type: 2}
+  - {fileID: 11400000, guid: bbd2c7c090d38b7499006f9aaa5134d9, type: 2}
+  - {fileID: 11400000, guid: 29a8ff8d645e74c41a2e64b29e110d29, type: 2}
+  - {fileID: 11400000, guid: f3a93bec7fdcb3a45abd28418eb679d8, type: 2}
