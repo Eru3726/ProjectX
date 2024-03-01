@@ -16,7 +16,7 @@ public class PlRushCol : MonoBehaviour
     float count = 0;
 
     [SerializeField]
-    List<GameObject> list = new List<GameObject>();
+    List<GameObject> targetList = new List<GameObject>();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -26,32 +26,32 @@ public class PlRushCol : MonoBehaviour
 
             if (collision.TryGetComponent<IDamageable>(out IDamageable iDamage))
             {
-                list.Add(collision.gameObject);
+                targetList.Add(collision.gameObject);
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < targetList.Count; i++)
         {
-            if(list[i] == collision.gameObject)
+            if(targetList[i] == collision.gameObject)
             {
-                list.Remove(collision.gameObject);
+                targetList.Remove(collision.gameObject);
             }
         }
     }
 
     private void FixedUpdate()
     {
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < targetList.Count; i++)
         {
-            if (list[i].TryGetComponent<IShockable>(out IShockable iShock))
+            if (targetList[i].TryGetComponent<IShockable>(out IShockable iShock))
             {
                 iShock.TakeStop();
             }
 
-            if (list[i].TryGetComponent<IDamageable>(out IDamageable iDamage))
+            if (targetList[i].TryGetComponent<IDamageable>(out IDamageable iDamage))
             {
                 if (count >= delay - 0.05f)
                 {

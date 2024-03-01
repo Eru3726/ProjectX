@@ -13,7 +13,7 @@ public class ShellController : MonoBehaviour
 
     public EnemyController ec;
 
-    public float ShellupSpd = 2;
+    public float ShellupSpd = 5;
 
     bool ShellFlg = false;
 
@@ -23,6 +23,7 @@ public class ShellController : MonoBehaviour
 
     float time = 1.0f;
     float timer = 1.0f;
+    float distance = 0.1f;
 
     void Start()
     {
@@ -34,11 +35,22 @@ public class ShellController : MonoBehaviour
 
         shellVec.x = ShellSpd * Time.deltaTime * Mathf.Cos(radian);
         shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
+        Vector3 dis = player.transform.position - transform.position;
+
+        if (dis.x >= -distance)
+        {
+            transform.localScale = new Vector3(-0.2f, 0.2f, 1);
+        }
+        if (dis.x <= distance)
+        {
+            transform.localScale = new Vector3(0.2f, 0.2f, 1);
+        }
     }
 
 
     void FixedUpdate()
     {
+      
         time -= Time.deltaTime;
         if (time > 0)
         {

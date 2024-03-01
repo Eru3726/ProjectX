@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public partial class Mng_Game : MonoBehaviour
 {
     // メニュー開いている間時間を止めるよ
@@ -18,6 +18,11 @@ public partial class Mng_Game : MonoBehaviour
     {
         // ポーズ用時間停止
         Time.timeScale = (obj.activeSelf) ? 0 : 1;
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            SceneManager.LoadScene("TitleScene");
+        }
     }
 }
 
