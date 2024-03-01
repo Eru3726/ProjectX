@@ -118,6 +118,7 @@ MonoBehaviour:
   resist: 1
   mc: {fileID: 4460477030426317903}
   body: {fileID: 4460477030426317898}
+  edec: {fileID: 5295369051246381875, guid: c3e820ac5a4763e46b861b7f3458d2fb, type: 3}
 --- !u!1 &4460477030016532712
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +250,7 @@ GameObject:
   - component: {fileID: 4460477030426317896}
   - component: {fileID: 4460477030426317897}
   m_Layer: 0
-  m_Name: SlimeB
+  m_Name: Slime(onlyJump)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,7 +269,7 @@ Transform:
   m_Children:
   - {fileID: 4460477030016532719}
   - {fileID: 4460477029493216857}
-  - {fileID: 1335956837642954900}
+  - {fileID: 255139234066918878}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -284,11 +285,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84bf5979426dbf41a86577874e95310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mc: {fileID: 0}
   player: {fileID: 0}
-  delay: 1
-  isJump: 1
   isMove: 0
+  isJump: 1
+  jumpDelay: 0.5
 --- !u!114 &4460477030426317903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,6 +374,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4460477030426317900}
     m_Modifications:
+    - target: {fileID: 265233884971133587, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1110088323827531493, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -381,6 +385,10 @@ PrefabInstance:
     - target: {fileID: 1762592976318363985, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
       propertyPath: _lastOpacity
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808107013666950233, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3417257485388722764, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
       propertyPath: m_RootOrder
@@ -438,9 +446,29 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4498150386179716870, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498150386179716870, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498150386179716870, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793121820241048436, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5113054485900607006, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5551864599148043998, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
+      propertyPath: _lastOpacity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6466839638196168430, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
       propertyPath: m_Mesh
@@ -450,14 +478,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime
       objectReference: {fileID: 0}
+    - target: {fileID: 8016897253881542063, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8097391446434046507, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511478950919475961, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
---- !u!4 &1335956837642954900 stripped
+--- !u!4 &255139234066918878 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3417257485388722764, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4498150386179716870, guid: 263ffb14bf18c5a4ebbd334af4035c78, type: 3}
   m_PrefabInstance: {fileID: 4460477029302000344}
   m_PrefabAsset: {fileID: 0}

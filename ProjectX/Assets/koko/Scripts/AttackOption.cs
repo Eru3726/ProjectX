@@ -50,7 +50,7 @@ public class AttackOption : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag(this.gameObject.tag.ToString()) && isBullet)
         {
-            if (TryGetComponent<IDamageable>(out IDamageable id))
+            if (collision.TryGetComponent<IDamageable>(out IDamageable id))
             {
                 Destroy(this.gameObject);
             }

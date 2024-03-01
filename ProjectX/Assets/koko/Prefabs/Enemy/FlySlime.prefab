@@ -34,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 5083760192668500957}
   - {fileID: 5083760193185011051}
-  - {fileID: 7007604310085469830}
+  - {fileID: 5941474912389090233}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -367,6 +367,7 @@ MonoBehaviour:
   resist: 1
   mc: {fileID: 5083760192528734077}
   body: {fileID: 5083760192528734072}
+  edec: {fileID: 5295369051246381875, guid: c3e820ac5a4763e46b861b7f3458d2fb, type: 3}
 --- !u!1001 &6392491115535608119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -374,6 +375,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5083760192528734078}
     m_Modifications:
+    - target: {fileID: 775440715396145806, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 775440715396145806, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 775440715396145806, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597121477593985221, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334517032593237247, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: _lastOpacity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401560285016040520, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2513825557685510054, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -385,6 +410,10 @@ PrefabInstance:
     - target: {fileID: 3326303342165006191, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
       propertyPath: _lastOpacity
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085822488550236966, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4176721628064067505, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
       propertyPath: m_RootOrder
@@ -446,11 +475,27 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5527754938828081539, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5656006424328426411, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6705101894749380507, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7935631785991652184, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8012173039725131228, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133670286677882552, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
@@ -464,8 +509,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
---- !u!4 &7007604310085469830 stripped
+--- !u!4 &5941474912389090233 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4176721628064067505, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
+  m_CorrespondingSourceObject: {fileID: 775440715396145806, guid: 67f87bc06cfe265498a969a4baeb76c5, type: 3}
   m_PrefabInstance: {fileID: 6392491115535608119}
   m_PrefabAsset: {fileID: 0}

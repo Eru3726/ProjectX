@@ -51,11 +51,11 @@ public class PlayerAnimController : MonoBehaviour
             {
                 anim.Play("Amari_Attack1Animation_Final");
             }
-            else if (pi.skillTime[(int)StageData.ACT_DATA.LB1] > 0)
+            else if (pi.skillTime[(int)StageData.ACT_DATA.LB1] > 0 || pi.skillTime[(int)StageData.ACT_DATA.LM1] > 0)
             {
                 anim.Play("Amari_BeamPAnimation_Final");
             }
-            else if (pi.skillTime[(int)StageData.ACT_DATA.AA1] > 0)
+            else if (pi.skillTime[(int)StageData.ACT_DATA.AA1] > 0 || pi.skillTime[(int)StageData.ACT_DATA.AF1] > 0)
             {
                 anim.Play("Amari_BeamRAnimation_Final");
             }
