@@ -8,9 +8,6 @@ public class PlayerAnimController : MonoBehaviour
     [SerializeField, Header("amariアニメアタッチ")]
     GameObject amari;
 
-    [SerializeField, Header("amariアニメアタッチ")]
-    GameObject amariRun;
-
     [SerializeField, Header("Playerアタッチ")]
     GameObject parentPlayer;
 
@@ -32,7 +29,6 @@ public class PlayerAnimController : MonoBehaviour
     private void Start()
     {
         anim = amari.GetComponent<Animator>();
-        // animRun = amariRun.GetComponent<Animator>();
 
         pi = parentPlayer.GetComponent<PlayerInput>();
         mc = parentPlayer.GetComponent<MoveController>();

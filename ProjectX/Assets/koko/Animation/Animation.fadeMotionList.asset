@@ -12,19 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
   m_Name: Animation.fadeMotionList
   m_EditorClassIdentifier: 
-  MotionInstanceIds: 92f1ffff40dfffffa6eafffff6e7ffff20e0ffff16e0ffff0ee0ffff06e0fffffedfffff0adbffff02dbfffffadafffff2daffffeadaffff
+  MotionInstanceIds: 36bbffff2abbffff22bbffff1abbffff12bbffff0abbffff02bbfffffabafffff2baffffeabaffffe2baffff0cfafeff04fafefffcf9feffe0f8feffd8f8feffa6e6feff52e5feff4ae5feffc8d2feff
   CubismFadeMotionObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7cf3fec6b38dba349a50f7d0fa76e932, type: 2}
+  - {fileID: 11400000, guid: 6ca5a0cd1b1bed244bf9860d16f79699, type: 2}
+  - {fileID: 11400000, guid: 311354bb4add87f449643b88398a8362, type: 2}
+  - {fileID: 11400000, guid: 2814fdd41004d7441af79d0f063493a0, type: 2}
+  - {fileID: 11400000, guid: b3ad4b1af7a9ceb48a84ff15ef46cc58, type: 2}
+  - {fileID: 11400000, guid: 78d2eeeef0722fc42ba7fa28118dbd83, type: 2}
+  - {fileID: 11400000, guid: 7fe3176efcb792d4390c8985e34e27a8, type: 2}
+  - {fileID: 11400000, guid: 3d8e9c1121d83384abdc0a739ef28fb9, type: 2}
+  - {fileID: 11400000, guid: b70634ee4afa3644d9e41e9d506ee49f, type: 2}
+  - {fileID: 11400000, guid: 1ab13f7eebbdf9243b3754ca1c2c9865, type: 2}
+  - {fileID: 11400000, guid: 99042f79a76b8be45bbcdc6f9eac5b1e, type: 2}
+  - {fileID: 11400000, guid: e5f84338c1ab55e47a2b64d5d3fce1c8, type: 2}
+  - {fileID: 11400000, guid: 378fab9f8710a7c40a7646f18e724811, type: 2}
+  - {fileID: 11400000, guid: 17739b0861a25a94e94cb876a9257c36, type: 2}
+  - {fileID: 11400000, guid: 7e3d0b0b6e0bf564a908e6213ff59af1, type: 2}
+  - {fileID: 11400000, guid: bbd2c7c090d38b7499006f9aaa5134d9, type: 2}
+  - {fileID: 11400000, guid: 7b45067bc9ce66d4e82f1ab68dc4f85c, type: 2}
+  - {fileID: 11400000, guid: 29a8ff8d645e74c41a2e64b29e110d29, type: 2}
+  - {fileID: 11400000, guid: f3a93bec7fdcb3a45abd28418eb679d8, type: 2}
+  - {fileID: 11400000, guid: e0c92805b5dc7d4449deca2907418abf, type: 2}
