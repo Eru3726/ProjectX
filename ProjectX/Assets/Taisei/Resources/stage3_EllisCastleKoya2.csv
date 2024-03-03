@@ -1,4 +1,4 @@
-﻿"message				",charaName,charaIcon,LorR,anims,choiseNo,choseName,ItemFrg
+﻿"message				",charaName,charaIcon,LorR,anims,choiseNo,choiseName,ItemFrg
 ピンク色の小瓶が置いてある,,0,FALSE,0,0,,999
 持っていきますか？,,0,FALSE,0,1,testChoiseW,999
 ピンク色の小瓶を手に入れた,,0,FALSE,0,0,,4

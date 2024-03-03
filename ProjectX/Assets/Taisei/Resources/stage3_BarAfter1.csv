@@ -1,4 +1,4 @@
-﻿"message				",charaName,charaIcon,LorR,anims,choiseNo,choseName,ItemFrg
+﻿"message				",charaName,charaIcon,LorR,anims,choiseNo,choiseName,ItemFrg
 出る前に１つ質問いいか？,マスター,5,FALSE,0,0,,999
 …？,アマリ,1,TRUE,0,0,,999
 グレンのこと、どう思ってる？,マスター,5,FALSE,0,2,stage3_Choise4,999
