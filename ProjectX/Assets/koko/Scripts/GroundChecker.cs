@@ -44,7 +44,7 @@ public class GroundChecker : MonoBehaviour
 
         // デバッグ用に線を出す
         Vector3 foot = GetFootPos();    // 始点
-        Vector3 len = Vector3.up * -0.5f; // 長さ
+        Vector3 len = Vector3.up * -0.2f; // 長さ
         float width = bc2d.size.x / 2;   // 当たり判定の幅
 
         // 左端、中央、右端の順にチェックしていく

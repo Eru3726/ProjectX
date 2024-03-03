@@ -14,6 +14,9 @@ public class EmHitCol : MonoBehaviour, IDamageable, IShockable
     [SerializeField, Header("本体アタッチ")]
     public GameObject body;
 
+    [SerializeField, Header("dieEffectアタッチ")]
+    GameObject edec;
+
     public int Health => nowHp;
 
     public float shockResist => resist;
@@ -24,6 +27,11 @@ public class EmHitCol : MonoBehaviour, IDamageable, IShockable
 
         if (nowHp <= 0)
         {
+            if (edec != null)
+            {
+                Instantiate(edec, transform.position, Quaternion.identity);
+            }
+
             Die();
         }
     }
