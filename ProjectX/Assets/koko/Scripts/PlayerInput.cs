@@ -374,10 +374,10 @@ public class PlayerInput : MonoBehaviour
 
         // 位置変更
         plDir.y += 0.1f;
-        if (rushNo == 3) { plDir.y += 0.4f; }
+        if (rushNo == 3) { plDir.y += 1.5f; }
 
         // 移動
-        mc.InputFlick(plDir, (rushNo + 1) * 3, 0.2f, true);
+        mc.InputFlick(plDir, (rushNo + 1) * 3.5f, 0.2f, true);
     }
 
     void ActND()
