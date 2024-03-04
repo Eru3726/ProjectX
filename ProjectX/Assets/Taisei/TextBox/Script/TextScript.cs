@@ -290,7 +290,7 @@ public class TextScript : MonoBehaviour
         {
             TextMain();
             //ログ表示
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 if (!logCheck)
                 {
@@ -323,7 +323,10 @@ public class TextScript : MonoBehaviour
             if (checkName == false)
             {
                 //名前表示
-                nameText.text += splitName[nameNum].Substring(nowNameNum);
+                if (splitName[nameNum] != null)
+                {
+                    nameText.text += splitName[nameNum].Substring(nowNameNum);
+                }
                 checkName = true;
 
                 LorR = Convert.ToBoolean(splitLR[LRNum]);
@@ -540,14 +543,14 @@ public class TextScript : MonoBehaviour
             }
         }
         //スキップ
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             skipOnOff = true;
             SkipTextObj.SetActive(true);
         }
 
         //オート・マニュアル変更
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             AutoORAanual = !AutoORAanual;
             if (!AutoORAanual)
@@ -563,7 +566,7 @@ public class TextScript : MonoBehaviour
         }
 
         //早送り
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             FastORNormal = !FastORNormal;
             if (!FastORNormal)
@@ -843,6 +846,26 @@ public class TextScript : MonoBehaviour
             //メソメソ
             case 3:
                 animStr = chara3_anim[splitAnims[animsNum]];
+                break;
+
+            //ドーラ
+            case 4:
+                animStr = chara4_anim[splitAnims[animsNum]];
+                break;
+
+            //マスター
+            case 5:
+                animStr = chara5_anim[splitAnims[animsNum]];
+                break;
+
+            //グレン
+            case 6:
+                animStr = chara6_anim[splitAnims[animsNum]];
+                break;
+
+            //エリス
+            case 7:
+                animStr = chara7_anim[splitAnims[animsNum]];
                 break;
         }
     }
