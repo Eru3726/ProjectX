@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     GameObject player;
 
     MoveController mc;
-   
+
     MoveController plmc;
 
     ShellController sc;
@@ -44,20 +44,23 @@ public class EnemyController : MonoBehaviour
     int Movecounter = 0;
     int Homcounter = 0;
 
-    float warpDelay = 0.7f; //ワープするまでの時間
+    float warpDelay = 2f; //ワープするまでの時間
     float idolDelay = 1f; //待機時間
     float Movetimer = 0f;
     float Homtimer = 0f;
     float distance = 0.1f;
 
+    Mng_Game mg;
+
 
 
     bool animeHomFlg = false;
     bool animeMoveFlg = false;
+    bool DieFlg = false;
 
 
     private bool nowHomingFlg = false;
-    public bool ishoming = false;
+    public bool[] ishoming = new bool[8];
 
 
     public enum EnemyState
@@ -83,24 +86,29 @@ public class EnemyController : MonoBehaviour
         plmc = player.gameObject.GetComponent<MoveController>();
         sc = gameObject.GetComponent<ShellController>();
         GurenAnim = Guren_GS.GetComponent<Animator>();
+        ishoming = new bool[8];
+        for (int i = 0; i < ishoming.Length; i++) ishoming[i] = false;
+        mg = GameObject.Find("GameManager").GetComponent<Mng_Game>();
     }
 
     void FixedUpdate()
     {
-        Movetimer += Time.deltaTime;
-
-        Vector3 dis = player.transform.position - transform.position;
-
-        if (dis.x >= -distance)
+        if (!DieFlg)
         {
-            transform.localScale = new Vector3(-2, 2, 1);
-        }
-        if (dis.x <= distance)
-        {
-            transform.localScale = new Vector3(2, 2, 1);
-        }
+            Movetimer += Time.deltaTime;
 
-        switch (currentState)
+            Vector3 dis = player.transform.position - transform.position;
+
+            if (dis.x >= -distance)
+            {
+                transform.localScale = new Vector3(-2, 2, 1);
+            }
+            if (dis.x <= distance)
+            {
+                transform.localScale = new Vector3(2, 2, 1);
+            }
+
+            switch (currentState)
             {
                 case EnemyState.Idol: //次の行動に移るための待機
                     movecheck = true;
@@ -121,8 +129,8 @@ public class EnemyController : MonoBehaviour
 
                 case EnemyState.Homing: //ホーミング攻撃の処理
 
+                    StartCoroutine(HomDelay());
                     Debug.Log("Homing");
-                    EnemyHoming();
                     break;
 
                 case EnemyState.Dash: //突進の処理
@@ -135,7 +143,6 @@ public class EnemyController : MonoBehaviour
                 case EnemyState.Warp:  //移動
                     Debug.Log("Warp");
                     currentState = EnemyState.Warp2;
-
                     StartCoroutine(WarpDelay());
                     break;
 
@@ -149,6 +156,7 @@ public class EnemyController : MonoBehaviour
                 case EnemyState.Die: //死んだ後の処理
                     break;
             }
+        }
     }
 
     IEnumerator IdolDelay()
@@ -165,6 +173,17 @@ public class EnemyController : MonoBehaviour
         EnemyWarp();
     }
 
+    IEnumerator HomDelay()
+    {
+        yield return new WaitForSeconds(2);
+        EnemyHoming();
+
+    }
+
+    IEnumerator ShiftDelay()
+    {
+        yield return new WaitForSeconds(1f);
+    }
     void EnemyMove()
     {
         //if (movecheck && plmc.IsGround())
@@ -181,9 +200,9 @@ public class EnemyController : MonoBehaviour
         //    if (dis <= Atkdis)
         //    {
         //        mc.InputLR(0);
-        if (!animeMoveFlg) 
-        { 
-            if (Movetimer >=  2)
+        if (!animeMoveFlg)
+        {
+            if (Movetimer >= 2)
             {
                 animeMoveFlg = true;
                 GurenAnim.Play("Guren_FSAnimation");
@@ -197,20 +216,20 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-    //    }
+        //    }
 
-    //}
-    //else
-    //{
-    //    GurenAnim.Play("Guren_NomalAnimation");
-    //}
-}
+        //}
+        //else
+        //{
+        //    GurenAnim.Play("Guren_NomalAnimation");
+        //}
+    }
 
     void EnemyDash()
     {
         Debug.Log("突進");
         Vector3 pos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
-        mc.InputFlick(pos, 35 ,0.3f, true);
+        mc.InputFlick(pos, 35, 0.3f, true);
         currentState = EnemyState.Idol;
     }
 
@@ -230,21 +249,21 @@ public class EnemyController : MonoBehaviour
         currentState = EnemyState.Homing;
     }
     void EnemyHoming()
-    { 
+    {
         GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
-        if (ishoming)
+        if (ishoming.All(b => b))
         {
             Movetimer = 0;
             animeMoveFlg = false;
             currentState = EnemyState.Move;
             nowHomingFlg = false;
-            ishoming = false;
+            for (int i = 0; i < ishoming.Length; i++) ishoming[i] = false;
             return;
         }
         if (nowHomingFlg) return;
 
         nowHomingFlg = true;
-      
+
 
         //Vector2[] enemyPos = new Vector2[eight];
         GameObject[] shell = new GameObject[eight];
@@ -259,19 +278,23 @@ public class EnemyController : MonoBehaviour
             enemyPos.y += 0.4f;
             //transform.position = enemyPos[i];
             shell[i] = Instantiate(ShellPre, enemyPos, Quaternion.identity);
+            StartCoroutine(ShiftDelay());
             Debug.Log(shell[i]);
             sc = shell[i].GetComponent<ShellController>();
             sc.ec = GetComponent<EnemyController>();
+            sc.num = i;
         }
     }
     public void EnemyDown()
-    { 
+    {
         GurenAnim.Play("Guren_GS_DownAnimation");
     }
     public void EnemyDie()
     {
         //死亡処理
-        GurenAnim.Play("Guren_FSAnimation");
-        Destroy(this.gameObject);
+        GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
+        mg.OneShotSE_C(SEData.Type.EnemySE, Mng_Game.ClipSe.Death);
+        DieFlg = true;
+        Destroy(gameObject,4.0f);
     }
 }

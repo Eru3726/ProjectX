@@ -26,7 +26,8 @@ public class GurenHitCol : MonoBehaviour, IDamageable
 
         if (nowHp <= 0)
         {
-            ec.EnemyDown();
+          
+            ec.EnemyDie();
         }
     }
 
