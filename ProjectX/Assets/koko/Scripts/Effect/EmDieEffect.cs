@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDieEffectController : MonoBehaviour
+public class EmDieEffect : MonoBehaviour
 {
     float timer = 0;
 
