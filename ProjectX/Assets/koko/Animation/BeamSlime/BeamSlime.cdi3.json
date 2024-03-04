@@ -1,0 +1,22 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "砲台"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "Normal"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "瞬き"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": []
+}
