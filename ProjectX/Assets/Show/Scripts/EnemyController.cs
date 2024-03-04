@@ -251,8 +251,10 @@ public class EnemyController : MonoBehaviour
     void EnemyHoming()
     {
         GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
+
         if (ishoming.All(b => b))
         {
+            Debug.Log("動いた");
             Movetimer = 0;
             animeMoveFlg = false;
             currentState = EnemyState.Move;

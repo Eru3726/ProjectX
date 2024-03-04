@@ -138,6 +138,7 @@ public class ShellController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("消えた");
             ec.ishoming[num] = true;
             Destroy(this.gameObject);
         }
@@ -145,7 +146,7 @@ public class ShellController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") || mc.IsGround())
+        if (collision.gameObject.tag == "Player")
         {
             Debug.Log("消えた");
             ec.ishoming[num] = true;
