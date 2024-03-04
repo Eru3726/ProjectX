@@ -323,11 +323,10 @@ public class TextScript : MonoBehaviour
             if (checkName == false)
             {
                 //名前表示
-                if (splitIcon[iconNum] != 0)
+                if (splitName[nameNum] != null)
                 {
-
+                    nameText.text += splitName[nameNum].Substring(nowNameNum);
                 }
-                nameText.text += splitName[nameNum].Substring(nowNameNum);
                 checkName = true;
 
                 LorR = Convert.ToBoolean(splitLR[LRNum]);
