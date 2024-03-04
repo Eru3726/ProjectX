@@ -23,6 +23,18 @@ public class PlayerInput : MonoBehaviour
     [SerializeField, Header("AngerAreaプレハブつけてね")]
     GameObject AAPre;
 
+    [SerializeField, Header("BarrierEffectプレハブつけてね")]
+    GameObject SBEff;
+
+    [SerializeField, Header("MeleeUpEffectアタッチ")]
+    GameObject NMUEff;
+
+    [SerializeField, Header("MeleeDownEffectアタッチ")]
+    GameObject NMDEff;
+
+    // 生成用
+    GameObject sb;
+
     [SerializeField, Header("MoveControllerアタッチ")]
     MoveController mc;
 
@@ -53,12 +65,26 @@ public class PlayerInput : MonoBehaviour
             skillTime.Add(0);
             coolTime.Add(0);
         }
+
+
+        sb = Instantiate(SBEff, transform.position, Quaternion.identity);
+        sb.transform.parent = this.transform;
+        sb.SetActive(false);
     }
 
     private void Update()
     {
         // 移動処理（横移動、ジャンプ）
         MoveInput();
+
+        if (hc.barrier > 0)
+        {
+            sb.SetActive(true);
+        }
+        else
+        {
+            sb.SetActive(false);
+        }
 
         // NomalMelee : P
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Space))
@@ -313,20 +339,44 @@ public class PlayerInput : MonoBehaviour
 
     void ActNM(int rushNo)
     {
+        // プレイヤー方向
         Vector3 plDir = this.transform.position;
         plDir.x += transform.localScale.x;
 
+        // プレハブ生成
         GameObject obj = Instantiate(NMPre, plDir, Quaternion.identity);
-
         obj.transform.parent = this.transform;
 
+        // エフェクト生成
+        GameObject eff;
+        Vector3 effDir = plDir;
+        effDir.x -= transform.localScale.x / 2;
+
+        if (rushNo % 2 == 1)
+        {
+            eff = Instantiate(NMUEff, effDir, Quaternion.identity);
+        }
+        else
+        {
+            eff = Instantiate(NMDEff, effDir, Quaternion.identity);
+        }
+
+        Vector3 effScale = eff.transform.localScale;
+        effScale.x *= transform.localScale.x;
+        eff.transform.localScale = effScale;
+
+        eff.transform.parent = this.transform;
+
+        // 大きさ変更
         Vector3 scale = obj.transform.localScale;
         scale.y = (rushNo + 1) * 0.5f;
         obj.transform.localScale = scale;
 
+        // 位置変更
         plDir.y += 0.1f;
         if (rushNo == 3) { plDir.y += 0.4f; }
 
+        // 移動
         mc.InputFlick(plDir, (rushNo + 1) * 3, 0.2f, true);
     }
 
