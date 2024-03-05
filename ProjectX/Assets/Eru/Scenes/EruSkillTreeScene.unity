@@ -1579,6 +1579,8 @@ MonoBehaviour:
   requiredSPText: {fileID: 248776073}
   explanationText: {fileID: 1679424101}
   noSpTime: 1.5
+  lovePanle: {fileID: 2022967343}
+  debugLoveFlg: 0
   angerFlg: 0
   sorrowFlg: 0
 --- !u!1 &434353230
