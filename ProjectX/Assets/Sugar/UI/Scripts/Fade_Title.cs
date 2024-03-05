@@ -31,7 +31,7 @@ public class Fade_Title : MonoBehaviour
         {
             if (Str) 
             {
-                SceneManager.LoadScene("Tenkai1");
+                SceneManager.LoadScene("Heaven1");
             }
             else if (End) 
             {

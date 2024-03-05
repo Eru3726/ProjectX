@@ -28,19 +28,29 @@ public class AttackOption : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        if (groundDestroyFlag)
+        {
+            float rayLen = 1;
+            Vector3 startPos = this.transform.position;
+            float nowRot = Mathf.Repeat(this.transform.localEulerAngles.z + 180, 360) + 180;
+            Vector3 rayPos = new Vector3(rayLen * Mathf.Cos(nowRot * Mathf.Deg2Rad), rayLen * Mathf.Sin(nowRot * Mathf.Deg2Rad), 0);
+            RaycastHit2D result;
+            result = Physics2D.Linecast(startPos, startPos + rayPos, groundLm);
+            Debug.DrawLine(startPos, startPos + rayPos, color: Color.blue);
+
+            if (result.collider != null)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == groundLm && groundDestroyFlag)
-        {
-            Debug.Log("settinau");
-            Destroy(this.gameObject);
-        }
-
         if (!collision.gameObject.CompareTag(this.gameObject.tag.ToString()) && isBullet)
         {
-            if (TryGetComponent<IDamageable>(out IDamageable id))
+            if (collision.TryGetComponent<IDamageable>(out IDamageable id))
             {
                 Destroy(this.gameObject);
             }

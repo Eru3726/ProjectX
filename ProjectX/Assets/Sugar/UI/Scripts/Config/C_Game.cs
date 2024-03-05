@@ -141,7 +141,7 @@ public class C_Game : MonoBehaviour
                     {
                         Copynum = num;
                         Send_textSpd = Set_textSpd;
-                      //  textScr.Parameter=Send_textSpd;
+                        textScr.Parameter=Send_textSpd;
                         panel.SetActive(true);
                         ConfigP.GetComponent<Config>().enabled = true;
                         this.gameObject.GetComponent<C_Game>().enabled = false;
