@@ -1,5 +1,5 @@
 ﻿"message				",charaName,charaIcon,LorR,anims,choiseNo,choiseName,ItemFrg
-えんだぁぁぁああああああ！いやぁぁあああああ！,あ,4,FALSE,0,0,,999
+えんだぁぁぁああああああ！いやぁぁあああああ！,a,4,FALSE,0,1,testChoiseW,999
 "これはテストです	",(´・ω・｀),7,TRUE,0,0,,999
 "改行するとこうなります	",やぁ,6,FALSE,1,1,testChoiseW,999
 うわぁぁぁぁぁぁぁぁぁ,…え？,1,TRUE,2,0,,999
