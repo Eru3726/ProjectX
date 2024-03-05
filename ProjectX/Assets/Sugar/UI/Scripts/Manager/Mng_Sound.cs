@@ -61,6 +61,9 @@ public partial class Mng_Game : MonoBehaviour
         wasd,    // UIの移動音
         esc,     // UIウィンドウ
         tab,     // 戻る音（キャンセル音）
+        Eff1,    // エフェクト
+        Eff2,
+        Eff3,
         num,
     }
     const int Charanum = (int)ClipSe.num;

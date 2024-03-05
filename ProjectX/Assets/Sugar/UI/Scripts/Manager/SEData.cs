@@ -26,7 +26,8 @@ public class SEData : ScriptableObject
 
     [Header("UIに使うサンプルリスト\n" +
         "0:TextMessage 1:Enter\n" +
-        "2:WASD 3:ESC 4:Tab")]
+        "2:WASD 3:ESC 4:Tab" +
+        "5:その他Effect1 6:その他Effect2 ")]
 
     // 音声データ
     public AudioClip[] SE = new AudioClip[Max];     
