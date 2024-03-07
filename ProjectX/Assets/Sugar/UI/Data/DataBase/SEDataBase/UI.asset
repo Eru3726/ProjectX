@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 2
   infomation: "UI\u95A2\u9023\u306E\u97F3"
   SE:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: f4a547826eb1ced4ebd9c4650404863a, type: 3}
   - {fileID: 8300000, guid: 0b0e0537a9510d7408e8d109ff7c60c2, type: 3}
   - {fileID: 8300000, guid: 5b7a10aca1ac21a4a9ddd2bfad31b2ec, type: 3}
   - {fileID: 8300000, guid: bb76cc04dc64a7b40a2e5d4176a1acfb, type: 3}
