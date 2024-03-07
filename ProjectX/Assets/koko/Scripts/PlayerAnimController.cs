@@ -8,17 +8,11 @@ public class PlayerAnimController : MonoBehaviour
     [SerializeField, Header("amariアニメアタッチ")]
     GameObject amari;
 
-    [SerializeField, Header("amariアニメアタッチ")]
-    GameObject amariRun;
-
     [SerializeField, Header("Playerアタッチ")]
     GameObject parentPlayer;
 
     [SerializeField]
     Animator anim;
-
-    [SerializeField]
-    Animator animRun;
 
     [SerializeField]
     PlayerInput pi;
@@ -32,14 +26,13 @@ public class PlayerAnimController : MonoBehaviour
     private void Start()
     {
         anim = amari.GetComponent<Animator>();
-        // animRun = amariRun.GetComponent<Animator>();
 
         pi = parentPlayer.GetComponent<PlayerInput>();
         mc = parentPlayer.GetComponent<MoveController>();
         rb2d = parentPlayer.GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (pi.CheckActSkill())
         {
@@ -55,11 +48,15 @@ public class PlayerAnimController : MonoBehaviour
             {
                 anim.Play("Amari_Attack1Animation_Final");
             }
-            else if (pi.skillTime[(int)StageData.ACT_DATA.LB1] > 0)
+            else if (pi.skillTime[(int)StageData.ACT_DATA.SB1] > 0)
+            {
+                anim.Play("Amari_BeamBAnimation_Final");
+            }
+            else if (pi.skillTime[(int)StageData.ACT_DATA.LB1] > 0 || pi.skillTime[(int)StageData.ACT_DATA.LM1] > 0)
             {
                 anim.Play("Amari_BeamPAnimation_Final");
             }
-            else if (pi.skillTime[(int)StageData.ACT_DATA.AA1] > 0)
+            else if (pi.skillTime[(int)StageData.ACT_DATA.AA1] > 0 || pi.skillTime[(int)StageData.ACT_DATA.AF1] > 0)
             {
                 anim.Play("Amari_BeamRAnimation_Final");
             }
