@@ -216,7 +216,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if (Movetimer >= 8)
+            if (Movetimer >= 7)
             {
                 currentState = EnemyState.Dash;
             }
@@ -228,6 +228,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log("突進");
         Vector3 pos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
         mc.InputFlick(pos, 35, 0.3f, true);
+        Movetimer = 0;
         currentState = EnemyState.Idol;
     }
 
@@ -247,42 +248,42 @@ public class EnemyController : MonoBehaviour
     }
     void EnemyHoming()
     {
-        GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
+          GurenAnim.Play("Guren_FingerSnapOnlyAnimation");  
 
-        if (ishoming.All(b => b))
-        {
-            Debug.Log("動いた");
-            Movetimer = 0;
-            animeMoveFlg = false;
-            currentState = EnemyState.Move;
-            nowHomingFlg = false;
-            for (int i = 0; i < ishoming.Length; i++) ishoming[i] = false;
-            return;
-        }
-        if (nowHomingFlg) return;
+          if (ishoming.All(b => b))
+            {
+                Debug.Log("動いた");
+                Movetimer = 0;
+                animeMoveFlg = false;
+                currentState = EnemyState.Move;
+                nowHomingFlg = false;
+                for (int i = 0; i < ishoming.Length; i++) ishoming[i] = false;
+                return;
+            }
+            if (nowHomingFlg) return;
 
-        nowHomingFlg = true;
+            nowHomingFlg = true;
 
 
-        //Vector2[] enemyPos = new Vector2[eight];
-        GameObject[] shell = new GameObject[eight];
+            //Vector2[] enemyPos = new Vector2[eight];
+            GameObject[] shell = new GameObject[eight];
 
-        Vector2 enemyPos = transform.position;
-        enemyPos.x += 1.0f;
+            Vector2 enemyPos = transform.position;
+            enemyPos.x += 0.5f;
 
-        for (int i = 0; i < eight; i++)
-        {
-            Debug.Log("a");
-            //enemyPos[i] = transform.position;
-            enemyPos.y += 0.4f;
-            //transform.position = enemyPos[i];
-            shell[i] = Instantiate(ShellPre, enemyPos, Quaternion.identity);
-            StartCoroutine(ShiftDelay());
-            Debug.Log(shell[i]);
-            sc = shell[i].GetComponent<ShellController>();
-            sc.ec = GetComponent<EnemyController>();
-            sc.num = i;
-        }
+            for (int i = 0; i < eight; i++)
+            {
+                Debug.Log("a");
+                //enemyPos[i] = transform.position;
+                enemyPos.y += 0.2f;
+                //transform.position = enemyPos[i];
+                shell[i] = Instantiate(ShellPre, enemyPos, Quaternion.identity);
+                StartCoroutine(ShiftDelay());
+                Debug.Log(shell[i]);
+                sc = shell[i].GetComponent<ShellController>();
+                sc.ec = GetComponent<EnemyController>();
+                sc.num = i;
+            }
     }
     public void EnemyDown()
     {
