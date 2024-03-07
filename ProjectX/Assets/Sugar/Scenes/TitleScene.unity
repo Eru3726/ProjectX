@@ -23782,6 +23782,17 @@ MonoBehaviour:
   aud:
   - {fileID: 737202350}
   - {fileID: 1920224668}
+  BGM:
+  - {fileID: 8300000, guid: 701631696c5b3294cb7d8ea8714399fb, type: 3}
+  - {fileID: 8300000, guid: 05cc1bf8dc93b33478b58b3ae4658065, type: 3}
+  - {fileID: 8300000, guid: 4201114e6cc5a66439050a8aa7580481, type: 3}
+  - {fileID: 8300000, guid: 0d6478f12d8d04e429f7f8a532896cf7, type: 3}
+  - {fileID: 8300000, guid: c2fba0e1d0f092c408a36ef9be71e7ff, type: 3}
+  - {fileID: 8300000, guid: 286d50bda517ae34689a28d10119c4c1, type: 3}
+  - {fileID: 8300000, guid: 0ba511d1d0cc0684aa3b4b8eeeb4e49a, type: 3}
+  - {fileID: 8300000, guid: af9b7da396ad563459d02f6ea273b67a, type: 3}
+  - {fileID: 8300000, guid: a66a85a4d71548e4c907bebc09bf07c3, type: 3}
+  - {fileID: 8300000, guid: 07b9d98876c045140ad9d855823163bf, type: 3}
   dataBase: {fileID: 11400000, guid: 950ac0825e25add4a81e1efa1bd53463, type: 2}
 --- !u!1 &1166051498
 GameObject:
@@ -33549,8 +33560,8 @@ MonoBehaviour:
   MenuObj: {fileID: 1832567379}
   Panel1: {fileID: 1534488396}
   Panel2: {fileID: 64937143}
-  SceneName1: Tenkai1
-  SceneName2: b
+  SceneName1: Heaven1
+  SceneName2: Heaven2
   rtf: {fileID: 1254419464}
   fadeList:
   - {fileID: 553872135}
