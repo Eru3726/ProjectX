@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EmHitCol : MonoBehaviour, IDamageable, IShockable
 {
@@ -17,6 +18,9 @@ public class EmHitCol : MonoBehaviour, IDamageable, IShockable
     [SerializeField, Header("dieEffectアタッチ")]
     GameObject edec;
 
+    [SerializeField, Header("DamageCounterアタッチ")]
+    GameObject damageCounter;
+
     public int Health => nowHp;
 
     public float shockResist => resist;
@@ -25,13 +29,25 @@ public class EmHitCol : MonoBehaviour, IDamageable, IShockable
     {
         nowHp -= value;
 
+        // ダメージカウンター生成
+        if (damageCounter != null)
+        {
+            float randX = Random.Range(-0.5f, 0.5f);
+            float randY = Random.Range(-0.5f, 0.5f);
+            Vector3 pos = new Vector3(transform.position.x + randX, transform.position.y + randY, transform.position.z);
+            GameObject obj = Instantiate(damageCounter, pos, Quaternion.identity);
+            obj.transform.GetChild(0).gameObject.GetComponent<Text>().text = value.ToString();
+        }
+
+        // ヒットストップ
+        GameObject tm = GameObject.Find("TimeManager");
+        if (tm.TryGetComponent<TimeManager>(out TimeManager manager))
+        {
+            manager.SetSlow(0.1f, 0.01f);
+        }
+
         if (nowHp <= 0)
         {
-            if (edec != null)
-            {
-                Instantiate(edec, transform.position, Quaternion.identity);
-            }
-
             Die();
         }
     }
@@ -48,11 +64,19 @@ public class EmHitCol : MonoBehaviour, IDamageable, IShockable
 
     public void TakeStop() 
     {
-        mc.InputFlickStop();
+        if (mc != null)
+        {
+            mc.InputFlickStop();
+        }
     }
 
     void Die()
     {
+        if (edec != null)
+        {
+            Instantiate(edec, transform.position, Quaternion.identity);
+        }
+
         if (body != null)
         {
             Destroy(body.gameObject);

@@ -29,7 +29,7 @@ public class FlySlimeController : MonoBehaviour
     {
         mc = GetComponent<MoveController>();
 
-        player = GameObject.Find("TestPlayer");
+        player = GameObject.Find("Player");
     }
 
     private void FixedUpdate()
