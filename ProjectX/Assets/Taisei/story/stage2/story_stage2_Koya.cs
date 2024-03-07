@@ -10,57 +10,49 @@ public class story_stage2_Koya : MonoBehaviour
     private bool checkArea;
 
     //ステージ２グレン戦の前後
-    public bool GurenFight = false;
+    public static bool GurenFight = false;
+    private bool CheckFirst = false;
+
+    public static bool Stage2TextFinish = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameUI = GameObject.Find("GameUI").GetComponent<OpenOption>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //グレン戦が終わったかどうかのフラグ(手動用)
         if (Input.GetKeyDown(KeyCode.I))
         {
             GurenFight = !GurenFight;
+            CheckFirst = false;
+
         }
-        if (checkArea)
+
+        if (!CheckFirst)
         {
             if (!GurenFight)
             {
-                if (Input.GetKeyDown(KeyCode.O))
-                {
-                    textNum = 14;
-                    GameUI.SetText(textNum);
-                }
+                Debug.Log("初手");
+                textNum = 14;
+                GameUI.SetText(textNum);
             }
-            else
+            else if (GurenFight)
             {
-                if (Input.GetKeyDown(KeyCode.O))
-                {
-                    textNum = 15;
-                    GameUI.SetText(textNum);
-
-                }
+                Debug.Log("次");
+                textNum = 15;
+                GameUI.SetText(textNum);
             }
+            CheckFirst = true;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void FinishBattle()
     {
-        if (collision.tag == "Player")
-        {
-            checkArea = true;
-        }
+        GurenFight = true;
+        CheckFirst = false;
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-        {
-            checkArea = false;
-        }
-    }
-
 }

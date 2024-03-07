@@ -645,6 +645,7 @@ public class TextScript : MonoBehaviour
                             routeFlg = 2;
                             routeOnOFF = true;
                         }
+                        checkRouteFlg = choiseW.ChoiseFlg();
                         break;
 
                     case 2:
@@ -670,6 +671,7 @@ public class TextScript : MonoBehaviour
                             routeFlg = 2;
                             routeOnOFF = true;
                         }
+                        checkRouteFlg = choiseT.ChoiseFlg();
                         break;
                 }
             }

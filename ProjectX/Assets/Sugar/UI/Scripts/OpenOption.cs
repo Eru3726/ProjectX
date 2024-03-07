@@ -10,6 +10,7 @@ public class OpenOption : MonoBehaviour
     [SerializeField] private TextScript textScript;
     int textNo;
     private bool textFinish;
+    private int textRoute;
 
 
     [SerializeField] RectTransform under; 
@@ -184,5 +185,11 @@ public class OpenOption : MonoBehaviour
     {
         textFinish = textScript.CheckTextOnOff();
         return textFinish;
+    }
+
+    public int checkRoute()
+    {
+        textRoute = textScript.CheckRouteFlg();
+        return textRoute;
     }
 }

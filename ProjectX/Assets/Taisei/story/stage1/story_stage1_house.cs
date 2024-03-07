@@ -12,7 +12,7 @@ public class story_stage1_house : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GameUI = GameObject.Find("GameUI").GetComponent<OpenOption>();
     }
 
     // Update is called once per frame

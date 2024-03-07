@@ -132,6 +132,11 @@ public class AllTexts : MonoBehaviour
                 csvFiles = "stage2_KoyaKanban";
                 break;
 
+            //小屋入口
+            case 54:
+                csvFiles = "stage2_KoyaIriguti";
+                break;
+
             //グレンとの会話(戦闘前)
             case 14:
                 csvFiles = "stage2_Koya1"; ;

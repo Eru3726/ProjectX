@@ -11,20 +11,25 @@ public class story_stage1_Gate : MonoBehaviour
     [SerializeField] private story_stage1_Koya koyaFlg_1;
     public bool gateFlg_2 = false;
 
+    [SerializeField] private GameObject Lock;
+    [SerializeField] private GameObject Open;
+    private bool firstCheck = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameUI = GameObject.Find("GameUI").GetComponent<OpenOption>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (checkArea)
         {
             if (gateFlg_2)
             {
-                if (Input.GetKeyDown(KeyCode.U))
+                if (Input.GetKeyDown(KeyCode.O))
                 {
                     textNum = 11;
                     GameUI.SetText(textNum);
@@ -32,11 +37,13 @@ public class story_stage1_Gate : MonoBehaviour
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.U))
+                if (Input.GetKeyDown(KeyCode.O))
                 {
                     textNum = 10;
                     GameUI.SetText(textNum);
                     koyaFlg_1.koyaFlg = true;
+                    firstCheck = false;
+
                 }
 
                 if (!GameUI.checkText())
@@ -44,6 +51,21 @@ public class story_stage1_Gate : MonoBehaviour
                     //シーンチェンジ用
                 }
             }
+        }
+
+        if (!firstCheck)
+        {
+            if (!gateFlg_2)
+            {
+                Lock.SetActive(true);
+                Open.SetActive(false);
+            }
+            else
+            {
+                Lock.SetActive(false);
+                Open.SetActive(true);
+            }
+            firstCheck = true;
         }
 
     }

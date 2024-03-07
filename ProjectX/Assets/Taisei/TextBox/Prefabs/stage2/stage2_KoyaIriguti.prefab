@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4551950955773563288
+--- !u!1 &2363151314454005552
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4551950955773563289}
-  - component: {fileID: 4551950955773563270}
+  - component: {fileID: 5769481305863606016}
+  - component: {fileID: 160588071822618544}
   m_Layer: 0
-  m_Name: stage1_Gate
+  m_Name: stage2_KoyaIriguti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4551950955773563289
+--- !u!4 &5769481305863606016
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4551950955773563288}
+  m_GameObject: {fileID: 2363151314454005552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,17 +31,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4551950955773563270
+--- !u!114 &160588071822618544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4551950955773563288}
+  m_GameObject: {fileID: 2363151314454005552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dc12bed08626844ea6200b3ccbeed51, type: 3}
+  m_Script: {fileID: 11500000, guid: c380a23e5ebd1414f9799ed7c88eda80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  koyaFlg_1: {fileID: 0}
-  gateFlg_2: 0
