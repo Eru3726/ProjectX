@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -35,10 +36,15 @@ public class EnemyController : MonoBehaviour
     public float minY = 4f;   // 移動可能なY座標の最小値
     public float maxY = 6f;    // 移動可能なY座標の最大値
 
-    float timer = 0;
 
-    [Header("Enemyの弾Prefab")]
+    float timer = 0;
+    float[] probabi;
+
+    [Header("Gurenの弾Prefab")]
     public GameObject ShellPre;
+
+    [Header("Gurenの死亡エフェクトPrefab")]
+    public GameObject DieEffectPre;
 
     int eight = 8;
     int Movecounter = 0;
@@ -60,11 +66,13 @@ public class EnemyController : MonoBehaviour
 
 
     private bool nowHomingFlg = false;
+    private bool halfHp = false;
     public bool[] ishoming = new bool[8];
 
 
     public enum EnemyState
     {
+        Standby,
         Idol,
         Idol2,
         Warp,
@@ -81,7 +89,7 @@ public class EnemyController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
-        currentState = EnemyState.Move;
+        currentState = EnemyState.Standby;
         mc = gameObject.GetComponent<MoveController>();
         plmc = player.gameObject.GetComponent<MoveController>();
         sc = gameObject.GetComponent<ShellController>();
@@ -108,8 +116,13 @@ public class EnemyController : MonoBehaviour
                 transform.localScale = new Vector3(2, 2, 1);
             }
 
+            
+
             switch (currentState)
             {
+                case EnemyState.Standby:
+                    Standby();
+                    break;
                 case EnemyState.Idol: //次の行動に移るための待機
                     movecheck = true;
                     warpcheck = true;
@@ -147,6 +160,7 @@ public class EnemyController : MonoBehaviour
                     break;
 
                 case EnemyState.Warp2:
+
                     break;
 
                 case EnemyState.Down: //ダウン
@@ -184,25 +198,17 @@ public class EnemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
     }
+
+    void Standby()
+    {
+        currentState = (EnemyState)Enum.ToObject(typeof(EnemyState), RandomAction());
+    }
     void EnemyMove()
     {
-        //if (movecheck && plmc.IsGround())
-        //{
-        //    GurenAnim.Play("Guren_FSAnimation");
-        //    Vector2 playerPos = player.transform.position;
-        //    Vector2 enemyPos = transform.position;
-        //    float directionX = playerPos.x - transform.position.x;
-
-        //    mc.InputLR((int)Mathf.Sign(directionX));
-
-        //    float dis = Vector2.Distance(playerPos, enemyPos);
-
-        //    if (dis <= Atkdis)
-        //    {
-        //        mc.InputLR(0);
+        
         if (!animeMoveFlg)
         {
-            if (Movetimer >= 2)
+            if (Movetimer >= 3)
             {
                 animeMoveFlg = true;
                 GurenAnim.Play("Guren_FSAnimation");
@@ -210,19 +216,11 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if (Movetimer >= 4)
+            if (Movetimer >= 8)
             {
                 currentState = EnemyState.Dash;
             }
         }
-
-        //    }
-
-        //}
-        //else
-        //{
-        //    GurenAnim.Play("Guren_NomalAnimation");
-        //}
     }
 
     void EnemyDash()
@@ -238,10 +236,9 @@ public class EnemyController : MonoBehaviour
         if (warpcheck)
         {
             this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
-            Debug.Log(this.GetComponent<SpriteRenderer>().color);
 
-            float randomX = Random.Range(minX, maxX);
-            float randomY = Random.Range(minY, maxY);
+            float randomX = UnityEngine.Random.Range(minX, maxX);
+            float randomY = UnityEngine.Random.Range(minY, maxY);
             transform.position = new Vector3(randomX, randomY, 0);
 
             warpcheck = false;
@@ -293,10 +290,31 @@ public class EnemyController : MonoBehaviour
     }
     public void EnemyDie()
     {
+        Vector2 EnemyPos = transform.position;
         //死亡処理
         GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
-        mg.OneShotSE_C(SEData.Type.EnemySE, Mng_Game.ClipSe.Death);
+        Destroy(gameObject, 1.0f);
         DieFlg = true;
-        Destroy(gameObject,4.0f);
+        GameObject effect = Instantiate(DieEffectPre, EnemyPos, Quaternion.identity);
+        Destroy(effect, 1.5f);
+        mg.OneShotSE_C(SEData.Type.EnemySE, Mng_Game.ClipSe.Death);
+    }
+       
+
+    private int RandomAction()
+    {
+        if (halfHp) probabi = new float[] { 0.60f, 0.25f, 0.15f };
+        else probabi = new float[] { 0.60f, 0.30f, 0.00f };
+        float rand = UnityEngine.Random.value;
+        float cumuprobabi = 0f;
+        for (int i = 0; i <= probabi.Length; i++)
+        {
+            cumuprobabi += probabi[i];
+            if(rand < cumuprobabi)
+            {
+                return i + 3;
+            }
+        }
+        return probabi.Length;
     }
 }

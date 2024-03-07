@@ -146,11 +146,10 @@ public class ShellController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            Debug.Log("消えた");
-            ec.ishoming[num] = true;
-            Destroy(this.gameObject);
-        }
+       Debug.Log("消えた");
+       ec.ishoming[num] = true;
+       Destroy(this.gameObject);
     }
+
+   
 }
