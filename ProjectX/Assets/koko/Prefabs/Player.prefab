@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hc: {fileID: 7352228621135923580}
-  amari: {fileID: 0}
+  amari: {fileID: 8461351560760511438}
 --- !u!1 &9188364585603081435
 GameObject:
   m_ObjectHideFlags: 0

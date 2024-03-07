@@ -21,7 +21,7 @@ public class MeleeEffect : MonoBehaviour
         trans = 255;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         sr.color = new Color32(255, 255, 255, (byte)trans);
 
