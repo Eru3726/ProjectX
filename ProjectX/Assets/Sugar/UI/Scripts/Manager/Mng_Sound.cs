@@ -7,7 +7,7 @@ public partial class Mng_Game : MonoBehaviour
     // SEとBGM用
     [Header("0:SE 1:BGM")]
     [SerializeField] AudioSource[] aud;
-
+    [SerializeField] AudioClip[] BGM;
     // マスターボリューム
     public float Para_Master
     {

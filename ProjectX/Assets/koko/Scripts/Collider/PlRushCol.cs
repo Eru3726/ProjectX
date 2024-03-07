@@ -13,7 +13,7 @@ public class PlRushCol : MonoBehaviour
     [SerializeField]
     float delay = 1;
 
-    float count = 0;
+    float counter = 0;
 
     [SerializeField]
     List<GameObject> targetList = new List<GameObject>();
@@ -53,14 +53,18 @@ public class PlRushCol : MonoBehaviour
 
             if (targetList[i].TryGetComponent<IDamageable>(out IDamageable iDamage))
             {
-                if (count >= delay - 0.05f)
+                if (counter >= delay - 0.05f)
                 {
                     iDamage.TakeDamage(damage);
-                    count = 0;
                 }
             }
         }
 
-        count += Time.deltaTime;
+        counter += Time.deltaTime;
+
+        if (counter > delay)
+        {
+            counter = 0;
+        }
     }
 }

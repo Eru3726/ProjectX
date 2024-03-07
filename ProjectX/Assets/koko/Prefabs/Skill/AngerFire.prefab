@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45520b8b03789b48bdfc557f3fbf6f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 10
   shock: 5
   inv: 1
 --- !u!114 &754696040179851032
@@ -129,12 +129,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundDestroyFlag: 1
-  isLife: 1
-  lifeCount: 5
-  isBullet: 1
   groundLm:
     serializedVersion: 2
     m_Bits: 8
+  isLife: 1
+  lifeCount: 5
+  isBullet: 1
 --- !u!58 &3424937521654278363
 CircleCollider2D:
   m_ObjectHideFlags: 0
