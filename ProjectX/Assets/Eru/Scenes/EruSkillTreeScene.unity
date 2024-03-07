@@ -429,7 +429,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 422eb261f89552447a4f8a65942fa5e2, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &36340617
@@ -896,7 +896,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: c14831f3099b65b41a4ed017df203460, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &163162706
@@ -1128,7 +1128,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: f26fad1eaf7bd7f46965cc1d1f9b1a28, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &189047496
@@ -1402,7 +1402,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 422eb261f89552447a4f8a65942fa5e2, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &303779212
@@ -1834,7 +1834,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 3d652b28955ccd64692a06e3c18d5370, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &516467479
@@ -2039,7 +2039,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 9eb64705cbc08d9489fc670d7029038a, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &588733499
@@ -2155,7 +2155,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: fa1cf91be0eff4c488da4960bc67e7e0, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &609164551
@@ -2593,7 +2593,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: ea760acade4d8cd4892349a1ba044d4a, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &685237197
@@ -3328,7 +3328,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: fa1cf91be0eff4c488da4960bc67e7e0, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &889325929
@@ -3931,7 +3931,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: ce2190827f10316478157bb4d8b3a2ea, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1062015134
@@ -4047,7 +4047,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: fa1cf91be0eff4c488da4960bc67e7e0, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1068538088
@@ -4491,7 +4491,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: c14831f3099b65b41a4ed017df203460, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1164152303
@@ -4607,7 +4607,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 422eb261f89552447a4f8a65942fa5e2, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1164920826
@@ -4918,7 +4918,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 3d652b28955ccd64692a06e3c18d5370, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1273615156
@@ -5127,7 +5127,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: ce2190827f10316478157bb4d8b3a2ea, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1337892013
@@ -5480,7 +5480,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 3510a03e364ea994db05e507d1f663d4, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1438506921
@@ -5775,7 +5775,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 3510a03e364ea994db05e507d1f663d4, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1507083821
@@ -5891,7 +5891,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 3510a03e364ea994db05e507d1f663d4, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1513768392
@@ -6127,7 +6127,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: d4465fc09fce7a244b8c6915e113d88c, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1652157341
@@ -6846,7 +6846,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 3d652b28955ccd64692a06e3c18d5370, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1782168975
@@ -7170,7 +7170,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 773e3da4eafe6d5498f4b85999ab3c2a, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &1877413794
@@ -7625,7 +7625,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 3d652b28955ccd64692a06e3c18d5370, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &2048254401
@@ -7820,7 +7820,7 @@ MonoBehaviour:
   stm: {fileID: 406944890}
   image: {fileID: 0}
   releaseFlg: 0
-  releasedSprite: {fileID: 0}
+  releasedSprite: {fileID: 21300000, guid: 422eb261f89552447a4f8a65942fa5e2, type: 3}
   releasableSprite: {fileID: 0}
   lockSprite: {fileID: 21300000, guid: dea54ed88cfefcc4baa50aeab5091827, type: 3}
 --- !u!58 &2112176802
