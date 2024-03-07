@@ -15,9 +15,6 @@ public class PlayerAnimController : MonoBehaviour
     Animator anim;
 
     [SerializeField]
-    Animator animRun;
-
-    [SerializeField]
     PlayerInput pi;
 
     [SerializeField]
@@ -35,7 +32,7 @@ public class PlayerAnimController : MonoBehaviour
         rb2d = parentPlayer.GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (pi.CheckActSkill())
         {

@@ -10,14 +10,11 @@ public class PlHitEffect : MonoBehaviour
     [SerializeField, Header("amariアタッチ")]
     GameObject amari;
 
-    SpriteRenderer sr;
-
     bool isBlink = false;
     float blinkTime = 0;
 
     private void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
         amari.SetActive(true);
     }
 
