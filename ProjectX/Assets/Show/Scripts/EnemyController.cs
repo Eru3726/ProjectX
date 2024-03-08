@@ -109,6 +109,10 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            EnemyDie();
+        }
         if (!DieFlg)
         {
             Movetimer += Time.deltaTime;
@@ -329,7 +333,8 @@ public class EnemyController : MonoBehaviour
     public void EnemyDie()
     {
         //死亡処理
-        
+        //if() 大聖から貰う
+        Debug.Log("死んだ");
     }
        
 
