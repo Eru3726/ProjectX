@@ -109,7 +109,7 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             EnemyDie();
         }

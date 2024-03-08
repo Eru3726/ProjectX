@@ -21,7 +21,7 @@ public class stage2_GateKanban : MonoBehaviour
     {
         if (checkArea)
         {
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 textNum = 12;
                 GameUI.SetText(textNum);

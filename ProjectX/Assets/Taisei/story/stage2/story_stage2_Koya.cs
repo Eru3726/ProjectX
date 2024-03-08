@@ -7,9 +7,9 @@ public class story_stage2_Koya : MonoBehaviour
     private OpenOption GameUI;
     private int textNum;
 
-    [SerializeField] private GameObject kari;
-    [SerializeField] private AllTexts all;
-    [SerializeField] private TextScript ts;
+    //[SerializeField] private GameObject kari;
+    //[SerializeField] private AllTexts all;
+    //[SerializeField] private TextScript ts;
 
     private bool checkArea;
 
@@ -24,7 +24,7 @@ public class story_stage2_Koya : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GameUI = GameObject.Find("GameUI").GetComponent<OpenOption>();
+        GameUI = GameObject.Find("GameUI").GetComponent<OpenOption>();
     }
 
     // Update is called once per frame
@@ -40,7 +40,7 @@ public class story_stage2_Koya : MonoBehaviour
 
         if (checkBattleFin)
         {
-            if (!ts.CheckTextOnOff())
+            if (!GameUI.checkText())
             {
                 goAnim = true;
             }
@@ -51,16 +51,16 @@ public class story_stage2_Koya : MonoBehaviour
             if (!GurenFight)
             {
                 textNum = 14;
-                //GameUI.SetText(textNum);
-                kari.SetActive(true);
-                all.SetAllTexts(textNum);
+                GameUI.SetText(textNum);
+                //kari.SetActive(true);
+                //all.SetAllTexts(textNum);
             }
             else if (GurenFight)
             {
                 textNum = 15;
-                //GameUI.SetText(textNum);
-                kari.SetActive(true);
-                all.SetAllTexts(textNum);
+                GameUI.SetText(textNum);
+                //kari.SetActive(true);
+                //all.SetAllTexts(textNum);
 
                 checkBattleFin = true;
             }
