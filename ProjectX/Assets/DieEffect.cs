@@ -13,6 +13,6 @@ public class DieEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject,4.0f);
+        Destroy(gameObject, 0.5f);
     }
 }

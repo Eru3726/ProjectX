@@ -27,23 +27,13 @@ public class GurenHitCol : MonoBehaviour, IDamageable
 
         if (nowHp <= 0)
         {
-            ec.EnemyDie();
+            ec.EnemyDown();
         }
         else if(nowHp <= 5)
         {
             halfHp = true;
         }
     }
-
-    //void Die()
-    //{
-    //    if (body != null)
-    //    {
-            
-    //        Destroy(body.gameObject);
-    //    }
-    //}
-
     void Start()
     {
         nowHp = maxHp;

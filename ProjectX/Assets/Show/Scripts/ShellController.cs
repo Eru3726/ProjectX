@@ -18,6 +18,9 @@ public class ShellController : MonoBehaviour
     public MoveController mc;
 
     [HideInInspector]
+    public GroundChecker gc;
+
+    [HideInInspector]
     public int num;
 
     [SerializeField]
@@ -36,7 +39,7 @@ public class ShellController : MonoBehaviour
     private GameObject afterImage;
 
     [SerializeField]
-    private float maxX = 0.5f, minX = -0.5f;
+    private float maxX = 0.3f, minX = -0.6f;
 
     private float offsetY = 0.8f;
 
@@ -53,6 +56,7 @@ public class ShellController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         moveFlg = false;
         mc = GetComponent<MoveController>();
+        gc = GetComponent<GroundChecker>();
         type = TYPE.Up;
     }
 
@@ -136,7 +140,7 @@ public class ShellController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("消えた");
             ec.ishoming[num] = true;
@@ -146,9 +150,12 @@ public class ShellController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       Debug.Log("消えた");
-       ec.ishoming[num] = true;
-       Destroy(this.gameObject);
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("消えた");
+            ec.ishoming[num] = true;
+            Destroy(this.gameObject);
+        }
     }
 
    

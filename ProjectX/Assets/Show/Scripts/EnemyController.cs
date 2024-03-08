@@ -46,19 +46,24 @@ public class EnemyController : MonoBehaviour
     [Header("Gurenの死亡エフェクトPrefab")]
     public GameObject DieEffectPre;
 
+    int ten = 10;
     int eight = 8;
-    int Movecounter = 0;
+    int seven = 7;
+    int six = 6;
+    int five = 5; 
     int Homcounter = 0;
+    int sponcounter = 3;
+
 
     float warpDelay = 2f; //ワープするまでの時間
     float idolDelay = 1f; //待機時間
+    float homdelay = 1.5f;
+    float diedelay = 1f;
     float Movetimer = 0f;
     float Homtimer = 0f;
     float distance = 0.1f;
 
     Mng_Game mg;
-
-
 
     bool animeHomFlg = false;
     bool animeMoveFlg = false;
@@ -115,9 +120,6 @@ public class EnemyController : MonoBehaviour
             {
                 transform.localScale = new Vector3(2, 2, 1);
             }
-
-            
-
             switch (currentState)
             {
                 case EnemyState.Standby:
@@ -142,7 +144,8 @@ public class EnemyController : MonoBehaviour
 
                 case EnemyState.Homing: //ホーミング攻撃の処理
 
-                    StartCoroutine(HomDelay());
+                    //StartCoroutine(HomDelay());
+                    StartCoroutine(HomAnimationPlay());
                     Debug.Log("Homing");
                     break;
 
@@ -164,9 +167,9 @@ public class EnemyController : MonoBehaviour
                     break;
 
                 case EnemyState.Down: //ダウン
-
-
+                    
                     break;
+
                 case EnemyState.Die: //死んだ後の処理
                     break;
             }
@@ -190,8 +193,6 @@ public class EnemyController : MonoBehaviour
     IEnumerator HomDelay()
     {
         yield return new WaitForSeconds(2);
-        EnemyHoming();
-
     }
 
     IEnumerator ShiftDelay()
@@ -199,16 +200,48 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
 
+    IEnumerator HomAnimationPlay()
+    {
+        GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
+
+        yield return new WaitForSeconds(GurenAnim.GetCurrentAnimatorStateInfo(0).length);
+
+        yield return new WaitForSeconds(homdelay);
+
+        EnemyHoming();
+    }
+    IEnumerator DieAnimationPlay()
+    {
+        GurenAnim.Play("Guren_GS_DownAnimation");
+
+        yield return new WaitForSeconds(diedelay);
+
+        DieFlg = true;
+    }
+
+    IEnumerator SponAction()
+    {
+        Vector2 EnemyPos = transform.position;
+        GurenAnim.Play("Guren_GS_DownAnimation");
+        DieFlg = true;
+        for(int i = 0; i < sponcounter; i++)
+        {
+            Instantiate(DieEffectPre, EnemyPos, Quaternion.identity);
+            yield return new WaitForSeconds(diedelay);
+        }
+        
+    }
+
     void Standby()
     {
-        currentState = (EnemyState)Enum.ToObject(typeof(EnemyState), RandomAction());
+        currentState = EnemyState.Move; /*(EnemyState)Enum.ToObject(typeof(EnemyState), RandomAction());*/
     }
     void EnemyMove()
     {
         
         if (!animeMoveFlg)
         {
-            if (Movetimer >= 3)
+            if (Movetimer >= five)
             {
                 animeMoveFlg = true;
                 GurenAnim.Play("Guren_FSAnimation");
@@ -216,7 +249,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if (Movetimer >= 7)
+            if (Movetimer >= seven)
             {
                 currentState = EnemyState.Dash;
             }
@@ -228,7 +261,6 @@ public class EnemyController : MonoBehaviour
         Debug.Log("突進");
         Vector3 pos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
         mc.InputFlick(pos, 35, 0.3f, true);
-        Movetimer = 0;
         currentState = EnemyState.Idol;
     }
 
@@ -248,9 +280,9 @@ public class EnemyController : MonoBehaviour
     }
     void EnemyHoming()
     {
-          GurenAnim.Play("Guren_FingerSnapOnlyAnimation");  
-
-          if (ishoming.All(b => b))
+        if (!DieFlg)
+        {
+            if (ishoming.All(b => b))
             {
                 Debug.Log("動いた");
                 Movetimer = 0;
@@ -269,13 +301,13 @@ public class EnemyController : MonoBehaviour
             GameObject[] shell = new GameObject[eight];
 
             Vector2 enemyPos = transform.position;
-            enemyPos.x += 0.5f;
+            enemyPos.x += 0.2f;
 
             for (int i = 0; i < eight; i++)
             {
                 Debug.Log("a");
                 //enemyPos[i] = transform.position;
-                enemyPos.y += 0.2f;
+                enemyPos.y += 0.15f;
                 //transform.position = enemyPos[i];
                 shell[i] = Instantiate(ShellPre, enemyPos, Quaternion.identity);
                 StartCoroutine(ShiftDelay());
@@ -284,21 +316,18 @@ public class EnemyController : MonoBehaviour
                 sc.ec = GetComponent<EnemyController>();
                 sc.num = i;
             }
+            Movetimer = 0;
+        }
     }
     public void EnemyDown()
     {
-        GurenAnim.Play("Guren_GS_DownAnimation");
+        StartCoroutine(SponAction());
     }
     public void EnemyDie()
     {
-        Vector2 EnemyPos = transform.position;
         //死亡処理
-        GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
-        Destroy(gameObject, 1.0f);
-        DieFlg = true;
-        GameObject effect = Instantiate(DieEffectPre, EnemyPos, Quaternion.identity);
-        Destroy(effect, 1.5f);
-        mg.OneShotSE_C(SEData.Type.EnemySE, Mng_Game.ClipSe.Death);
+       
+        
     }
        
 
