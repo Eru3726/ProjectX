@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class story_stage1_Gate : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class story_stage1_Gate : MonoBehaviour
                 if (!GameUI.checkText())
                 {
                     //シーンチェンジ用
+                    SceneManager.LoadScene("World");
                 }
             }
         }
