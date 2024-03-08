@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GurenHitCol : MonoBehaviour, IDamageable
 {
-    [SerializeField] int maxHp = 10;
-    [SerializeField] int nowHp;
-    [SerializeField] float resist = 1;
+    [SerializeField] private int maxHp = 10;
+    [SerializeField] private int nowHp;
+    [SerializeField] private bool halfHp = false;
+    [SerializeField] private float resist = 1;
 
     [SerializeField, Header("mcアタッチ")]
     public MoveController mc;
@@ -28,17 +29,11 @@ public class GurenHitCol : MonoBehaviour, IDamageable
         {
             ec.EnemyDown();
         }
+        else if(nowHp <= 5)
+        {
+            halfHp = true;
+        }
     }
-
-    //void Die()
-    //{
-    //    if (body != null)
-    //    {
-            
-    //        Destroy(body.gameObject);
-    //    }
-    //}
-
     void Start()
     {
         nowHp = maxHp;
