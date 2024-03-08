@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] Animator GurenAnim;
 
+    [SerializeField] story_stage2_Koya koya;
+
     GameObject player;
 
     MoveController mc;
@@ -102,6 +104,7 @@ public class EnemyController : MonoBehaviour
         ishoming = new bool[8];
         for (int i = 0; i < ishoming.Length; i++) ishoming[i] = false;
         mg = GameObject.Find("GameManager").GetComponent<Mng_Game>();
+        koya = gameObject.GetComponent<story_stage2_Koya>();
     }
 
     void FixedUpdate()
@@ -229,7 +232,7 @@ public class EnemyController : MonoBehaviour
             Instantiate(DieEffectPre, EnemyPos, Quaternion.identity);
             yield return new WaitForSeconds(diedelay);
         }
-        
+        koya.FinishBattle();
     }
 
     void Standby()
@@ -326,7 +329,6 @@ public class EnemyController : MonoBehaviour
     public void EnemyDie()
     {
         //死亡処理
-       
         
     }
        
