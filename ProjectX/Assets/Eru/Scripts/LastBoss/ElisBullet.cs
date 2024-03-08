@@ -15,7 +15,7 @@ public class ElisBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("Elis") && collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+        if (!collision.gameObject.CompareTag("Enemy") && collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
             damageable.TakeDamage(attackPower);
             Destroy(this.gameObject);

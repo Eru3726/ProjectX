@@ -2,100 +2,161 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TYPE
+{
+    Up,
+    Rotate,
+    Fly
+}
+
 public class ShellController : MonoBehaviour
 {
-    [SerializeField] float ShellSpd = 7f;
-    [SerializeField] float rotSpd = 1f;
-
-    GameObject player;
-    Vector3 playerPos;
-    Rigidbody2D rb;
-
+    [HideInInspector]
     public EnemyController ec;
 
-    public float ShellupSpd = 5;
+    [HideInInspector]
+    public MoveController mc;
 
-    bool ShellFlg = false;
+    [HideInInspector]
+    public GroundChecker gc;
 
-    float radian;
-    int count;
-    Vector3 shellVec;
+    [HideInInspector]
+    public int num;
 
-    float time = 1.0f;
-    float timer = 1.0f;
-    float distance = 0.1f;
+    [SerializeField]
+    private float moveSpeed = 4f;
 
-    void Start()
+    [SerializeField]
+    private float upSpeed = 2f;
+
+    [SerializeField]
+    private float rotateSpeed = 3f;
+
+    [SerializeField]
+    private int attackPow = 1;
+
+    [SerializeField]
+    private GameObject afterImage;
+
+    [SerializeField]
+    private float maxX = 0.3f, minX = -0.6f;
+
+    private float offsetY = 0.8f;
+
+    private Vector2 playerPos;
+    private Rigidbody2D rb;
+    private TYPE type;
+
+    private bool moveFlg = false;
+    private Vector2 targetPos;
+
+    private void Start()
     {
-        player = GameObject.Find("Player");
-        playerPos = player.transform.position;
+        playerPos = GameObject.Find("Player").transform.position;
         rb = GetComponent<Rigidbody2D>();
+        moveFlg = false;
+        mc = GetComponent<MoveController>();
+        gc = GetComponent<GroundChecker>();
+        type = TYPE.Up;
+    }
 
-        radian = Mathf.Atan2(playerPos.y - transform.position.y, playerPos.x - transform.position.x);
-
-        shellVec.x = ShellSpd * Time.deltaTime * Mathf.Cos(radian);
-        shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
-        Vector3 dis = player.transform.position - transform.position;
-
-        if (dis.x >= -distance)
+    private void Update()
+    {
+        switch (type)
         {
-            transform.localScale = new Vector3(-0.2f, 0.2f, 1);
-        }
-        if (dis.x <= distance)
-        {
-            transform.localScale = new Vector3(0.2f, 0.2f, 1);
+            case TYPE.Up:
+                Up();
+                break;
+            case TYPE.Rotate:
+                Rotate();
+                break;
+            case TYPE.Fly:
+                Fly();
+                break;
         }
     }
 
-
-    void FixedUpdate()
+    private void Up()
     {
-      
-        time -= Time.deltaTime;
-        if (time > 0)
+        if (!moveFlg)
         {
-            transform.Translate(Vector3.up * ShellupSpd * Time.deltaTime);
+            moveFlg = true;
+
+            targetPos = new Vector2(Random.Range(maxX, minX), this.transform.position.y + offsetY);
         }
-        else
+
+        // 現在位置から目標位置までの方向を取得
+        Vector2 direction = ((Vector3)targetPos - transform.position).normalized;
+
+        // 移動ベクトルを計算
+        Vector2 moveVector = upSpeed * direction;
+
+        // Rigidbody2D に速度を適用
+        rb.velocity = moveVector;
+
+        // 目標位置に近づいたかどうかを判定
+        if (Vector2.Distance(transform.position, targetPos) < 0.2f)
         {
-            shellVec.x = ShellSpd * Time.deltaTime * Mathf.Cos(radian);
-            shellVec.y = ShellSpd * Time.deltaTime * Mathf.Sin(radian);
+            // 目標位置に到達したら移動を停止
+            rb.velocity = Vector2.zero;
+            targetPos = playerPos;
+            moveFlg = false;
 
-            this.transform.Translate(shellVec);
-
-            // 外積を求めるために、ベクトルを作成する
-            // 弾の位置と、PLの位置のベクトル
-            Vector3 plVec = playerPos - transform.position;
-            // 弾の速度ベクトル
-            Vector3 spdVec = shellVec;
-            // 外積を求める
-            float cross = plVec.x * spdVec.y - spdVec.x * plVec.y;
-
-            if (cross > 0)
-            {
-                radian -= rotSpd * Time.deltaTime;  // 反時計回りさせる
-            }
-            else
-            {
-                radian += rotSpd * Time.deltaTime;  // 時計回りさせる
-
-            }
+            type = TYPE.Rotate;
         }
+    }
+
+    private void Rotate()
+    {
+        // プレイヤーの位置を向く方向を計算
+        Vector3 direction = ((Vector3)targetPos - transform.position).normalized;
+
+        // 向く方向の角度を計算
+        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // 敵のZ軸の回転角度を設定
+        Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle - 90f);
+
+        // 敵を向く方向に少しずつ回転させる
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed);
+
+        // 敵がプレイヤーの方向を向いているかどうかを判定
+        if (Quaternion.Angle(transform.rotation, targetRotation) < 1f)
+        {
+            targetPos = ((Vector3)targetPos - transform.position).normalized;
+
+            type = TYPE.Fly;
+        }
+    }
+
+    private void Fly()
+    {
+        // 移動ベクトルを計算
+        Vector2 moveVector = moveSpeed  * targetPos;
+        Instantiate(afterImage, transform.position, transform.rotation);
+        // Rigidbody2D に速度を適用
+        rb.velocity = moveVector;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-           ec.ishoming = true;
-           Destroy(this.gameObject);
+            Debug.Log("消えた");
+            ec.ishoming[num] = true;
+            Destroy(this.gameObject);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("消えた");
-        ec.ishoming = true;
-        Destroy(this.gameObject);
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("消えた");
+            ec.ishoming[num] = true;
+            Destroy(this.gameObject);
+        }
     }
+
+   
 }
