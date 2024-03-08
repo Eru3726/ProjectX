@@ -67,7 +67,7 @@ public class AllTexts : MonoBehaviour
                 csvFiles = "tutorial2";
                 break;
 
-            //チュートリアル後    
+            //ストーリー    
             case 2:
                 csvFiles = "story0-1";
                 break;
@@ -94,13 +94,13 @@ public class AllTexts : MonoBehaviour
             
             //小屋フラグ回収前
             case 7:
-                csvFiles = "Koya1";
+                csvFiles = "stage1_Koya1";
                 break;
 
             //小屋フラグ回収後
             //フラグ=先にゲートを調べる
             case 8:
-                csvFiles = "Koya2";
+                csvFiles = "stage1_Koya2";
                 break;
 
             //ゲート　看板
@@ -132,6 +132,11 @@ public class AllTexts : MonoBehaviour
                 csvFiles = "stage2_KoyaKanban";
                 break;
 
+            //小屋入口
+            case 54:
+                csvFiles = "stage2_KoyaIriguti";
+                break;
+
             //グレンとの会話(戦闘前)
             case 14:
                 csvFiles = "stage2_Koya1"; ;
@@ -150,12 +155,12 @@ public class AllTexts : MonoBehaviour
                 break;
 
             //バー
-            //入口
+            //入店
             case 17:
                 csvFiles = "stage3_Bar1";
                 break;
 
-            //入店
+            //入口
             case 18:
                 csvFiles = "stage3_1-1";
                 break;

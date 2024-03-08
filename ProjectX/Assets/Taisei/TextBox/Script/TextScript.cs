@@ -290,7 +290,7 @@ public class TextScript : MonoBehaviour
         {
             TextMain();
             //ログ表示
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 if (!logCheck)
                 {
@@ -323,7 +323,10 @@ public class TextScript : MonoBehaviour
             if (checkName == false)
             {
                 //名前表示
-                nameText.text += splitName[nameNum].Substring(nowNameNum);
+                if (splitName[nameNum] != null)
+                {
+                    nameText.text += splitName[nameNum].Substring(nowNameNum);
+                }
                 checkName = true;
 
                 LorR = Convert.ToBoolean(splitLR[LRNum]);
@@ -506,7 +509,7 @@ public class TextScript : MonoBehaviour
                     ItemFlgOn();
                     FinishOneText();
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
-                    if (messageNum >= splitMessage.Length)
+                    if (messageNum >= splitMessage.Length || ChoiseTrigger[choiseNum] == 999)
                     {
                         Debug.Log("テキスト終了");
                         DestroyText();
@@ -531,7 +534,7 @@ public class TextScript : MonoBehaviour
                     counter = 0;
 
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
-                    if (messageNum >= splitMessage.Length)
+                    if (messageNum >= splitMessage.Length || ChoiseTrigger[choiseNum] == 999)
                     {
                         Debug.Log("テキスト終了");
                         DestroyText();
@@ -540,14 +543,14 @@ public class TextScript : MonoBehaviour
             }
         }
         //スキップ
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             skipOnOff = true;
             SkipTextObj.SetActive(true);
         }
 
         //オート・マニュアル変更
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             AutoORAanual = !AutoORAanual;
             if (!AutoORAanual)
@@ -563,7 +566,7 @@ public class TextScript : MonoBehaviour
         }
 
         //早送り
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             FastORNormal = !FastORNormal;
             if (!FastORNormal)
@@ -598,12 +601,6 @@ public class TextScript : MonoBehaviour
             //選択肢直後
             if (routeOnOFF)
             {
-                if (ChoiseTrigger[choiseNum] == 999)
-                {
-                    //テキスト終了
-                    DestroyText();
-                }
-
                 //分岐後の処理
                 switch (routeFlg)
                 {
@@ -648,6 +645,7 @@ public class TextScript : MonoBehaviour
                             routeFlg = 2;
                             routeOnOFF = true;
                         }
+                        checkRouteFlg = choiseW.ChoiseFlg();
                         break;
 
                     case 2:
@@ -673,6 +671,7 @@ public class TextScript : MonoBehaviour
                             routeFlg = 2;
                             routeOnOFF = true;
                         }
+                        checkRouteFlg = choiseT.ChoiseFlg();
                         break;
                 }
             }
@@ -843,6 +842,26 @@ public class TextScript : MonoBehaviour
             //メソメソ
             case 3:
                 animStr = chara3_anim[splitAnims[animsNum]];
+                break;
+
+            //ドーラ
+            case 4:
+                animStr = chara4_anim[splitAnims[animsNum]];
+                break;
+
+            //マスター
+            case 5:
+                animStr = chara5_anim[splitAnims[animsNum]];
+                break;
+
+            //グレン
+            case 6:
+                animStr = chara6_anim[splitAnims[animsNum]];
+                break;
+
+            //エリス
+            case 7:
+                animStr = chara7_anim[splitAnims[animsNum]];
                 break;
         }
     }

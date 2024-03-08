@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class OpenOption : MonoBehaviour
 {
+    [SerializeField] private AllTexts alltextsscript;
+    [SerializeField] private GameObject talkUI;
+    [SerializeField] private TextScript textScript;
+    int textNo;
+    private bool textFinish;
+    private int textRoute;
+
+
     [SerializeField] RectTransform under; 
     [SerializeField] GameObject MenuObj;
 
@@ -160,5 +168,28 @@ public class OpenOption : MonoBehaviour
         under.anchoredPosition += new Vector2(spdX_under, spdY_under);
 
         yield return null;
+    }
+
+    public void SetText(int textNum)
+    {
+        if (textNum != textNo)
+        {
+            textNo = textNum;
+            talkUI.SetActive(true);
+            alltextsscript.SetAllTexts(textNo);
+        }
+
+    }
+
+    public bool checkText()
+    {
+        textFinish = textScript.CheckTextOnOff();
+        return textFinish;
+    }
+
+    public int checkRoute()
+    {
+        textRoute = textScript.CheckRouteFlg();
+        return textRoute;
     }
 }
