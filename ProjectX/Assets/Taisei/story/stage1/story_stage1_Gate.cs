@@ -35,6 +35,13 @@ public class story_stage1_Gate : MonoBehaviour
                     textNum = 11;
                     GameUI.SetText(textNum);
                 }
+
+                if (!GameUI.checkText())
+                {
+                    //シーンチェンジ用
+                    SceneManager.LoadScene("World");
+                }
+
             }
             else
             {
@@ -44,13 +51,6 @@ public class story_stage1_Gate : MonoBehaviour
                     GameUI.SetText(textNum);
                     koyaFlg_1.koyaFlg = true;
                     firstCheck = false;
-
-                }
-
-                if (!GameUI.checkText())
-                {
-                    //シーンチェンジ用
-                    SceneManager.LoadScene("World");
                 }
             }
         }
