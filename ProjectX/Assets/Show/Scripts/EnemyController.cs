@@ -336,6 +336,11 @@ public class EnemyController : MonoBehaviour
         //if() 大聖から貰う
         Debug.Log("死んだ");
         koya.FinishBattle();
+        //バトル後のテキストが終わったら流す演出のやつ
+        if (koya.FinishText())
+        {
+
+        }
     }
        
 
