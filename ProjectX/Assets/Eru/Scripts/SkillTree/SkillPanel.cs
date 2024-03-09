@@ -44,6 +44,16 @@ namespace Eru
         {
             image = GetComponent<Image>();
             releaseFlg = false;
+        }
+
+        void Update()
+        {
+            if (stm.sorrowFlg && (int)skillTree >= 2000 && (int)skillTree <= 20000 ||
+                stm.angerFlg && (int)skillTree > 70000000 && (int)skillTree <= 1000000000) image.sprite = lockSprite;
+            else if (releaseConditions == 0 && !releaseFlg
+                || (releaseConditions & SkillTreeManager.skillData) != 0 && !releaseFlg) image.sprite = releasableSprite;
+
+
             if ((SkillTreeManager.skillData & skillTree) == skillTree)
             {
                 releaseFlg = true;
@@ -54,14 +64,6 @@ namespace Eru
                     || stm.angerFlg && skillTree == SkillTreeManager.SkillTree.powerlessness
                     || stm.sorrowFlg && skillTree == SkillTreeManager.SkillTree.angryPrincessTantrum
                     || stm.sorrowFlg && skillTree == SkillTreeManager.SkillTree.swirlingEmotions) image.sprite = lockSprite;
-        }
-
-        void Update()
-        {
-            if (stm.sorrowFlg && (int)skillTree >= 2000 && (int)skillTree <= 20000 ||
-                stm.angerFlg && (int)skillTree > 70000000 && (int)skillTree <= 1000000000) image.sprite = lockSprite;
-            else if (releaseConditions == 0 && !releaseFlg
-                || (releaseConditions & SkillTreeManager.skillData) != 0 && !releaseFlg) image.sprite = releasableSprite;
         }
     }
 }
