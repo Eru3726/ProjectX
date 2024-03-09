@@ -109,7 +109,7 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             EnemyDie();
         }
@@ -335,6 +335,12 @@ public class EnemyController : MonoBehaviour
         //死亡処理
         //if() 大聖から貰う
         Debug.Log("死んだ");
+        koya.FinishBattle();
+        //バトル後のテキストが終わったら流す演出のやつ
+        if (koya.FinishText())
+        {
+
+        }
     }
        
 

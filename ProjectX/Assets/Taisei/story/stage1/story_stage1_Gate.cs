@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class story_stage1_Gate : MonoBehaviour
 {
@@ -29,26 +30,27 @@ public class story_stage1_Gate : MonoBehaviour
         {
             if (gateFlg_2)
             {
-                if (Input.GetKeyDown(KeyCode.O))
+                if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     textNum = 11;
                     GameUI.SetText(textNum);
-                }
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.O))
-                {
-                    textNum = 10;
-                    GameUI.SetText(textNum);
-                    koyaFlg_1.koyaFlg = true;
-                    firstCheck = false;
-
                 }
 
                 if (!GameUI.checkText())
                 {
                     //シーンチェンジ用
+                    SceneManager.LoadScene("World");
+                }
+
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    textNum = 10;
+                    GameUI.SetText(textNum);
+                    koyaFlg_1.koyaFlg = true;
+                    firstCheck = false;
                 }
             }
         }
@@ -72,7 +74,9 @@ public class story_stage1_Gate : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        Debug.Log("調べる");
+
+        if (collision.gameObject.tag == "Player")
         {
             checkArea = true;
         }
@@ -80,10 +84,15 @@ public class story_stage1_Gate : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             checkArea = false;
         }
+    }
+
+    public void GateChange()
+    {
+        firstCheck = false;
     }
 
 }
