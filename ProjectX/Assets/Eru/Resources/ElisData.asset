@@ -15,9 +15,17 @@ MonoBehaviour:
   HitPoint: 100
   FallingAttackPower: 15
   DefensePower: 10
-  MoveSpeed: 5
+  MoveSpeed: 500
   ShotNum: 4
   ShotTime: 0.5
+  WaitTime: 2
+  F_MoveUpSpeed: 500
+  F_MoveDownSpeed: 1000
+  F_WaitTime: 1
+  A_MoveSpeed: 500
+  A_ShotNum: 1
+  A_ShotTime: 1
+  A_WaitTime: 2
   B_AttackPower: 10
   B_MoveSpeed: 5
   B_MoveTime: 5
