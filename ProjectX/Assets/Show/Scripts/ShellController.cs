@@ -41,7 +41,7 @@ public class ShellController : MonoBehaviour
     [SerializeField]
     private float maxX = 0.3f, minX = -0.6f;
 
-    private float offsetY = 0.8f;
+    private float offsetY = 1.5f;
 
     private Vector2 playerPos;
     private Rigidbody2D rb;
