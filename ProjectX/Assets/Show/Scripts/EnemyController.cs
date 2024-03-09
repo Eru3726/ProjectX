@@ -335,6 +335,7 @@ public class EnemyController : MonoBehaviour
         //死亡処理
         //if() 大聖から貰う
         Debug.Log("死んだ");
+
     }
        
 
