@@ -12,7 +12,7 @@ public class story_stage1_house : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GameUI = GameObject.Find("GameUI").GetComponent<OpenOption>();
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class story_stage1_house : MonoBehaviour
         if (checkArea)
         {
             //仮設定の調べるコマンドキー
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 textNum = 5;
                 GameUI.SetText(textNum);
@@ -31,7 +31,8 @@ public class story_stage1_house : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        Debug.Log("調べる");
+        if (collision.gameObject.tag == "Player")
         {
             checkArea = true;
         }
@@ -39,7 +40,7 @@ public class story_stage1_house : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             checkArea = false;
         }

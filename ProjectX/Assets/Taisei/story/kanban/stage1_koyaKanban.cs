@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class story_stage1_Koya1 : MonoBehaviour
+public class stage1_koyaKanban : MonoBehaviour
 {
     private OpenOption GameUI;
     private int textNum;
 
     private bool checkArea = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
-
+        GameUI = GameObject.Find("GameUI").GetComponent<OpenOption>();
     }
 
     // Update is called once per frame
@@ -19,17 +21,18 @@ public class story_stage1_Koya1 : MonoBehaviour
     {
         if (checkArea)
         {
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                textNum = 7;
+                textNum = 6;
                 GameUI.SetText(textNum);
             }
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             checkArea = true;
         }
@@ -37,10 +40,9 @@ public class story_stage1_Koya1 : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             checkArea = false;
         }
     }
-
 }

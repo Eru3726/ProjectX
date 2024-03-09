@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Nakagawa/Scenes/Heaven1.unity
     guid: e0a77a2dcbf398c4797150aae89493df
+  - enabled: 1
+    path: Assets/Nakagawa/Scenes/Heaven2.unity
+    guid: b78731806b17f1e439e9d5ccc9ebb3cd
+  - enabled: 1
+    path: Assets/Nakagawa/Scenes/World.unity
+    guid: 0dab63ecf30d06e4f8fead6c69a1ccba
+  - enabled: 1
+    path: Assets/Nakagawa/Scenes/Room1.unity
+    guid: ecfe3dceff2bd714494c97673978e69d
   m_configObjects: {}
