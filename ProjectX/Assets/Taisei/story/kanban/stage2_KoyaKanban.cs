@@ -21,7 +21,7 @@ public class stage2_KoyaKanban : MonoBehaviour
     {
         if (checkArea)
         {
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 textNum = 13;
                 GameUI.SetText(textNum);

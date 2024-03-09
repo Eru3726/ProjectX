@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class story_stage2_KoyaIriguti : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class story_stage2_KoyaIriguti : MonoBehaviour
     {
         if (checkArea)
         {
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 textNum = 54;
                 GameUI.SetText(textNum);
@@ -30,7 +31,7 @@ public class story_stage2_KoyaIriguti : MonoBehaviour
                 if (GameUI.checkRoute() == 0)
                 {
                     //シーン移動
-                    
+                    SceneManager.LoadScene("Room1");
                 }
             }
         }

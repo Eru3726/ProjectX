@@ -7,13 +7,19 @@ public class story_stage2_Koya : MonoBehaviour
     private OpenOption GameUI;
     private int textNum;
 
+    //[SerializeField] private GameObject kari;
+    //[SerializeField] private AllTexts all;
+    //[SerializeField] private TextScript ts;
+
     private bool checkArea;
 
     //ステージ２グレン戦の前後
     public static bool GurenFight = false;
     private bool CheckFirst = false;
 
-    public static bool Stage2TextFinish = false;
+    private bool checkBattleFin = false;
+    private bool goAnim = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -25,26 +31,38 @@ public class story_stage2_Koya : MonoBehaviour
     void Update()
     {
         //グレン戦が終わったかどうかのフラグ(手動用)
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            GurenFight = !GurenFight;
-            CheckFirst = false;
+        //if (Input.GetKeyDown(KeyCode.I))
+        //{
+        //    GurenFight = !GurenFight;
+        //    CheckFirst = false;
 
+        //}
+
+        if (checkBattleFin)
+        {
+            if (!GameUI.checkText())
+            {
+                goAnim = true;
+            }
         }
 
         if (!CheckFirst)
         {
             if (!GurenFight)
             {
-                Debug.Log("初手");
                 textNum = 14;
                 GameUI.SetText(textNum);
+                //kari.SetActive(true);
+                //all.SetAllTexts(textNum);
             }
             else if (GurenFight)
             {
-                Debug.Log("次");
                 textNum = 15;
                 GameUI.SetText(textNum);
+                //kari.SetActive(true);
+                //all.SetAllTexts(textNum);
+
+                checkBattleFin = true;
             }
             CheckFirst = true;
         }
@@ -54,5 +72,10 @@ public class story_stage2_Koya : MonoBehaviour
     {
         GurenFight = true;
         CheckFirst = false;
+    }
+
+    public bool FinishText()
+    {
+        return goAnim;
     }
 }
