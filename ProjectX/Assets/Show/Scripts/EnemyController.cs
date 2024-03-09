@@ -237,6 +237,10 @@ public class EnemyController : MonoBehaviour
             yield return new WaitForSeconds(diedelay);
         }
         koya.FinishBattle();
+        if (koya.FinishText())
+        {
+
+        }
     }
 
     void Standby()
