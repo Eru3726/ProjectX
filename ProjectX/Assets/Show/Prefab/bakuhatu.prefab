@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4474537331931997456}
   - component: {fileID: 7885178837721433906}
-  - component: {fileID: 7479603842096607900}
+  - component: {fileID: 8183752664598923699}
   m_Layer: 0
   m_Name: bakuhatu
   m_TagString: Untagged
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7479603842096607900
+--- !u!114 &8183752664598923699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,6 +93,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5617571859202164401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7bba868dde27c478617409b22ad9d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a362b1d45b195f48a8d644b87662cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
