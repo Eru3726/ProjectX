@@ -27,16 +27,17 @@ public class story_stage1_Koya : MonoBehaviour
         {
             if (koyaFlg)
             {
-                if (Input.GetKeyDown(KeyCode.O))
+                if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     textNum = 8;
                     GameUI.SetText(textNum);
                     gateFlg_2.gateFlg_2 = true;
+                    gateFlg_2.GateChange();
                 }
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.O))
+                if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     textNum = 7;
                     GameUI.SetText(textNum);
@@ -49,7 +50,7 @@ public class story_stage1_Koya : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             checkArea = true;
         }
@@ -57,7 +58,7 @@ public class story_stage1_Koya : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             checkArea = false;
         }

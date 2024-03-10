@@ -21,7 +21,7 @@ public class stage1_GateKanban : MonoBehaviour
     {
         if (checkArea)
         {
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 textNum = 9;
                 GameUI.SetText(textNum);
@@ -32,7 +32,9 @@ public class stage1_GateKanban : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        Debug.Log("調べる");
+
+        if (collision.gameObject.tag == "Player")
         {
             checkArea = true;
         }
@@ -40,7 +42,7 @@ public class stage1_GateKanban : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             checkArea = false;
         }

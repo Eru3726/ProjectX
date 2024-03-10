@@ -7,9 +7,11 @@ public partial class Mng_Game : MonoBehaviour
     // メニュー開いている間時間を止めるよ
     [SerializeField] GameObject obj;
     [SerializeField] GameObject Text;
+    // ステージカメラ
+    GameObject StageCam;
 
     // 曲のセレクト番号
-    int BgmNum=0;
+    int BgmNum =0;
 
     // シーン名でBGMを変更
     // シーン名取得用
@@ -33,11 +35,18 @@ public partial class Mng_Game : MonoBehaviour
     {
         // ポーズ用時間停止
         Time.timeScale = (obj.activeSelf||Text.activeSelf) ? 0 : 1;
+        if (Time.timeScale == 1 && !StageCam.activeSelf) {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
+            {
+                StageCam.SetActive(true);
+            }
+        }
     }
 
     // シーンチェンジ判定
     void SceneLoaded(Scene nextScene, LoadSceneMode mode)
     {
+        StageCam = GameObject.Find("Main Camera");
         GetSceneName = nextScene.name;
         switch(GetSceneName)
         {

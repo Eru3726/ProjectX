@@ -139,7 +139,7 @@ public class AllTexts : MonoBehaviour
 
             //グレンとの会話(戦闘前)
             case 14:
-                csvFiles = "stage2_Koya1"; ;
+                csvFiles = "stage2_Koya1";
                 break;
 
             //グレンとの会話(戦闘後)
