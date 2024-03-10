@@ -48,6 +48,9 @@ public class EnemyController : MonoBehaviour
     [Header("Gurenの死亡エフェクトPrefab")]
     public GameObject DieEffectPre;
 
+    [Header("Gurenの当たり判定")]
+    public GameObject GurenHitcol;
+
     int ten = 10;
     int eight = 8;
     int seven = 7;
@@ -109,10 +112,6 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            EnemyDie();
-        }
         if (!DieFlg)
         {
             Movetimer += Time.deltaTime;
@@ -144,7 +143,7 @@ public class EnemyController : MonoBehaviour
 
                 case EnemyState.Move: //ワープの処理
                     Debug.Log("Move");
-
+                    GurenHitcol.SetActive(true);
                     EnemyMove(); //Enemyの通常時の動き
 
                     break;
@@ -237,10 +236,22 @@ public class EnemyController : MonoBehaviour
             yield return new WaitForSeconds(diedelay);
         }
         koya.FinishBattle();
+        if(koya.FinishText())
+        {
+            EnemyDie();
+        }
+    }
+
+    void DeactivateObject()
+    {
+       
     }
 
     void Standby()
     {
+        Vector2 EnemyPos = transform.position;
+        EnemyPos.x += 0.6f;
+        Instantiate(DieEffectPre, EnemyPos, Quaternion.identity);
         currentState = EnemyState.Move; /*(EnemyState)Enum.ToObject(typeof(EnemyState), RandomAction());*/
     }
     void EnemyMove()
@@ -248,7 +259,7 @@ public class EnemyController : MonoBehaviour
         
         if (!animeMoveFlg)
         {
-            if (Movetimer >= five)
+            if (Movetimer >= 2)
             {
                 animeMoveFlg = true;
                 GurenAnim.Play("Guren_FSAnimation");
@@ -256,7 +267,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if (Movetimer >= seven)
+            if (Movetimer >= 4)
             {
                 currentState = EnemyState.Dash;
             }
@@ -275,7 +286,7 @@ public class EnemyController : MonoBehaviour
     {
         if (warpcheck)
         {
-            this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
+            this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 0);
 
             float randomX = UnityEngine.Random.Range(minX, maxX);
             float randomY = UnityEngine.Random.Range(minY, maxY);
@@ -335,12 +346,8 @@ public class EnemyController : MonoBehaviour
         //死亡処理
         //if() 大聖から貰う
         Debug.Log("死んだ");
-        koya.FinishBattle();
-        //バトル後のテキストが終わったら流す演出のやつ
-        if (koya.FinishText())
-        {
-
-        }
+        GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
+        Destroy(gameObject);
     }
        
 
