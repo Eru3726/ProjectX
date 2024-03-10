@@ -27,8 +27,11 @@ public class OutLine_Menu : MonoBehaviour
     // 他のものを起動した時にこれらを閉じるように
     [SerializeField] GameObject Menu;
 
+    GameObject StageCam;
+
     void Update()
     {
+        StageCam = GameObject.Find("Main Camera");
         // 左入力
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -101,6 +104,7 @@ public class OutLine_Menu : MonoBehaviour
         {
            if (num == 0 && Panel1.activeSelf) { return; }
            if (num == 1 && Panel2.activeSelf) { return; }
+            if (num == 1) { StageCam.SetActive(false); };
             Manager.OneShotSE_U(SEData.Type.UISE, Mng_Game.UISe.enter);
             Fadeitem[num].SetActive(true);
             countZ = 0;
