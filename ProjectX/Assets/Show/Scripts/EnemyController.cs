@@ -14,6 +14,8 @@ public class EnemyController : MonoBehaviour
 
     GameObject player;
 
+   
+
     MoveController mc;
 
     MoveController plmc;
@@ -48,8 +50,10 @@ public class EnemyController : MonoBehaviour
     [Header("Gurenの死亡エフェクトPrefab")]
     public GameObject DieEffectPre;
 
-    [Header("Gurenの当たり判定")]
-    public GameObject GurenHitcol;
+    [Header("Gurenの指パッチン")]
+    public GameObject GurenFinger;
+
+    public GameObject AtkColliderPre;
 
     int ten = 10;
     int eight = 8;
@@ -143,7 +147,6 @@ public class EnemyController : MonoBehaviour
 
                 case EnemyState.Move: //ワープの処理
                     Debug.Log("Move");
-                    GurenHitcol.SetActive(true);
                     EnemyMove(); //Enemyの通常時の動き
 
                     break;
@@ -230,28 +233,20 @@ public class EnemyController : MonoBehaviour
         Vector2 EnemyPos = transform.position;
         GurenAnim.Play("Guren_GS_DownAnimation");
         DieFlg = true;
-        for(int i = 0; i < sponcounter; i++)
+        for (int i = 0; i < sponcounter; i++)
         {
             Instantiate(DieEffectPre, EnemyPos, Quaternion.identity);
             yield return new WaitForSeconds(diedelay);
         }
         koya.FinishBattle();
-        if(koya.FinishText())
+        if (koya.FinishText())
         {
             EnemyDie();
         }
     }
-
-    void DeactivateObject()
-    {
-       
-    }
-
     void Standby()
     {
-        Vector2 EnemyPos = transform.position;
-        EnemyPos.x += 0.6f;
-        Instantiate(DieEffectPre, EnemyPos, Quaternion.identity);
+        EnemyPos();
         currentState = EnemyState.Move; /*(EnemyState)Enum.ToObject(typeof(EnemyState), RandomAction());*/
     }
     void EnemyMove()
@@ -269,6 +264,9 @@ public class EnemyController : MonoBehaviour
         {
             if (Movetimer >= 4)
             {
+                //Vector2 EnemyPos = transform.position;
+                //EnemyPos.x -= 0.3f;
+                //Instantiate(GurenFinger, EnemyPos, Quaternion.identity);
                 currentState = EnemyState.Dash;
             }
         }
@@ -277,6 +275,11 @@ public class EnemyController : MonoBehaviour
     void EnemyDash()
     {
         Debug.Log("突進");
+        Vector3 plDir = this.transform.position;
+
+        GameObject obj = Instantiate(AtkColliderPre, plDir, Quaternion.identity);
+
+        obj.transform.parent = this.transform;
         Vector3 pos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
         mc.InputFlick(pos, 35, 0.3f, true);
         currentState = EnemyState.Idol;
@@ -349,7 +352,13 @@ public class EnemyController : MonoBehaviour
         GurenAnim.Play("Guren_FingerSnapOnlyAnimation");
         Destroy(gameObject);
     }
-       
+
+    public void EnemyPos()
+    {
+        Vector2 EnemyPos = transform.position;
+        EnemyPos.x += 0.6f;
+        Instantiate(DieEffectPre, EnemyPos, Quaternion.identity);
+    }
 
     private int RandomAction()
     {
