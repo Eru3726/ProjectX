@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageData
+public class SkillData
 {
     public enum SKILL_DATA
     {

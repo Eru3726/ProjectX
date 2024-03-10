@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
 {
-    [SerializeField] int maxHp = 20;
-    [SerializeField] int nowHp;
-    [SerializeField] float resist = 1;
+    [SerializeField] public int maxHp = 20;
+    [SerializeField] public int nowHp;
+    [SerializeField] public float resist = 1;
     [SerializeField] public float time = 0;
 
     [SerializeField]
@@ -30,11 +30,7 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
         {
             if (barrier > 0)
             {
-                barrier -= value;
-                if (barrier <= 0)
-                {
-                    barrier = 0;
-                }
+                barrier--;
             }
             else
             {

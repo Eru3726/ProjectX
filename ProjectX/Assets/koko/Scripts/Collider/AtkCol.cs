@@ -5,13 +5,13 @@ using UnityEngine;
 public class AtkCol : MonoBehaviour
 {
     [SerializeField]
-    int damage = 10;
+    public int damage = 10;
 
     [SerializeField]
-    float shock = 10;
+    public float shock = 10;
 
     [SerializeField]
-    float inv = 1;
+    public float inv = 1;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,7 +24,7 @@ public class AtkCol : MonoBehaviour
 
             if (collision.TryGetComponent<IShockable>(out IShockable iShock))
             {
-                iShock.TakeShock(shock, transform.position);
+                iShock.TakeShock(shock, new Vector3(transform.position.x, transform.position.y - 1, transform.position.z));
             }
 
             if (collision.TryGetComponent<IInvincible>(out IInvincible iInv))
