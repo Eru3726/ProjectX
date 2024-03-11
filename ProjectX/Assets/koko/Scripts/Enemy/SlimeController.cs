@@ -36,6 +36,8 @@ public class SlimeController : MonoBehaviour
         // プレイヤー方向確認
         int plDir = (player.transform.position.x > transform.position.x ? 1 : -1);
 
+        float plDis = Mathf.Abs(transform.position.x - player.transform.position.x);
+
         // 自分の向き変更
         if (isTurn)
         {
@@ -59,7 +61,7 @@ public class SlimeController : MonoBehaviour
         }
 
         // ジャンプ移動
-        if (isMove)
+        if (isMove || plDis <= 15)
         {
             if (mc.IsGround())
             {
