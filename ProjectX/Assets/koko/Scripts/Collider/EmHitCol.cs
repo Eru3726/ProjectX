@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class EmHitCol : MonoBehaviour, IDamageable, IShockable
 {
+    Mng_Game gameMng;
+
     [SerializeField] int maxHp = 20;
     [SerializeField] int nowHp;
     [SerializeField] float resist = 1;
@@ -46,6 +48,8 @@ public class EmHitCol : MonoBehaviour, IDamageable, IShockable
         //    manager.SetSlow(0.1f, 0.01f);
         //}
 
+        gameMng.OneShotSE_C(SEData.Type.PlayerSE, Mng_Game.ClipSe.Hit2);
+
         if (nowHp <= 0)
         {
             Die();
@@ -86,5 +90,7 @@ public class EmHitCol : MonoBehaviour, IDamageable, IShockable
     void Start()
     {
         nowHp = maxHp;
+
+        gameMng = GameObject.Find("GameManager").GetComponent<Mng_Game>();
     }
 }

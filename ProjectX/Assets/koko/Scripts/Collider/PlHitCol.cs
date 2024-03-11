@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
 {
+
+    // シーン名取得用
+    string GetSceneName;
+    Mng_Game gameMng;
+
     [SerializeField] public int maxHp = 20;
     [SerializeField] public int nowHp;
     [SerializeField] public float resist = 1;
@@ -37,6 +43,8 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
                 nowHp -= value;
             }
 
+            gameMng.OneShotSE_C(SEData.Type.PlayerSE, Mng_Game.ClipSe.Hit1);
+
             if (nowHp <= 0)
             {
                 Die();
@@ -69,15 +77,24 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
 
     void Die()
     {
+        SceneManager.LoadScene(GetSceneName);
+
         if (body != null)
         {
             Destroy(body.gameObject);
         }
+
     }
 
     void Start()
     {
+        // イベントにイベントハンドラーを追加
+        SceneManager.sceneLoaded += SceneLoaded;
+        // シーン名取得
+        GetSceneName = SceneManager.GetActiveScene().name;
         nowHp = maxHp;
+
+        gameMng = GameObject.Find("GameManager").GetComponent<Mng_Game>();
     }
 
     void FixedUpdate()
@@ -90,5 +107,9 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
         {
             time = 0;
         }
+    }
+    void SceneLoaded(Scene nextScene, LoadSceneMode mode)
+    {
+        GetSceneName = nextScene.name;
     }
 }
