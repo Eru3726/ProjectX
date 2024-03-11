@@ -29,7 +29,7 @@ public class OldHitCollider : MonoBehaviour, IDamageable
     protected float resist = 1;
 
     [SerializeField, Header("被撃レイヤー")]
-    protected StageData.LAYER_DATA hitLayer;
+    protected SkillData.LAYER_DATA hitLayer;
 
     SpriteRenderer sr;
 
@@ -40,7 +40,7 @@ public class OldHitCollider : MonoBehaviour, IDamageable
     {
         nowHp = maxHp;
 
-        for (int i = 0; i < (int)StageData.ATK_DATA.Num; i++)
+        for (int i = 0; i < (int)SkillData.ATK_DATA.Num; i++)
         {
             invTime.Add(0);
         }
@@ -111,7 +111,7 @@ public class OldHitCollider : MonoBehaviour, IDamageable
 
     protected void UpdateInv()
     {
-        for (int i = 0; i < (int)StageData.ATK_DATA.Num; i++)
+        for (int i = 0; i < (int)SkillData.ATK_DATA.Num; i++)
         {
             if (invTime[i] > 0)
             {
@@ -144,7 +144,7 @@ public class OldHitCollider : MonoBehaviour, IDamageable
 
     public void SetInvTime(float time)
     {
-        for (int i = 0; i < (int)StageData.ATK_DATA.Num; i++)
+        for (int i = 0; i < (int)SkillData.ATK_DATA.Num; i++)
         {
             invTime[i] = time;
         }
@@ -155,7 +155,7 @@ public class OldHitCollider : MonoBehaviour, IDamageable
         barrier = value;
     }
 
-    public StageData.LAYER_DATA GetHitLayer()
+    public SkillData.LAYER_DATA GetHitLayer()
     {
         return hitLayer;
     }

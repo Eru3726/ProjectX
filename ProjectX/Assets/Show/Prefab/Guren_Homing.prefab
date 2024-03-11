@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3141540010111655018}
   - component: {fileID: -3431890677521887625}
   - component: {fileID: -1403587572699293428}
+  - component: {fileID: 1671584594718231295}
   m_Layer: 7
   m_Name: Guren_Homing
   m_TagString: Shell
@@ -156,3 +157,18 @@ MonoBehaviour:
   afterImage: {fileID: 4147700210117472924, guid: 198a24d389d2f4940bc2814f75aa5512, type: 3}
   maxX: 3
   minX: -3
+--- !u!114 &1671584594718231295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413418909293709828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45520b8b03789b48bdfc557f3fbf6f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  shock: 10
+  inv: 1

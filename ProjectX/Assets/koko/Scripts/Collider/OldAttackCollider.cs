@@ -20,10 +20,10 @@ public class OldAttackCollider : MonoBehaviour
     public Vector3 apPos;
 
     [SerializeField, Header("属性")]
-    public StageData.ATK_DATA atkType;
+    public SkillData.ATK_DATA atkType;
 
     [SerializeField, Header("攻撃レイヤー")]
-    public StageData.LAYER_DATA atkLayer;
+    public SkillData.LAYER_DATA atkLayer;
 
     private void FixedUpdate()
     {
