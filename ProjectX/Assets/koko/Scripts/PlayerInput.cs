@@ -123,9 +123,19 @@ public class PlayerInput : MonoBehaviour
         }
 
         // NomalDodge : S or Shift
+        //if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.LeftShift))
+        //{
+        //    if (actSkill[(int)SkillData.ACT_DATA.ND1] == false && !CheckActSkill() && pd.isND)
+        //    {
+        //        ActND();
+        //        SetSkill((int)SkillData.ACT_DATA.ND1, 0.3f, 1);
+        //    }
+        //}
+
+        // ノーマルドッジ、展示用
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if (actSkill[(int)SkillData.ACT_DATA.ND1] == false && !CheckActSkill() && pd.isND)
+            if (actSkill[(int)SkillData.ACT_DATA.ND1] == false && !CheckActSkill())
             {
                 ActND();
                 SetSkill((int)SkillData.ACT_DATA.ND1, 0.3f, 1);
@@ -170,9 +180,19 @@ public class PlayerInput : MonoBehaviour
         }
 
         // AngerFire : F
-        if (Input.GetKeyDown(KeyCode.F))
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    if (actSkill[(int)SkillData.ACT_DATA.AF1] == false && !CheckActSkill() && pd.isAF)
+        //    {
+        //        ActAF(0);
+        //        SetSkill((int)SkillData.ACT_DATA.AF1, 0.5f, 3);
+        //    }
+        //}
+
+        // アンガーファイヤー、展示用
+        if (Input.GetKeyDown(KeyCode.O))
         {
-            if (actSkill[(int)SkillData.ACT_DATA.AF1] == false && !CheckActSkill() && pd.isAF)
+            if (actSkill[(int)SkillData.ACT_DATA.AF1] == false && !CheckActSkill())
             {
                 ActAF(0);
                 SetSkill((int)SkillData.ACT_DATA.AF1, 0.5f, 3);
