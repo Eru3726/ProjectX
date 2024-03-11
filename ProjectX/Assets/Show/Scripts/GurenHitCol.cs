@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GurenHitCol : MonoBehaviour, IDamageable
 {
+    // 音追加 by koko
+    Mng_Game gameMng;
+
     [SerializeField] private int maxHp = 10;
     [SerializeField] private int nowHp;
     [SerializeField] private bool halfHp = false;
@@ -37,6 +40,9 @@ public class GurenHitCol : MonoBehaviour, IDamageable
         nowHp -= value;
         hpbar.UpdateHP(10);
 
+        // se追加 by koko
+        gameMng.OneShotSE_C(SEData.Type.PlayerSE, Mng_Game.ClipSe.Hit2);
+
         if (nowHp <= 0)
         {
             ec.EnemyDown();
@@ -48,6 +54,9 @@ public class GurenHitCol : MonoBehaviour, IDamageable
     }
     void Start()
     {
+        // se追加 by koko
+        gameMng = GameObject.Find("GameManager").GetComponent<Mng_Game>();
+
         nowHp = maxHp;
     }
 

@@ -27,8 +27,12 @@ public class warota : MonoBehaviour
         scale.x = hp;
         transform.localScale = scale;
 
-        Vector3 pos = transform.position;
-        pos.x = 110 + (180 * hp);
-        transform.position = pos;
+        Vector3 aPos = GetComponent<RectTransform>().anchoredPosition;
+        aPos.x = 230 * hp;
+        GetComponent<RectTransform>().anchoredPosition = aPos;
+
+        //Vector3 pos = transform.position;
+        //pos.x = 0;
+        //transform.position = pos;
     }
 }

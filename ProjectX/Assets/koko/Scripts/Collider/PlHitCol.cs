@@ -8,6 +8,7 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
 
     // シーン名取得用
     string GetSceneName;
+
     Mng_Game gameMng;
 
     [SerializeField] public int maxHp = 20;
@@ -77,6 +78,7 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
 
     void Die()
     {
+        if (GetSceneName == "Heaven1") { return; }
         SceneManager.LoadScene(GetSceneName);
 
         if (body != null)

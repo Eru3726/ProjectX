@@ -10,7 +10,7 @@ public class story_stage1_Gate : MonoBehaviour
 
     private bool checkArea = false;
     [SerializeField] private story_stage1_Koya koyaFlg_1;
-    public bool gateFlg_2 = false;
+    public static bool gateFlg_2 = false;
 
     [SerializeField] private GameObject Lock;
     [SerializeField] private GameObject Open;
@@ -49,7 +49,7 @@ public class story_stage1_Gate : MonoBehaviour
                 {
                     textNum = 10;
                     GameUI.SetText(textNum);
-                    koyaFlg_1.koyaFlg = true;
+                    story_stage1_Koya.koyaFlg = true;
                     firstCheck = false;
                 }
             }
@@ -74,8 +74,6 @@ public class story_stage1_Gate : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("調べる");
-
         if (collision.gameObject.tag == "Player")
         {
             checkArea = true;
