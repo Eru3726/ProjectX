@@ -142,6 +142,9 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -656,11 +659,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 2
-  cloudProjectId: c869352a-bf84-4bb6-ab05-178b3debc07f
+  cloudProjectId: 44dd5646-752e-4109-98ed-b99822249fe8
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: ProjectX
-  organizationId: kokoa7v
+  organizationId: nkc20226030michishita
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   virtualTexturingSupportEnabled: 0
