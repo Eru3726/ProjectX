@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
 
+    Mng_Game gameMng;
+
     [SerializeField, Header("NomalMeleeプレハブつけてね")]
     GameObject NMPre;
 
@@ -58,6 +60,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Start()
     {
+        gameMng = GameObject.Find("GameManager").GetComponent<Mng_Game>();
+
         //mc = GetComponent<MoveController>();
         //hc = GetComponent<HitCollider>();
 
@@ -102,6 +106,7 @@ public class PlayerInput : MonoBehaviour
                 {
                     ActNM(3);
                     SetSkill((int)SkillData.ACT_DATA.NM3, 0.5f, pd.NMCT);
+                    gameMng.OneShotSE_C(SEData.Type.PlayerSE, Mng_Game.ClipSe.Atk1);
                 }
             }
             else if (skillTime[(int)SkillData.ACT_DATA.NM1] > 0)
@@ -110,6 +115,7 @@ public class PlayerInput : MonoBehaviour
                 {
                     ActNM(2);
                     SetSkill((int)SkillData.ACT_DATA.NM2, 0.5f, pd.NMCT);
+                    gameMng.OneShotSE_C(SEData.Type.PlayerSE, Mng_Game.ClipSe.Atk1);
                 }
             }
             else if (skillTime[(int)SkillData.ACT_DATA.NM1] <= 0)
@@ -118,6 +124,7 @@ public class PlayerInput : MonoBehaviour
                 {
                     ActNM(1);
                     SetSkill((int)SkillData.ACT_DATA.NM1, 0.5f, pd.NMCT);
+                    gameMng.OneShotSE_C(SEData.Type.PlayerSE, Mng_Game.ClipSe.Atk1);
                 }
             }
         }
@@ -324,6 +331,8 @@ public class PlayerInput : MonoBehaviour
             if (mc.IsGround())
             {
                 mc.InputJump();
+
+                gameMng.OneShotSE_C(SEData.Type.PlayerSE, Mng_Game.ClipSe.Jump1);
             }
         }
     }
