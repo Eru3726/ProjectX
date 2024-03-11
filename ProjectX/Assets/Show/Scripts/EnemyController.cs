@@ -290,18 +290,20 @@ public class EnemyController : MonoBehaviour
 
     void EnemyWarp()
     {
-        if (warpcheck)
+        if (!DieFlg)
         {
-            
-            this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 0);
+            if (warpcheck)
+            {
+                this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 0);
 
-            float randomX = UnityEngine.Random.Range(minX, maxX);
-            float randomY = UnityEngine.Random.Range(minY, maxY);
-            transform.position = new Vector3(randomX, randomY, 0);
+                float randomX = UnityEngine.Random.Range(minX, maxX);
+                float randomY = UnityEngine.Random.Range(minY, maxY);
+                transform.position = new Vector3(randomX, randomY, 0);
 
-            warpcheck = false;
+                warpcheck = false;
+            }
+            currentState = EnemyState.Homing;
         }
-        currentState = EnemyState.Homing;
     }
     void EnemyHoming()
     {
