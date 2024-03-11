@@ -7,6 +7,8 @@ public class story_tutorial2 : MonoBehaviour
     private OpenOption GameUI;
     private int textNum;
 
+    private bool firstCheck = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +24,14 @@ public class story_tutorial2 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (!firstCheck)
         {
-            textNum = 1;
-            GameUI.SetText(textNum);
+            if (collision.tag == "Player")
+            {
+                firstCheck = true;
+                textNum = 1;
+                GameUI.SetText(textNum);
+            }
         }
     }
 }
