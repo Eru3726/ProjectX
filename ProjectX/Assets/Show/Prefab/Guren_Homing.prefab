@@ -150,9 +150,9 @@ MonoBehaviour:
   mc: {fileID: 0}
   gc: {fileID: 0}
   num: 0
-  moveSpeed: 8
-  upSpeed: 2
-  rotateSpeed: 1
+  moveSpeed: 20
+  upSpeed: 5
+  rotateSpeed: 5
   attackPow: 1
   afterImage: {fileID: 4147700210117472924, guid: 198a24d389d2f4940bc2814f75aa5512, type: 3}
   maxX: 3

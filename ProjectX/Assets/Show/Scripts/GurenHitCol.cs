@@ -36,8 +36,6 @@ public class GurenHitCol : MonoBehaviour, IDamageable
     {
         nowHp -= value;
         hpbar.UpdateHP(10);
-        ec.EnemyPos();
-
 
         if (nowHp <= 0)
         {
