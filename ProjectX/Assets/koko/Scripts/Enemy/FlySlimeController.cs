@@ -37,6 +37,8 @@ public class FlySlimeController : MonoBehaviour
         // プレイヤー方向確認
         int plDir = (player.transform.position.x > transform.position.x ? 1 : -1);
 
+        float plDis = Mathf.Abs(transform.position.x - player.transform.position.x);
+
         // 自分の向き変更
         Vector3 scale = transform.localScale;
         scale.x = -plDir;
@@ -54,7 +56,7 @@ public class FlySlimeController : MonoBehaviour
         }
 
         // ジャンプ移動
-        if (isMove)
+        if (isMove || plDis <= 15)
         {
             if (player.transform.position.x > transform.position.x)
             {

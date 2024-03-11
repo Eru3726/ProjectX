@@ -157,7 +157,7 @@ MonoBehaviour:
   moveX: 1
   moveY: 0
   moveSpd: {x: 5, y: 5}
-  jumpPow: 10
+  jumpPow: 15
 --- !u!114 &9188364585238201736
 MonoBehaviour:
   m_ObjectHideFlags: 0
