@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class warota : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    GameObject pl;
+    PlHitCol phc;
+
+    private void Start()
     {
-        
+        pl = GameObject.Find("Player");
+        phc = pl.transform.GetChild(0).gameObject.GetComponent<PlHitCol>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+
+        float hp = (float)phc.nowHp / (float)phc.maxHp;
+
+        //Debug.Log(phc.nowHp);
+        //Debug.Log(phc.maxHp);
+
+        Debug.Log(hp);
+
+        Vector3 scale = transform.localScale;
+        scale.x = hp;
+        transform.localScale = scale;
+
+        Vector3 pos = transform.position;
+        pos.x =  -60 + (180 * hp);
+        transform.position = pos;
     }
 }
