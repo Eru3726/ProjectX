@@ -28,7 +28,7 @@ public class warota : MonoBehaviour
         transform.localScale = scale;
 
         Vector3 pos = transform.position;
-        pos.x = 110 + (180 * hp);
+        pos.x =  -60 + (180 * hp);
         transform.position = pos;
     }
 }
