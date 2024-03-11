@@ -61,6 +61,18 @@ namespace EruGSS
             elisData.MoveSpeed = float.Parse(data.ElisData_MoveSpeed);
             elisData.ShotNum = (int)float.Parse(data.ElisData_ShotNum);
             elisData.ShotTime = float.Parse(data.ElisData_ShotTime);
+            elisData.WaitTime = float.Parse(data.ElisData_WaitTime);
+
+            //第一段階のエリスの落下攻撃データ
+            elisData.F_MoveUpSpeed = float.Parse(data.ElisData_F_MoveUpSpeed);
+            elisData.F_MoveDownSpeed = float.Parse(data.ElisData_F_MoveDownSpeed);
+            elisData.F_WaitTime = float.Parse(data.ElisData_F_WaitTime);
+
+            //第一段階のエリスの分身データ
+            elisData.A_MoveSpeed = float.Parse(data.ElisData_A_MoveSpeed);
+            elisData.A_ShotNum = (int)float.Parse(data.ElisData_A_ShotNum);
+            elisData.A_ShotTime = float.Parse(data.ElisData_A_ShotTime);
+            elisData.A_WaitTime = float.Parse(data.ElisData_A_WaitTime);
 
             //第一段階のエリスの魔法弾データ
             elisData.B_AttackPower = (int)float.Parse(data.ElisData_B_AttackPower);

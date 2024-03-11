@@ -6,7 +6,7 @@ public class EmDieEffect : MonoBehaviour
 {
     float timer = 0;
 
-    private void Update()
+    private void FixedUpdate()
     {
         timer += Time.deltaTime;
 

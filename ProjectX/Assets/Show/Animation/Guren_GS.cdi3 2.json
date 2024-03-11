@@ -1,0 +1,27 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "アイドル"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "P_aura"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "髪揺れ"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part",
+			"Name": "bf168f2f6b400bb3.psd（対応無し）"
+		}
+	]
+}

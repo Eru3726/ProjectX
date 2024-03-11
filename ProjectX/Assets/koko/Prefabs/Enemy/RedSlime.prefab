@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  isTurn: 1
   isMove: 1
   isJump: 1
   jumpDelay: 0.5
@@ -367,6 +368,7 @@ MonoBehaviour:
   mc: {fileID: 4725801804225662879}
   body: {fileID: 4725801804225662874}
   edec: {fileID: 5295369051246381875, guid: c3e820ac5a4763e46b861b7f3458d2fb, type: 3}
+  damageCounter: {fileID: 4745646111505681957, guid: da178bd847866754997917c13499c19e, type: 3}
 --- !u!1001 &4683502844481928381
 PrefabInstance:
   m_ObjectHideFlags: 0
