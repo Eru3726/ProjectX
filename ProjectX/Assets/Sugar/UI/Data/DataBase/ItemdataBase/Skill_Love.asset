@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Skill_Love
   m_EditorClassIdentifier: 
   getFlag: 0
-  iIcon: {fileID: 21300000, guid: 508f9b8e8543bd44886513cad32b09ec, type: 3}
+  iIcon: {fileID: 21300000, guid: 9527cc207208c414190b9fcfa0dfb4fb, type: 3}
   iname: "\u604B\u306E\u529B\u304C\u8A70\u307E\u3063\u305F\u5C0F\u74F6"
   infomation: "\u6FC0\u3057\u304F\u71C3\u3048\u308B\u604B\u5FC3\u306E\u6B20\u7247\u304C\u8A70\u307E\u3063\u3066\u3044\u308B\u3002"
   type: 0
