@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 4340813797965860572}
   - component: {fileID: 585679030619858596}
   - component: {fileID: -6514951277442740916}
-  - component: {fileID: -5911755630905870668}
   - component: {fileID: 8567312105148233481}
   - component: {fileID: 5694362313752473314}
   - component: {fileID: 4120302415987797965}
+  - component: {fileID: 8759029929804053019}
   m_Layer: 0
   m_Name: EnemyBullet
   m_TagString: Enemy
@@ -117,22 +117,6 @@ MonoBehaviour:
   moveY: 0
   moveSpd: {x: 5, y: 5}
   jumpPow: 10
---- !u!58 &-5911755630905870668
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396818935103888031}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 4
 --- !u!50 &8567312105148233481
 Rigidbody2D:
   serializedVersion: 4
@@ -188,3 +172,29 @@ MonoBehaviour:
   isLife: 1
   lifeCount: 2
   isBullet: 0
+--- !u!61 &8759029929804053019
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396818935103888031}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 15.5, y: 10}
+    newSize: {x: 15.5, y: 10}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4, y: 4}
+  m_EdgeRadius: 0
