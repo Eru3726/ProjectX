@@ -8,6 +8,7 @@ public class PlHitCol : MonoBehaviour, IDamageable, IShockable, IInvincible
 
     // シーン名取得用
     string GetSceneName;
+
     Mng_Game gameMng;
 
     [SerializeField] public int maxHp = 20;
