@@ -40,11 +40,11 @@ public class EmHitCol : MonoBehaviour, IDamageable, IShockable
         }
 
         // ヒットストップ
-        GameObject tm = GameObject.Find("TimeManager");
-        if (tm.TryGetComponent<TimeManager>(out TimeManager manager))
-        {
-            manager.SetSlow(0.1f, 0.01f);
-        }
+        //GameObject tm = GameObject.Find("TimeManager");
+        //if (tm.TryGetComponent<TimeManager>(out TimeManager manager))
+        //{
+        //    manager.SetSlow(0.1f, 0.01f);
+        //}
 
         if (nowHp <= 0)
         {
