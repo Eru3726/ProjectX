@@ -15,9 +15,6 @@ public class PlayerAnimController : MonoBehaviour
     Animator anim;
 
     [SerializeField]
-    Animator animRun;
-
-    [SerializeField]
     PlayerInput pi;
 
     [SerializeField]
@@ -35,35 +32,35 @@ public class PlayerAnimController : MonoBehaviour
         rb2d = parentPlayer.GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (pi.CheckActSkill())
         {
-            if (pi.skillTime[(int)StageData.ACT_DATA.NM3] > 0)
+            if (pi.skillTime[(int)SkillData.ACT_DATA.NM3] > 0)
             {
                 anim.Play("Amari_Attack3Animation_Final");
             }
-            else if (pi.skillTime[(int)StageData.ACT_DATA.NM2] > 0)
+            else if (pi.skillTime[(int)SkillData.ACT_DATA.NM2] > 0)
             {
                 anim.Play("Amari_Attack2Animation_Final");
             }
-            else if (pi.skillTime[(int)StageData.ACT_DATA.NM1] > 0)
+            else if (pi.skillTime[(int)SkillData.ACT_DATA.NM1] > 0)
             {
                 anim.Play("Amari_Attack1Animation_Final");
             }
-            else if (pi.skillTime[(int)StageData.ACT_DATA.SB1] > 0)
+            else if (pi.skillTime[(int)SkillData.ACT_DATA.SB1] > 0)
             {
                 anim.Play("Amari_BeamBAnimation_Final");
             }
-            else if (pi.skillTime[(int)StageData.ACT_DATA.LB1] > 0 || pi.skillTime[(int)StageData.ACT_DATA.LM1] > 0)
+            else if (pi.skillTime[(int)SkillData.ACT_DATA.LB1] > 0 || pi.skillTime[(int)SkillData.ACT_DATA.LM1] > 0)
             {
                 anim.Play("Amari_BeamPAnimation_Final");
             }
-            else if (pi.skillTime[(int)StageData.ACT_DATA.AA1] > 0 || pi.skillTime[(int)StageData.ACT_DATA.AF1] > 0)
+            else if (pi.skillTime[(int)SkillData.ACT_DATA.AA1] > 0 || pi.skillTime[(int)SkillData.ACT_DATA.AF1] > 0)
             {
                 anim.Play("Amari_BeamRAnimation_Final");
             }
-            else if (pi.skillTime[(int)StageData.ACT_DATA.ND1] > 0)
+            else if (pi.skillTime[(int)SkillData.ACT_DATA.ND1] > 0)
             {
                 anim.Play("Amari_AvoidanceAnimation");
             }

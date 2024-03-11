@@ -9,6 +9,9 @@ public class SlimeController : MonoBehaviour
     [SerializeField]
     GameObject player;
 
+    [SerializeField, Header("向き変更")]
+    bool isTurn = true;
+
     [SerializeField, Header("飛んでる時移動")]
     bool isMove = false;
 
@@ -25,7 +28,7 @@ public class SlimeController : MonoBehaviour
     {
         mc = GetComponent<MoveController>();
 
-        player = GameObject.Find("TestPlayer");
+        player = GameObject.Find("Player");
     }
 
     private void FixedUpdate()
@@ -34,9 +37,12 @@ public class SlimeController : MonoBehaviour
         int plDir = (player.transform.position.x > transform.position.x ? 1 : -1);
 
         // 自分の向き変更
-        Vector3 scale = transform.localScale;
-        scale.x = -plDir;
-        transform.localScale = scale;
+        if (isTurn)
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = -plDir;
+            transform.localScale = scale;
+        }
 
         // ジャンプ
         if (isJump)

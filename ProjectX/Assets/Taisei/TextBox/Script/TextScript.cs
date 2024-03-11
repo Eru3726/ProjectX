@@ -509,7 +509,7 @@ public class TextScript : MonoBehaviour
                     ItemFlgOn();
                     FinishOneText();
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
-                    if (messageNum >= splitMessage.Length)
+                    if (messageNum >= splitMessage.Length || ChoiseTrigger[choiseNum] == 999)
                     {
                         Debug.Log("テキスト終了");
                         DestroyText();
@@ -534,7 +534,7 @@ public class TextScript : MonoBehaviour
                     counter = 0;
 
                     //messageがすべて表示されていたらゲームオブジェクト自体の削除
-                    if (messageNum >= splitMessage.Length)
+                    if (messageNum >= splitMessage.Length || ChoiseTrigger[choiseNum] == 999)
                     {
                         Debug.Log("テキスト終了");
                         DestroyText();
@@ -601,12 +601,6 @@ public class TextScript : MonoBehaviour
             //選択肢直後
             if (routeOnOFF)
             {
-                if (ChoiseTrigger[choiseNum] == 999)
-                {
-                    //テキスト終了
-                    DestroyText();
-                }
-
                 //分岐後の処理
                 switch (routeFlg)
                 {
@@ -651,6 +645,7 @@ public class TextScript : MonoBehaviour
                             routeFlg = 2;
                             routeOnOFF = true;
                         }
+                        checkRouteFlg = choiseW.ChoiseFlg();
                         break;
 
                     case 2:
@@ -676,6 +671,7 @@ public class TextScript : MonoBehaviour
                             routeFlg = 2;
                             routeOnOFF = true;
                         }
+                        checkRouteFlg = choiseT.ChoiseFlg();
                         break;
                 }
             }

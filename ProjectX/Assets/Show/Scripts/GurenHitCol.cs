@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class GurenHitCol : MonoBehaviour, IDamageable
 {
-    [SerializeField] int maxHp = 10;
-    [SerializeField] int nowHp;
-    [SerializeField] float resist = 1;
+    [SerializeField] private int maxHp = 10;
+    [SerializeField] private int nowHp;
+    [SerializeField] private bool halfHp = false;
+    [SerializeField] private float resist = 1;
+
+    [SerializeField] private Behaviour _target;
+    // 点滅周期[s]
+    [SerializeField] private float _cycle = 1;
+
+    private double _time;
+
+    SpriteRenderer sp;
+
 
     [SerializeField, Header("mcアタッチ")]
     public MoveController mc;
 
     public EnemyController ec;
+
+    public HPBackBar hpbar;
 
     [SerializeField, Header("本体アタッチ")]
     public GameObject body;
@@ -23,22 +35,19 @@ public class GurenHitCol : MonoBehaviour, IDamageable
     public void TakeDamage(int value)
     {
         nowHp -= value;
+        hpbar.UpdateHP(10);
+        ec.EnemyPos();
+
 
         if (nowHp <= 0)
         {
             ec.EnemyDown();
         }
+        else if(nowHp <= 5)
+        {
+            halfHp = true;
+        }
     }
-
-    //void Die()
-    //{
-    //    if (body != null)
-    //    {
-            
-    //        Destroy(body.gameObject);
-    //    }
-    //}
-
     void Start()
     {
         nowHp = maxHp;

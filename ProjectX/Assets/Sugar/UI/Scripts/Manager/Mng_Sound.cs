@@ -7,7 +7,7 @@ public partial class Mng_Game : MonoBehaviour
     // SEとBGM用
     [Header("0:SE 1:BGM")]
     [SerializeField] AudioSource[] aud;
-
+    [SerializeField] AudioClip[] BGM;
     // マスターボリューム
     public float Para_Master
     {
@@ -61,6 +61,9 @@ public partial class Mng_Game : MonoBehaviour
         wasd,    // UIの移動音
         esc,     // UIウィンドウ
         tab,     // 戻る音（キャンセル音）
+        Eff1,    // エフェクト
+        Eff2,
+        Eff3,
         num,
     }
     const int Charanum = (int)ClipSe.num;

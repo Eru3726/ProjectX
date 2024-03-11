@@ -368,6 +368,7 @@ MonoBehaviour:
   mc: {fileID: 5083760192528734077}
   body: {fileID: 5083760192528734072}
   edec: {fileID: 5295369051246381875, guid: c3e820ac5a4763e46b861b7f3458d2fb, type: 3}
+  damageCounter: {fileID: 4745646111505681957, guid: da178bd847866754997917c13499c19e, type: 3}
 --- !u!1001 &6392491115535608119
 PrefabInstance:
   m_ObjectHideFlags: 0

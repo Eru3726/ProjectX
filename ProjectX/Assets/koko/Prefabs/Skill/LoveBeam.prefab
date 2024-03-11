@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundDestroyFlag: 0
+  groundLm:
+    serializedVersion: 2
+    m_Bits: 0
   isLife: 1
   lifeCount: 1
   isBullet: 0
@@ -141,6 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  damage: 5
-  delay: 0.5
-  list: []
+  damage: 2
+  delay: 0.2
+  targetList: []
