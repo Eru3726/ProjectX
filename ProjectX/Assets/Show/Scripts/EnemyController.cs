@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class EnemyController : MonoBehaviour
 
 
     float warpDelay = 2f; //ワープするまでの時間
-    float idolDelay = 1f; //待機時間
+    float idolDelay = 2f; //待機時間
     float homdelay = 1.5f;
     float diedelay = 1f;
     float Movetimer = 0f;
@@ -138,6 +139,7 @@ public class EnemyController : MonoBehaviour
                 case EnemyState.Idol: //次の行動に移るための待機
                     movecheck = true;
                     warpcheck = true;
+                    GurenAnim.Play("Guren_NomalAnimation");
                     currentState = EnemyState.Idol2;
                     StartCoroutine(IdolDelay());
                     break;
@@ -183,10 +185,16 @@ public class EnemyController : MonoBehaviour
                     break;
             }
         }
+        if (koya.FinishText())
+        {
+            Debug.Log("死亡");
+            EnemyDie();
+        }
     }
 
     IEnumerator IdolDelay()
     {
+        GurenAnim.Play("Guren_FSAnimation");
         Debug.Log("待機中");
         yield return new WaitForSeconds(idolDelay);
         currentState = EnemyState.Warp;
@@ -239,14 +247,9 @@ public class EnemyController : MonoBehaviour
             yield return new WaitForSeconds(diedelay);
         }
         koya.FinishBattle();
-        if (koya.FinishText())
-        {
-            EnemyDie();
-        }
     }
     void Standby()
     {
-        EnemyPos();
         currentState = EnemyState.Move; /*(EnemyState)Enum.ToObject(typeof(EnemyState), RandomAction());*/
     }
     void EnemyMove()
@@ -289,6 +292,7 @@ public class EnemyController : MonoBehaviour
     {
         if (warpcheck)
         {
+            
             this.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 0);
 
             float randomX = UnityEngine.Random.Range(minX, maxX);
@@ -343,6 +347,7 @@ public class EnemyController : MonoBehaviour
     public void EnemyDown()
     {
         StartCoroutine(SponAction());
+
     }
     public void EnemyDie()
     {
