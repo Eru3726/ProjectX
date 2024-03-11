@@ -76,6 +76,11 @@ public class AllTexts : MonoBehaviour
                 csvFiles = "story0-2";
                 break;
 
+            //チュートリアル用看板
+            case 55:
+                csvFiles = "tutorialKanban";
+                break;
+
             //ステージ1
             //双子天使の家　看板
             case 4:
