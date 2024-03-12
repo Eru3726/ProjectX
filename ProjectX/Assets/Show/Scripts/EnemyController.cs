@@ -284,7 +284,7 @@ public class EnemyController : MonoBehaviour
 
         obj.transform.parent = this.transform;
         Vector3 pos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
-        mc.InputFlick(pos, 35, 0.3f, true);
+        mc.InputFlick(pos, 30, 0.3f, true);
         currentState = EnemyState.Idol;
     }
 
