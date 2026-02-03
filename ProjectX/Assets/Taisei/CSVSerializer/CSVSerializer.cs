@@ -1,11 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Reflection;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+
 
 public class CSVSerializer
 {
@@ -106,8 +104,8 @@ public class CSVSerializer
 #if UNITY_EDITOR
         else if (fieldinfo.FieldType == typeof(UnityEngine.Sprite))
         {
-            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(value.ToString());
-            fieldinfo.SetValue(v, sprite);
+            //Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(value.ToString());
+            //fieldinfo.SetValue(v, sprite);
         }
 #endif
         else if (fieldinfo.FieldType == typeof(string))
